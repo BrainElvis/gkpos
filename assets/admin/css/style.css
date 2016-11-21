@@ -1,0 +1,143 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 1, 2016, 11:29:34 PM
+    Author     : Md.Aktaruzzaman
+    All custom made admin css goes here
+*/
+
+body {
+    background-color: #fff;
+    color: #333;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857;
+}
+
+/*Login Form specific*/
+.login_content form input[type="submit"], #content form .submit {
+    margin-left: 0;
+}
+/*-----------------------End----------*/
+#dashboardLogo > img {
+    margin-left: 60px;
+}
+.profile_info {
+    font-weight: bold;
+    margin-left: 15px;
+    padding: 20px 0 0;
+    text-transform: uppercase;
+}
+
+.nav.navbar-nav > li > a {
+    color:  #000000 !important;
+    font-weight: bold;
+}
+
+.dashboard-gallery ul {
+    list-style: outside none none;
+}
+
+.dashboard .glyphicon {
+    color: red;
+    line-height: 1;
+    top: 1px;
+}
+.gallery-glyphicon {
+    color: #ff0000;
+    float: left;
+    font-size: 25px;
+    margin-left: 120px;
+    margin-top: 0px;
+}
+.left_col {
+    background: rgba(255,255,255,1);
+    background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,255,255,1)), color-stop(47%, rgba(246,246,246,1)), color-stop(100%, rgba(237,237,237,1)));
+    background: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: -o-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: -ms-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1 );
+
+}
+.nav_menu {
+    background: rgba(255,255,255,1);
+    background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,255,255,1)), color-stop(47%, rgba(246,246,246,1)), color-stop(100%, rgba(237,237,237,1)));
+    background: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: -o-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: -ms-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1 );
+}
+.nav.side-menu > li.active > a {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&1+0,0+100;White+to+Transparent */
+    background: -moz-linear-gradient(-45deg,  rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    color: #000000;
+}
+.nav.side-menu > li > a, .nav.child_menu > li > a {
+    color: #000000!important;
+    font-weight: 500;
+}
+#sidebar-menu .fa {
+    color: #000!important;
+}
+body.nav-md .container.body .col-md-3.left_col {
+    position: fixed;
+}
+.user-profile.dropdown-toggle {
+    padding: 0;
+}
+table.jambo_table thead {
+    color: #ecf0f1;
+}
+table.jambo_table .thumbnail {
+    margin: 7px 0 0 10px;
+}
+#nominationModel .modal-header {
+    background: #68654f none repeat scroll 0 0;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.modal-body {
+    overflow:hidden;
+}
+.modal {
+    overflow-y: auto;
+}
+/* custom class to override .modal-open */
+.modal-noscrollbar {
+    margin-right: 0 !important;
+}
+.nav.side-menu > li.current-page > a {
+    background: rgba(0, 0, 0, 0) linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%) repeat scroll 0 0;
+    color: #000000;
+}
+.dashboard-icons {
+    text-decoration: none !important;
+}
+.tile-stats > h3 {
+    color: #cec79a;
+    font-size: 12px;
+    padding: 10px 0 0;
+    text-align: center;
+    text-transform: uppercase;
+}
+.tile-stats > p{
+    color: #23527C;
+    font-size: 10px;
+    text-align: center;
+    text-transform:capitalize; 
+}
+body.nav-md .container.body .col-md-3.left_col {
+    min-height: 100vh;
+    position: absolute;
+}
