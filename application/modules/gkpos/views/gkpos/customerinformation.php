@@ -2,7 +2,7 @@
 <section id="body">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8 col-sm-8 col-xs-8 bodyitem2">
+            <div class="col-md-8 col-sm-8 col-xs-12 bodyitem2">
                 <div class="container">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                         <h4><img src="<?php echo ASSETS_GKPOS_PATH ?>images/phoneicon.png" width="33" height="33" /> There is no call</h4>

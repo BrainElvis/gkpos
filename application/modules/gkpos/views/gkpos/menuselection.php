@@ -2,7 +2,7 @@
 <section id="body">
     <div class="container-fluid menuselection">
         <div class="row">
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 left-top">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 left-top">
                 <h4>Category</h4>
                 <p>Category Name1</p>
                 <p>Category Name2</p>
@@ -26,7 +26,7 @@
                 <p>Category Name6</p>
                 <p>Category Name7</p>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 middle-top">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 middle-top">
                 <div class="iteammenubg">
                     <h2>Iteam Selection (Menu)</h2>
                     <table>
@@ -53,7 +53,7 @@
                     </table>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 right-top">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 right-top">
                 <h3>Food</h3>
                 <div class="tablebackgroundbg">
                     <table class="table table-responsive item-table-header">
@@ -183,7 +183,7 @@
         </div>
         <div class="clearfix"></div>
         <div class="row">
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 left-bottom">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 left-bottom">
                 <div class="main-arrowbg">
                     <ul>
                         <li><div class="prevbtng"><a href="#"><img src="<?php echo ASSETS_GKPOS_PATH?>images/prevbtnbg.png" width="75" height="46" /></a></div></li>
@@ -191,20 +191,20 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 middle-bottom">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 middle-bottom">
                 <div class="col-md-5 col-md-offset-4"><a href="#"><div class="bodybtnbg2">Pay/Close</div></a></div>
                 <div class="clearfix"></div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><a href="#"><div class="bodybtnbg">Change Table Details</div></a></div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><a href="#"><div class="bodybtnbg2">Quantity</div></a></div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><a href="#"><div class="bodybtnbg">Promotions/Discount</div></a></div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><a href="#"><div class="bodybtnbg2">Add Service Change</div></a></div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><a href="#"><div class="bodybtnbg">Special/Modify</div></a></div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><a href="#"><div class="bodybtnbg2">Item description</div></a></div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><a href="#"><div class="bodybtnbg">Print Guest Bill</div></a></div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><a href="takaway.php"><div class="bodybtnbg2">Exit</div></a></div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><a href="#"><div class="bodybtnbg">Convert to Take Away</div></a></div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"><a href="#"><div class="bodybtnbg">Change Table Details</div></a></div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"><a href="#"><div class="bodybtnbg2">Quantity</div></a></div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"><a href="#"><div class="bodybtnbg">Promotions/Discount</div></a></div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"><a href="#"><div class="bodybtnbg2">Add Service Change</div></a></div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"><a href="#"><div class="bodybtnbg">Special/Modify</div></a></div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"><a href="#"><div class="bodybtnbg2">Item description</div></a></div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"><a href="#"><div class="bodybtnbg">Print Guest Bill</div></a></div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"><a href="takaway.php"><div class="bodybtnbg2">Exit</div></a></div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"><a href="#"><div class="bodybtnbg">Convert to Take Away</div></a></div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 right-bottom">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 right-bottom">
                 <div class="sendbg col-lg-3 col-md-3 col-sm-3 col-xs-3">Send</div>
                 <div class="ktcbg col-lg-3 col-md-3 col-sm-3 col-xs-3">KTC</div>
                 <div class="minusbg col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="minustextbg"> - </span></div>

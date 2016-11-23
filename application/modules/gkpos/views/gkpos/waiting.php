@@ -1,7 +1,7 @@
 <section id="body">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8 col-sm-8 col-xs-8 bodyitem2">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 bodyitem2">
                 <h2 class="modal-header text-center text-uppercase text-info"><?php echo $this->lang->line('gkpos_waiting')?></h2>
                 <div class="formpartbg">
                     <form class="well form-horizontal" action=" " method="post"  id="contact_form">

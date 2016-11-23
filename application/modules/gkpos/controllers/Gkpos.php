@@ -1,19 +1,19 @@
 <?php
 
+defined('BASEPATH') OR exit('No direct script access allowed');
+
 class Gkpos extends Gkpos_Controller {
 
     function __construct() {
         parent::__construct();
         $this->site_title = $this->config->item('company');
+        $this->load->model('Entry_Model');
+        if (!$this->Entry_Model->is_logged_in()) {
+            redirect('gkpos/entry');
+        }
     }
 
     public function index() {
-        $this->page_title = 'Gkpos | Login';
-        $this->body_class[] = "pos-login";
-        $this->render_page('gkpos/gkpos/index');
-    }
-
-    public function mainboard() {
         $this->page_title = 'Gkpos | Mainboard';
         $this->current_section = "Mainboard";
         $this->body_class [] = "pos-mainboard";
@@ -61,25 +61,30 @@ class Gkpos extends Gkpos_Controller {
         $this->body_class[] = "pos-new-table-guest";
         $this->render_page('gkpos/gkpos/newtableguest');
     }
-    
+
     public function takeaway() {
         $this->page_title = 'Gkpos | takeaway';
         $this->current_section = "takeaway";
         $this->body_class[] = "pos-takeaway";
         $this->render_page('gkpos/gkpos/takeaway');
     }
+
     public function waiting() {
         $this->page_title = 'Gkpos | waiting';
         $this->current_section = "waiting";
         $this->body_class[] = "pos-waiting";
         $this->render_page('gkpos/gkpos/waiting');
     }
-     public function systemmanagement() {
+
+    public function systemmanagement() {
         $this->page_title = 'Gkpos | system management';
         $this->current_section = "system management";
         $this->body_class[] = "pos-system managementt";
         $this->render_page('gkpos/gkpos/systemmanagement');
     }
-    
+
+    public function logoff() {
+        $this->Entry_Model->logout();
+    }
 
 }

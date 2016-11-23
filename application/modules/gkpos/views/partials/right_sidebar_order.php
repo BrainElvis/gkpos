@@ -1,4 +1,4 @@
-<div class="col-md-4 col-sm-4 col-xs-4 right-item">
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 right-item">
     <br/>
     <div class="pin-calculatorbg">
         <ul>
@@ -23,7 +23,7 @@
         </ul>
     </div>
     <div class="rightbox-buttongbg">
-        <div class="finishedbg"><h1><a href="<?php echo site_url('gkpos/collection') ?>"><?php echo $this->lang->line('gkpos_finished') ?></a></h1></div>
-        <div class="finishedbg2"><h1><a href="<?php echo site_url('gkpos/mainboard') ?>"><?php echo $this->lang->line('gkpos_cancel') ?></a></h1></div>
+        <a href="<?php echo site_url('gkpos/collection') ?>"><div class="finishedbg center-block"><h1><?php echo $this->lang->line('gkpos_finished') ?></h1></div></a>
+        <a href="<?php echo site_url('gkpos') ?>"><div class="finishedbg2 center-block"><h1><?php echo $this->lang->line('gkpos_cancel') ?></h1></div></a>
     </div>
 </div>

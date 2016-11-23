@@ -2,6 +2,11 @@
 /* CSS Document */
 
 body { margin:0; padding:0;}
+a, a:hover,a:focus, a:active{
+    outline: none;
+    text-decoration: none;
+    color: #ffffff;
+}
 /*** Top Border css ***/
 .top-borderbg {
     background: #c00000 none repeat scroll 0 0;
@@ -19,9 +24,7 @@ body { margin:0; padding:0;}
     text-transform: uppercase;
 }
 /*** Left Item css ****/
-.left-item{ background:#00aeef; min-height:89vh; }
-.leftsidebarbg { height:110vh !important;}
-.rightsidebarbg { height:110vh !important;}
+.left-item{ background:#00aeef; height:auto; }
 .bodybar { height:110vh !important;}
 .user-part { margin-bottom:15px;}
 .user-part h1 { text-align:center; margin: 0 0 40px 0; padding:0;}
@@ -107,24 +110,24 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
     color:#eee;
 }
 
-.deliverybg { background:url(../images/deliverybg.png) no-repeat; cursor:pointer;}
-.deliverybg h2 { font-size:18px;  margin:0; padding: 20px 0 30px 0; text-align:center; width:180px;}
+.deliverybg { background:url(../images/deliverybg.png) no-repeat; cursor:pointer; background-position: center}
+.deliverybg h2 { font-size:18px;  margin:0; padding: 20px 0 20px 0; text-align:center;color:#fff;font-weight: bold; }
 .deliverybg h2 a { color:#fff; text-decoration:none;}
 .deliverybg h2 a:hover { color:#dfe113;}
 
-.collectionbg { background:url(../images/collectionbg.png) no-repeat; cursor:pointer;}
-.collectionbg h2 { font-size:18px;  margin:0; padding: 20px 0 30px 0; text-align:center; width:180px;}
+.collectionbg { background:url(../images/collectionbg.png) no-repeat; cursor:pointer;  background-position: center}
+.collectionbg h2 { font-size:18px;  margin:0; padding: 20px 0 20px 0; text-align:center;color:#fff;font-weight: bold;}
 .collectionbg h2 a { color:#fff; text-decoration:none;}
 .collectionbg h2 a:hover { color:#dfe113;}
 
-.waitingbg { background:url(../images/waitingbg.png) no-repeat; cursor:pointer;}
-.waitingbg h2 { font-size:18px;  margin:0; padding: 20px 0 40px 0; text-align:center; width:180px;}
+.waitingbg { background:url(../images/waitingbg.png) no-repeat; cursor:pointer; background-position: center}
+.waitingbg h2 { font-size:18px;  margin:0; padding: 20px 0 20px 0; text-align:center;color:#fff;font-weight: bold;}
 .waitingbg h2 a { color:#fff; text-decoration:none;}
 .waitingbg h2 a:hover { color:#dfe113;}
 
 
 /*** Right Item css ****/
-.right-item{ background:#00aeef; min-height: 89vh;}
+.right-item{ background:#00aeef;height: auto;}
 
 .logobg { padding-top:130px; text-align:center; cursor:pointer;}
 .logobg p { font-family:Arial, Helvetica, sans-serif; color:#fff; font-size:24px; font-weight:bold; text-shadow: 0px 2px 2px #090;}
@@ -132,7 +135,7 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
 .userpart3 ul li { list-style:none; text-align:center;}
 
 /***** Body Item *****/
-.bodyitem { background:#000000; min-height: 89vh}
+.bodyitem { background:#000000; height: auto}
 .bodyitem2 { background:#000000;min-height: 89vh}
 .pin-calculatorbg { width:100%;}
 .pin-calculatorbg ul { margin:0; padding:0; text-align:center;}
@@ -248,12 +251,12 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
     margin: 0 auto;
     margin-top: 15px;
 }
-.finishedbg { background:url(../images/finishedbuttonbg.png) no-repeat; width:100%;}
+.finishedbg { background:url(../images/finishedbuttonbg.png) no-repeat; width:100%; background-position: center;}
 .finishedbg h1 { margin:0; padding: 30px 0 30px 0; text-align:center; font-size:18px; color:#fff;}
 .finishedbg h1 a { color:#fff; text-decoration:none;}
 .finishedbg h1 a:hover { color:#000;}
 
-.finishedbg2 { background:url(../images/cancel-buttonbg.png) no-repeat; width:100%;}
+.finishedbg2 { background:url(../images/cancel-buttonbg.png) no-repeat; width:100%;background-position: center;}
 .finishedbg2 h1 { margin:0; padding: 30px 0 30px 0; text-align:center; font-size:18px; color:#fff; margin-top:15px;}
 .finishedbg2 h1 a { color:#fff; text-decoration:none;}
 .finishedbg2 h1 a:hover { color:#000;}
@@ -342,9 +345,9 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
 .paginationbg ul { margin:0; padding:0; text-align:center;}
 .paginationbg ul li { list-style:none; display:inline; padding: 0 2px 0 4px;}
 .paginationbg h2 { margin:0; padding:0; text-align:center;}
-.callnumbg { margin:0 auto; width:187px;}
+.callnumbg { margin:0 auto; width:100%;}
 .callnumbg p { font-size:18px; color:#fff; padding: 10px 0 0 0; margin:0;}
-.customernambg { width:100%; border-radius:4px; border:1px solid #038dc0; padding: 15px; color:#c00000; }
+.customernambg { width:100%; border-radius:4px; border:1px solid #038dc0; padding: 10px; color:#c00000; }
 .paginationbg h4 { 
     text-align: center;
     margin: 0;
@@ -583,64 +586,167 @@ footer p a {
     overflow: scroll;
 }
 
+/* Warning popup that exists footer bootom*/
+.popup-header {
+    background: #ff0000 none repeat scroll 0 0;
+    color: #fff;
+    font-weight: bold;
+    height: 40px;
+    text-transform: uppercase;
+}
+.popup-body {
+    height: 140px;
+}
+#warningPopupHeader {
+    margin: 0;
+    padding: 10px 0 10px 20px;
+}
+.popup-header .times{
+    font-size: 30px;
+    cursor: pointer;
+}
+#warningPopupContent {
+    margin: 0 20px;
+    padding: 10px;
+}
+.popup-footer {
+    height: 40px;
+}
+.popup-footer a {
+    height: 40px;
+    cursor: pointer;
+}
+
+@media (min-height: 320px) {
+    #body {min-height: 93vh;;}
+    .left-item {min-height: 93vh;}
+    .right-item{min-height: 93vh;}
+    .bodyitem {min-height: 93vh;}
+    .bodyitem2 {min-height: 93vh;}
+
+}
+@media (max-width: 320px) {
+    .bodybtnbg {font-size: 60%;text-align: center;width: 100%;}
+    .bodybtnbg2 {font-size: 60%;text-align: center;width: 100%;}
+    header .text-center { font-size: 60%; padding-top: 20px;}
+}
+@media (min-height: 480px) {
+    #body {min-height: 93vh;;}
+    .left-item {min-height: 93vh;}
+    .right-item{min-height: 93vh;}
+    .bodyitem {min-height: 93vh;}
+    .bodyitem2 {min-height: 93vh;}
+    header .text-center { font-size: 67%; padding-top: 20px;}
+}
+@media (max-width: 480px) {
+    .bodybtnbg {font-size: 60%;text-align: center;width: 100%;}
+    .bodybtnbg2 {font-size: 60%;text-align: center;width: 100%;} 
+}
+@media (min-height: 540px) {
+    #body {min-height: 93vh;;}
+    .left-item {min-height: 93vh;}
+    .right-item{min-height: 93vh;}
+    .bodyitem {min-height: 93vh;}
+    .bodyitem2 {min-height: 93vh;}
+}
+@media (min-height: 600px) {
+    #body {min-height: 89.1vh;}
+    .left-item{ min-height:89.1vh;}
+    .right-item{min-height: 89.1vh;}
+    .bodyitem {min-height: 89.1vh}
+    .bodyitem2 {min-height: 89.1vh}
+}
+@media (min-height: 720px) {
+    #body {min-height: 89.1vh;}
+    .left-item{ min-height:89.1vh;}
+    .right-item{min-height: 89.1vh;}
+    .bodyitem {min-height: 89.1vh}
+    .bodyitem2 {min-height: 89.1vh}
+}
+@media (min-height: 750px) {
+    #body {min-height: 89.1vh;}
+    .left-item{ min-height:89.1vh;}
+    .right-item{min-height: 89.1vh;}
+    .bodyitem {min-height: 89.1vh}
+    .bodyitem2 {min-height: 89.1vh}
+}
+@media (min-height: 768px) {
+    #body {min-height: 92vh;}
+    .left-item{ min-height:92vh;padding-bottom: 5px;}
+    .right-item{min-height: 92vh;}
+    .bodyitem {min-height: 92.4vh;}
+    .bodyitem2 {min-height: 92vh;} 
+}
+@media (min-height: 800px) {
+    #body {min-height: 89.1vh;}
+    .left-item{ min-height:89.1vh;}
+    .right-item{min-height: 89.1vh;}
+    .bodyitem {min-height: 89.1vh}
+    .bodyitem2 {min-height: 89.1vh}
+}
+
+@media (min-height: 960px) {
+    #body {min-height: 91.6vh;}
+    .left-item{ min-height:91.6vh;}
+    .right-item{min-height: 91.6vh;}
+    .bodyitem {min-height: 91.6vh}
+    .bodyitem2 {min-height: 91.6vh}
+}
+@media (min-height: 1024px) {
+    #body {height: 91vh;;}
+    .left-item{ height:91vh;;}
+    .right-item{min-height: 91vh;}
+    .bodyitem {min-height: 91vh;}
+    .bodyitem2 {min-height: 91vh;}
+}
+@media (min-width: 1024px) {
+    .liveclock {margin-right: 100px;}
+    .logout {margin-left: 100px;}
+    .bottom-right {padding-top: 30px;}
+
+}
+@media (min-height: 1080px) {
+    #body {min-height: 92vh;}
+    .left-item{ min-height:92vh;}
+    .right-item{min-height: 92vh;}
+    .bodyitem {min-height: 92vh;}
+    .bodyitem2 {min-height: 92vh;}
+}
+@media (min-height: 1280px) {
+    #body {min-height: 93.2vh;}
+    .left-item{ min-height:93.2vh;}
+    .right-item{min-height: 93.2vh;}
+    .bodyitem {min-height: 93.2vh;}
+    .bodyitem2 {min-height: 93.2vh;}
+}
+@media (min-height: 1440px) {
+    #body {min-height: 89.1vh;}
+    .left-item{ min-height:89.1vh;}
+    .right-item{min-height: 89.1vh;}
+    .bodyitem {min-height: 89.1vh}
+    .bodyitem2 {min-height: 89.1vh}
+}
+@media (min-height: 1536px) {
+    #body {min-height: 95.2vh;}
+    .left-item{ min-height:95.2vh;}
+    .right-item{min-height: 95.2vh;}
+    .bodyitem {min-height: 95.2vh;}
+    .bodyitem2 {min-height: 95.2vh;}
+}
+@media (min-height: 2448px) {
+    #body {min-height: 93.6vh;}
+    .left-item{ min-height:93.6vh;}
+    .right-item{min-height: 93.6vh;}
+    .bodyitem {min-height: 93.6vh}
+    .bodyitem2 {min-height: 93.6vh}
+}
+@media (min-height: 2560px) {
+    #body {min-height: 96.4vh;}
+    .left-item{ min-height:96.4vh;}
+    .right-item{min-height: 96.4vh;}
+    .bodyitem {min-height: 96.4vh;}
+    .bodyitem2 {min-height: 96.4vh;}
+}
 
 
 
-
-@media screen and (min-width:1024px){
-    /*.paginationbg {padding-top: 22px;}*/
-    #body {min-height: 85vh;}
-    .left-item{ min-height:90.3vh;}
-    .right-item{min-height: 90.3vh;}
-    .bodyitem {min-height: 90.3vh}
-    .bodyitem2 {min-height: 90.3vh}
-}
-@media screen and (max-width:1024px){
-    #body {min-height: 85vh;}
-    #body {min-height: 85vh;}
-    .left-item{ min-height:90.3vh;}
-    .right-item{min-height: 90.3vh;}
-    .bodyitem {min-height: 90.3vh}
-    .bodyitem2 {min-height: 90.3vh}
-    .mainsystembg a,.mainsystembg2 a {font-size: 70%; } 
-}
-@media screen and (min-width:980px){
-    /* .paginationbg {padding-top: 46px;}*/
-    #body {min-height: 85vh;}
-    .left-item{ min-height:90.3vh;}
-    .right-item{min-height: 90.3vh;}
-    .bodyitem {min-height: 90.3vh}
-    .bodyitem2 {min-height: 90.3vh}
-    .pos-customer-information .right-item {
-        min-height: 98.1vh;
-    }
-
-}
-
-@media screen and (min-width:768px) and (max-width:979px){
-    #body {min-height: 85vh;}
-    #body {min-height: 85vh;}
-    .left-item{ min-height:90.3vh;}
-    .right-item{min-height: 90.3vh;}
-    .bodyitem {min-height: 90.3vh}
-    .bodyitem2 {min-height: 90.3vh}
-    .mainsystembg a,.mainsystembg2 a {font-size: 70%; } 
-}
-@media screen and (min-width:480px) and (max-width: 767px){
-    #body {min-height: 85vh;}
-    #body {min-height: 85vh;}
-    .left-item{ min-height:90.3vh;}
-    .right-item{min-height: 90.3vh;}
-    .bodyitem {min-height: 90.3vh}
-    .bodyitem2 {min-height: 90.3vh}
-    .mainsystembg a{font-size: 70%; } 
-}
-@media screen and (min-width:320px) and (max-width: 479px){
-    #body {min-height: 85vh;}
-    #body {min-height: 85vh;}
-    .left-item{ min-height:90.3vh;}
-    .right-item{min-height: 90.3vh;}
-    .bodyitem {min-height: 90.3vh}
-    .bodyitem2 {min-height: 90.3vh}
-    .mainsystembg a, .mainsystembg2 a {font-size: 70%; } 
-}

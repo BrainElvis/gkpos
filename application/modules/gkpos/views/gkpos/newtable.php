@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <?php echo $template['partials']['left_sidebar'] ?>
-            <div class="col-md-6 col-sm-6 col-xs-6 bodyitem">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 bodyitem">
                 <div class="pin-calculatorbg">
                     <div class="middlebg2">
                         <p><?php echo $this->lang->line('gkpos_table')?>&nbsp;<?php echo $this->lang->line('gkpos_number')?></p>
@@ -33,7 +33,7 @@
 
                 <div class="last-calculatorbg">
                     <ul>
-                        <li><a href=""><?php echo $this->lang->line('gkpos_numpad_key_enter') ?></a></li>
+                        <li><a href="<?php echo site_url('gkpos/menuselection')?>"><?php echo $this->lang->line('gkpos_numpad_key_enter') ?></a></li>
                     </ul>
                 </div>
             </div>

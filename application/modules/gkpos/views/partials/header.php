@@ -1,8 +1,6 @@
-
 <header>
     <script type="text/javascript">
-        // live clock
-
+        var base_url = "<?php echo base_url(); ?>";
         function clockTick() {
             setInterval('updateClock();', 1000);
         }
@@ -17,18 +15,23 @@
     <nav class="navbar navbar-default navbar-fixed-top top-borderbg">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 navbar-left">
-                    <div id="liveclock" class="liveclock text-vertical-center"><?php echo date($this->config->item('dateformat') . ' ' . $this->config->item('timeformat')) ?></div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <div id="liveclock" class="liveclock text-vertical-center text-center"><?php echo date($this->config->item('dateformat') . ' ' . $this->config->item('timeformat')) ?></div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <div class="text-capitalize text-center user-profile text-vertical-center">justin freeman</div>
+                    <div class="text-capitalize text-center user-profile text-vertical-center text-center"><?php echo $admin ?></div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <div class="navbar-right">
-                        <div id="logout" class="logout text-vertical-center"><a href="#"><?php echo $this->lang->line('gkpos_logoff')?></a></div>
+                    <div id="logout" class="logout text-vertical-center text-center">
+                        <?php if ($this->session->userdata('gkpos_userid')): ?>
+                            <a href="<?php echo site_url('gkpos/logoff') ?>"><?php echo $this->lang->line('gkpos_logoff') ?></a>
+                        <?php else: ?>
+                            <a href="javascript:void(0)"><?php echo $this->lang->line('gkpos_login') ?></a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
 </header>
+<div class="clearfix"></div>

@@ -1,5 +1,7 @@
 <?php
 
+defined('BASEPATH') OR exit('No direct script access allowed');
+
 class Gkpos_Controller extends MY_Controller {
 
     /**
@@ -55,6 +57,7 @@ class Gkpos_Controller extends MY_Controller {
         'plugins/keyboard/css/jsKeyboard.css',
         'plugins/keyboard/css/main.css',
         'plugins/numpad/jquery.numpad.css',
+        'plugins/colorbox/colorbox.css',
         'css/style.css',
     );
     public $assets_js = array(
@@ -64,6 +67,7 @@ class Gkpos_Controller extends MY_Controller {
         'plugins/keyboard/js/main.js',
         'plugins/numpad/jquery.numpad.js',
         'js/phpjsdate.js',
+        'plugins/colorbox/jquery.colorbox-min.js',
         'js/app.js',
     );
     public $js_domready = array();
@@ -93,18 +97,8 @@ class Gkpos_Controller extends MY_Controller {
      * Class Constructor
      */
     public function __construct() {
-        // Call Parent Constructor
         parent::__construct();
-        //$this->load->model('Login_model');
-        /* if (!$this->Login_model->is_logged_in()) {
-          redirect('admin/login');
-          } */
-        //$this->user_id = $this->session->userdata('user_id');
-        //$this->admin_info = $this->Login_model->get_logged_in_admin_info();
-
         $this->template->set_layout('gkpos');
-        // Site Page Title
-        //$this->site_title = $this->config->item('app_title');
     }
 
     /**
@@ -172,10 +166,9 @@ class Gkpos_Controller extends MY_Controller {
         $this->prepare_base_javascript();
         // Set global template vars
         $this->template
-                // ->set('admin', ($this->admin_info->description) ? $this->admin_info->description : $this->admin_info->username)
+                ->set('admin', ($this->session->userdata('gkpos_username')) ? $this->session->userdata('gkpos_username') : $this->lang->line('gkpos_undefined'))
                 ->set('current_section', $this->current_section)
                 ->set('body_class', implode(' ', $this->body_class));
-
         $this->template
                 ->set_partial('flash_messages', 'gkpos/partials/flash_messages')
                 ->set_partial('header', 'gkpos/partials/header')

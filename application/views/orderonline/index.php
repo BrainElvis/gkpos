@@ -76,7 +76,7 @@ foreach ($policy as $res) {
              scrolling: false,
              height: "auto",
              open: true,
-             width: '100%',
+             width: '90%',
              maxWidth: '400px'
         });
         jQuery.post("<?php echo site_url('orderonline/menupopup') ?> ", {
