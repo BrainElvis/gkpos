@@ -1,5 +1,6 @@
-<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 right-item">
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 right-item">
     <br/>
+    <div class="sidebar-heading text-center text-uppercase"><?php echo $this->lang->line('gkpos_type_phone_number')?></div>
     <div class="pin-calculatorbg">
         <ul>
             <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key1') ?></li>
@@ -23,7 +24,7 @@
         </ul>
     </div>
     <div class="rightbox-buttongbg">
-        <a href="<?php echo site_url('gkpos/collection') ?>"><div class="finishedbg center-block"><h1><?php echo $this->lang->line('gkpos_finished') ?></h1></div></a>
-        <a href="<?php echo site_url('gkpos') ?>"><div class="finishedbg2 center-block"><h1><?php echo $this->lang->line('gkpos_cancel') ?></h1></div></a>
+        <a href="<?php echo site_url('gkpos/collection') ?>"><div class="center-div center-block collection-bg text-center"><h3><?php echo $this->lang->line('gkpos_finished') ?></h3></div></a>
+        <a href="<?php echo site_url('gkpos') ?>"><div class="center-div center-block waiting-bg text-center"><h3><?php echo $this->lang->line('gkpos_cancel') ?></h3></div></a>
     </div>
 </div>

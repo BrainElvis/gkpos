@@ -23,7 +23,7 @@ class Entry extends Gkpos_Controller {
 
     public function get_user() {
         $id = $this->input->post('id');
-        $user = $this->Entry_Model->get_single('gkpos_user', array('id' => $id, 'status' => 1, 'deleted' => 0), array('username', 'email'));
+        $user = $this->Entry_Model->get_single('gkpos_user', array('id' => $id, 'status' => 1, 'deleted' => 0), array('username', 'email','first_name','last_name'));
         echo json_encode($user);
     }
 

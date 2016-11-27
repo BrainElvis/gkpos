@@ -54,6 +54,7 @@ class Gkpos_Controller extends MY_Controller {
     public $assets_css = array(
         'css/bootstrap.min.css',
         'css/font-awesome.min.css',
+        'css/opensourcepos.min.css',
         'plugins/keyboard/css/jsKeyboard.css',
         'plugins/keyboard/css/main.css',
         'plugins/numpad/jquery.numpad.css',

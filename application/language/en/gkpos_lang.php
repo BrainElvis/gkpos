@@ -1,11 +1,10 @@
 <?php
-
 $lang['gkpos_users'] = "Users";
 $lang['gkpos_powered_by'] = "Powered By";
 $lang['gkpos_no_call'] = "There is no call";
 $lang['gkpos_name'] = "Name";
 $lang['gkpos_phone'] = "Phone";
-$lang['gkpos_pin'] = "PIN";
+$lang['gkpos_enter_pin_code'] = "Please Enter your Pin Code";
 $lang['gkpos_numpad_key1'] = "1";
 $lang['gkpos_numpad_key2'] = "2";
 $lang['gkpos_numpad_key3'] = "3";
@@ -83,6 +82,23 @@ $lang['gkpos_pin_invalid_warning'] = "Sorry! your pin code is invalid";
 $lang['gkpos_close'] = "Close";
 $lang['gkpos_undefined'] = "undefined";
 $lang['gkpos_login'] = "User/Pincode?";
+$lang['gkpos_add']="Add";
+$lang['gkpos_category']="Category";
+$lang['gkpos_menu']="Menu";
+$lang['gkpos_selection']="Selection";
+$lang['gkpos_item']="Item";
+$lang['gkpos_last']="Last";
+$lang['gkpos_recent']="Recent";
+$lang['gkpos_addition']="Addition";
+$lang['gkpos_tools']="Tools";
+$lang['gkpos_display']="Display";
+$lang['gkpos_view']="View";
+$lang['gkpos_mainboard']="Mainboard";
+$lang['gkpos_user_for_numeric']="use for numeric";
+$lang['gkpos_table_info']="Table Information";
+$lang['gkpos_delivery_time']="Delivery Time";
+$lang['gkpos_type_phone_number']="Type Phone Number";
+
 
 
 

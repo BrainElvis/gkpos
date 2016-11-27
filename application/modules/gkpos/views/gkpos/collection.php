@@ -1,7 +1,7 @@
 <section id="body">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 bodyitem2">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 bodyitem2">
                 <div class="container">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                         <h4><img src="<?php echo ASSETS_GKPOS_PATH ?>images/phoneicon.png" width="33" height="33" class="img-responsive" /><?php echo $this->lang->line('gkpos_no_call') ?></h4>
@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div class="formpartbg">
-                    <form class="well form-horizontal" action=" " method="post"  id="contact_form">
+                    <form class="form-horizontal" action=" " method="post"  id="contact_form">
                         <fieldset>
                             <div class="form-group">
                                 <label class="col-md-4 control-label"><?php echo $this->lang->line('gkpos_name') ?></label>  

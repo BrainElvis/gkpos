@@ -1,8 +1,8 @@
 <section id="body">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 left-item">
-                <div class="userlogingbg">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 left-item">
+                <div class="userlogingbg sidebar-vertical-align-center">
                     <h2 class="text-center text-uppercase"><?php echo $this->lang->line('gkpos_users') ?></h2>
                     <?php if (!empty($female_users)): ?>
                         <div class="user-part female">
@@ -28,49 +28,53 @@
                     <?php endif; ?>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 bodyitem">
-                <div class="pin-calculatorbg">
-                    <h2><?php echo $this->lang->line('gkpos_pin') ?></h2>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 bodyitem">
+                <div class="body-vertical-align-center">
+                    <div class="user-label text-uppercase"><span id="userinfo"><?php echo $this->lang->line('gkpos_who_are_you') ?></span></div>
+                    <div class="numpad" style="display: none">
+                        <div class="pin-calculatorbg">
+                            <div class="pin-code text-center text-uppercase"><?php echo $this->lang->line('gkpos_enter_pin_code') ?></div>
+                            <p class="text-center"> <input type="password" name="password" id="password" class="password-input"/></p>
+                            <ul>
+                                <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key1') ?></li>
+                                <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key2') ?></li>
+                                <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key3') ?></li>
+                            </ul>
+                            <ul>
+                                <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key4') ?></li>
+                                <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key5') ?></li>
+                                <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key6') ?></li>
+                            </ul>
+                            <ul>
+                                <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key7') ?></li>
+                                <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key8') ?></li>
+                                <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key9') ?></li>
+                            </ul>
+                            <ul>
+                                <li class="btnPin"><?php echo $this->lang->line('gkpos_numpad_key_del') ?></li>
+                                <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key0') ?></li>
+                                <li class="btnPin"><?php echo $this->lang->line('gkpos_numpad_key_clr') ?></li>
+                            </ul>
+                        </div>
 
-                    <ul>
-                        <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key1') ?></li>
-                        <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key2') ?></li>
-                        <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key3') ?></li>
-                    </ul>
-                    <ul>
-                        <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key4') ?></li>
-                        <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key5') ?></li>
-                        <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key6') ?></li>
-                    </ul>
-                    <ul>
-                        <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key7') ?></li>
-                        <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key8') ?></li>
-                        <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key9') ?></li>
-                    </ul>
-                    <ul>
-                        <li class="btnPin"><?php echo $this->lang->line('gkpos_numpad_key_del') ?></li>
-                        <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key0') ?></li>
-                        <li class="btnPin"><?php echo $this->lang->line('gkpos_numpad_key_clr') ?></li>
-                    </ul>
-                </div>
+                        <div class="last-calculatorbg">
+                            <form id="loginForm" name="loginForm">
+                                <input type="hidden" name="email" id="email"/>
+                                <input type="hidden" name="username" id="username"/>
+                                <ul>
+                                    <li onclick="submit_form();"><?php echo $this->lang->line('gkpos_numpad_key_enter') ?></li>
+                                </ul>
+                            </form> 
 
-                <div class="last-calculatorbg">
-                    <form id="loginForm" name="loginForm">
-                        <input type="hidden" name="password" id="password"/>
-                        <input type="hidden" name="email" id="email"/>
-                        <input type="hidden" name="username" id="username"/>
-                        <ul>
-                            <li onclick="submit_form();"><?php echo $this->lang->line('gkpos_numpad_key_enter') ?></li>
-                        </ul>
-                    </form> 
-
-                </div>
-                <div class="clockdiv">
-                    <p><?php echo date($this->config->item('timeformat')) ?></p>
+                        </div>
+                    </div>
+                    <div class="clockdiv">
+                        <p><?php echo date($this->config->item('timeformat')) ?></p>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 right-item">
-                <div class="paginationbg">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 right-item">
+                <div class="paginationbg sidebar-vertical-align-center ">
                     <div class="logobg">
                         <img src="<?php echo UPLOAD_PATH . $this->config->item('company_logo') ?>" width="196" height="152" class="img-responsive" style="display:inline" />
                         <p><?php echo date($this->config->item('dateformat')) ?></p>
@@ -92,8 +96,10 @@
                 'id': id
             },
             success: function (response) {
+                jQuery('.numpad').show();
                 jQuery('#email').val(response.email);
                 jQuery('#username').val(response.username);
+                jQuery('#userinfo').text(response.first_name + " " + response.last_name);
             },
             dataType: 'json'
         });

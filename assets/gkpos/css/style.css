@@ -1,27 +1,32 @@
 @charset "utf-8";
 /* CSS Document */
 
-body { margin:0; padding:0;}
-a, a:hover,a:focus, a:active{
-    outline: none;
-    text-decoration: none;
-    color: #ffffff;
-}
+
+body { background: #000 none repeat scroll 0 0;  margin: 0;  padding: 0;}
+a, a:hover,a:focus, a:active{outline: none; text-decoration: none; color: #ffffff;}
 /*** Top Border css ***/
-.top-borderbg {
-    background: #c00000 none repeat scroll 0 0;
-    border: medium none;
+.top-borderbg {background: #c00000 none repeat scroll 0 0; border: medium none;}
+#body {margin: 50px 0}
+.text-vertical-center {color: #ffffff;font-size: 20px;font-weight: bold;padding: 10px 0;text-transform: uppercase;}
+.password-input {border: medium none; border-radius: 3px; height: 30px; margin: 0 auto;  padding: 0 10px;  width: 223px;
 }
-#body {
-    margin: 50px 0;
-    min-height: 85vh;
-}
-.text-vertical-center {
+label {
     color: #ffffff;
-    font-size: 20px;
-    font-weight: bold;
-    padding: 10px 0;
-    text-transform: uppercase;
+}
+.user-label {
+    background-color: #343434;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 17px;
+    height: 50px;
+    margin: 0 auto;
+    padding: 13px 0;
+    position: relative;
+    text-align: center;
+    width: 230px;
+}
+.pin-code {
+    color: #ff6347;
 }
 /*** Left Item css ****/
 .left-item{ background:#00aeef; height:auto; }
@@ -37,78 +42,56 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
     text-align: center;
     padding: 0;
 }
-.mainsystembg  {     
-    text-align: center;
-    padding: 13px 0 9px 0;
-    background: url(../images/systembg-1.png) no-repeat;
-    width: 187px;
-    margin: 5px auto;
-    font-weight: bold;
-    cursor: pointer;
-    height: 45px;
-}
+.mainsystembg  {text-align: center; padding: 13px 0 9px 0;   width: 100%;    margin: 5px auto;    font-weight: bold;    cursor: pointer; }
 .mainsystembg a { color:#697b07; text-shadow:0 1px 0 2px #000; text-decoration:none; font-size:15px;}
 .mainsystembg a:hover { color:#fff !important;}
 
-.mainsystembg2  {     
-    text-align: center;
-    padding: 12px 0 14px 0;
-    background: url(../images/systembg-2.png) no-repeat;
-    width: 187px;
-    margin: 2px auto;
-    font-weight: bold;
-    height: 45px;
-}
+.mainsystembg2  { text-align: center;    padding: 12px 0 14px 0;   margin: 2px auto;    font-weight: bold;}
 .mainsystembg2 a { color:#ae6505; text-shadow:0 1px 0 2px #ae6505; text-decoration:none; font-size:15px;}
 .mainsystembg2 a:hover { color:#fff !important;}
-
-.userlogingbg {
-    padding-top: 20px;
+.collection-bg{
+    background: url(../images/collectionbg.png) no-repeat; 
+    height: 45px;  
+    background-position: center;
+    background-size: 195px;  
 }
-.middlebg p {
-    color: #eee;
-    font-size: 13px;
-    line-height: 16px;
+.delivery-bg{
+    background: url(../images/deliverybg.png) no-repeat; 
+    height: 45px;  
+    background-position: center;
+    background-size: 195px; 
 }
-.middlebg2 p {
-    text-align: center;
-    color: #eee;
-    font-size: 15px;
-    line-height: 16px;
-    font-weight:bold;
+.waiting-bg{
+    background: url(../images/waitingbg.png) no-repeat; 
+    height: 45px;  
+    background-position: center;
+    background-size: 195px; 
 }
-.middlebg2 p input {
-    width: 218px;
-    margin: 0;
-    padding: 7px;
-    color: #909090;
-    font-weight: normal;
-}
-.middlebg {
-    width: 220px;
+.center-div {
     margin: 0 auto;
+}
+.center-div.extra-bg {
+    background: #013c51 none repeat scroll 0 0;
+    border-radius: 13px;
+    height: 279px;
+    margin-bottom: 30px;
     margin-top: 30px;
+    padding: 10px;
+    width: 65%;
 }
-.middlebg2 {
-    width: 94%;
-    margin: 20px auto;
-}
+
+.userlogingbg { padding-top: 20px;}
+.middlebg p {  color: #eee;    font-size: 13px; line-height: 16px;}
+.middlebg2 p {    text-align: center;    color: #eee;    font-size: 15px;    line-height: 16px;    font-weight:bold;}
+.middlebg2 p input { width: 218px;    margin: 0;    padding: 7px;    color: #909090;    font-weight: normal;}
+.middlebg { width: 220px; margin: 0 auto;    margin-top: 30px;}
+.middlebg2 {    width: 94%;    margin: 20px auto;}
 .middlebg2 ul { margin:0; padding:0;}
-.middlebg2 ul li {
-    list-style: none;
-    display: inline;
-    float: left;
-    width: 200px;
-}
+.middlebg2 ul li { list-style: none; display: inline;    float: left;    width: 200px;}
 .middlebg2 ul li a { text-decoration:none; color:#fff;}
 .iteammenubg { border:1px solid #808080; margin-top:30px;}
 .iteammenubg h2 { font-size:18px; color:#fff; background:#333; margin:0; padding: 15px; }
-.iteammenubg table tr td {
-    border: 1px solid;
-    width: 323px;
-    padding: 8px 0 8px 15px;
-    color:#eee;
-}
+.iteammenubg table tr td {border: 1px solid;width: 323px;    padding: 8px 0 8px 15px;    color:#eee;}
 
 .deliverybg { background:url(../images/deliverybg.png) no-repeat; cursor:pointer; background-position: center}
 .deliverybg h2 { font-size:18px;  margin:0; padding: 20px 0 20px 0; text-align:center;color:#fff;font-weight: bold; }
@@ -130,7 +113,7 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
 .right-item{ background:#00aeef;height: auto;}
 
 .logobg { padding-top:130px; text-align:center; cursor:pointer;}
-.logobg p { font-family:Arial, Helvetica, sans-serif; color:#fff; font-size:24px; font-weight:bold; text-shadow: 0px 2px 2px #090;}
+.logobg p { font-family:Arial, Helvetica, sans-serif; color:#fff; font-size:100%; font-weight:bold; text-shadow: 0px 2px 2px #090;}
 .userpart3 ul { margin:0; padding:0;}
 .userpart3 ul li { list-style:none; text-align:center;}
 
@@ -139,11 +122,11 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
 .bodyitem2 { background:#000000;min-height: 89vh}
 .pin-calculatorbg { width:100%;}
 .pin-calculatorbg ul { margin:0; padding:0; text-align:center;}
-.pin-calculatorbg ul li {     
+.pin-calculatorbg ul li {   
     list-style: none;
     display: inline;
     color: #00aeef;
-    padding: 10px 32px 20px 26px;
+    padding: 30px;
     background: url(../images/calculatorbg.png) no-repeat;
     width: 100%;
     line-height: 60px;
@@ -151,9 +134,11 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
     text-align: center;
     font-weight: bold;
     cursor:pointer;
+    background-position: center;
 }
-.pin-calculatorbg ul li:hover { color:#fff;}
 
+
+.pin-calculatorbg ul li:hover { color:#fff;}
 .pin-calculatorbg2 { width:100%;}
 .pin-calculatorbg2 ul { 
     padding: 0;
@@ -327,18 +312,13 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
     width: 100px;
 }
 .bodyitem2 h2 { 
-    margin: 0 0 12px 0;
-    padding: 17px 0px 7px 0px;
     font-weight: normal;
     color: #eee;
     font-size: 24px;
 }
 .pages-height { height:10vh; }
 .pages-height2 { height:40vh; }
-
-
-
-.pin-calculatorbg h2 { font-family:'Utsaah'; font-size:40px; font-weight:bold; color:#00aeef; margin:0; padding-top:48px; text-align:center; line-height:20px;}
+.pin-calculatorbg h2 { font-family:'Utsaah'; font-size:40px; font-weight:bold; color:#00aeef; margin:0; padding:10px; text-align:center; line-height:20px;}
 .pin-calculatorbg h1 { margin:0; padding:0; text-align:center;}
 .arrowiconbg { padding: 2px 28px 0 20px;}
 .paginationbg { padding-top:20px;}
@@ -346,7 +326,7 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
 .paginationbg ul li { list-style:none; display:inline; padding: 0 2px 0 4px;}
 .paginationbg h2 { margin:0; padding:0; text-align:center;}
 .callnumbg { margin:0 auto; width:100%;}
-.callnumbg p { font-size:18px; color:#fff; padding: 10px 0 0 0; margin:0;}
+.callnumbg p { font-size:17px; color:#fff; padding: 3px 0 0 0; margin:0;}
 .customernambg { width:100%; border-radius:4px; border:1px solid #038dc0; padding: 10px; color:#c00000; }
 .paginationbg h4 { 
     text-align: center;
@@ -385,7 +365,7 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
     float: left;
     padding: 15px;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 0px;
     color: #fff;
     background-position: center;
 }
@@ -394,7 +374,7 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
     float: left;
     padding: 15px;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 0px;
     color:#fff;
     background-position: center;
 }
@@ -403,7 +383,7 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
     float: left;
     padding: 15px;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 0px;
     color:#fff;
     background-position: center;
 }
@@ -412,7 +392,7 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
     float: left;
     padding: 15px;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 0px;
     color:#fff;
     background-position: center;
 }
@@ -440,11 +420,11 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
     width:100%;
 }
 .rightsidebarbg table tr th { border:1px solid #000; text-align:center; padding:5px;}
-.tablebackgroundbg { background:#fff; height:auto; margin-top:15px;}
+.tablebackgroundbg { background:#fff; height:auto; margin-top:11px;}
 
 
 /****** Timer css *********/
-.clockdiv p { font-family:Arial, Helvetica, sans-serif; color:#fff; font-size:40px; font-weight:bold; text-align:center; padding-top:20px;}
+.clockdiv p { font-family:Arial, Helvetica, sans-serif; color:#fff; font-size:200%; font-weight:bold; text-align:center; padding-top:10px;}
 /*********** Footer Part Css ************/
 .main-footerbg { 
     background: #c00000;
@@ -486,9 +466,7 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
 
 .formbtn p {
     float: left;
-    margin: 0px 0 0 3px;
 }
-.formbtn p input { width:120px;}
 .btngpart1 { 
     background: #1989b3;
     border-radius: 3px;
@@ -549,36 +527,35 @@ footer p a {
     text-decoration: none!important;
 }
 .btnPin {
-    padding: 11px !important;
+    padding: 16px 14px !important;
 }
 
 .menuselection .left-top {
     background: #00aeef none repeat scroll 0 0 / cover ;
-    min-height: 77vh;
-    padding-top: 2%;
+    min-height: 60vh;
+    min-height: 562px;
 }
 .menuselection .middle-top {
     background: #000000 none repeat scroll 0 0 / cover ;
-    min-height: 77vh;
-    padding-top: 2%;
+    min-height: 60vh;
+    min-height: 562px;
 }
 .menuselection .right-top {
     background: #00aeef none repeat scroll 0 0 / cover ;
-    min-height: 77vh;
+    min-height: 60vh;
+    min-height: 562px;
 }
 .menuselection .left-bottom {
     background: #00aeef none repeat scroll 0 0 / cover ;
-    min-height: 34vh;
-    padding-top: 2%;
+    min-height: 12.1vh;
 }
 .menuselection .middle-bottom {
     background: #000000 none repeat scroll 0 0 / cover ;
-    min-height: 34vh;
-    padding-top: 2%;
+    min-height: 12.1vh;
 }
 .menuselection .right-bottom {
     background: #00aeef none repeat scroll 0 0 / cover ;
-    min-height: 34vh;
+    min-height: 12.1vh;
 }
 .item-table {
     margin: -25px 0 0;
@@ -616,6 +593,69 @@ footer p a {
     height: 40px;
     cursor: pointer;
 }
+.pos-menumanager .pin-calculatorbg ul li {     
+    padding: 23px;
+    font-size: 100%;
+}
+.sidebar-heading {
+    border-bottom: 5px solid #fff;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: bold;
+    height: 50px;
+    padding: 20px 0;
+}
+.pos-menumanager fieldset {
+    background: #00aeef none repeat scroll 0 0;
+    border-radius: 10px;
+    color: #ffffff;
+    margin: 30px;
+    padding:15px;
+}
+.pos-menumanager .input-group[class*="col-"] {
+    float: none;
+    padding-left: 15px;
+    padding-right: 0;
+}
+.main-keyboardbg {
+    background: #00aeef none repeat scroll 0 0;
+    border-radius: 10px;
+    margin: 0 auto;
+}
+fieldset {
+    background: #00aeef none repeat scroll 0 0;
+    border: 0 none;
+    border-radius: 10px;
+    margin: 5px auto;
+    padding: 20px 0;
+}
+.inputGroupContainer input {
+    border: medium none;
+    border-radius: 3px !important;
+}
+a .center-div h3 {
+    padding: 10px;
+}
+.menu.guest-table {
+   min-height: 50vh;
+   min-height: 430px;
+   
+}
+.action-button {
+    margin: 0 auto;
+    padding: 4px 30px 0 0;
+}
+.right-top h3 {
+    margin: 0 auto;
+    padding: 7px 0 0;
+}
+.table.table-responsive td {
+  padding: 0 10px;
+  text-align: center;
+}
+.item-table-header td {
+  text-align: center;
+}
 
 @media (min-height: 320px) {
     #body {min-height: 93vh;;}
@@ -630,7 +670,7 @@ footer p a {
     .bodybtnbg2 {font-size: 60%;text-align: center;width: 100%;}
     header .text-center { font-size: 60%; padding-top: 20px;}
 }
-@media (min-height: 480px) {
+@media (max-height: 480px) {
     #body {min-height: 93vh;;}
     .left-item {min-height: 93vh;}
     .right-item{min-height: 93vh;}
@@ -684,13 +724,19 @@ footer p a {
     .bodyitem {min-height: 89.1vh}
     .bodyitem2 {min-height: 89.1vh}
 }
-
 @media (min-height: 960px) {
     #body {min-height: 91.6vh;}
     .left-item{ min-height:91.6vh;}
     .right-item{min-height: 91.6vh;}
     .bodyitem {min-height: 91.6vh}
     .bodyitem2 {min-height: 91.6vh}
+}
+@media (min-width: 1024px) {
+    .liveclock {margin-right: 100px;}
+    .logout {margin-left: 100px;}
+    .bottom-right {padding-top: 25px;}
+    .logobg p { font-size: 40px;}
+    .clockdiv p {font-size: 65px;}
 }
 @media (min-height: 1024px) {
     #body {height: 91vh;;}
@@ -699,12 +745,7 @@ footer p a {
     .bodyitem {min-height: 91vh;}
     .bodyitem2 {min-height: 91vh;}
 }
-@media (min-width: 1024px) {
-    .liveclock {margin-right: 100px;}
-    .logout {margin-left: 100px;}
-    .bottom-right {padding-top: 30px;}
 
-}
 @media (min-height: 1080px) {
     #body {min-height: 92vh;}
     .left-item{ min-height:92vh;}
@@ -720,11 +761,11 @@ footer p a {
     .bodyitem2 {min-height: 93.2vh;}
 }
 @media (min-height: 1440px) {
-    #body {min-height: 89.1vh;}
-    .left-item{ min-height:89.1vh;}
-    .right-item{min-height: 89.1vh;}
-    .bodyitem {min-height: 89.1vh}
-    .bodyitem2 {min-height: 89.1vh}
+    #body {min-height: 93.2vh;}
+    .left-item{ min-height:93.2vh;}
+    .right-item{min-height: 93.2vh;}
+    .bodyitem {min-height: 93.2vh;}
+    .bodyitem2 {min-height: 93.2vh;}
 }
 @media (min-height: 1536px) {
     #body {min-height: 95.2vh;}
@@ -747,6 +788,15 @@ footer p a {
     .bodyitem {min-height: 96.4vh;}
     .bodyitem2 {min-height: 96.4vh;}
 }
-
-
+.input-group-addon {
+    background-color: #000000;
+    border: medium none;
+}
+.sidebar-vertical-align-center{
+    top:50%;
+    transform: translateY(50%);
+}
+.body-vertical-align-center{
+    transform: translateY(25%);
+}
 

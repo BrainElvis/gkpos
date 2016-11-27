@@ -11,6 +11,7 @@ class Gkpos extends Gkpos_Controller {
         if (!$this->Entry_Model->is_logged_in()) {
             redirect('gkpos/entry');
         }
+            $this->load->helper('gkpos');
     }
 
     public function index() {
