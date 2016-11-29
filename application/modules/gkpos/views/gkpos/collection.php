@@ -2,17 +2,13 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 bodyitem2">
-                <div class="container">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                        <h4><img src="<?php echo ASSETS_GKPOS_PATH ?>images/phoneicon.png" width="33" height="33" class="img-responsive" /><?php echo $this->lang->line('gkpos_no_call') ?></h4>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <h2><?php isset($current_section) ? print $current_section : 'Collection' ?></h2>
-                    </div>
+                <div class="modal-header">
+                    <div class="phone-call col-md-12"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/phoneicon.png" width="33" height="33" /> <?php echo $this->lang->line('gkpos_no_call') ?></div>
                 </div>
                 <div class="formpartbg">
-                    <form class="form-horizontal" action=" " method="post"  id="contact_form">
-                        <fieldset>
+                    <fieldset>
+                        <form class="form-horizontal" action=" " method="post"  id="contact_form">
+                            <legend><?php echo $this->lang->line('gkpos_customer') . " " . $this->lang->line('gkpos_information') ?></legend>
                             <div class="form-group">
                                 <label class="col-md-4 control-label"><?php echo $this->lang->line('gkpos_name') ?></label>  
                                 <div class="col-md-6 inputGroupContainer">
@@ -22,9 +18,7 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!-- Text input-->
-
                             <div class="form-group">
                                 <label class="col-md-4 control-label" ><?php echo $this->lang->line('gkpos_phone') ?></label> 
                                 <div class="col-md-6 inputGroupContainer">
@@ -34,9 +28,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </fieldset>
-                    </form>
+                        </form>
+                    </fieldset>
                 </div>
+                <div class="clearfix pages-height"></div>
                 <div class="main-keyboardbg">
                     <div id="virtualKeyboard"></div>
                 </div>

@@ -24,7 +24,7 @@
         <div class="bottom-right">
             <a href="<?php echo site_url('gkpos/takeaway') ?>"><div class="mainsystembg collection-bg img-responsive"><?php echo $this->lang->line('gkpos_takeaway') ?></div></a>
             <a href="#"><div class="mainsystembg2 img-responsive waiting-bg"><?php echo $this->lang->line('gkpos_bar_service') ?></div></a>
-            <a href="<?php echo site_url('gkpos/newtable') ?>"><div class="mainsystembg waiting-bg img-responsive"><?php echo $this->lang->line('gkpos_new_table') ?></div></a>
+            <a href="<?php echo site_url('gkpos/table') ?>"><div class="mainsystembg waiting-bg img-responsive"><?php echo $this->lang->line('gkpos_new_table') ?></div></a>
             <!--<a href="<?php echo site_url('gkpos/newtableguest') ?>"><div class="mainsystembg2 img-responsive"><?php echo $this->lang->line('gkpos_new_guest_table') ?></div></a>-->
             <a href="#"><div class="mainsystembg img-responsive collection-bg"><?php echo $this->lang->line('gkpos_logoff') ?></div></a>
         </div>

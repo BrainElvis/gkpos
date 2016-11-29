@@ -3,19 +3,15 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8 col-sm-8 col-xs-8 bodyitem2">
-                <div class="container">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <h4><img src="<?php echo ASSETS_GKPOS_PATH ?>images/phoneicon.png" width="33" height="33" /> There is no call</h4>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <h2><?php echo $this->lang->line('gkpos_customer') . " " . $this->lang->line('gkpos_information') ?></h2>
-                    </div>
+                <div class="modal-header">
+                    <div class="phone-call col-md-12"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/phoneicon.png" width="33" height="33" /> <?php echo $this->lang->line('gkpos_no_call') ?></div>
                 </div>
                 <div class="formpartbg">
-                    <form class="form-horizontal" action=" " method="post">
-                        <fieldset>
+                    <fieldset>
+                        <form class="form-horizontal" action=" " method="post">
+                            <legend><?php echo $this->lang->line('gkpos_customer') . " " . $this->lang->line('gkpos_information') ?></legend>
                             <div class="form-group">
-                                <label class="col-md-4 control-label">Name</label>  
+                                <label class="col-md-4 control-label"><?php echo $this->lang->line('gkpos_name') ?></label>  
                                 <div class="col-md-6 inputGroupContainer">
                                     <div class="input-group">
                                         <input  type="text" name="name" id="name" placeholder="<?php echo $this->lang->line('gkpos_name') ?>" class="form-control">
@@ -87,8 +83,9 @@
                                     <p><input name="delivery_time" placeholder="<?php echo $this->lang->line('gkpos_delivery_time') ?>" class="form-control date_filter" type="text"></p>
                                 </div>
                             </div>
-                        </fieldset>
-                    </form>
+
+                        </form>
+                    </fieldset>
                 </div>
                 <div class="main-keyboardbg">
                     <div id="virtualKeyboard"></div>

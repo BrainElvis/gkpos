@@ -11,7 +11,8 @@
  *
  * @author Md. Aktaruzzaman
  */
-class APP_Form_validation extends CI_Form_validation
-{
+class APP_Form_validation extends CI_Form_validation {
+
     public $CI;
+
 }

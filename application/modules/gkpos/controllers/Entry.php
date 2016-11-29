@@ -15,6 +15,7 @@ class Entry extends Gkpos_Controller {
 
     public function index() {
         $this->page_title = 'Gkpos | Login';
+        $this->current_section = "Entry";
         $this->body_class[] = "pos-login";
         $data['male_users'] = $this->Entry_Model->get_list('gkpos_user', array('status' => 1, 'deleted' => 0, 'gender' => 1), array('id', 'first_name', 'last_name', 'gender', 'username', 'email'));
         $data['female_users'] = $this->Entry_Model->get_list('gkpos_user', array('status' => 1, 'deleted' => 0, 'gender' => 2), array('id', 'first_name', 'last_name', 'gender', 'username', 'email'));
@@ -23,7 +24,7 @@ class Entry extends Gkpos_Controller {
 
     public function get_user() {
         $id = $this->input->post('id');
-        $user = $this->Entry_Model->get_single('gkpos_user', array('id' => $id, 'status' => 1, 'deleted' => 0), array('username', 'email','first_name','last_name'));
+        $user = $this->Entry_Model->get_single('gkpos_user', array('id' => $id, 'status' => 1, 'deleted' => 0), array('username', 'email', 'first_name', 'last_name'));
         echo json_encode($user);
     }
 

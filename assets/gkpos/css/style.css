@@ -89,7 +89,7 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
 .middlebg2 ul { margin:0; padding:0;}
 .middlebg2 ul li { list-style: none; display: inline;    float: left;    width: 200px;}
 .middlebg2 ul li a { text-decoration:none; color:#fff;}
-.iteammenubg { border:1px solid #808080; margin-top:30px;}
+.iteammenubg { border:1px solid #808080;}
 .iteammenubg h2 { font-size:18px; color:#fff; background:#333; margin:0; padding: 15px; }
 .iteammenubg table tr td {border: 1px solid;width: 323px;    padding: 8px 0 8px 15px;    color:#eee;}
 
@@ -533,32 +533,35 @@ footer p a {
 .menuselection .left-top {
     background: #00aeef none repeat scroll 0 0 / cover ;
     min-height: 60vh;
-    min-height: 562px;
+    min-height: 710px;
 }
 .menuselection .middle-top {
     background: #000000 none repeat scroll 0 0 / cover ;
     min-height: 60vh;
-    min-height: 562px;
+    min-height: 710px;
 }
 .menuselection .right-top {
     background: #00aeef none repeat scroll 0 0 / cover ;
     min-height: 60vh;
-    min-height: 562px;
+    min-height: 710px;
 }
 .menuselection .left-bottom {
     background: #00aeef none repeat scroll 0 0 / cover ;
     min-height: 12.1vh;
+    min-height: 103px;
 }
 .menuselection .middle-bottom {
     background: #000000 none repeat scroll 0 0 / cover ;
     min-height: 12.1vh;
+    min-height: 103px;
 }
 .menuselection .right-bottom {
     background: #00aeef none repeat scroll 0 0 / cover ;
     min-height: 12.1vh;
+    min-height: 103px;
 }
 .item-table {
-    margin: -25px 0 0;
+    margin: -15px 0 0;
     max-height: 20vh;
     overflow: scroll;
 }
@@ -609,7 +612,7 @@ footer p a {
     background: #00aeef none repeat scroll 0 0;
     border-radius: 10px;
     color: #ffffff;
-    margin: 30px;
+    margin: 15px;
     padding:15px;
 }
 .pos-menumanager .input-group[class*="col-"] {
@@ -624,10 +627,10 @@ footer p a {
 }
 fieldset {
     background: #00aeef none repeat scroll 0 0;
-    border: 0 none;
     border-radius: 10px;
-    margin: 5px auto;
-    padding: 20px 0;
+    color: #ffffff;
+    margin: 15px;
+    padding:15px;
 }
 .inputGroupContainer input {
     border: medium none;
@@ -637,24 +640,66 @@ a .center-div h3 {
     padding: 10px;
 }
 .menu.guest-table {
-   min-height: 50vh;
-   min-height: 430px;
-   
+    min-height: 50vh;
+    min-height: 580px;
+    margin: 15px 0;
+
 }
 .action-button {
     margin: 0 auto;
-    padding: 4px 30px 0 0;
 }
 .right-top h3 {
     margin: 0 auto;
     padding: 7px 0 0;
 }
 .table.table-responsive td {
-  padding: 0 10px;
-  text-align: center;
+    padding: 0 30px;
+    vertical-align: middle;
 }
-.item-table-header td {
-  text-align: center;
+.main-arrowbg {
+    margin-top: 0px;
+}
+.menuselection .sidebar-heading {
+    border-bottom: 2px solid #fff;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    height: 28px;
+    padding: 0;
+}
+legend {
+    border-bottom: 1px solid #000000;
+    border-radius: 20px 0 0 12px;
+    font-size: 12px;
+    margin: 0 0 5px;
+    padding: 0;
+    text-transform: uppercase;
+}
+.phone-call, .page-title {
+  color: #ffffff;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+.page-title {
+  padding: 5px 0 0;
+}
+.modal-header {
+  border-bottom: 2px solid #ffffff;
+  border-radius: 0 0 20px 20px;
+  padding: 5px 0 0;
+}
+.pos-customer-information fieldset {
+  margin: 5px;
+}
+.form-message-part {
+  margin: 19px 0;
+}
+.has-error {
+  color: #ffff00;
+  font-weight: normal;
+}
+#error_message_box {
+  margin: 0;
 }
 
 @media (min-height: 320px) {
@@ -791,6 +836,7 @@ a .center-div h3 {
 .input-group-addon {
     background-color: #000000;
     border: medium none;
+    color:#ffffff;
 }
 .sidebar-vertical-align-center{
     top:50%;
@@ -799,4 +845,23 @@ a .center-div h3 {
 .body-vertical-align-center{
     transform: translateY(25%);
 }
-
+.form-control.addon-input {
+  width: 96%;
+}
+.form-submit-button {
+  border: medium none;
+  width: 50%;
+}
+#accordion {
+    margin:20px;
+    height:300px;
+}
+.ui-widget-content a {
+  color: #ffffff;
+}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+  background: #C00000 none repeat scroll 0 0;
+  border: none;
+  color: #ffffff;
+  font-weight: normal;
+}

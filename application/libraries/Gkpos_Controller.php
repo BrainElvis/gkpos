@@ -59,6 +59,7 @@ class Gkpos_Controller extends MY_Controller {
         'plugins/keyboard/css/main.css',
         'plugins/numpad/jquery.numpad.css',
         'plugins/colorbox/colorbox.css',
+        'plugins/jquery-ui/jquery-ui.css',
         'css/style.css',
     );
     public $assets_js = array(
@@ -68,6 +69,7 @@ class Gkpos_Controller extends MY_Controller {
         'plugins/keyboard/js/main.js',
         'plugins/numpad/jquery.numpad.js',
         'js/phpjsdate.js',
+        'plugins/colorbox/jquery.colorbox-min.js',
         'plugins/colorbox/jquery.colorbox-min.js',
         'js/app.js',
     );

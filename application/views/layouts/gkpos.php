@@ -15,5 +15,6 @@
         <?php echo $template['body'] ?>
         <!--------------------------Footer including login,registration modal popup------------------------->
         <?php echo $template['partials']['footer'] ?>
+        <div id="feedback_bar"></div>
     </body>
 </html>

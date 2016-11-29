@@ -8,8 +8,7 @@ $config = array(
             'rules' => 'required'
         )
     ),
-
-'page' => array(
+    'page' => array(
         array(
             'field' => 'title',
             'label' => 'Page Title',
@@ -64,7 +63,6 @@ $config = array(
             'label' => 'Customer Town',
             'rules' => 'required'
         ),
-       
         array(
             'field' => 'CustPostcode',
             'label' => 'Customer Post Code',
@@ -76,4 +74,22 @@ $config = array(
             'rules' => 'required'
         )
     ),
+    'gkpos_menu_category' => array(
+        array(
+            'field' => 'title',
+            'label' => 'Category Title',
+            'rules' => 'required|trim',
+            'errors' => array(
+                'required' => 'Category title is required field',
+            ),
+        ),
+        array(
+            'field' => 'print_option',
+            'label' => 'Printing Options',
+            'rules' => 'required',
+            'errors' => array(
+                'required' => 'Pleae check print options for kitchen printer'
+            ),
+        ),
+    )
 );

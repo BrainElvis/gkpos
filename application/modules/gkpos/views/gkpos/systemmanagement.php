@@ -2,10 +2,12 @@
     <div class="container-fluid bodyitem">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 system-management center-block">
-                <h2 class="modal-header text-center text-uppercase text-info"><?php isset($current_section) ? print $current_section : 'System Management' ?></h2>
+                <div class="modal-header">
+                    <div class="page-title col-md-12"><?php isset($current_section) ? print $current_section : print 'Delivery' ?></div>
+                </div>
                 <div  class="col-lg-2 col-md-2 col-sm-2  col-xs-2 tabbg1">
                     <a href="#"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/orderbg.png" class="img-responsive center-block" /></a>
-                    <h1><a href="<?php echo site_url('gkpos')?>"><?php echo $this->lang->line('gkpos_system_order') ?></a></h1>
+                    <h1><a href="<?php echo site_url('gkpos') ?>"><?php echo $this->lang->line('gkpos_system_order') ?></a></h1>
                 </div>
                 <div  class="col-lg-2 col-md-2 col-sm-2 col-xs-2 tabbg1">
                     <a href="#"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/closebg.png" class="img-responsive center-block" /></a>
@@ -36,7 +38,7 @@
 
                 <div  class="col-lg-2 col-md-2 col-sm-2 col-xs-2 tabbg1">
                     <a href="#"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/settingbg1.png" class="img-responsive center-block" /></a>
-                    <h1><a href="#"><?php echo $this->lang->line('gkpos_system_update_menu') ?></a></h1>
+                    <h1><a href="<?php echo site_url('gkpos/menumanager')?>"><?php echo $this->lang->line('gkpos_system_update_menu') ?></a></h1>
                 </div>
                 <div  class="col-lg-2 col-md-2 col-sm-2 col-xs-2 tabbg1">
                     <a href="#"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/textbg.png" class="img-responsive center-block" /></a>
