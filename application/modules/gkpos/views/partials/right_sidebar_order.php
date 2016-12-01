@@ -1,5 +1,5 @@
 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 right-item">
-    <br/>
+    <?php echo $this->load->view('gkpos/subviews/keyboard_setting') ?>
     <div class="sidebar-heading text-center text-uppercase"><?php echo $this->lang->line('gkpos_type_phone_number')?></div>
     <div class="pin-calculatorbg">
         <ul>

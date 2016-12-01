@@ -147,10 +147,24 @@ $lang["gkpos_saved_unsuccessfully"] = "save failed";
 $lang['gkpos_duplicate_entry'] = "Duplicate entry!";
 $lang['gkpos_already_exists'] = "already exists in the record.";
 $lang['gkpos_try_another'] = "Please try with another.";
-$lang['gkpos_category_type']="Category Type";
-$lang['gkpos_basic_information']="Basic Information";
-$lang['gkpos_discount']="Discount";
-$lang['gkpos_update']="Update";
+$lang['gkpos_category_type'] = "Category Type";
+$lang['gkpos_basic_information'] = "Basic Information";
+$lang['gkpos_discount'] = "Discount";
+$lang['gkpos_update'] = "Update";
+$lang['gkpos_menu_base_price'] = "Base Price";
+$lang['gkpos_menu_price_differs_in_dine'] = "Menu Price differs in DINE-IN and DINE-OUT";
+$lang['gkpos_select_category_food_type'] = "Select Category Food Type";
+$lang['gkpos_menu_dine_in_price'] = "DINE-IN-PRICE";
+$lang['gkpos_menu_dine_out_price'] = "DINE-OUT-PRICE";
+
+$lang['gkpos_menu_title_rquired'] = "At least provide menu title to proceed";
+$lang['gkpos_menu_price_rquired'] = "And menu base price in number";
+$lang['gkpos_dine_in_price_required'] = "DINE-IN-PRICE in number is required NOW";
+$lang['gkpos_dine_out_price_required'] = "DINE-OUT-PRICE in number is required NOW";
+$lang['gkpos_touch_keyboard_enable_disable_setting']="Enable/disbale Touch screen keyboard";
+$lang['gkpos_enable']="Enable";
+$lang['gkpos_disable']="Disable";
+
 
 
 

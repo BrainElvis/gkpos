@@ -1,34 +1,25 @@
-<ul>
-    <li><a href="javascript:void(0)">Category Name01</a></li>
-    <li><a href="javascript:void(0)">Category Name02</a></li>
-    <li><a href="javascript:void(0)">Category Name03</a></li>
-    <li><a href="javascript:void(0)">Category Name04</a></li>
-    <li><a href="javascript:void(0)">Category Name05</a></li>
-    <li><a href="javascript:void(0)">Category Name06</a></li>
-    <li><a href="javascript:void(0)">Category Name07</a></li>
-    <li><a href="javascript:void(0)">Category Name08</a></li>
-    <li><a href="javascript:void(0)">Category Name09</a></li>
-    <li><a href="javascript:void(0)">Category Name10</a></li>
-    <li><a href="javascript:void(0)">Category Name11</a></li>
-    <li><a href="javascript:void(0)">Category Name12</a></li>
-    <li><a href="javascript:void(0)">Category Name13</a></li>
-    <li><a href="javascript:void(0)">Category Name14</a></li>
-    <li><a href="javascript:void(0)">Category Name15</a></li>
-    <li><a href="javascript:void(0)">Category Name17</a></li>
-    <li><a href="javascript:void(0)">Category Name18</a></li>
-    <li><a href="javascript:void(0)">Category Name19</a></li>
-    <li><a href="javascript:void(0)">Category Name20</a></li>
-    <li><a href="javascript:void(0)">Category Name21</a></li>
-    <li><a href="javascript:void(0)">Category Name22</a></li>
-    <li><a href="javascript:void(0)">Category Name23</a></li>
-    <li><a href="javascript:void(0)">Category Name24</a></li>
-    <li><a href="javascript:void(0)">Category Name25</a></li>
-    <li><a href="javascript:void(0)">Category Name26</a></li>
-    <li><a href="javascript:void(0)">Category Name27</a></li>
-    <li><a href="javascript:void(0)">Category Name28</a></li>
-    <li><a href="javascript:void(0)">Category Name29</a></li>
-    <li><a href="javascript:void(0)">Category Name30</a></li>
-    <li><a href="javascript:void(0)">Category Name31</a></li>
-    <li><a href="javascript:void(0)">Category Name32</a></li>
-    <li><a href="javascript:void(0)">Category Name33</a></li>
-</ul>
+<div id="categoryList">
+    <ul class="category-list"></ul>
+</div>
+<script>
+    $(document).ready(function () {
+        $.post("<?php echo site_url('gkpos/orders/getcategory') ?>", {data: 1}, function (output) {
+            if (true === output.status) {
+                var objectLength = output.data.length;
+                var firstObject = output.data[0];
+                var lastObject = output.data[objectLength - 1];
+                $("#firstCatId").val(firstObject.id);
+                $("#firstCatOrder").val(firstObject.order);
+                $("#lastCatId").val(lastObject.id);
+                $("#lastCatOrder").val(lastObject.order);
+                $.each(output.data, function () {
+                    $('.category-list').append('<li id="' + this.id + '" class="cat-tab" order="' + this.order + '" title="' + this.content + '" >' + this.title + '</li>');
+                });
+            }
+        }, 'json');
+        $("#categoryList > ul li").click(function () {
+            alert("working");
+        });
+    });
+
+</script>

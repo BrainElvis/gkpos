@@ -3,6 +3,7 @@
         <div class="row">
             <?php echo $template['partials']['left_sidebar'] ?>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 bodyitem">
+                <?php echo $this->load->view('gkpos/subviews/keyboard_setting') ?>
                 <div class="pin-calculatorbg">
                     <div class="middlebg2">
                         <p><?php echo $this->lang->line('gkpos_table_info') ?></p>
@@ -45,5 +46,9 @@
 <script type="text/javascript">
     jQuery(document).ready(function () {
         setnumkeys('table_number');
+        var height = screen.height - 211;
+        $(".bodyitem").css({"min-height": height + "px"});
+        $(".left-item").css({"min-height": height + "px"});
+        $(".right-item").css({"min-height": height + "px"});
     });
 </script>

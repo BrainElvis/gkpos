@@ -91,5 +91,15 @@ $config = array(
                 'required' => 'Pleae check print options for kitchen printer'
             ),
         ),
+    ),
+    'gkpos_menu' => array(
+        array(
+            'field' => 'title',
+            'label' => 'Menu Title',
+            'rules' => 'required|trim',
+            'errors' => array(
+                'required' => 'Menu title is required field',
+            ),
+        )
     )
 );

@@ -18,11 +18,9 @@ class Menumanager extends Gkpos_Controller {
     public function index() {
         $data = [];
         $data['categories'] = $this->Menumanager_Model->get_menu_category();
-
         $this->page_title = 'Gkpos | Login';
         $this->current_section = "Menu Manager";
         $this->body_class[] = "pos-menumanager";
-        //debugPrint($data);
         $this->render_page('gkpos/menumanager/index', $data);
     }
 
@@ -57,7 +55,7 @@ class Menumanager extends Gkpos_Controller {
                 $id = $id;
                 $prev_data = objectToArray($this->Menumanager_Model->get_menu_category_by_id($id));
             }
-            if ($this->form_validation->run('gkpos_menu_category') == FALSE) {
+            if ($this->form_validation->run('gkpos_menu') == FALSE) {
                 $message = validation_errors();
                 $success = false;
             } else {
@@ -118,6 +116,89 @@ class Menumanager extends Gkpos_Controller {
         foreach ($output as $key => $value) {
             $result = $this->Menumanager_Model->sort_menu_category($key, $position);
             $position++;
+        }
+    }
+
+    public function menuadd($id = '') {
+        $data = [];
+        if (is_numeric($id) && $id > 0) {
+            $id = $id;
+            $data = objectToArray($this->Menumanager_Model->get_menu_by_id($id));
+        }
+
+        $this->page_title = 'Gkpos |' . (isset($id) && $id > 0) ? 'Update Menu' : 'Add New Menu';
+        $this->current_section = (isset($id) && $id > 0) ? 'Update Menu' : 'Add New Menu';
+        $this->body_class[] = "pos-menumanager pos-add-menu";
+        //debugPrint($data);
+        $this->render_page('gkpos/menumanager/menuadd', $data);
+    }
+
+    public function menusave($id = '') {
+        $prev_data = [];
+        $success = false;
+        $message = '';
+        if ($this->input->post('submit_form')) {
+
+            if (is_numeric($id) && $id > 0) {
+                $id = $id;
+                $prev_data = objectToArray($this->Menumanager_Model->get_menu_by_id($id));
+            }
+            if ($this->form_validation->run('gkpos_menu') == FALSE) {
+                $message = validation_errors();
+                $success = false;
+            } else {
+                $result = false;
+                $data = $this->prepareData();
+                if (!isset($data['is_dine'])) {
+                    unset($data['in_price']);
+                    unset($data['out_price']);
+                } else {
+                    unset($data['is_dine']);
+                    unset($data['base_price']);
+                }
+                if ($id) {
+                    if (strtolower(str_replace(' ', '', $prev_data['title'])) == strtolower(str_replace(' ', '', $data['title']))) {
+                        $data['modified'] = date('Y-m-d H:i:s');
+                        $data['modified_by'] = $this->session->userdata('gkpos_userid');
+                        $result = $this->Menumanager_Model->update_menu($data, $id);
+                        $success = $result ? true : false;
+                    } else {
+                        $exists = $this->Menumanager_Model->exists('gkpos_menu_category', 'LOWER(title)', strtolower($data['title']));
+                        if ($exists) {
+                            $message = $this->lang->line('gkpos_duplicate_entry') . ' ' . $this->lang->line('gkpos_category') . ' ' . $data['title'] . ' ' . $this->lang->line('gkpos_already_exists') . ' ' . $this->lang->line('gkpos_try_another');
+                            $success = false;
+                        } else {
+                            $data['modified'] = date('Y-m-d H:i:s');
+                            $data['modified_by'] = $this->session->userdata('gkpos_userid');
+                            $result = $this->Menumanager_Model->update_menu($data, $id);
+                            $success = $result ? true : false;
+                        }
+                    }
+                } else {
+                    $exists = $this->Menumanager_Model->exists('gkpos_menu', 'LOWER(title)', strtolower($data['title']));
+                    if ($exists) {
+                        $message = $this->lang->line('gkpos_duplicate_entry') . ' ' . $this->lang->line('gkpos_category') . ' ' . $data['title'] . ' ' . $this->lang->line('gkpos_already_exists') . ' ' . $this->lang->line('gkpos_try_another');
+                        $success = false;
+                    } else {
+                        $title = strtolower($data['title']);
+                        $data['slug'] = str_replace(' ', '-', $title);
+                        $data['status'] = '1';
+                        $data['published'] = '1';
+                        $data['deleted'] = '0';
+                        $last_id = $this->Menumanager_Model->get_last_row_id('gkpos_menu');
+                        $data['order'] = $last_id > 0 ? $last_id + 1 : 1;
+                        $data['created_by'] = $this->session->userdata('gkpos_userid');
+                        $result = $this->Menumanager_Model->save_menu($data);
+                        $success = $result ? true : false;
+                    }
+                }
+            }
+            if ($success) {
+                $message = $this->lang->line('gkpos_menu') . ' ' . $data['title'] . ' ' . $this->lang->line('gkpos_saved_' . ($success ? '' : 'un') . 'successfully');
+                echo json_encode(array('success' => $success, 'message' => $message));
+            } else {
+                echo json_encode(array('success' => $success, 'message' => $message));
+            }
         }
     }
 

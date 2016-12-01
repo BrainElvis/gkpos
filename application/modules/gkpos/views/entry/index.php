@@ -150,5 +150,16 @@
         jQuery('#username').val('');
         jQuery('#password').val('');
         setnumkeys('password');
+
+        var height = screen.height - 211;
+        //need to work with the bellow for mobile
+        //var headerHeight = $('#gkposHeader').height();
+        //var footerHeight = $('#gkposFooter').height();
+        //var height = screen.height - (headerHeight+footerHeight);
+        //console.log(headerHeight+" "+footerHeight);
+
+        $(".bodyitem").css({"min-height": height + "px"});
+        $(".left-item").css({"min-height": height + "px"});
+        $(".right-item").css({"min-height": height + "px"});
     });
 </script>

@@ -1,5 +1,13 @@
 <?php
-
+function get_record_list($table, $condition = null, $columns = '*', $order = null) {
+    $CI = & get_instance();
+    $CI->db->select($columns);
+    if ($order)
+        $CI->db->order_by($order);
+    if ($condition)
+        $CI->db->where($condition);
+    return $CI->db->get($table)->result();
+}
 function gkpos_dateformat($php_format)
 {
     $SYMBOLS_MATCHING = array(

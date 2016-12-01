@@ -96,6 +96,32 @@ class MY_Model extends CI_Model {
         $result['pagination'] = $this->pagination->create_links();
         return $result;
     }
+    
+    public function gkpos_paged_list($table, $condition, $url, $segment, $offset = 0, $order_field = null, $order_type = null) {
+        $result = array('rows' => array(), 'total_rows' => 0);
+        $this->load->library('pagination');
+        $limit =5; //$this->config->item('lines_per_page');
+        if ($condition)
+            $this->db->where($condition);
+        if ($order_field && $order_type)
+            $this->db->order_by($order_field, $order_type);
+        $result['rows'] = $this->db->get($table, $limit, $offset)->result();
+        if ($condition)
+            $this->db->where($condition);
+        $result['total_rows'] = $total_rows = $this->db->count_all_results($table);
+        $config = $this->pagination->setPagination();
+        $config['uri_segment'] = $segment;
+        $config['base_url'] = site_url() . $url;
+        $config['total_rows'] = $total_rows;
+        $config['per_page'] = $this->config->item('lines_per_page');
+        $this->pagination->initialize($config);
+        $result['pagination'] = $this->pagination->create_links();
+        return $result;
+    }
+    
+    
+    
+    
 
     public function get_list($table, $condition = null, $columns = null, $limit = null, $offset = 0, $order_field = null, $order_type = null) {
         if ($columns)

@@ -676,105 +676,56 @@ legend {
     text-transform: uppercase;
 }
 .phone-call, .page-title {
-  color: #ffffff;
-  font-size: 18px;
-  text-transform: uppercase;
+    color: #ffffff;
+    font-size: 18px;
+    text-transform: uppercase;
 }
 .page-title {
-  padding: 5px 0 0;
+    padding: 5px 0 0;
 }
 .modal-header {
-  border-bottom: 2px solid #ffffff;
-  border-radius: 0 0 20px 20px;
-  padding: 5px 0 0;
+    border-bottom: 2px solid #ffffff;
+    border-radius: 0 0 20px 20px;
+    padding: 5px 0 0;
 }
 .pos-customer-information fieldset {
-  margin: 5px;
+    margin: 5px;
 }
 .form-message-part {
-  margin: 19px 0;
+    margin: 19px 0;
 }
 .has-error {
-  color: #ffff00;
-  font-weight: normal;
+    color: #ffff00;
+    font-weight: normal;
 }
 #error_message_box {
-  margin: 0;
+    margin: 0;
+}
+.form-submit-button {
+    background: #c00000 none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 10px;
+    text-transform: uppercase;
+}
+.ui-keyboard-button {
+    -moz-user-focus: ignore;
+    cursor: pointer;
+    height: 50px;
+    line-height: 2em;
+    margin: 0.1em;
+    overflow: hidden;
+    width: 50px;
 }
 
-@media (min-height: 320px) {
-    #body {min-height: 93vh;;}
-    .left-item {min-height: 93vh;}
-    .right-item{min-height: 93vh;}
-    .bodyitem {min-height: 93vh;}
-    .bodyitem2 {min-height: 93vh;}
-
-}
 @media (max-width: 320px) {
     .bodybtnbg {font-size: 60%;text-align: center;width: 100%;}
     .bodybtnbg2 {font-size: 60%;text-align: center;width: 100%;}
     header .text-center { font-size: 60%; padding-top: 20px;}
 }
-@media (max-height: 480px) {
-    #body {min-height: 93vh;;}
-    .left-item {min-height: 93vh;}
-    .right-item{min-height: 93vh;}
-    .bodyitem {min-height: 93vh;}
-    .bodyitem2 {min-height: 93vh;}
-    header .text-center { font-size: 67%; padding-top: 20px;}
-}
+
 @media (max-width: 480px) {
     .bodybtnbg {font-size: 60%;text-align: center;width: 100%;}
     .bodybtnbg2 {font-size: 60%;text-align: center;width: 100%;} 
-}
-@media (min-height: 540px) {
-    #body {min-height: 93vh;;}
-    .left-item {min-height: 93vh;}
-    .right-item{min-height: 93vh;}
-    .bodyitem {min-height: 93vh;}
-    .bodyitem2 {min-height: 93vh;}
-}
-@media (min-height: 600px) {
-    #body {min-height: 89.1vh;}
-    .left-item{ min-height:89.1vh;}
-    .right-item{min-height: 89.1vh;}
-    .bodyitem {min-height: 89.1vh}
-    .bodyitem2 {min-height: 89.1vh}
-}
-@media (min-height: 720px) {
-    #body {min-height: 89.1vh;}
-    .left-item{ min-height:89.1vh;}
-    .right-item{min-height: 89.1vh;}
-    .bodyitem {min-height: 89.1vh}
-    .bodyitem2 {min-height: 89.1vh}
-}
-@media (min-height: 750px) {
-    #body {min-height: 89.1vh;}
-    .left-item{ min-height:89.1vh;}
-    .right-item{min-height: 89.1vh;}
-    .bodyitem {min-height: 89.1vh}
-    .bodyitem2 {min-height: 89.1vh}
-}
-@media (min-height: 768px) {
-    #body {min-height: 92vh;}
-    .left-item{ min-height:92vh;padding-bottom: 5px;}
-    .right-item{min-height: 92vh;}
-    .bodyitem {min-height: 92.4vh;}
-    .bodyitem2 {min-height: 92vh;} 
-}
-@media (min-height: 800px) {
-    #body {min-height: 89.1vh;}
-    .left-item{ min-height:89.1vh;}
-    .right-item{min-height: 89.1vh;}
-    .bodyitem {min-height: 89.1vh}
-    .bodyitem2 {min-height: 89.1vh}
-}
-@media (min-height: 960px) {
-    #body {min-height: 91.6vh;}
-    .left-item{ min-height:91.6vh;}
-    .right-item{min-height: 91.6vh;}
-    .bodyitem {min-height: 91.6vh}
-    .bodyitem2 {min-height: 91.6vh}
 }
 @media (min-width: 1024px) {
     .liveclock {margin-right: 100px;}
@@ -783,56 +734,7 @@ legend {
     .logobg p { font-size: 40px;}
     .clockdiv p {font-size: 65px;}
 }
-@media (min-height: 1024px) {
-    #body {height: 91vh;;}
-    .left-item{ height:91vh;;}
-    .right-item{min-height: 91vh;}
-    .bodyitem {min-height: 91vh;}
-    .bodyitem2 {min-height: 91vh;}
-}
 
-@media (min-height: 1080px) {
-    #body {min-height: 92vh;}
-    .left-item{ min-height:92vh;}
-    .right-item{min-height: 92vh;}
-    .bodyitem {min-height: 92vh;}
-    .bodyitem2 {min-height: 92vh;}
-}
-@media (min-height: 1280px) {
-    #body {min-height: 93.2vh;}
-    .left-item{ min-height:93.2vh;}
-    .right-item{min-height: 93.2vh;}
-    .bodyitem {min-height: 93.2vh;}
-    .bodyitem2 {min-height: 93.2vh;}
-}
-@media (min-height: 1440px) {
-    #body {min-height: 93.2vh;}
-    .left-item{ min-height:93.2vh;}
-    .right-item{min-height: 93.2vh;}
-    .bodyitem {min-height: 93.2vh;}
-    .bodyitem2 {min-height: 93.2vh;}
-}
-@media (min-height: 1536px) {
-    #body {min-height: 95.2vh;}
-    .left-item{ min-height:95.2vh;}
-    .right-item{min-height: 95.2vh;}
-    .bodyitem {min-height: 95.2vh;}
-    .bodyitem2 {min-height: 95.2vh;}
-}
-@media (min-height: 2448px) {
-    #body {min-height: 93.6vh;}
-    .left-item{ min-height:93.6vh;}
-    .right-item{min-height: 93.6vh;}
-    .bodyitem {min-height: 93.6vh}
-    .bodyitem2 {min-height: 93.6vh}
-}
-@media (min-height: 2560px) {
-    #body {min-height: 96.4vh;}
-    .left-item{ min-height:96.4vh;}
-    .right-item{min-height: 96.4vh;}
-    .bodyitem {min-height: 96.4vh;}
-    .bodyitem2 {min-height: 96.4vh;}
-}
 .input-group-addon {
     background-color: #000000;
     border: medium none;
@@ -846,22 +748,50 @@ legend {
     transform: translateY(25%);
 }
 .form-control.addon-input {
-  width: 96%;
+    width: 96%;
 }
 .form-submit-button {
-  border: medium none;
-  width: 50%;
+    border: medium none;
+    width: 50%;
 }
 #accordion {
     margin:20px;
     height:300px;
 }
 .ui-widget-content a {
-  color: #ffffff;
+    color: #ffffff;
 }
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
-  background: #C00000 none repeat scroll 0 0;
-  border: none;
-  color: #ffffff;
-  font-weight: normal;
+    background: #C00000 none repeat scroll 0 0;
+    border: none;
+    color: #ffffff;
+    font-weight: normal;
+}
+.ui-accordion-content {
+    height: auto !important;
+}
+.touch-enable-disbled {
+    background: #f8f8f8 none repeat scroll 0 0;
+    border-radius: 100px 0;
+}
+.pos-menumanager .add-menu-block fieldset {
+    color: #ffffff;
+    margin: 10px 0;
+    padding: 15px 0 0;
+}
+.back {
+  margin: 16px 0;
+}
+.back-button {
+  background-color: #000000;
+  border-radius: 20px 2px 2px 20px;
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+}
+.pos-menu .category-list li {
+  background-color: #ff0000;
+  cursor: pointer;
+  margin: 5px 0;
+  padding: 10px 0 10px 10px;
 }

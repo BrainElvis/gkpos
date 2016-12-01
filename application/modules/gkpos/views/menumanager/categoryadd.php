@@ -42,25 +42,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="fieldset">
-                                    <legend><?php echo $this->lang->line('gkpos_category_discount_required') ?></legend>
-                                    <div class="form-group">
-                                        <label for="discount" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label"><?php echo $this->lang->line('gkpos_amount') ?></label>
-                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 input-group">
-                                            <div class="input-group-addon"><?php echo $this->config->item('currency_symbol') ?></div>
-                                            <?php echo form_input(array('name' => 'discount', 'id' => 'discount', 'class' => 'form-control addon-input', 'value' => isset($discount) ? $discount : '')); ?>
-                                        </div>
 
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="discount" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label"><?php echo $this->lang->line('gkpos_function') ?></label>
-                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                            <label class="radio-inline text-uppercase"><input type="radio" name="discount_function" id="function1" value="fixed" <?php (isset($discount_function) && $discount_function == "fixed") ? print "checked" : '' ?> ><?php echo $this->lang->line('gkpos_fixed') ?></label>
-                                            <label class="radio-inline text-uppercase"><input type="radio" name="discount_function" id="function2" value="percent" <?php (isset($discount_function) && $discount_function == "percent") ? print "checked" : '' ?>><?php echo $this->lang->line('gkpos_percentage') ?></label>
-                                        </div>
-                                    </div>
-
-                                </div>
                                 <div class="form-group">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <a href='javascript:void(0)'>
@@ -93,6 +75,7 @@
 <script type='text/javascript'>
     $(document).ready(function ()
     {
+        keyboard('virtualKeyboard');
         setnumkeys('discount');
         $('#gkposMenuCategoryForm').validate({
             submitHandler: function (form) {
@@ -122,24 +105,14 @@
                     {
                         title: "required",
                         print_option: "required",
-                        discount: {
-                            number: true
-                        },
-                        discount_function: {
-                            required: function (element) {
-                                return ($("#discount").val()) > 0;
-                            }
-                        },
                         type: "required"
 
                     },
             messages:
                     {
                         title: "<?php echo $this->lang->line('gkpos_category_title_required'); ?>",
-                        discount_function: "<?php echo $this->lang->line('gkpos_discount_function_required'); ?>",
                         print_option: "<?php echo $this->lang->line('gkpos_print_option_required'); ?>",
-                        discount: "only number in discount field",
-                        type: 'Select Category Food Type'
+                        type: "<?php echo $this->lang->line('gkpos_select_category_food_type') ?>"
 
                     }
         });

@@ -38,7 +38,7 @@
 
                 <div  class="col-lg-2 col-md-2 col-sm-2 col-xs-2 tabbg1">
                     <a href="#"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/settingbg1.png" class="img-responsive center-block" /></a>
-                    <h1><a href="<?php echo site_url('gkpos/menumanager')?>"><?php echo $this->lang->line('gkpos_system_update_menu') ?></a></h1>
+                    <h1><a href="<?php echo site_url('gkpos/menumanager') ?>"><?php echo $this->lang->line('gkpos_system_update_menu') ?></a></h1>
                 </div>
                 <div  class="col-lg-2 col-md-2 col-sm-2 col-xs-2 tabbg1">
                     <a href="#"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/textbg.png" class="img-responsive center-block" /></a>
@@ -109,3 +109,11 @@
         </div>
     </div>
 </section>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var height = screen.height - 211;
+        $(".bodyitem").css({"min-height": height + "px"});
+        $(".left-item").css({"min-height": height + "px"});
+        $(".right-item").css({"min-height": height + "px"});
+    });
+</script>

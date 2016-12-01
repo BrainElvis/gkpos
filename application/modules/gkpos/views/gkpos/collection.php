@@ -32,9 +32,11 @@
                     </fieldset>
                 </div>
                 <div class="clearfix pages-height"></div>
-                <div class="main-keyboardbg">
-                    <div id="virtualKeyboard"></div>
-                </div>
+                <?php if ($this->config->item('is_touch') == 'enable'): ?>
+                    <div class="main-keyboardbg">
+                        <div id="virtualKeyboard"></div>
+                    </div>
+                <?php endif ?>
             </div>
             <?php echo $template['partials']['right_sidebar_order'] ?>
         </div>
@@ -42,6 +44,13 @@
 </section>
 <script type="text/javascript">
     jQuery(document).ready(function () {
+    <?php if ($this->config->item('is_touch') == 'enable') { ?>
+            keyboard('virtualKeyboard');
+    <?php } ?>
         setnumkeys('phone');
+        var height = screen.height - 211;
+        $(".bodyitem").css({"min-height": height + "px", 'background': 'red'});
+        $(".left-item").css({"min-height": height + "px"});
+        $(".right-item").css({"min-height": height + "px"});
     });
 </script>

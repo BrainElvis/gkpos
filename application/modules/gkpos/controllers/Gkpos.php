@@ -12,6 +12,8 @@ class Gkpos extends Gkpos_Controller {
             redirect('gkpos/entry');
         }
         $this->load->helper('gkpos');
+        $this->load->model('Menumanager_Model');
+        
     }
 
     public function index() {
@@ -52,36 +54,17 @@ class Gkpos extends Gkpos_Controller {
     public function table() {
         $this->page_title = 'Gkpos | Table';
         $this->current_section = "Table Order";
-        $this->body_class[] = "table Order";
+        $this->body_class[] = "table-order";
         $this->render_page('gkpos/gkpos/table');
     }
 
     public function order() {
+        $this->load->model('Orders_Model');
         $this->page_title = 'Gkpos | order';
         $this->current_section = "menu order";
         $this->body_class[] = "pos-menu selection order";
-        $this->render_page('gkpos/gkpos/order');
-    }
-
-    public function customertable() {
-        $this->page_title = 'Gkpos | customer table';
-        $this->current_section = "customer table";
-        $this->body_class[] = "pos-customer-table";
-        $this->render_page('gkpos/gkpos/customertable');
-    }
-
-    public function newtable() {
-        $this->page_title = 'Gkpos | new table';
-        $this->current_section = "new table";
-        $this->body_class[] = "pos-new-table";
-        $this->render_page('gkpos/gkpos/newtable');
-    }
-
-    public function newtableguest() {
-        $this->page_title = 'Gkpos | new table guest';
-        $this->current_section = "new table guest";
-        $this->body_class[] = "pos-new-table-guest";
-        $this->render_page('gkpos/gkpos/newtableguest');
+        $data['showcategory'] = $this->Orders_Model->showcategory();
+        $this->render_page('gkpos/gkpos/order', $data);
     }
 
     public function systemmanagement() {
@@ -93,6 +76,11 @@ class Gkpos extends Gkpos_Controller {
 
     public function logoff() {
         $this->Entry_Model->logout();
+    }
+
+    public function keyboard_setting() {
+        $is_touch = $this->input->post('is_touch');
+        echo $this->Appconfig->batch_save(array('is_touch' => $is_touch));
     }
 
 }
