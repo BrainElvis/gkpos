@@ -34,9 +34,14 @@ label {
 .user-part { margin-bottom:15px;}
 .user-part h1 { text-align:center; margin: 0 0 40px 0; padding:0;}
 .user-part ul { margin:0; padding:0; text-align: center;}
-.user-part ul li { list-style:none; display: inline-block;}
+.user-part ul li {
+  display: inline-block;
+  list-style: outside none none;
+  margin: 5px 0;
+  padding: 5px;
+}
 .user-part h2 { padding-top:48px; font-family:'Utsaah'; font-size:46px; text-align:center; text-transform:uppercase; font-weight:bold; color:#fff; text-shadow: 0px 2px 2px #0579a4; line-height: 20px; margin:0;}
-span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400; font-size:16px;}
+span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;}
 .userlogingbg h3 {
     margin: 0;
     text-align: center;
@@ -113,7 +118,7 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
 .right-item{ background:#00aeef;height: auto;}
 
 .logobg { padding-top:130px; text-align:center; cursor:pointer;}
-.logobg p { font-family:Arial, Helvetica, sans-serif; color:#fff; font-size:100%; font-weight:bold; text-shadow: 0px 2px 2px #090;}
+.logobg p { font-family:Arial, Helvetica, sans-serif; color:#fff; font-size:300%; font-weight:bold; text-shadow: 0px 2px 2px #090;}
 .userpart3 ul { margin:0; padding:0;}
 .userpart3 ul li { list-style:none; text-align:center;}
 
@@ -424,7 +429,7 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
 
 
 /****** Timer css *********/
-.clockdiv p { font-family:Arial, Helvetica, sans-serif; color:#fff; font-size:200%; font-weight:bold; text-align:center; padding-top:10px;}
+.clockdiv p { font-family:Arial, Helvetica, sans-serif; color:#fff; font-size:400%; font-weight:bold; text-align:center; padding-top:10px;}
 /*********** Footer Part Css ************/
 .main-footerbg { 
     background: #c00000;
@@ -717,24 +722,6 @@ legend {
     width: 50px;
 }
 
-@media (max-width: 320px) {
-    .bodybtnbg {font-size: 60%;text-align: center;width: 100%;}
-    .bodybtnbg2 {font-size: 60%;text-align: center;width: 100%;}
-    header .text-center { font-size: 60%; padding-top: 20px;}
-}
-
-@media (max-width: 480px) {
-    .bodybtnbg {font-size: 60%;text-align: center;width: 100%;}
-    .bodybtnbg2 {font-size: 60%;text-align: center;width: 100%;} 
-}
-@media (min-width: 1024px) {
-    .liveclock {margin-right: 100px;}
-    .logout {margin-left: 100px;}
-    .bottom-right {padding-top: 25px;}
-    .logobg p { font-size: 40px;}
-    .clockdiv p {font-size: 65px;}
-}
-
 .input-group-addon {
     background-color: #000000;
     border: medium none;
@@ -784,14 +771,41 @@ legend {
 }
 .back-button {
   background-color: #000000;
-  border-radius: 20px 2px 2px 20px;
-  padding: 10px;
+  border-radius: 35px 2px 2px 35px;
   color: #fff;
   cursor: pointer;
+  padding: 17.6px;
 }
 .pos-menu .category-list li {
   background-color: #ff0000;
   cursor: pointer;
   margin: 5px 0;
   padding: 10px 0 10px 10px;
+}
+.ui-keyboard-accept, .ui-keyboard-cancel {
+  width: 24%;
+}
+.ui-keyboard-space{
+  width: 48%;
+}
+.ui-keyboard-enter {
+  width: 21%;
+}
+.ui-keyboard-shift {
+  width: 14%;
+}
+.user-part .sidebar-heading {
+  border-color: #343434;
+  border-radius: 10px;
+  font-size: 150%;
+}
+.button-seperator {
+  color: #ff0000;
+  font-weight: 900;
+}
+.menuList {
+  margin: 0 0 40px;
+}
+.menuList table td {
+  padding: 1px !important;
 }

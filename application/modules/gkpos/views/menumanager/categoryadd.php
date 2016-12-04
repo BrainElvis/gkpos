@@ -64,9 +64,14 @@
                         <?php echo form_close() ?>
                     </fieldset>
                 </div>
-                <div class="row main-keyboardbg">
-                    <div id="virtualKeyboard"></div>
+                <div class="clearfix pages-height">
+                     <?php echo $this->load->view('gkpos/subviews/keyboard_setting') ?>
                 </div>
+                <?php if ($this->config->item('is_touch') == 'enable'): ?>
+                    <div class="main-keyboardbg">
+                        <div id="virtualKeyboard"></div>
+                    </div>
+                <?php endif ?>
             </div>
             <?php echo $this->load->view('gkpos/menumanager/right_sidebar') ?>
         </div>
@@ -75,7 +80,10 @@
 <script type='text/javascript'>
     $(document).ready(function ()
     {
-        keyboard('virtualKeyboard');
+        manageWindowHeight();
+       <?php if ($this->config->item('is_touch') == 'enable') { ?>
+            keyboard('virtualKeyboard');
+       <?php } ?>
         setnumkeys('discount');
         $('#gkposMenuCategoryForm').validate({
             submitHandler: function (form) {

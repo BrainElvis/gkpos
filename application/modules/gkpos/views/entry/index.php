@@ -2,24 +2,26 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 left-item">
-                <div class="userlogingbg sidebar-vertical-align-center">
-                    <h2 class="text-center text-uppercase"><?php echo $this->lang->line('gkpos_users') ?></h2>
+                <div class="userlogingbg">
                     <?php if (!empty($female_users)): ?>
                         <div class="user-part female">
+                            <div class="sidebar-heading text-uppercase"><?php echo $this->lang->line('gkpos_users') . '-' . $this->lang->line('gkpos_female') ?></div>
                             <ul>
                                 <?php foreach ($female_users as $fuser): ?>
-                                    <li onclick="get_user(<?php echo $fuser->id ?>);">
+                                    <li onclick="get_user(<?php echo $fuser->id ?>);" class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                         <a href="javascript:void(0)"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/user1.png" class="img-responsive"/><span class="usernamebg"><?php echo $fuser->first_name . ' ' . $fuser->last_name ?></span></a>
                                     </li>
                                 <?php endforeach; ?>
                             </ul>
                         </div>
                     <?php endif; ?>
+                    <div class="clearfix"></div>
                     <?php if (!empty($male_users)): ?>
                         <div class="user-part male">
+                            <div class="sidebar-heading text-uppercase"><?php echo $this->lang->line('gkpos_users') . '-' . $this->lang->line('gkpos_male') ?></div>
                             <ul>
                                 <?php foreach ($male_users as $muser): ?>
-                                    <li onclick="get_user(<?php echo $muser->id ?>);">
+                                    <li onclick="get_user(<?php echo $muser->id ?>);" class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                         <a href="javascript:void(0)"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/user2.png" class="img-responsive"/> <span class="usernamebg"><?php echo $muser->first_name . ' ' . $muser->last_name ?></span></a> 
                                     </li>
                                 <?php endforeach; ?>
@@ -29,9 +31,9 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 bodyitem">
-                <div class="body-vertical-align-center">
+                <div class="body-vertical-align-center content-center">
                     <div class="user-label text-uppercase"><span id="userinfo"><?php echo $this->lang->line('gkpos_who_are_you') ?></span></div>
-                    <div class="numpad" style="display: none">
+                    <div class="numpad">
                         <div class="pin-calculatorbg">
                             <div class="pin-code text-center text-uppercase"><?php echo $this->lang->line('gkpos_enter_pin_code') ?></div>
                             <p class="text-center"> <input type="password" name="password" id="password" class="password-input"/></p>
@@ -145,21 +147,42 @@
             });
         }
     }
+
     jQuery(document).ready(function () {
         jQuery('#email').val('');
         jQuery('#username').val('');
         jQuery('#password').val('');
-        setnumkeys('password');
-
-        var height = screen.height - 211;
-        //need to work with the bellow for mobile
-        //var headerHeight = $('#gkposHeader').height();
-        //var footerHeight = $('#gkposFooter').height();
-        //var height = screen.height - (headerHeight+footerHeight);
-        //console.log(headerHeight+" "+footerHeight);
-
-        $(".bodyitem").css({"min-height": height + "px"});
-        $(".left-item").css({"min-height": height + "px"});
-        $(".right-item").css({"min-height": height + "px"});
+        setLoginNumKeys('password');
+        manageWindowHeight();
     });
+    function setLoginNumKeys(inputFiledId) {
+        jQuery('.numkey').click(function (event) {
+            var username = jQuery("#username").val();
+            var email = jQuery("#email").val();
+            if (username === '' || email === '') {
+                alert("<?php echo $this->lang->line('gkpos_who_are_you') ?>");
+                return false;
+
+            } else {
+                var numBox = document.getElementById(inputFiledId);
+                if (this.innerHTML == '0') {
+                    if (numBox.value.length > 0)
+                        numBox.value = numBox.value + this.innerHTML;
+                } else
+                    numBox.value = numBox.value + this.innerHTML;
+                event.stopPropagation();
+            }
+        });
+        $('.btnPin').click(function (event) {
+            if (this.innerHTML == 'DEL') {
+                var numBox = document.getElementById(inputFiledId);
+                if (numBox.value.length > 0) {
+                    numBox.value = numBox.value.substring(0, numBox.value.length - 1);
+                }
+            } else {
+                document.getElementById(inputFiledId).value = '';
+            }
+            event.stopPropagation();
+        });
+    }
 </script>

@@ -35,13 +35,10 @@
 </section>
 <script type="text/javascript">
     jQuery(document).ready(function () {
-        <?php if ($this->config->item('is_touch') == 'enable') { ?>
+<?php if ($this->config->item('is_touch') == 'enable') { ?>
             keyboard('virtualKeyboard');
-    <?php } ?>
+<?php } ?>
         setnumkeys('phone');
-        var height = screen.height - 211;
-        $(".bodyitem").css({"min-height": height + "px", 'background': 'red'});
-        $(".left-item").css({"min-height": height + "px"});
-        $(".right-item").css({"min-height": height + "px"});
+        manageWindowHeight();
     });
 </script>

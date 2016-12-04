@@ -47,9 +47,6 @@
 </section>
 <script>
     $(document).ready(function () {
-        var height = screen.height - 211;
-        $(".bodyitem").css({"min-height": height + "px"});
-        $(".left-item").css({"min-height": height + "px"});
-        $(".right-item").css({"min-height": height + "px"});
+        manageWindowHeight();
     });
 </script>

@@ -164,6 +164,9 @@ $lang['gkpos_dine_out_price_required'] = "DINE-OUT-PRICE in number is required N
 $lang['gkpos_touch_keyboard_enable_disable_setting']="Enable/disbale Touch screen keyboard";
 $lang['gkpos_enable']="Enable";
 $lang['gkpos_disable']="Disable";
+$lang['gkpos_male']="Male";
+$lang['gkpos_female']="Female";
+$lang['gkpos_action']="Action";
 
 
 

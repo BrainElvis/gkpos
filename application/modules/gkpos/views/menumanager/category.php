@@ -1,4 +1,3 @@
-
 <section id="body">
     <div class="container-fluid">
         <div class="row">
@@ -10,3 +9,8 @@
         </div>
     </div>
 </section>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        manageWindowHeight();    
+    });
+</script>

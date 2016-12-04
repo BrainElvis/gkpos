@@ -6,7 +6,7 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 bodyitem">
                 <?php echo $this->load->view('gkpos/subviews/keyboard_setting') ?>
                 <div class="middlebg body-vertical-align-center">
-                    <p class="text-center"><?php echo $this->lang->line('gkpos_slecte_order_type') ?></p>
+                    <p class="text-center text-uppercase sidebar-heading"><?php echo $this->lang->line('gkpos_slecte_order_type') ?></p>
                     <div class="deliverybg">
                         <a href="<?php echo site_url('gkpos/delivery') ?>"><h2><img src="<?php echo ASSETS_GKPOS_PATH ?>images/deliveryicon.png" width="30" height="30" />&nbsp;<?php echo $this->lang->line('gkpos_delivery') ?></h2></a>
                     </div>
@@ -24,9 +24,6 @@
 </section>
 <script>
     $(document).ready(function () {
-        var height = screen.height - 211;
-        $(".bodyitem").css({"min-height": height + "px"});
-        $(".left-item").css({"min-height": height + "px"});
-        $(".right-item").css({"min-height": height + "px"});
+         manageWindowHeight();
     });
 </script>

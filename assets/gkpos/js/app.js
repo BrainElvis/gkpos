@@ -7,51 +7,8 @@ $.fn.numpad.defaults.onKeypadCreate = function () {
     $(this).find('.done').addClass('btn-primary');
 };
 
-function setnumkeys(inputFiledId) {
-    jQuery('.numkey').click(function (event) {
-        var numBox = document.getElementById(inputFiledId);
-        if (this.innerHTML == '0') {
-            if (numBox.value.length > 0)
-                numBox.value = numBox.value + this.innerHTML;
-        } else
-            numBox.value = numBox.value + this.innerHTML;
-        event.stopPropagation();
-    });
-    $('.btnPin').click(function (event) {
-        if (this.innerHTML == 'DEL') {
-            var numBox = document.getElementById(inputFiledId);
-            if (numBox.value.length > 0) {
-                numBox.value = numBox.value.substring(0, numBox.value.length - 1);
-            }
-        } else {
-            document.getElementById(inputFiledId).value = '';
-        }
-        event.stopPropagation();
-    });
-}
-function setnumkeys2(inputFiledId) {
-    jQuery('.numkey').click(function (event) {
-        var numBox = document.getElementById(inputFiledId);
-        if (this.innerHTML == '0') {
-            if (numBox.value.length > 0)
-                numBox.value = numBox.value + this.innerHTML;
-        } else
-            numBox.value = numBox.value + this.innerHTML;
-        event.stopPropagation();
-    });
-    $('.btnPin').click(function (event) {
-        if (this.innerHTML == 'DEL') {
-            var numBox = document.getElementById(inputFiledId);
-            if (numBox.value.length > 0) {
-                numBox.value = numBox.value.substring(0, numBox.value.length - 1);
-            }
-        } else {
-            document.getElementById(inputFiledId).value = '';
-        }
-        event.stopPropagation();
-    });
-}
-function setnumkeys3(inputFiledId) {
+
+function setPhoneNumKeys(inputFiledId) {
     jQuery('.numkey').click(function (event) {
         var numBox = document.getElementById(inputFiledId);
         if (this.innerHTML == '0') {
@@ -74,6 +31,28 @@ function setnumkeys3(inputFiledId) {
     });
 }
 
+function setnumkeys(inputFiledId) {
+    jQuery('.numkey').click(function (event) {
+        var numBox = document.getElementById(inputFiledId);
+        if (this.innerHTML == '0') {
+            if (numBox.value.length > 0)
+                numBox.value = numBox.value + this.innerHTML;
+        } else
+            numBox.value = numBox.value + this.innerHTML;
+        event.stopPropagation();
+    });
+    $('.btnPin').click(function (event) {
+        if (this.innerHTML == 'DEL') {
+            var numBox = document.getElementById(inputFiledId);
+            if (numBox.value.length > 0) {
+                numBox.value = numBox.value.substring(0, numBox.value.length - 1);
+            }
+        } else {
+            document.getElementById(inputFiledId).value = '';
+        }
+        event.stopPropagation();
+    });
+}
 
 
 function set_feedback(text, classname, keep_displayed)
@@ -116,3 +95,24 @@ function myJqueryKeyboard(keyboard) {
 function goBack() {
     window.history.back();
 }
+function manageWindowHeight() {
+    var staticHeight = $(window).height();
+    var staticCalHeight = staticHeight - 100;
+    $(".bodyitem").css({"min-height": staticCalHeight + "px"});
+    $(".left-item").css({"min-height": staticCalHeight + "px"});
+    $(".right-item").css({"min-height": staticCalHeight + "px"});
+    $(window).bind('resize', function () {
+        //also can work with width 
+        var width = $(window).width();
+        var MaxResizeHeight = $(window).height();
+        var CalculatedResizeHeight = MaxResizeHeight - 100;
+        $(".bodyitem").css({"min-height": CalculatedResizeHeight + "px"});
+        $(".left-item").css({"min-height": CalculatedResizeHeight + "px"});
+        $(".right-item").css({"min-height": CalculatedResizeHeight + "px"});
+        $('.sidebar-heading,.liveclock').css('font-size', ($(window).width * 0.2) + 'px');
+        $('h1').css('font-size', width * 0.03 + 'px');
+        $('h2').css('font-size', width * 0.02 + 'px');
+        $('h3').css('font-size', width * 0.01 + 'px');
+    });
+}
+

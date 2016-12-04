@@ -11,12 +11,12 @@
             <h2><a href="#"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/callersbg.png" width="192" height="73" class="img-responsive center-block"/></a></h2>
             <div class="callnumbg">
                 <p><?php echo $this->lang->line('gkpos_customer') ?>&nbsp; <?php echo $this->lang->line('gkpos_name') ?></p>
-                <input class="customernambg" type="text" name="cust_name" id="cust_name" />
+                <input class="customernambg" type="text" name="cust_name" id="cust_name" onfocus="myJqueryKeyboard('cust_name')" placeholder="Customer Name" />
             </div>
 
             <div class="callnumbg">
                 <p><?php echo$this->lang->line('gkpos_phone') ?>&nbsp;<?php echo $this->lang->line('gkpos_number') ?> </p>
-                <input class="customernambg" type="text" name="cust_phone" id="cust_phone"/>
+                <input class="customernambg" type="text" name="cust_phone" id="cust_phone" onfocus="myJqueryKeyboard('cust_phone')" placeholder="Customer Phone"/>
             </div>
             <a href="<?php echo site_url('gkpos/takeaway') ?>"><div class="mainsystembg delivery-bg img-responsive"><?php echo $this->lang->line('gkpos_finished') ?></div></a>
         </div>

@@ -24,7 +24,7 @@
         </ul>
     </div>
     <div class="rightbox-buttongbg">
-        <a href="<?php echo site_url('gkpos/collection') ?>"><div class="center-div center-block collection-bg text-center"><h3><?php echo $this->lang->line('gkpos_finished') ?></h3></div></a>
+        <a href="<?php echo site_url('gkpos/order') ?>"><div class="center-div center-block collection-bg text-center"><h3><?php echo $this->lang->line('gkpos_finished') ?></h3></div></a>
         <a href="<?php echo site_url('gkpos') ?>"><div class="center-div center-block waiting-bg text-center"><h3><?php echo $this->lang->line('gkpos_cancel') ?></h3></div></a>
     </div>
 </div>

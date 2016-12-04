@@ -86,11 +86,11 @@
                         </form>
                     </fieldset>
                 </div>
-                <?php if($this->config->item('is_touch')=='enable'):?>
-                <div class="main-keyboardbg">
-                    <div id="virtualKeyboard"></div>
-                </div>
-                 <?php endif?>
+                <?php if ($this->config->item('is_touch') == 'enable'): ?>
+                    <div class="main-keyboardbg">
+                        <div id="virtualKeyboard"></div>
+                    </div>
+                <?php endif ?>
             </div>
             <?php echo $template['partials']['right_sidebar_order'] ?>
         </div>
@@ -98,36 +98,33 @@
 </section>
 <script type="text/javascript">
     jQuery(document).ready(function () {
-        var height = screen.height - 211;
-        $(".bodyitem").css({"min-height": height + "px", 'background': 'red'});
-        $(".left-item").css({"min-height": height + "px"});
-        $(".right-item").css({"min-height": height + "px"});
-        <?php if($this->config->item('is_touch')=='enable') { ?>
-          keyboard('virtualKeyboard');
-        <?php } ?>
-        setnumkeys('phone');
-        <?php $this->load->view('gkpos/partials/datepicker_locale'); ?>
+        manageWindowHeight();
+        setPhoneNumKeys('phone');
+<?php if ($this->config->item('is_touch') == 'enable') { ?>
+            keyboard('virtualKeyboard');
+<?php } ?>
+<?php $this->load->view('gkpos/partials/datepicker_locale'); ?>
         $(".date_filter").datetimepicker({
-                format: "<?php echo gkpos_dateformat($this->config->item("dateformat")) . ' ' . dateformat_bootstrap($this->config->item("timeformat")); ?>",
-                startDate: "<?php echo date($this->config->item('dateformat') . ' ' . $this->config->item('timeformat'), mktime(0, 0, 0, 1, 1, 2010)); ?>",
-                <?php
-                $t = $this->config->item('timeformat');
-                $m = $t[strlen($t) - 1];
-                if (strpos($this->config->item('timeformat'), 'a') !== false || strpos($this->config->item('timeformat'), 'A') !== false) {
-                    ?>
-                            showMeridian: true,
-                    <?php
-                } else {
-                    ?>
-                            showMeridian: false,
-                    <?php
-                }
-                ?>
-                autoclose: true,
+        format: "<?php echo gkpos_dateformat($this->config->item("dateformat")) . ' ' . dateformat_bootstrap($this->config->item("timeformat")); ?>",
+        startDate: "<?php echo date($this->config->item('dateformat') . ' ' . $this->config->item('timeformat'), mktime(0, 0, 0, 1, 1, 2010)); ?>",
+<?php
+        $t = $this->config->item('timeformat');
+        $m = $t[strlen($t) - 1];
+        if (strpos($this->config->item('timeformat'), 'a') !== false || strpos($this->config->item('timeformat'), 'A') !== false) {
+            ?>
+                    showMeridian: true,
+            <?php
+        } else {
+            ?>
+                    showMeridian: false,
+            <?php
+        }
+        ?>
+        autoclose: true,
                 todayBtn: true,
                 todayHighlight: true,
                 bootcssVer: 3,
                 language: "<?php echo $this->config->item('language'); ?>"
-          });
+      });
     });
 </script>

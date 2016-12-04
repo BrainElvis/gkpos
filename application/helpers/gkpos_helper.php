@@ -70,4 +70,7 @@ function gkpos_dateformat($php_format)
 	
     return $bootstrap_format;
 }
-
+function gkpos_chopstring($string,$x=200) {
+  $string = strip_tags(stripslashes($string)); // convert to plaintext
+  return substr($string, 0, strpos(wordwrap($string, $x), "\n"));
+}

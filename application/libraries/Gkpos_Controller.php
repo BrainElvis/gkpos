@@ -62,6 +62,7 @@ class Gkpos_Controller extends MY_Controller {
         'plugins/jquery-ui/jquery-ui.css',
         'plugins/keyboard/keyboard.css',
         'css/style.css',
+        'css/responsive.css',
     );
     public $assets_js = array(
         'js/jquery.js',

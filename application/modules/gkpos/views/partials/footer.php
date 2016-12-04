@@ -1,8 +1,8 @@
 <footer id="gkposFooter">
     <div class="container-fluid">
-        <div class="col-md-4 pull-left text-left back"><span class="back-button" onclick="goBack()">BACK</span></div>
-        <div class="col-md-4"><p class="text-center"><a href="http://gksoft.co.uk"><?php echo $this->lang->line('gkpos_powered_by') ?>:<img src="<?php echo ASSETS_GKPOS_PATH ?>images/gk-logo.png" width="98" height="47" /></a></p></div>
-        <div class="col-md-4 pull-right text-right back"><span class="back-button" onclick="goBack()">BACK</span></div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  pull-left text-left back"><span class="back-button" onclick="goBack()">BACK</span></div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><p class="text-center"><a href="http://gksoft.co.uk"><?php echo $this->lang->line('gkpos_powered_by') ?>:<img src="<?php echo ASSETS_GKPOS_PATH ?>images/gk-logo.png" width="98" height="47" /></a></p></div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right text-right back"><span class="back-button" onclick="goBack()">BACK</span></div>
     </div>
 </footer>
 <a class='warningPopup' href="#warningPopup" style="display:none"></a>
