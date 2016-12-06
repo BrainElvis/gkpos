@@ -35,10 +35,10 @@ label {
 .user-part h1 { text-align:center; margin: 0 0 40px 0; padding:0;}
 .user-part ul { margin:0; padding:0; text-align: center;}
 .user-part ul li {
-  display: inline-block;
-  list-style: outside none none;
-  margin: 5px 0;
-  padding: 5px;
+    display: inline-block;
+    list-style: outside none none;
+    margin: 5px 0;
+    padding: 5px;
 }
 .user-part h2 { padding-top:48px; font-family:'Utsaah'; font-size:46px; text-align:center; text-transform:uppercase; font-weight:bold; color:#fff; text-shadow: 0px 2px 2px #0579a4; line-height: 20px; margin:0;}
 span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;}
@@ -537,33 +537,22 @@ footer p a {
 
 .menuselection .left-top {
     background: #00aeef none repeat scroll 0 0 / cover ;
-    min-height: 60vh;
-    min-height: 710px;
 }
 .menuselection .middle-top {
     background: #000000 none repeat scroll 0 0 / cover ;
-    min-height: 60vh;
-    min-height: 710px;
 }
 .menuselection .right-top {
     background: #00aeef none repeat scroll 0 0 / cover ;
-    min-height: 60vh;
-    min-height: 710px;
 }
 .menuselection .left-bottom {
     background: #00aeef none repeat scroll 0 0 / cover ;
-    min-height: 12.1vh;
-    min-height: 103px;
 }
 .menuselection .middle-bottom {
     background: #000000 none repeat scroll 0 0 / cover ;
-    min-height: 12.1vh;
-    min-height: 103px;
+
 }
 .menuselection .right-bottom {
     background: #00aeef none repeat scroll 0 0 / cover ;
-    min-height: 12.1vh;
-    min-height: 103px;
 }
 .item-table {
     margin: -15px 0 0;
@@ -741,10 +730,6 @@ legend {
     border: medium none;
     width: 50%;
 }
-#accordion {
-    margin:20px;
-    height:300px;
-}
 .ui-widget-content a {
     color: #ffffff;
 }
@@ -755,57 +740,112 @@ legend {
     font-weight: normal;
 }
 .ui-accordion-content {
-    height: auto !important;
+    height: auto!important;
 }
 .touch-enable-disbled {
     background: #f8f8f8 none repeat scroll 0 0;
     border-radius: 100px 0;
 }
 .pos-menumanager .add-menu-block fieldset {
+    background: #31B0D5 none repeat scroll 0 0;
     color: #ffffff;
-    margin: 10px 0;
-    padding: 15px 0 0;
+}
+.pos-menumanager .add-menu-selection-block fieldset {
+    background: #ec971f none repeat scroll 0 0;
+    color: #ffffff;
 }
 .back {
-  margin: 16px 0;
+    margin: 16px 0;
 }
 .back-button {
-  background-color: #000000;
-  border-radius: 35px 2px 2px 35px;
-  color: #fff;
-  cursor: pointer;
-  padding: 17.6px;
+    background-color: #000000;
+    border-radius: 35px 2px 2px 35px;
+    color: #fff;
+    cursor: pointer;
+    padding: 17.6px;
 }
 .pos-menu .category-list li {
-  background-color: #ff0000;
-  cursor: pointer;
-  margin: 5px 0;
-  padding: 10px 0 10px 10px;
+    background-color: #ff0000;
+    cursor: pointer;
+    margin: 5px 0;
+    padding: 10px 0 10px 10px;
 }
 .ui-keyboard-accept, .ui-keyboard-cancel {
-  width: 24%;
+    width: 24%;
 }
 .ui-keyboard-space{
-  width: 48%;
+    width: 48%;
 }
 .ui-keyboard-enter {
-  width: 21%;
+    width: 21%;
 }
 .ui-keyboard-shift {
-  width: 14%;
+    width: 14%;
 }
 .user-part .sidebar-heading {
-  border-color: #343434;
-  border-radius: 10px;
-  font-size: 150%;
+    border-color: #343434;
+    border-radius: 10px;
+    font-size: 150%;
 }
 .button-seperator {
-  color: #ff0000;
-  font-weight: 900;
+    color: #ff0000;
+    font-weight: 900;
 }
 .menuList {
-  margin: 0 0 40px;
+    margin: 0 0 40px;
 }
 .menuList table td {
-  padding: 1px !important;
+    padding: 1px !important;
+}
+.menuList table td a {
+    color: #000;
+}
+.add-menu-selection-block {
+    background: #449d44 none repeat scroll 0 0;
+    border-radius: 5px;
+    margin: 10px;
+}
+.category-table td {
+    font-size: 12px;
+    padding: 1px !important;
+    text-align: center;
+}
+.category-table td  a{
+    color: #000000;
+}
+.category-table th {
+    font-size: 12px;
+    padding: 1px !important;
+    text-align: center;
+}
+.btn-devide-by-one {
+    background: #5b00b6 none repeat scroll 0 0;
+    height: 45px;
+    padding: 12px;
+    border: none;
+}
+
+.btn-devide-by-two {
+    background: #4400e4 none repeat scroll 0 0;
+    height: 45px;
+    padding: 12px;
+    border: none;
+}
+.btn-devide-by-three {
+    background: #ff51ce none repeat scroll 0 0;
+    height: 45px;
+    padding: 12px;
+    border: none;
+}
+.btn-devide-by-five {
+    background: #c800ff none repeat scroll 0 0;
+    height: 45px;
+    padding: 12px;
+    border: none;
+}
+.btn-devide-by-seven {
+  background: #ffb162 none repeat scroll 0 0;
+  border: medium none;
+  height: 45px;
+  padding: 12px;
 }

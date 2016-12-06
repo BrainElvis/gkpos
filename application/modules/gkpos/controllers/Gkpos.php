@@ -13,6 +13,7 @@ class Gkpos extends Gkpos_Controller {
         }
         $this->load->helper('gkpos');
         $this->load->model('Menumanager_Model');
+        $this->load->model('Orders_Model');
         
     }
 
@@ -63,6 +64,8 @@ class Gkpos extends Gkpos_Controller {
         $this->page_title = 'Gkpos | order';
         $this->current_section = "menu order";
         $this->body_class[] = "pos-menu selection order";
+        $offset=0;
+        $data['categories'] = $this->Orders_Model->get_list('gkpos_category', array('status' => 1), array('id', 'title', 'type', 'print_option','order', 'content'), null, $offset, 'order', 'ASC');
         $data['showcategory'] = $this->Orders_Model->showcategory();
         $this->render_page('gkpos/gkpos/order', $data);
     }

@@ -1,15 +1,23 @@
 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 left-item">
-    <div class="sidebar-heading text-center text-uppercase"><?php echo $this->lang->line('gkpos_add').' '. $this->lang->line('gkpos_item').' '. $this->lang->line('gkpos_tools')?></div>
-    <div class="userlogingbg">
-        <a href="<?php echo site_url('gkpos/menumanager/categoryadd')?>"><div class="mainsystembg img-responsive waiting-bg"><?php echo $this->lang->line('gkpos_add').' '.$this->lang->line('gkpos_category') ?></div></a>
-        <a href="#"><div class="mainsystembg2 img-responsive collection-bg"><?php echo $this->lang->line('gkpos_add').' '.$this->lang->line('gkpos_menu')  ?></div></a>
-        <a href="#"><div class="mainsystembg img-responsive delivery-bg"><?php echo $this->lang->line('gkpos_add').' '.$this->lang->line('gkpos_menu').' '.$this->lang->line('gkpos_selection') ?></div></a>
-        <a href="<?php echo site_url('gkpos')?>"><div class="mainsystembg2 img-responsive waiting-bg"><?php echo $this->lang->line('gkpos_exit') ?></div></a>
+    <div class="sidebar-heading text-center text-uppercase">Help Links</div>
+    <a href="<?php echo site_url('gkpos') ?>"><div class="mainsystembg delivery-bg img-responsive text-uppercase"><?php echo $this->lang->line('gkpos_mainboard') ?></div></a>
+    <a href="#"><div class="mainsystembg2 collection-bg img-responsive text-uppercase"><?php echo $this->lang->line('gkpos_system_customer') ?></div></a>
+    <a href="#"><div class="mainsystembg waiting-bg img-responsive text-uppercase"><?php echo $this->lang->line('gkpos_system_order') ?></div></a>
+    <a href="#"><div class="mainsystembg2 delivery-bg  img-responsive text-uppercase"><?php echo $this->lang->line('gkpos_system_expense') ?></div></a>
+    <a href="#"><div class="mainsystembg collection-bg img-responsive text-uppercase"><?php echo $this->lang->line('gkpos_system_view_report') ?></div></a>
+    <a href="#"><div class="mainsystembg2 waiting-bg  img-responsive text-uppercase"><?php echo $this->lang->line('gkpos_system_stock_control') ?></div></a>
+    <a href="#"><div class="mainsystembg2 collection-bg  img-responsive text-uppercase"><?php echo $this->lang->line('gkpos_system_log_register') ?></div></a>
+    <a href="<?php echo site_url('gkpos') ?>"><div class="mainsystembg delivery-bg img-responsive text-uppercase"><?php echo $this->lang->line('gkpos_mainboard') ?></div></a>
+    <div class="sidebar-block">
+        <div class="sidebar-heading text-center text-uppercase">Others-1</div>
+        <div>
+            content coming soon...
+        </div>
     </div>
-    <div class="statistics">
-        <div class="sidebar-heading text-center text-uppercase"><?php echo $this->lang->line('gkpos_last').' '.$this->lang->line('gkpos_addition') ?></div>
-        <div class="content">
-            coming .... 
+    <div class="sidebar-block">
+        <div class="sidebar-heading text-center text-uppercase">Others-2</div>
+        <div>
+            content coming soon...
         </div>
     </div>
 </div>

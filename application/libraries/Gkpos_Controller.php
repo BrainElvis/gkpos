@@ -61,6 +61,7 @@ class Gkpos_Controller extends MY_Controller {
         'plugins/colorbox/colorbox.css',
         'plugins/jquery-ui/jquery-ui.css',
         'plugins/keyboard/keyboard.css',
+        'plugins/bootstrap3-editable/css/bootstrap-editable.css',
         'css/style.css',
         'css/responsive.css',
     );
@@ -74,6 +75,7 @@ class Gkpos_Controller extends MY_Controller {
         'plugins/colorbox/jquery.colorbox-min.js',
         'plugins/keyboard/jquery.keyboard.js',
         'plugins/keyboard/jquery.mousewheel.js',
+        'plugins/bootstrap3-editable/js/bootstrap-editable.js',
         'js/app.js',
     );
     public $js_domready = array();

@@ -74,7 +74,7 @@ $config = array(
             'rules' => 'required'
         )
     ),
-    'gkpos_menu_category' => array(
+    'gkpos_category' => array(
         array(
             'field' => 'title',
             'label' => 'Category Title',
@@ -99,6 +99,16 @@ $config = array(
             'rules' => 'required|trim',
             'errors' => array(
                 'required' => 'Menu title is required field',
+            ),
+        )
+    ),
+    'gkpos_selection' => array(
+        array(
+            'field' => 'title',
+            'label' => 'Menu Selection Title',
+            'rules' => 'required|trim',
+            'errors' => array(
+                'required' => 'Menu Selection title is required field',
             ),
         )
     )

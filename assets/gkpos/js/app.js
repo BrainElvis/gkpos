@@ -102,13 +102,22 @@ function manageWindowHeight() {
     $(".left-item").css({"min-height": staticCalHeight + "px"});
     $(".right-item").css({"min-height": staticCalHeight + "px"});
     $(window).bind('resize', function () {
-        //also can work with width 
         var width = $(window).width();
         var MaxResizeHeight = $(window).height();
         var CalculatedResizeHeight = MaxResizeHeight - 100;
         $(".bodyitem").css({"min-height": CalculatedResizeHeight + "px"});
         $(".left-item").css({"min-height": CalculatedResizeHeight + "px"});
         $(".right-item").css({"min-height": CalculatedResizeHeight + "px"});
+        if ($('.menuselection').length > 0) {
+            $('.menuselection .left-top, .menuselection .middle-top,.menuselection .right-top').css({"height": CalculatedResizeHeight - (CalculatedResizeHeight * 0.11) + "px"});
+            $('.menuselection .left-bottom,.menuselection .middle-bottom,.menuselection .right-bottom').css({"height": CalculatedResizeHeight - (CalculatedResizeHeight * 0.89) + "px"});
+        }
+        if ($('#menuManagerBody').length > 0) {
+            $('#menuManagerBody').css({"height": CalculatedResizeHeight + "px", "overflow-y": "auto", "overflow-x": "hidden"});
+        }
+        if ($('#accordion').length > 0) {
+            $('#accordion').css({"height": CalculatedResizeHeight - 70 + "px", "overflow-y": "auto", "overflow-x": "hidden"});
+        }
         $('.sidebar-heading,.liveclock').css('font-size', ($(window).width * 0.2) + 'px');
         $('h1').css('font-size', width * 0.03 + 'px');
         $('h2').css('font-size', width * 0.02 + 'px');

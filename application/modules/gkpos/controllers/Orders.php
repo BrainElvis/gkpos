@@ -16,7 +16,7 @@ class Orders extends Gkpos_Controller {
     }
 
     public function getcategory($offset = 0) {
-        $result = $this->Orders_Model->get_list('gkpos_menu_category', array('status' => 1, 'deleted' => 0, 'published' => 1), array('id', 'title', 'type', 'print_option','order', 'content'), 5, $offset, 'order', 'ASC');
+        $result = $this->Orders_Model->get_list('gkpos_category', array('status' => 1), array('id', 'title', 'type', 'print_option','order', 'content'), 13, $offset, 'order', 'ASC');
         if(!empty($result)){
             echo json_encode(array('status'=>true,'data'=>$result));
         }else{

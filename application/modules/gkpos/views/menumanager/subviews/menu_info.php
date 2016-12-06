@@ -1,9 +1,9 @@
 <div class="menu-info">
-    <a href="javascript:void(0)" onclick="toggleContent('AddMenuBlock<?php echo $cat->id ?>')"><div class="mainsystembg2 img-responsive collection-bg text-uppercase"><span class="glyphicon-plus"></span>&nbsp;<?php echo $this->lang->line('gkpos_add') . ' ' . $this->lang->line('gkpos_menu') ?></div></a>
+    <a href="javascript:void(0)" class="manage-menu btn btn-block btn-info text-center" onclick="toggleContent('AddMenuBlock<?php echo $cat->id ?>')"><span class="glyphicon glyphicon-plus"></span>&nbsp;<?php echo $this->lang->line('gkpos_add') . ' ' . $this->lang->line('gkpos_menu') ?></a>
     <div id="AddMenuBlock<?php echo $cat->id ?>" style="display: none;" class="add-menu-block">
         <div class="clearfix"></div>
         <fieldset>
-            <?php $action = $this->uri->segment(4) ? 'gkpos/menumanager/menusave/' . $this->uri->segment(4) : 'gkpos/menumanager/menusave' ?>
+            <?php $action = $this->uri->segment(4) ? 'gkpos/menumanager/menu/' . $this->uri->segment(4) : 'gkpos/menumanager/menu' ?>
             <?php echo form_open($action, array('id' => 'gkposMenuForm' . $cat->id, 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal')); ?>
             <div class="fieldset">
                 <div class='form-input-part col-lg-12 col-md-12 col-sm-12 col-xs-12 '>
@@ -87,41 +87,99 @@
         <div class="clearfix"></div>
     </div>
     <div class="menuList">
-        <?php $menus = get_record_list('gkpos_menu', array('category' => $cat->id, 'status' => 1, 'deleted' => 0, 'published' => 1), '*', 'order') ?>
+        <?php $menus = get_record_list('gkpos_menu', array('category' => $cat->id), '*', 'order') ?>
         <?php if (!empty($menus)): ?>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <td class="text-uppercase"><?php echo $this->lang->line('gkpos_menu') . ' ' . $this->lang->line('gkpos_title') ?></td>
-                        <td class="text-uppercase"> <?php echo $this->lang->line('gkpos_description') ?></td>
-                        <td class="text-uppercase"><?php echo $this->lang->line('gkpos_menu_base_price') ?></td>
-                        <td class="text-uppercase"><?php echo $this->lang->line('gkpos_menu_dine_in_price') ?></td>
-                        <td class="text-uppercase"><?php echo $this->lang->line('gkpos_menu_dine_out_price') ?></td>
-                        <td class="text-uppercase"><?php echo $this->lang->line('gkpos_action') ?></td>
+            <?php $count = 1; ?>
+            <table class="table table-responsive table-bordered category-table" id="table-<?php echo $cat->id ?>">
 
+                <tr>
+                    <th class="text-capitalize"><?php echo $this->lang->line('gkpos_menu') . ' ' . $this->lang->line('gkpos_title') ?></th>
+                    <th class="text-capitalize" style="width: 35%;"> <?php echo $this->lang->line('gkpos_description') ?></th>
+                    <th class="text-capitalize"><?php echo $this->lang->line('gkpos_price') . "[" . $this->config->item('currency_symbol') . "]" ?></th>
+                    <th class="text-capitalize"><?php echo $this->lang->line('gkpos_in') . "[" . $this->config->item('currency_symbol') . "]" ?></th>
+                    <th class="text-capitalize"><?php echo $this->lang->line('gkpos_out') . "[" . $this->config->item('currency_symbol') . "]" ?></th>
+                    <th class="text-capitalize"><?php echo $this->lang->line('gkpos_update_status') ?></th>
+                </tr>
+
+                <?php foreach ($menus as $menu): ?>
+                    <tr>
+                        <td>
+                            <a href="javascript:void(0)" onclick="editmenucell('<?php echo"title_" . $menu->id ?>')" data-type="text" id="title_<?php echo $menu->id ?>" data-name="title" data-pk="<?php echo $menu->id ?>" data-url="<?php echo site_url('gkpos/menumanager/editmenucell') ?>" data-title="<?php echo $this->lang->line('gkpos_menu') . ' ' . $this->lang->line('gkpos_title') ?>">
+                                <?php echo $menu->title ?>
+                            </a>
+                        </td>
+
+                        <td>
+                            <a href="javascript:void(0)" onclick="editmenucell('<?php echo"content_" . $menu->id ?>')" data-type="textarea" id="content_<?php echo $menu->id ?>" data-name="content" data-pk="<?php echo $menu->id ?>" data-url="<?php echo site_url('gkpos/menumanager/editmenucell') ?>" data-title="<?php echo $this->lang->line('gkpos_menu') . ' ' . $this->lang->line('gkpos_description') ?>">
+                                <?php echo $menu->content ?>
+                            </a>
+                        </td>
+
+                        <td>
+                            <a href="javascript:void(0)" onclick="editmenucell('<?php echo"base_price_" . $menu->id ?>')" data-type="text" id="base_price_<?php echo $menu->id ?>" data-name="base_price" data-pk="<?php echo $menu->id ?>" data-url="<?php echo site_url('gkpos/menumanager/editmenucell') ?>" data-title="<?php echo $this->lang->line('gkpos_menu_base_price') ?>">
+                                <?php isset($menu->base_price) && $menu->base_price > 0 ? print $menu->base_price : print $this->lang->line('gkpos_n_a') ?>
+                            </a>
+                        </td>
+
+                        <td>
+                            <a href="javascript:void(0)" onclick="editmenucell('<?php echo"in_price_" . $menu->id ?>')" data-type="text" id="in_price_<?php echo $menu->id ?>" data-name="in_price" data-pk="<?php echo $menu->id ?>" data-url="<?php echo site_url('gkpos/menumanager/editmenucell') ?>" data-title="<?php echo $this->lang->line('gkpos_menu_dine_in_price') ?>">
+                                <?php isset($menu->in_price) && $menu->in_price > 0 ? print $menu->in_price : print $this->lang->line('gkpos_n_a') ?>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="javascript:void(0)" onclick="editmenucell('<?php echo"out_price_" . $menu->id ?>')" data-type="text" id="out_price_<?php echo $menu->id ?>" data-name="out_price" data-pk="<?php echo $menu->id ?>" data-url="<?php echo site_url('gkpos/menumanager/editmenucell') ?>" data-title="<?php echo $this->lang->line('gkpos_menu_dine_out_price') ?>">
+                                <?php isset($menu->out_price) && $menu->out_price > 0 ? print $menu->out_price : print $this->lang->line('gkpos_n_a') ?>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="javascript:void(0)" onclick="editmenucell('<?php echo"status_" . $menu->id ?>')" data-type="select" id="status_<?php echo $menu->id ?>" data-name="status" data-pk="<?php echo $menu->id ?>" data-url="<?php echo site_url('gkpos/menumanager/editmenucell') ?>" data-value="<?php echo $menu->status ?>" data-title="<?php echo $this->lang->line('gkpos_update_status') ?>">
+                                <?php
+                                $color = 'black';
+                                if ($menu->status == 1) {
+                                    $color = 'green';
+                                }
+                                if ($menu->status == 2) {
+                                    $color = 'orange';
+                                }
+                                if ($menu->status == 3) {
+                                    $color = 'red';
+                                }
+                                ?>
+                                <span style="color:<?php echo $color ?>;"><?php echo $status[$menu->status] ?></span>
+                            </a>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($menus as $menu): ?>
-                        <tr>
-                            <td><?php echo $menu->title ?></td>
-                            <td><?php gkpos_chopstring($menu->content, 100) . "..." ?></td>
-                            <td><?php isset($menu->base_price) && $menu->base_price > 0 ? print to_currency($menu->base_price) : print $this->lang->line('gkpos_n_a') ?></td>
-                            <td><?php isset($menu->in_price) && $menu->in_price > 0 ? print to_currency($menu->in_price) : print $this->lang->line('gkpos_n_a') ?></td>
-                            <td><?php isset($menu->out_price) && $menu->out_price > 0 ? print to_currency($menu->out_price) : print $this->lang->line('gkpos_n_a') ?></td>
-                            <td>
-                                <span class="inline-action-button" id="edit-<?php echo $cat->id . '-' . $menu->id ?>"><img src="<?php echo ASSETS_GKPOS_PATH . 'images/edit-note.png' ?>" width="24px" height="24px"/></span>
-                                <span class="button-seperator">&nbsp;|&nbsp;</span>
-                                <span class="inline-action-button" id="edit-<?php echo $cat->id . '-' . $menu->id ?>"><img src="<?php echo ASSETS_GKPOS_PATH . 'images/delete-note.png' ?>" width="24px" height="24px"/></span>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
+                    <tr>
+                        <td colspan="6">
+                            <?php echo $this->load->view('gkpos/menumanager/subviews/selection_info', array('menu' => $menu, 'cat' => $cat, 'counter' => $count, 'status' => $status)) ?>
+                        </td>
+                    </tr>
+                    <?php $count++ ?>
+                <?php endforeach; ?>
             </table>
         <?php endif; ?>
     </div>
 </div>
 <script>
+    function MenuCellEdit(field, pk, type) {
+        $('#' + field).editable({
+            type: type,
+            pk: pk,
+            url: '<?php echo site_url("gkpos/menumanager/editcell") ?>',
+            title: 'New Value'
+        });
+    }
+
+    function editmenucell(field) {
+        $.fn.editable.defaults.mode = 'inline';
+        $('#' + field).editable({
+            source: [
+                {value: 1, text: '<?php echo $this->lang->line('gkpos_active') ?>'},
+                {value: 2, text: '<?php echo $this->lang->line('gkpos_inactive') ?>'},
+                {value: 3, text: '<?php echo $this->lang->line('gkpos_archived') ?>'}
+            ]
+        });
+    }
     function savemenu(formId, error_message_box, idToCheck) {
         $('#' + formId).validate({
             submitHandler: function (form) {
@@ -178,4 +236,5 @@
                     }
         });
     }
+
 </script>

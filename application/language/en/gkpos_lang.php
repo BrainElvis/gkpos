@@ -151,22 +151,42 @@ $lang['gkpos_category_type'] = "Category Type";
 $lang['gkpos_basic_information'] = "Basic Information";
 $lang['gkpos_discount'] = "Discount";
 $lang['gkpos_update'] = "Update";
-$lang['gkpos_menu_base_price'] = "Base Price";
-$lang['gkpos_menu_price_differs_in_dine'] = "Menu Price differs in DINE-IN and DINE-OUT";
+$lang['gkpos_menu_base_price'] = "Price";
+$lang['gkpos_menu_price_differs_in_dine'] = "Price differs in DINE-IN and DINE-OUT";
 $lang['gkpos_select_category_food_type'] = "Select Category Food Type";
-$lang['gkpos_menu_dine_in_price'] = "DINE-IN-PRICE";
-$lang['gkpos_menu_dine_out_price'] = "DINE-OUT-PRICE";
+$lang['gkpos_menu_dine_in_price'] = "Dine In";
+$lang['gkpos_menu_dine_out_price'] = "Dine Out";
 
 $lang['gkpos_menu_title_rquired'] = "At least provide menu title to proceed";
 $lang['gkpos_menu_price_rquired'] = "And menu base price in number";
 $lang['gkpos_dine_in_price_required'] = "DINE-IN-PRICE in number is required NOW";
 $lang['gkpos_dine_out_price_required'] = "DINE-OUT-PRICE in number is required NOW";
-$lang['gkpos_touch_keyboard_enable_disable_setting']="Enable/disbale Touch screen keyboard";
-$lang['gkpos_enable']="Enable";
-$lang['gkpos_disable']="Disable";
-$lang['gkpos_male']="Male";
-$lang['gkpos_female']="Female";
-$lang['gkpos_action']="Action";
+$lang['gkpos_touch_keyboard_enable_disable_setting'] = "Enable/disbale Touch screen keyboard";
+
+$lang['gkpos_menu_selection_title_rquired'] = "At least provide Selection title to proceed";
+$lang['gkpos_menu_selection_price_rquired'] = "And menu selection price in number";
+$lang['gkpos_selection_dine_in_price_required'] = "Seslection dine in price number is required NOW";
+$lang['gkpos_selection_dine_out_price_required'] = "Seslection dine out price in number is required NOW";
+$lang['gkpos_touch_keyboard_enable_disable_setting'] = "Enable/disbale Touch screen keyboard";
+
+
+$lang['gkpos_enable'] = "Enable";
+$lang['gkpos_disable'] = "Disable";
+$lang['gkpos_male'] = "Male";
+$lang['gkpos_female'] = "Female";
+$lang['gkpos_action'] = "Action";
+$lang['gkpos_update_status'] = "Updata Status";
+$lang['gkpos_manage'] = "Manage";
+$lang['gkpos_selection'] = "Selection";
+$lang['gkpos_price']="PRICE";
+$lang['gkpos_in']="IN";
+$lang['gkpos_out']="OUT";
+$lang['gkpos_active']="Active";
+$lang['gkpos_inactive']="Inactive";
+$lang['gkpos_deleted']="Deleted";
+$lang['gkpos_archived']="Archived";
+
+
 
 
 

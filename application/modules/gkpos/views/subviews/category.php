@@ -1,5 +1,5 @@
 <div id="categoryList">
-    <ul class="category-list"></ul>
+    <div class="category-list"></div>
 </div>
 <script>
     $(document).ready(function () {
@@ -12,14 +12,25 @@
                 $("#firstCatOrder").val(firstObject.order);
                 $("#lastCatId").val(lastObject.id);
                 $("#lastCatOrder").val(lastObject.order);
+                var index = 1;
+                var btnColorClass;
                 $.each(output.data, function () {
-                    $('.category-list').append('<li id="' + this.id + '" class="cat-tab" order="' + this.order + '" title="' + this.content + '" >' + this.title + '</li>');
+                    if (index % 2 == 0) {
+                        btnColorClass = "btn-devide-by-two ";
+                    } else if (index % 3 == 0 && index % 2 != 0) {
+                        btnColorClass = "btn-devide-by-three ";
+                    } else if (index % 7 == 0 && index % 2 != 0 && index % 3 != 0) {
+                        btnColorClass = "btn-devide-by-seven ";
+                    } else if (index % 5 == 0 && index % 2 != 0 && index % 3 != 0 && index % 4 != 0) {
+                        btnColorClass = "btn-devide-by-five ";
+                    } else {
+                        btnColorClass = "btn-devide-by-one ";
+                    }
+                    $('.category-list').append('<div id="' + this.id + '" class="' + btnColorClass + 'btn btn-block btn-primary text-uppercase" data-order="' + this.order + '" title="' + this.content + '" onclick=getMenuByCategory("' + this.id + '")>' + this.title + '</div>');
+                    index++;
                 });
             }
         }, 'json');
-        $("#categoryList > ul li").click(function () {
-            alert("working");
-        });
     });
 
 </script>

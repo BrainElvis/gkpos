@@ -127,5 +127,4 @@
     <div class="ktcbg col-lg-3 col-md-3 col-sm-3 col-xs-3"><?php echo $this->lang->line('gkpos_ktc')?></div>
     <div class="minusbg col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="minustextbg"> <?php echo $this->lang->line('gkpos_minus')?> </span></div>
     <div class="plusbg col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="plustextbg"> <?php echo $this->lang->line('gkpos_plus')?> </span></div>
-
 </div>
