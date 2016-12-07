@@ -1,5 +1,5 @@
 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 right-item">
-    <?php echo $this->load->view('gkpos/subviews/keyboard_setting') ?>
+    <?php echo $this->load->view('gkpos/partials/keyboard_setting') ?>
     <div class="sidebar-heading text-center text-uppercase"><?php echo $this->lang->line('gkpos_type_phone_number')?></div>
     <div class="pin-calculatorbg">
         <ul>
@@ -24,7 +24,7 @@
         </ul>
     </div>
     <div class="rightbox-buttongbg">
-        <a href="<?php echo site_url('gkpos/order') ?>"><div class="center-div center-block collection-bg text-center"><h3><?php echo $this->lang->line('gkpos_finished') ?></h3></div></a>
+        <a href="<?php echo site_url('gkpos/orders') ?>"><div class="center-div center-block collection-bg text-center"><h3><?php echo $this->lang->line('gkpos_finished') ?></h3></div></a>
         <a href="<?php echo site_url('gkpos') ?>"><div class="center-div center-block waiting-bg text-center"><h3><?php echo $this->lang->line('gkpos_cancel') ?></h3></div></a>
     </div>
 </div>

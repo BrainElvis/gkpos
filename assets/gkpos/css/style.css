@@ -634,10 +634,7 @@ a .center-div h3 {
     padding: 10px;
 }
 .menu.guest-table {
-    min-height: 50vh;
-    min-height: 580px;
     margin: 15px 0;
-
 }
 .action-button {
     margin: 0 auto;
@@ -645,10 +642,6 @@ a .center-div h3 {
 .right-top h3 {
     margin: 0 auto;
     padding: 7px 0 0;
-}
-.table.table-responsive td {
-    padding: 0 30px;
-    vertical-align: middle;
 }
 .main-arrowbg {
     margin-top: 0px;
@@ -844,8 +837,63 @@ legend {
     border: none;
 }
 .btn-devide-by-seven {
-  background: #ffb162 none repeat scroll 0 0;
-  border: medium none;
+    background: #ffb162 none repeat scroll 0 0;
+    border: medium none;
+    height: 45px;
+    padding: 12px;
+}
+.cart-table td {
+    padding: 1px 0px 1px 5px !important;
+}
+.cart-table th {
+    padding: 2px 20px 2px 0 !important;
+}
+.order-menu-list {
+    margin: 10px 0;
+    padding: 0px;
+}
+.menu-item {
+    margin: 5px;
+    min-height: 60px;
+    text-align: center;
+    width: 31.6%;
+    color:#ffffff;
+    vertical-align: middle;
+}
+#categoryDescription {
+    background: #00aeef none repeat scroll 0 0;
+    border-radius: 5px;
+    color: #ffffff;
+}
+#categoryDescription .info {
+    padding: 5px 10px;
+}
+#menuPagination {
+    background: mintcream none repeat scroll 0 0 !important;
+    border-radius: 10px;
+    height: 60px;
+    margin: 10px 0;
+}
+#menuPrevBtn img {
+    float: left;
+    margin: 7px 0 7px 7px;
+}
+#menuNextBtn img {
+    float: right;
+    margin: 7px;
+}
+.waiting-bg-color {
+    background-color: #714f04;
+    border-radius: 7px;
+    height: 45px;
+}
+.delivery-bg-color {
+    background: #4dab3a none repeat scroll 0 0;
+    height: 45px;
+    border-radius: 7px;
+}
+.collection-bg-color {
+  background: #27596b none repeat scroll 0 0;
+  border-radius: 7px;
   height: 45px;
-  padding: 12px;
 }

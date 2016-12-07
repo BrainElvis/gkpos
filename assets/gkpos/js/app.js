@@ -110,6 +110,7 @@ function manageWindowHeight() {
         $(".right-item").css({"min-height": CalculatedResizeHeight + "px"});
         if ($('.menuselection').length > 0) {
             $('.menuselection .left-top, .menuselection .middle-top,.menuselection .right-top').css({"height": CalculatedResizeHeight - (CalculatedResizeHeight * 0.11) + "px"});
+            $('.menuselection .order-menu-list').css({"height": CalculatedResizeHeight - (CalculatedResizeHeight * 0.36) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
             $('.menuselection .left-bottom,.menuselection .middle-bottom,.menuselection .right-bottom').css({"height": CalculatedResizeHeight - (CalculatedResizeHeight * 0.89) + "px"});
         }
         if ($('#menuManagerBody').length > 0) {

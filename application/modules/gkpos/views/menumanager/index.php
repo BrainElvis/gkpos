@@ -8,7 +8,7 @@ $status = array(1 => $this->lang->line('gkpos_active'), 2 => $this->lang->line('
         <div class="row">
             <?php echo $this->load->view('gkpos/menumanager/left_sidebar') ?>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 bodyitem" id="menuManagerBody">
-                <?php echo $this->load->view('gkpos/subviews/keyboard_setting') ?>
+                <?php echo $this->load->view('gkpos/partials/keyboard_setting') ?>
                 <div class="clearfix"></div>
                 <?php echo $this->load->view('gkpos/menumanager/subviews/category_info', array()) ?>
                 <div class="clearfix"></div>
