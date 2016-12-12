@@ -35,7 +35,7 @@
                     <div class="user-label text-uppercase"><span id="userinfo"><?php echo $this->lang->line('gkpos_who_are_you') ?></span></div>
                     <div class="numpad">
                         <div class="pin-calculatorbg">
-                            <div class="pin-code text-center text-uppercase"><?php echo $this->lang->line('gkpos_enter_pin_code') ?></div>
+                            <div class="text-center text-uppercase" id="pinCodeMessage"></div>
                             <p class="text-center"> <input type="password" name="password" id="password" class="password-input"/></p>
                             <ul>
                                 <li class="numkey"><?php echo $this->lang->line('gkpos_numpad_key1') ?></li>
@@ -67,7 +67,6 @@
                                     <li onclick="submit_form();"><?php echo $this->lang->line('gkpos_numpad_key_enter') ?></li>
                                 </ul>
                             </form> 
-
                         </div>
                     </div>
                     <div class="clockdiv">
@@ -93,12 +92,14 @@
         jQuery('#password').val('');
         jQuery.ajax({
             type: "POST",
-            url: base_url + 'gkpos/entry/get_user',
+            url: '<?php echo site_url("gkpos/entry/get_user") ?>',
             data: {
                 'id': id
             },
             success: function (response) {
-                jQuery('.numpad').show();
+                $('#pinCodeMessage').html('');
+                $('#pinCodeMessage').append('<p class="pin-code"><?php echo $this->lang->line("gkpos_enter_pin_code") ?></p>');
+                $("#password").removeAttr("disabled");
                 jQuery('#email').val(response.email);
                 jQuery('#username').val(response.username);
                 jQuery('#userinfo').text(response.first_name + " " + response.last_name);
@@ -111,15 +112,35 @@
         var email = jQuery("#email").val();
         var password = jQuery("#password").val();
         if (username === '' || email === '') {
-            alert("<?php echo $this->lang->line('gkpos_who_are_you') ?>");
+            jQuery("#warningPopupHeader").text("<?php echo $this->lang->line('gkpos_login_error')?>");
+            jQuery("#warningPopupContent").text("<?php echo $this->lang->line('gkpos_who_are_you_desc') ?>");
+            jQuery(".warningPopup").colorbox({
+                inline: true,
+                slideshow: false,
+                scrolling: false,
+                height: "250px",
+                open: true,
+                width: '100%',
+                maxWidth: '400px'
+            });
             return false;
         } else if (password == '') {
-            alert("<?php echo $this->lang->line('gkpos_pin_empty_warning') ?>");
+            jQuery("#warningPopupHeader").text("<?php echo $this->lang->line('gkpos_login_error')?>");
+            jQuery("#warningPopupContent").text("<?php echo $this->lang->line('gkpos_pin_empty_warning') ?>");
+            jQuery(".warningPopup").colorbox({
+                inline: true,
+                slideshow: false,
+                scrolling: false,
+                height: "250px",
+                open: true,
+                width: '100%',
+                maxWidth: '400px'
+            });
             return false;
         } else {
             jQuery.ajax({
                 type: "POST",
-                url: base_url + 'gkpos/entry/validate',
+                url: '<?php echo site_url("gkpos/entry/validate") ?>',
                 data: {
                     'username': username,
                     'email': email,
@@ -130,7 +151,7 @@
                         window.location.replace(base_url + "gkpos");
                     } else {
                         jQuery("#password").val('');
-                        jQuery("#warningPopupHeader").text("Login Error");
+                        jQuery("#warningPopupHeader").text("<?php echo $this->lang->line('gkpos_login_error')?>");
                         jQuery("#warningPopupContent").text("<?php echo $this->lang->line('gkpos_pin_invalid_warning') ?>");
                         jQuery(".warningPopup").colorbox({
                             inline: true,
@@ -154,16 +175,35 @@
         jQuery('#password').val('');
         setLoginNumKeys('password');
         manageWindowHeight();
+
     });
     function setLoginNumKeys(inputFiledId) {
+        var username = jQuery("#username").val();
+        var email = jQuery("#email").val();
+        if (username === '' || email === '') {
+            $("#" + inputFiledId).attr("disabled", true);
+        } else {
+            $("#" + inputFiledId).removeAttr("disabled", false);
+        }
         jQuery('.numkey').click(function (event) {
-            var username = jQuery("#username").val();
-            var email = jQuery("#email").val();
+            username = jQuery("#username").val();
+            email = jQuery("#email").val();
             if (username === '' || email === '') {
-                alert("<?php echo $this->lang->line('gkpos_who_are_you') ?>");
+                $("#" + inputFiledId).attr("disabled", 'disabled');
+                jQuery("#warningPopupHeader").text("<?php echo $this->lang->line('gkpos_login_error')?>");
+                jQuery("#warningPopupContent").text("<?php echo $this->lang->line('gkpos_who_are_you_desc') ?>");
+                jQuery(".warningPopup").colorbox({
+                    inline: true,
+                    slideshow: false,
+                    scrolling: false,
+                    height: "250px",
+                    open: true,
+                    width: '100%',
+                    maxWidth: '400px'
+                });
                 return false;
-
             } else {
+                $("#" + inputFiledId).removeAttr("disabled");
                 var numBox = document.getElementById(inputFiledId);
                 if (this.innerHTML == '0') {
                     if (numBox.value.length > 0)

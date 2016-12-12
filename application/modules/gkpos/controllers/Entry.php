@@ -36,6 +36,7 @@ class Entry extends Gkpos_Controller {
         if (!empty($user) && count($user) > 0) {
             $this->session->set_userdata('gkpos_userid', $user->id);
             $this->session->set_userdata('gkpos_username', $user->first_name . ' ' . $user->last_name);
+            $this->session->set_userdata('gkpos_useremail', $user->email);
             echo json_encode(array('status' => true));
         } else {
             echo json_encode(array('status' => false));

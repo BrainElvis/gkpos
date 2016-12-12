@@ -30,12 +30,12 @@ class Orders extends Gkpos_Controller {
         $firstCatOrder = $this->input->post('firstCatOrder');
         $lastCatOrder = $this->input->post('lastCatOrder');
         $pageBtn = $this->input->post('pageBtn');
-        $limit = $this->config->item('lines_per_page');
+        $limit = $this->config->item('category_line_page');
         $maxmin = $this->Orders_Model->get_min_max('gkpos_category', 'order', array('status' => 1));
         $result = array();
         if ($pageBtn == "nextBtn" && $lastCatOrder <= $maxmin['max']) {
             $result = $this->Orders_Model->get_list('gkpos_category', array('status' => 1), array('id', 'title', 'type', 'print_option', 'order', 'content'), $limit, $lastCatOrder, 'order', 'ASC');
-        } else if ($pageBtn == "prevBtn" && $firstCatOrder >= $maxmin['min'] && $firstCatOrder > 6) {
+        } else if ($pageBtn == "prevBtn" && $firstCatOrder >= $maxmin['min'] && $firstCatOrder > $limit + 1) {
             $result = $this->Orders_Model->get_list('gkpos_category', array('status' => 1), array('id', 'title', 'type', 'print_option', 'order', 'content'), $limit, $firstCatOrder - ($limit + 1), 'order', 'ASC');
         } else {
             $result = $this->Orders_Model->get_list('gkpos_category', array('status' => 1), array('id', 'title', 'type', 'print_option', 'order', 'content'), $limit, 0, 'order', 'ASC');
@@ -47,13 +47,84 @@ class Orders extends Gkpos_Controller {
         }
     }
 
-    public function get_menus_by_category() {
-        $menus = $this->Orders_Model->get_menulist_by_cat($this->input->post('category'));
-        if (!empty($menus)) {
-            echo json_encode(array('status' => true, 'menus' => $menus));
+    public function getmenuorder() {
+        $category = $this->input->post('category');
+        $menuFirstOrder = $this->input->post('menuFirstOrder');
+        $menuLastOrder = $this->input->post('menuLastOrder');
+        $pageBtn = $this->input->post('pageBtn');
+        $menuNextBtnCounter = $this->input->post('menuNextBtnCounter');
+        $menuPrevBtnCounter = $this->input->post('menuPrevBtnCounter');
+
+        $maxmin = $this->Orders_Model->get_min_max('gkpos_menu', 'order', array('status' => 1));
+        $limit = $this->config->item('menu_line_page');
+        $offset = 0;
+        if ($pageBtn == "menuNextBtn" && $menuLastOrder <= $maxmin['max']) {
+            $offset = $limit * (int) $menuNextBtnCounter;
+            $menus_order = $this->Orders_Model->get_menulist_order_by_cat($category, $offset, $limit);
+        } else if ($pageBtn == "menuPrevBtn" && $menuFirstOrder >= $maxmin['min'] && $menuFirstOrder > $limit + 1) {
+            if ($menuPrevBtnCounter > 0) {
+                $offset = ($limit * $menuPrevBtnCounter) - $limit;
+            } else {
+                $limit - $limit;
+            }
+            $menus_order = $this->Orders_Model->get_menulist_order_by_cat($category, $offset, $limit);
         } else {
-            echo json_encode(array('status' => false, 'menus' => $menus));
+            $menus_order = $this->Orders_Model->get_menulist_order_by_cat($category, $offset, $limit);
         }
+
+
+        if (!empty($menus_order)) {
+            echo json_encode(array('status' => true, 'menus' => $menus_order, 'postdata' => $_POST));
+        } else {
+            echo json_encode(array('status' => false, 'menus' => $menus_order, 'postdata' => $offset));
+        }
+    }
+
+    public function get_menus_by_category() {
+        $category = $this->input->post('category');
+        $menuFirstOrder = $this->input->post('menuFirstOrder');
+        $menuLastOrder = $this->input->post('menuLastOrder');
+        $pageBtn = $this->input->post('pageBtn');
+        $menuNextBtnCounter = $this->input->post('menuNextBtnCounter');
+        $menuPrevBtnCounter = $this->input->post('menuPrevBtnCounter');
+        $maxmin = $this->Orders_Model->get_min_max('gkpos_menu', 'order', array('status' => 1));
+        $limit = $this->config->item('menu_line_page');
+        $offset = 0;
+        if ($pageBtn == "menuNextBtn" && $menuLastOrder <= $maxmin['max']) {
+            $offset = $limit * (int) $menuNextBtnCounter;
+            $menus_order = $this->Orders_Model->get_menulist_by_cat($category, $offset, $limit);
+        } else if ($pageBtn == "menuPrevBtn" && $menuFirstOrder >= $maxmin['min'] && $menuLastOrder > $limit + 1) {
+            if ($menuPrevBtnCounter > 0) {
+                $offset = ($limit * $menuPrevBtnCounter) - $limit;
+            } else {
+                $limit - $limit;
+            }
+
+            $menus_order = $this->Orders_Model->get_menulist_by_cat($category, $offset, $limit);
+        } else {
+            $menus_order = $this->Orders_Model->get_menulist_by_cat($category, $offset, $limit);
+        }
+        if (!empty($menus_order)) {
+            echo json_encode(array('status' => true, 'menus' => $menus_order));
+        } else {
+            echo json_encode(array('status' => false, 'menus' => $menus_order));
+        }
+    }
+
+    public function getmenuselection() {
+        $category = $this->input->post('category');
+        $menu = $this->input->post('menu');
+        $selections = $this->Orders_Model->getmenuselection($category, $menu);
+        $selCounter = count($selections);
+        if (!empty($selections)) {
+            echo json_encode(array('status' => true, 'selCounter' => $selCounter, 'selections' => $selections));
+        } else {
+            echo json_encode(array('status' => false, 'selCounter' => 0, 'selections' => array()));
+        }
+    }
+
+    public function addtocart() {
+        
     }
 
 }

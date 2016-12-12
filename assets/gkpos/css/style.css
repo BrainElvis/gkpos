@@ -8,7 +8,13 @@ a, a:hover,a:focus, a:active{outline: none; text-decoration: none; color: #fffff
 .top-borderbg {background: #c00000 none repeat scroll 0 0; border: medium none;}
 #body {margin: 50px 0}
 .text-vertical-center {color: #ffffff;font-size: 20px;font-weight: bold;padding: 10px 0;text-transform: uppercase;}
-.password-input {border: medium none; border-radius: 3px; height: 30px; margin: 0 auto;  padding: 0 10px;  width: 223px;
+.password-input {
+    border: medium none;
+    border-radius: 3px;
+    height: 30px;
+    margin: 10px 0 0;
+    padding: 0 10px;
+    width: 223px;
 }
 label {
     color: #ffffff;
@@ -27,6 +33,10 @@ label {
 }
 .pin-code {
     color: #ff6347;
+    font-size: 14px;
+    line-height: 1;
+    margin: 10px 0 0;
+    padding: 0;
 }
 /*** Left Item css ****/
 .left-item{ background:#00aeef; height:auto; }
@@ -580,8 +590,7 @@ footer p a {
     cursor: pointer;
 }
 #warningPopupContent {
-    margin: 0 20px;
-    padding: 10px;
+    padding:  10px 30px 10px 30px;
 }
 .popup-footer {
     height: 40px;
@@ -697,13 +706,15 @@ legend {
 .ui-keyboard-button {
     -moz-user-focus: ignore;
     cursor: pointer;
-    height: 50px;
+    height: 65px;
     line-height: 2em;
     margin: 0.1em;
     overflow: hidden;
-    width: 50px;
+    width: 65px;
 }
-
+.ui-keyboard-text {
+  font-size: 145%;
+}
 .input-group-addon {
     background-color: #000000;
     border: medium none;
@@ -713,7 +724,7 @@ legend {
     top:50%;
     transform: translateY(50%);
 }
-.body-vertical-align-center{
+.pos-login .body-vertical-align-center{
     transform: translateY(25%);
 }
 .form-control.addon-input {
@@ -811,6 +822,69 @@ legend {
     padding: 1px !important;
     text-align: center;
 }
+
+.item-btn {
+    height: 45px;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+}
+.item-btn.item-btn-1{
+    background: #F91937 none repeat scroll 0 0;
+
+}
+.item-btn.item-btn-2{
+    background: #03F92C none repeat scroll 0 0;
+    color:#000000; 
+}
+.item-btn.item-btn-3{
+    background: #3A28FF none repeat scroll 0 0;
+}
+.item-btn.item-btn-4{
+    background: #33F7F4 none repeat scroll 0 0;
+    color: #000000;
+}
+.item-btn.item-btn-5{
+    background: #B210ED none repeat scroll 0 0;
+}
+.item-btn.item-btn-6{
+    background: #D5F873 none repeat scroll 0 0;
+    color: #000000;
+}
+
+.item-btn.item-btn-7{
+    background: #E39206 none repeat scroll 0 0;
+}
+
+.item-btn.item-btn-8{
+    background: #A9F49D none repeat scroll 0 0;
+    color: #000000;
+}
+.item-btn.item-btn-9{
+    background: #5D10ED none repeat scroll 0 0;
+}
+.item-btn.item-btn-10{
+    background: #F5D8A8 none repeat scroll 0 0;
+    color: #000000;
+}
+.item-btn.item-btn-11{
+    background: #ED5A20 none repeat scroll 0 0;
+}
+.item-btn.item-btn-12{
+    background: #13CE13 none repeat scroll 0 0;
+    color: #000000;
+}
+.item-btn.item-btn-13{
+    background: #27596B none repeat scroll 0 0;
+}
+.item-btn.item-btn-14{
+    background: #c800ff none repeat scroll 0 0;
+}
+.item-btn.item-btn-15{
+    background: #c800ff none repeat scroll 0 0;
+}
+
+
 .btn-devide-by-one {
     background: #5b00b6 none repeat scroll 0 0;
     height: 45px;
@@ -853,8 +927,8 @@ legend {
     padding: 0px;
 }
 .menu-item {
-    margin: 5px;
-    min-height: 60px;
+    margin: 4px;
+    min-height: 50px;
     text-align: center;
     width: 31.6%;
     color:#ffffff;
@@ -874,11 +948,11 @@ legend {
     height: 60px;
     margin: 10px 0;
 }
-#menuPrevBtn img {
+.menuPrevBtn img {
     float: left;
     margin: 7px 0 7px 7px;
 }
-#menuNextBtn img {
+.menuNextBtn img {
     float: right;
     margin: 7px;
 }
@@ -893,7 +967,31 @@ legend {
     border-radius: 7px;
 }
 .collection-bg-color {
-  background: #27596b none repeat scroll 0 0;
-  border-radius: 7px;
-  height: 45px;
+    background: #27596b none repeat scroll 0 0;
+    border-radius: 7px;
+    height: 45px;
+}
+#cboxContent {
+    background: #00AEEF none repeat scroll 0 0;
+    margin-top: 20px;
+    color: #ffffff;
+    border-radius: 5px 0px 10px 5px;
+}
+.closeWarningPopup.btn {
+    background: #ff0000 none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 8px 0;
+    text-transform: uppercase;
+}
+.menu-selection-popup #cboxContent {
+    background: #000000 none repeat scroll 0 0;
+}
+.delivery-info-submit-btn {
+  width: 100% !important;
+  height: 55px!important;
+  font-size: 150%;
 }

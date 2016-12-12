@@ -125,4 +125,21 @@ function manageWindowHeight() {
         $('h3').css('font-size', width * 0.01 + 'px');
     });
 }
+function addjqueryValidatorFunction() {
+    jQuery.validator.addMethod("lettersonly", function (value, element) {
+        return this.optional(element) || /^[a-z\s]+$/i.test(value);
+    }, "Only alphabetical characters");
+    jQuery.validator.addMethod('phone', function (value, element) {
+        return this.optional(element) || value.length > 9 &&
+                value.match(/^(((\+44)? ?(\(0\))? ?)|(0))( ?[0-9]{3,4}){3}$/);
+    }, 'Please specify a valid phone number');
+    jQuery.validator.addMethod("postcodeUK", function (value, element) {
+        return this.optional(element) || /^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$/i.test(value);
+    }, "Please specify a valid Postcode");
+
+    $.validator.addMethod("loginRegex", function (value, element) {
+        return this.optional(element) || /^[A-Za-z][a-z0-9\-\s]+$/i.test(value);
+    }, "Username must contain only letters, numbers, or dashes.");
+
+}
 

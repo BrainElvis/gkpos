@@ -14,21 +14,21 @@ class Gkpos extends Gkpos_Controller {
         $this->load->helper('gkpos');
         $this->load->model('Menumanager_Model');
         $this->load->model('Orders_Model');
-        
     }
 
     public function index() {
         $this->page_title = 'Gkpos | Mainboard';
         $this->current_section = "Mainboard";
         $this->body_class [] = "pos-mainboard";
+        //debugPrint(array('user_id'=>$this->session->userdata('gkpos_userid'),'username'=>$this->session->userdata('gkpos_username'),'useremail'=>$this->session->userdata('gkpos_useremail')));
         $this->render_page('gkpos/gkpos/index');
     }
 
     public function takeaway() {
-        $this->page_title = 'Gkpos | takeaway';
-        $this->current_section = "takeaway";
-        $this->body_class[] = "pos-takeaway";
-        $this->render_page('gkpos/gkpos/takeaway');
+        $info = $this->input->get('info');
+        $this->session->set_userdata('order_type', $info);
+        //debugPrint($this->session->userdata('order_type'));
+        $this->load->view('gkpos/gkpos/takeaway');
     }
 
     public function delivery() {
@@ -53,10 +53,13 @@ class Gkpos extends Gkpos_Controller {
     }
 
     public function table() {
-        $this->page_title = 'Gkpos | Table';
-        $this->current_section = "Table Order";
-        $this->body_class[] = "table-order";
-        $this->render_page('gkpos/gkpos/table');
+        //$this->page_title = 'Gkpos | Table';
+        //$this->current_section = "Table Order";
+        //$this->body_class[] = "table-order";
+        $info = $this->input->get('info');
+        $this->session->set_userdata('order_type', $info);
+        $this->load->view('gkpos/gkpos/table');
+        //$this->render_page('gkpos/gkpos/table');
     }
 
     public function systemmanagement() {

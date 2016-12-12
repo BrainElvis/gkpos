@@ -28,7 +28,37 @@
                     var index = 1;
                     var btnColorClass;
                     $.each(output.categories, function () {
-                        if (index % 2 == 0) {
+                        if (index == 1) {
+                            btnColorClass = "item-btn item-btn-1 ";
+                        } else if (index == 2) {
+                            btnColorClass = "item-btn item-btn-2 ";
+                        } else if (index == 3) {
+                            btnColorClass = "item-btn item-btn-3 ";
+                        } else if (index == 4) {
+                            btnColorClass = "item-btn item-btn-4 ";
+                        } else if (index == 5) {
+                            btnColorClass = "item-btn item-btn-5 ";
+                        } else if (index == 6) {
+                            btnColorClass = "item-btn item-btn-6 ";
+                        } else if (index == 7) {
+                            btnColorClass = "item-btn item-btn-7 ";
+                        } else if (index == 8) {
+                            btnColorClass = "item-btn item-btn-8 ";
+                        } else if (index == 9) {
+                            btnColorClass = "item-btn item-btn-9 ";
+                        } else if (index == 10) {
+                            btnColorClass = "item-btn item-btn-10 ";
+                        } else if (index == 11) {
+                            btnColorClass = "item-btn item-btn-11 ";
+                        } else if (index == 12) {
+                            btnColorClass = "item-btn item-btn-12 ";
+                        } else if (index == 13) {
+                            btnColorClass = "item-btn item-btn-13 ";
+                        } else if (index == 14) {
+                            btnColorClass = "item-btn item-btn-14 ";
+                        } else if (index == 14) {
+                            btnColorClass = "item-btn item-btn-15 ";
+                        } else if (index % 2 == 0) {
                             btnColorClass = "btn-devide-by-two ";
                         } else if (index % 3 == 0 && index % 2 != 0) {
                             btnColorClass = "btn-devide-by-three ";
@@ -39,18 +69,25 @@
                         } else {
                             btnColorClass = "btn-devide-by-one ";
                         }
-                        $('#categoryList > .category-list').append('<div id="' + this.id + '" class="' + btnColorClass + 'btn btn-block btn-primary text-uppercase" data-order="' + this.order + '" title="' + this.content + '" onclick=getMenuByCategory("' + this.id + '")>' + this.title + '</div>');
+                        $('#categoryList > .category-list').append('<div id="category_' + this.id + '" class="' + btnColorClass + 'btn btn-block btn-primary text-uppercase" data-order="' + this.order + '" title="' + this.content + '" onclick=getMenuByCategory("' + this.id + '","")>' + this.title + '</div>');
                         index++;
                     });
                 } else {
-                    alert("Nothing more");
+                    jQuery("#warningPopupHeader").text("<?php echo $this->lang->line('gkpos_category_not_found') ?>");
+                    jQuery("#warningPopupContent").text("<?php echo $this->lang->line('gkpos_category_not_found_desc') ?>");
+                    jQuery(".warningPopup").colorbox({
+                        inline: true,
+                        slideshow: false,
+                        scrolling: false,
+                        height: "250px",
+                        open: true,
+                        width: '100%',
+                        maxWidth: '400px'
+                    });
                 }
             },
             error: function (xhr, status, errorThrown) {
                 console.log("Sorry, there was a problem!");
-                console.log("Error: " + errorThrown);
-                console.log("Status: " + status);
-                console.dir(xhr);
             },
             complete: function (xhr, status) {
                 console.log("The request is complete!");

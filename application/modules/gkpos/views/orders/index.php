@@ -10,12 +10,12 @@
                 <div class="row action-button">
                     <div class="main-arrowbg col-md-offset-3 col-md-6 col-md-offset-3 text-center">
                         <ul id="menuPagination">
-                            <li><div class="prevbtng" id="menuPrevBtn" onclick="getcategory(this.id)"><a href="javascript:void(0)"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/prevbtnbg.png" width="75" height="46" /></a></div></li>
-                            <input type="hidden" id="menuFirstCatId" value="0">
-                            <input type="hidden" id="MenuFirstCatOrder" value="0">
-                            <li><div class="nextbtng" id="menuNextBtn" onclick="getcategory(this.id)"><a href="javascript:void(0)"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/nextbtnbg.png" width="75" height="46" /></a></div></li>
-                            <input type="hidden" id="menuLastCatId" value="0">
-                            <input type="hidden" id="menuLastCatOrder" value="0">
+                            <li><div class="prevbtng menuPrevBtn" id="menuPrevBtn" onclick="getMenuByCategory(this.id, 'menuPrevBtn')"><a href="javascript:void(0)"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/prevbtnbg.png" width="75" height="46" /></a></div></li>
+                            <input type="hidden" id="menuFirstOrder" value="0">
+                            <input type="hidden" id="menuPrevBtnCounter" value="0">
+                            <li><div class="nextbtng menuNextBtn" id="menuNextBtn" onclick="getMenuByCategory(this.id, 'menuNextBtn')"><a href="javascript:void(0)"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/nextbtnbg.png" width="75" height="46" /></a></div></li>
+                            <input type="hidden" id="menuLastOrder" value="0">
+                            <input type="hidden" id="menuNextBtnCounter" value="0">
                         </ul>
                     </div>
                     <div class="clearfix"></div>
@@ -35,10 +35,8 @@
                 <div class="main-arrowbg">
                     <ul>
                         <li><div class="prevbtng" id="prevBtn" onclick="getcategory(this.id)"><a href="javascript:void(0)"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/prevbtnbg.png" width="75" height="46" /></a></div></li>
-                        <input type="hidden" id="firstCatId" value="0">
                         <input type="hidden" id="firstCatOrder" value="0">
                         <li><div class="nextbtng" id="nextBtn" onclick="getcategory(this.id)"><a href="javascript:void(0)"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/nextbtnbg.png" width="75" height="46" /></a></div></li>
-                        <input type="hidden" id="lastCatId" value="0">
                         <input type="hidden" id="lastCatOrder" value="0">
                     </ul>
                 </div>

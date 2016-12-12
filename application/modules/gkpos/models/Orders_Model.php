@@ -12,12 +12,43 @@ class Orders_Model extends MY_Model {
         return $this->load->view('gkpos/orders/category', $data, true);
     }
 
-    public function get_menulist_by_cat($catid) {
-        $this->db->select('gm.id,gm.title,gm.content,gm.base_price,gm.in_price,gm.out_price,gc.id as categoryId,gc.title as categoryTitle,gc.content as categoryContent,gc.type,gc.print_option');
+    public function get_menulist_by_cat($catid, $offset = 0, $limit = 5) {
+        $this->db->select('gm.id,gm.title,gm.content,gm.base_price,gm.in_price,gm.out_price,gm.order, gc.id as categoryId,gc.title as categoryTitle,gc.content as categoryContent,gc.type,gc.print_option');
         $this->db->from('gkpos_menu gm');
         $this->db->join('gkpos_category gc', 'gc.id=gm.category', 'left');
         $this->db->where(array('gm.category' => $catid, 'gm.status' => 1));
         $this->db->order_by('gm.order', 'asc');
+        $this->db->limit($limit, $offset);
+        $query = $this->db->get();
+        if ($query->num_rows() != 0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
+
+    public function get_menulist_order_by_cat($catid, $offset = 0, $limit = 5) {
+        $this->db->select('gm.id,gm.order');
+        $this->db->from('gkpos_menu gm');
+        $this->db->where(array('gm.category' => $catid, 'gm.status' => 1));
+        $this->db->order_by('gm.order', 'asc');
+        $this->db->limit($limit, $offset);
+        $query = $this->db->get();
+        if ($query->num_rows() != 0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
+
+    public function getmenuselection($category, $menu, $offset = 0, $limit = 0) {
+        $this->db->select('SEL.id,SEL.title,SEL.content,SEL.base_price,SEL.in_price,SEL.out_price,SEL.order, MENU.id as selMenuId,MENU.title as selMenuTitle,MENU.content as selMenuContent,CATEGORY.id as selMenuCategoryId,CATEGORY.type as selMenuCategoryType,CATEGORY.print_option as selMenuCategoryPrintOption');
+        $this->db->from('gkpos_selection SEL');
+        $this->db->join('gkpos_menu MENU', 'MENU.id=SEL.menu', 'left');
+        $this->db->join('gkpos_category CATEGORY', 'CATEGORY.id=SEL.category', 'left');
+        $this->db->where(array('SEL.category' => $category, 'SEL.menu' => $menu, 'SEL.status' => 1));
+        $this->db->order_by('SEL.order', 'asc');
+        $this->db->limit($limit, $offset);
         $query = $this->db->get();
         if ($query->num_rows() != 0) {
             return $query->result_array();

@@ -29,69 +29,177 @@
         </div>
     <?php endif; ?>
     <div class="menupage-category-info">
-        <div id="categoryTitle"><p class="sidebar-heading text-uppercase">Please click on the menu category</p></div>
+        <div id="categoryTitle"><p class="sidebar-heading text-uppercase"><?php echo $this->lang->line('gkpos_click_category_mesage') ?></p></div>
         <div id="categoryDescription"></div>
     </div>
     <div id="menuListArea"></div>
 </div>
 <script>
-    function getMenuByCategory(category) {
+
+    function getMenuByCategory(category, pageBtn) {
+        var categoryOrder = $('#category_' + category).attr('data-order');
+        var btnColorClass = "item-btn item-btn-" + categoryOrder + " ";
+        var categoryTitle = $('#category_' + category).text();
+        $(".menuPrevBtn").attr('id', category);
+        $(".menuNextBtn").attr('id', category);
+        var menuFirstOrder = '0';
+        var menuLastOrder = '0';
+        var menuNextBtnCounter = '0';
+        var menuPrevBtnCounter = '0';
+        if (pageBtn == '') {
+            $("#menuFirstOrder").val('0');
+            $("#menuLastOrder").val('0');
+            $("#menuNextBtnCounter").val("0");
+            $("#menuPrevBtnCounter").val("0");
+        } else {
+            if (pageBtn == 'menuNextBtn') {
+                menuNextBtnCounter = parseInt($("#menuNextBtnCounter").val()) + 1;
+                $("#menuNextBtnCounter").val(menuNextBtnCounter);
+                menuPrevBtnCounter = parseInt($("#menuPrevBtnCounter").val());
+                if (menuPrevBtnCounter > 0) {
+                    $("#menuPrevBtnCounter").val(menuPrevBtnCounter - 1);
+                }
+
+            }
+            if (pageBtn == 'menuPrevBtn') {
+                menuPrevBtnCounter = parseInt($("#menuPrevBtnCounter").val()) + 1;
+                $("#menuPrevBtnCounter").val(menuPrevBtnCounter);
+                menuNextBtnCounter = parseInt($("#menuNextBtnCounter").val());
+                if (menuNextBtnCounter > 0) {
+                    $("#menuNextBtnCounter").val(menuNextBtnCounter - 1);
+                }
+            }
+            menuFirstOrder = $("#menuFirstOrder").val();
+            menuLastOrder = $("#menuLastOrder").val();
+        }
         $.ajax({
-            url: "<?php echo site_url('gkpos/orders/get_menus_by_category') ?>",
+            url: "<?php echo site_url('gkpos/orders/getmenuorder') ?>",
             data: {
-                category: category
+                category: category,
+                pageBtn: pageBtn,
+                menuFirstOrder: menuFirstOrder,
+                menuLastOrder: menuLastOrder,
+                menuNextBtnCounter: menuNextBtnCounter,
+                menuPrevBtnCounter: menuPrevBtnCounter
             },
             type: "POST",
             dataType: "json",
-            beforeSend: function () {
-
-            },
             success: function (output) {
-                if (true === output.status) {
-                    $('#menuListArea').html('');
-                    var menuIndex = 1;
-                    $.each(output.menus, function () {
-                        if (menuIndex == 1) {
-                            $('#categoryTitle').html('');
-                            $('#categoryDescription').html('');
-                            $('#categoryTitle').append(' <p class="sidebar-heading text-uppercase">' + this.categoryTitle + '</p>');
-                            var description = this.categoryContent;
-                            if (description) {
-                                $('#categoryDescription').append(' <p class="info">' + this.categoryContent + '</p>');
-                            }
-                            btnColorClass = "btn-devide-by-one ";
-                        } else if (menuIndex % 2 == 0) {
-                            btnColorClass = "btn-devide-by-two ";
-                        } else if (menuIndex % 3 == 0 && menuIndex % 2 != 0) {
-                            btnColorClass = "btn-devide-by-three ";
-                        } else if (menuIndex % 7 == 0 && menuIndex % 2 != 0 && menuIndex % 3 != 0) {
-                            btnColorClass = "btn-devide-by-seven ";
-                        } else if (menuIndex % 5 == 0 && menuIndex % 2 != 0 && menuIndex % 3 != 0 && menuIndex % 4 != 0) {
-                            btnColorClass = "btn-devide-by-five ";
-                        } else {
-                            btnColorClass = "btn-devide-by-one ";
-                        }
-                        $('#menuListArea').append('<div id="' + this.category + this.id + '" class="' + btnColorClass + 'col-lg-4 col-md-4 col-sm-4 col-xs-4 menu-item" title="' + this.content + '" onclick=getMenuByCategory("' + this.id + '")>' + this.title + '</div>');
-                        menuIndex++;
-                    });
+                if (true == output.status) {
+                    var objectLength = output.menus.length;
+                    if (objectLength > 0) {
+                        getmenus(category, pageBtn, menuFirstOrder, menuLastOrder, btnColorClass, menuNextBtnCounter, menuPrevBtnCounter);
+                    }
                 } else {
+                    $("#menuNextBtnCounter").val("0");
+                    $("#menuPrevBtnCounter").val("0");
+                    $('#categoryTitle').html('');
+                    $('#categoryTitle').append(' <p class="sidebar-heading text-uppercase">' + categoryTitle + '</p>');
                     $('#menuListArea').html('');
                     $('#categoryDescription').html('');
-                    $('#categoryDescription').append(' <p class="info text-uppercase">No Menus found on this category</p>');
+                    $('#categoryDescription').append('<p class="' + btnColorClass + 'info text-uppercase"><?php echo $this->lang->line("gkpos_menu_not_found"); ?></p>');
+                }
+            }
+        });
+    }
+    function getmenus(category, pageBtn, menuFirstOrder, menuLastOrder, btnColorClass, menuNextBtnCounter, menuPrevBtnCounter) {
+        $.ajax({
+            url: "<?php echo site_url('gkpos/orders/get_menus_by_category') ?>",
+            data: {
+                category: category,
+                menuFirstOrder: menuFirstOrder,
+                menuLastOrder: menuLastOrder,
+                pageBtn: pageBtn,
+                menuNextBtnCounter: menuNextBtnCounter,
+                menuPrevBtnCounter: menuPrevBtnCounter
+            },
+            type: "POST",
+            dataType: "json",
+            success: function (output) {
+                if (true === output.status) {
+                    var objectLength = output.menus.length;
+                    if (objectLength > 0) {
+                        var firstObject = output.menus[0];
+                        var lastObject = output.menus[objectLength - 1];
+                        menuFirstOrder = firstObject.order;
+                        $("#menuFirstOrder").val(menuFirstOrder);
+                        menuLastOrder = lastObject.order;
+                        $("#menuLastOrder").val(menuLastOrder);
+                        var menuIndex = 1;
+                        $('#menuListArea').html('');
+                        $.each(output.menus, function () {
+                            if (menuIndex == 1) {
+                                $('#categoryTitle').html('');
+                                $('#categoryDescription').html('');
+                                $('#categoryTitle').append(' <p class="sidebar-heading text-uppercase">' + this.categoryTitle + '</p>');
+                                var description = this.categoryContent;
+                                if (description) {
+                                    $('#categoryDescription').append(' <p class="' + btnColorClass + 'info text-uppercase">' + this.categoryContent + '</p>');
+                                }
+                            }
+                            $('#menuListArea').append('<div id="' + this.categoryId + "_" + this.id + '" class="' + btnColorClass + 'col-lg-4 col-md-4 col-sm-4 col-xs-4 menu-item text-center text-uppercase" title="' + this.content + '" onclick=checkSelection(\'' + this.categoryId + '\',\'' + this.id + '\',\'' + false + '\')>' + this.title + '</div>');
+                            menuIndex++;
+                        });
+                    }
                 }
             },
             error: function (xhr, status, errorThrown) {
                 console.log("Sorry, there was a problem!");
-                console.log("Error: " + errorThrown);
-                console.log("Status: " + status);
-                console.dir(xhr);
             },
-            // Code to run regardless of success or failure
             complete: function (xhr, status) {
                 console.log("The request is complete!");
             }
-
         });
+    }
+    function checkSelection(category, menu, sel) {
+        var menuTitle = $("#" + category + "_" + menu).text();
+        if ('false' == sel) {
+            $.ajax({
+                url: "<?php echo site_url('gkpos/orders/getmenuselection') ?>",
+                data: {
+                    category: category,
+                    menu: menu
+                },
+                type: "POST",
+                dataType: "json",
+                success: function (output) {
+                    if (true == output.status) {
+                        $('#warningPopupContent').html('');
+                        $.each(output.selections, function () {
+                            var btnColorClass = "item-btn item-btn-" + this.selMenuCategoryId + " ";
+                            $('#warningPopupContent').append('<div id="' + this.selMenuCategoryId + "_" + this.selMenuId + "_" + this.id + '" class="' + btnColorClass + 'col-lg-4 col-md-4 col-sm-4 col-xs-4 menu-item text-center text-uppercase" title="' + this.content + '" onclick=addtocart(\'' + this.selMenuCategoryId + '\',\'' + this.selMenuId + '\',\'' + this.id + '\')>' + this.title + '</div>');
+                        });
+                        jQuery("#warningPopupHeader").text(menuTitle + ' ' + "<?php echo $this->lang->line('gkpos_selection') ?>");
+                        jQuery(".warningPopup").colorbox({
+                            inline: true,
+                            slideshow: false,
+                            scrolling: false,
+                            height: "300px",
+                            className: 'menu-selection-popup',
+                            open: true,
+                            width: '100%',
+                            maxWidth: '550px'
+                        });
+                    } else {
+                        addtocart(category, menu, sel);
+                    }
+                    console.log(output);
+                },
+                error: function (xhr, status, errorThrown) {
+                    console.log("Sorry, there was a problem!");
+                },
+                complete: function (xhr, status) {
+                    console.log("The request is complete!");
+                }
 
+            });
+        } else {
+            addtocart(category, menu, sel);
+        }
+
+    }
+    function addtocart(category, menu, sel) {
+        jQuery.colorbox.close();
+        console.log(category + "-" + menu + "-" + sel);
     }
 </script>

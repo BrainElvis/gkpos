@@ -48,6 +48,7 @@ class Entry_Model extends MY_Model {
     function clear_gkpos() {
         $this->session->unset_userdata('gkpos_userid');
         $this->session->unset_userdata('gkpos_username');
+        $this->session->unset_userdata('gkpos_useremail');
     }
 
 }

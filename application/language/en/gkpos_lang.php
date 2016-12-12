@@ -75,9 +75,10 @@ $lang['gkpos_system_admin'] = "Admin";
 $lang['gkpos_system_general_setting'] = "General Settings";
 $lang['gkpos_system_printer_setting'] = "Printer Settings";
 $lang['gkpos_system_logout'] = "Logout";
-$lang['gkpos_who_are_you'] = "Who Are You?";
-$lang['gkpos_pin_empty_warning'] = "Your pin code, please";
-$lang['gkpos_pin_invalid_warning'] = "Sorry! your pin code is invalid";
+$lang['gkpos_who_are_you'] = "WHO ARE YOU?";
+$lang['gkpos_who_are_you_desc'] = "WHO ARE YOU? Please Confirm your identity by cliking on your username";
+$lang['gkpos_pin_empty_warning'] = "YOUR PIN CODE, PLEASE";
+$lang['gkpos_pin_invalid_warning'] = "SORRY! YOUR PIN CODE IS INVALID";
 $lang['gkpos_close'] = "Close";
 $lang['gkpos_undefined'] = "undefined";
 $lang['gkpos_login'] = "User/Pincode?";
@@ -185,6 +186,12 @@ $lang['gkpos_active']="Active";
 $lang['gkpos_inactive']="Inactive";
 $lang['gkpos_deleted']="Deleted";
 $lang['gkpos_archived']="Archived";
+$lang['gkpos_login_error']="LOGIN ERROR!!!";
+$lang['gkpos_category_not_found']="NO MORE CATEGORIES FOUND";
+$lang['gkpos_category_not_found_desc']="There is no more active category. Please reverse back...";
+$lang['gkpos_click_category_mesage']="Please click on the menu category";
+$lang['gkpos_menu_not_found']="No Menus found on this category";
+
 
 
 
