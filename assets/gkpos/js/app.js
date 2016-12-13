@@ -143,3 +143,58 @@ function addjqueryValidatorFunction() {
 
 }
 
+$(function () {
+    $.widget("custom.myAutocomplete", $.ui.autocomplete, {
+        _create: function () {
+            this._super();
+            this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
+        },
+        _renderMenu: function (ul, items) {
+            var currentCategory = "";
+            $.each(items, function (index, item) {
+                if (item.category != currentCategory) {
+                    ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
+                    currentCategory = item.category;
+                } else {
+                    ul.html('');
+                    if (item.category) {
+                        ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
+                    }
+                }
+
+            });
+        }
+    });
+});
+
+function myJqueryKeyboardAutoCom(keyboard) {
+    $('#' + keyboard)
+            .keyboard()
+            .myAutocomplete().addAutocomplete({data: 'myAutocomplete'}).addTyping(
+            {
+                showTyping: true,
+                delay: 0
+            }
+    );
+}
+
+function getPage(url, info) {
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+                info: info
+            },
+            success: function (output) {
+                $('#KeyboardSetting').html('');
+                $('#MiddleContent').html('');
+                $('#MiddleContent').append(output);
+            },
+            complete: function (xhr, status) {
+                console.log("The request is complete!");
+            }
+
+        });
+    }
+
+

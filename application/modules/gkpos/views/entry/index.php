@@ -34,7 +34,7 @@
                 <div class="body-vertical-align-center content-center">
                     <div class="user-label text-uppercase"><span id="userinfo"><?php echo $this->lang->line('gkpos_who_are_you') ?></span></div>
                     <div class="numpad">
-                        <div class="pin-calculatorbg">
+                        <div class="pin-calculatorbg collection-pin-calculatorbg">
                             <div class="text-center text-uppercase" id="pinCodeMessage"></div>
                             <p class="text-center"> <input type="password" name="password" id="password" class="password-input"/></p>
                             <ul>

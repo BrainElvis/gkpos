@@ -74,7 +74,7 @@ class Gkpos_Controller extends MY_Controller {
         'js/phpjsdate.js',
         'plugins/colorbox/jquery.colorbox-min.js',
         'plugins/keyboard/jquery.keyboard.js',
-        'plugins/keyboard/jquery.mousewheel.js',
+        'plugins/keyboard/jquery.keyboard.extension-all.min.js',
         'plugins/bootstrap3-editable/js/bootstrap-editable.js',
         'js/app.js',
     );

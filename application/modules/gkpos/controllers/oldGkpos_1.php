@@ -38,24 +38,24 @@ class Gkpos extends Gkpos_Controller {
     }
 
     public function collection() {
-        $info = $this->input->post('info');
-        $data['info'] = $info;
-        $data['current_section'] = "Collection";
-        $this->load->view('gkpos/gkpos/collection', $data, false);
+        $this->page_title = 'Gkpos | Collection';
+        $this->current_section = "Collection";
+        $this->body_class [] = "pos-collection";
+        $this->render_page('gkpos/gkpos/collection');
     }
 
     public function waiting() {
-        $info = $this->input->post('info');
-        $data['info'] = $info;
-        $data['current_section'] = "Waiting";
-        $this->load->view('gkpos/gkpos/waiting', $data, false);
+        $this->page_title = 'Gkpos | waiting';
+        $this->current_section = "waiting";
+        $this->body_class[] = "pos-waiting";
+        $this->render_page('gkpos/gkpos/waiting');
     }
 
     public function table() {
         $info = $this->input->get('info');
-        $data['info'] = $info;
-        $data['current_section'] = "Waiting";
-        $this->load->view('gkpos/gkpos/table', $data, false);
+        $this->session->set_userdata('order_type', $info);
+        $this->load->view('gkpos/gkpos/table');
+        //$this->render_page('gkpos/gkpos/table');
     }
 
     public function systemmanagement() {
@@ -72,30 +72,6 @@ class Gkpos extends Gkpos_Controller {
     public function keyboard_setting() {
         $is_touch = $this->input->post('is_touch');
         echo $this->Appconfig->batch_save(array('is_touch' => $is_touch));
-    }
-
-    public function search_customer() {
-        $key = $this->input->post('key');
-        $value = $this->input->post('value');
-        $value = str_replace(' ', '', $value);
-        $customer = $this->Orders_Model->get_single('gkpos_customer', array($key => $value));
-        if (!empty($customer)) {
-            echo json_encode(array('status' => true, 'customer' => $customer));
-        } else {
-            echo json_encode(array('status' => false));
-        }
-    }
-
-    public function get_customer() {
-        //$customer = $this->Orders_Model->get_list('gkpos_customer', array('status' => 1), array('name'));
-        $term=$this->input->get('term');
-        $this->db->select('name');
-        $this->db->from('gkpos_customer');
-        $this->db->where("name LIKE '%".$term."%'");
-        $this->db->order_by("name", "asc");
-        $result=$this->db->get()->result();
-        $customer = array_map('current', $result);
-        echo json_encode($customer);
     }
 
 }
