@@ -45,7 +45,7 @@
 <script type="text/javascript">
     jQuery(document).ready(function () {
         manageWindowHeight();
-        setPhoneNumKeys('phone');
+        setnumkeys('phone');
 <?php if ($this->config->item('is_touch') == 'enable') { ?>
             keyboard('virtualKeyboard');
 <?php } ?>

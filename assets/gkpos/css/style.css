@@ -89,7 +89,7 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
     background: #013c51 none repeat scroll 0 0;
     border-radius: 13px;
     margin-bottom: 30px;
-    margin-top: 30px;
+    margin-top: 43px;
     padding: 10px;
     width: 70%;
 }
@@ -1026,4 +1026,35 @@ legend {
     height: 60px;
     padding: 10px 0;
     text-transform: uppercase;
+}
+.mainboard-left-sideber-bottom {
+    margin: 30px 0 4px;
+}
+.page-exit-button {
+    margin: 0 0 35px;
+    text-align: center;
+}
+.page-exit-button a {
+    background: rgb(255, 255, 255) linear-gradient(rgb(255, 0, 0), rgb(255, 255, 0)) repeat scroll 0 0;
+    border-radius: 5px;
+    font-weight: bold;
+    padding: 20px 70px;
+}
+.phone-yes {
+    color: #04fa00;
+    font-weight: bold;
+    letter-spacing: 5px;
+}
+.collection-pin-calculatorbg .btnPin2 {
+    padding: 25px 18px !important;
+}
+.table-order-header {
+    color: #e00000 !important;
+    font-size: 20px !important;
+}
+#TableNumber p {
+    border: medium none !important;
+}
+#GuestQuantity p {
+    border: medium none !important;
 }

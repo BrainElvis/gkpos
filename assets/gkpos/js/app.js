@@ -8,17 +8,13 @@ $.fn.numpad.defaults.onKeypadCreate = function () {
 };
 
 
-function setPhoneNumKeys(inputFiledId) {
-    jQuery('.numkey').click(function (event) {
+function setnumkeys2(inputFiledId) {
+    jQuery('.numkey2').click(function (event) {
         var numBox = document.getElementById(inputFiledId);
-        if (this.innerHTML == '0') {
-            if (numBox.value.length > 0)
-                numBox.value = numBox.value + this.innerHTML;
-        } else
-            numBox.value = numBox.value + this.innerHTML;
+        numBox.value = numBox.value + this.innerHTML;
         event.stopPropagation();
     });
-    $('.btnPin').click(function (event) {
+    $('.btnPin2').click(function (event) {
         if (this.innerHTML == 'DEL') {
             var numBox = document.getElementById(inputFiledId);
             if (numBox.value.length > 0) {
@@ -34,11 +30,7 @@ function setPhoneNumKeys(inputFiledId) {
 function setnumkeys(inputFiledId) {
     jQuery('.numkey').click(function (event) {
         var numBox = document.getElementById(inputFiledId);
-        if (this.innerHTML == '0') {
-            if (numBox.value.length > 0)
-                numBox.value = numBox.value + this.innerHTML;
-        } else
-            numBox.value = numBox.value + this.innerHTML;
+        numBox.value = numBox.value + this.innerHTML;
         event.stopPropagation();
     });
     $('.btnPin').click(function (event) {
@@ -179,22 +171,22 @@ function myJqueryKeyboardAutoCom(keyboard) {
 }
 
 function getPage(url, info) {
-        $.ajax({
-            url: url,
-            type: "POST",
-            data: {
-                info: info
-            },
-            success: function (output) {
-                $('#KeyboardSetting').html('');
-                $('#MiddleContent').html('');
-                $('#MiddleContent').append(output);
-            },
-            complete: function (xhr, status) {
-                console.log("The request is complete!");
-            }
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: {
+            info: info
+        },
+        success: function (output) {
+            $('#KeyboardSetting').html('');
+            $('#MiddleContent').html('');
+            $('#MiddleContent').append(output);
+        },
+        complete: function (xhr, status) {
+            console.log("The request is complete!");
+        }
 
-        });
-    }
+    });
+}
 
 

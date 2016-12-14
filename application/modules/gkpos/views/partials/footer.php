@@ -32,4 +32,22 @@
             return false;
         });
     });
+    function pageExit() {
+        $.confirm({
+            'title': 'Leaving Current Page',
+            'message': 'Are you sure? <br /> You want to leave this window',
+            'buttons': {
+                'Yes': {
+                    'class': 'btn btn-success',
+                    'action': function () {
+                        window.location.replace('<?php echo site_url('gkpos') ?>');
+                    }
+                },
+                'No': {
+                    'class': 'btn btn-danger',
+                    'action': function () {}	// Nothing to do in this case. You can as well omit the action property.
+                }
+            }
+        });
+    }
 </script>

@@ -32,22 +32,45 @@ class Gkpos extends Gkpos_Controller {
 
     public function delivery() {
         $info = $this->input->post('info');
-        $data['info'] = $info;
-        $data['current_section'] = "Delivery";
+        if (is_array($info) && count($info > 1)) {
+            $data['callerName'] = $info[0];
+            $data['callerPhone'] = $info[1];
+            $data['callerOrderType'] = $info[2];
+            $data['isPhoneCall'] = $info[3];
+            $data['info'] = $info[2];
+        } else {
+            $data['info'] = $info;
+        }
+        $data['current_section'] = $this->lang->line('gkpos_delivery');
         $this->load->view('gkpos/gkpos/delivery', $data, false);
     }
 
     public function collection() {
         $info = $this->input->post('info');
-        $data['info'] = $info;
-        $data['current_section'] = "Collection";
+        if (is_array($info) && count($info > 1)) {
+            $data['callerName'] = $info[0];
+            $data['callerPhone'] = $info[1];
+            $data['callerOrderType'] = $info[2];
+            $data['isPhoneCall'] = $info[3];
+        } else {
+            $data['info'] = $info;
+        }
+        $data['current_section'] = $this->lang->line('gkpos_collection');
         $this->load->view('gkpos/gkpos/collection', $data, false);
     }
 
     public function waiting() {
-        $info = $this->input->post('info');
-        $data['info'] = $info;
-        $data['current_section'] = "Waiting";
+       $info = $this->input->post('info');
+        if (is_array($info) && count($info > 1)) {
+            $data['callerName'] = $info[0];
+            $data['callerPhone'] = $info[1];
+            $data['callerOrderType'] = $info[2];
+            $data['isPhoneCall'] = $info[3];
+            $data['info'] = $info[2];
+        } else {
+            $data['info'] = $info;
+        }
+        $data['current_section'] = $this->lang->line('gkpos_waiting');;
         $this->load->view('gkpos/gkpos/waiting', $data, false);
     }
 
@@ -88,12 +111,12 @@ class Gkpos extends Gkpos_Controller {
 
     public function get_customer() {
         //$customer = $this->Orders_Model->get_list('gkpos_customer', array('status' => 1), array('name'));
-        $term=$this->input->get('term');
+        $term = $this->input->get('term');
         $this->db->select('name');
         $this->db->from('gkpos_customer');
-        $this->db->where("name LIKE '%".$term."%'");
+        $this->db->where("name LIKE '%" . $term . "%'");
         $this->db->order_by("name", "asc");
-        $result=$this->db->get()->result();
+        $result = $this->db->get()->result();
         $customer = array_map('current', $result);
         echo json_encode($customer);
     }

@@ -62,6 +62,7 @@ class Gkpos_Controller extends MY_Controller {
         'plugins/jquery-ui/jquery-ui.css',
         'plugins/keyboard/keyboard.css',
         'plugins/bootstrap3-editable/css/bootstrap-editable.css',
+        'plugins/jquery.confirm/jquery.confirm.css',
         'css/style.css',
         'css/responsive.css',
     );
@@ -76,6 +77,7 @@ class Gkpos_Controller extends MY_Controller {
         'plugins/keyboard/jquery.keyboard.js',
         'plugins/keyboard/jquery.keyboard.extension-all.min.js',
         'plugins/bootstrap3-editable/js/bootstrap-editable.js',
+        'plugins/jquery.confirm/jquery.confirm.js',
         'js/app.js',
     );
     public $js_domready = array();

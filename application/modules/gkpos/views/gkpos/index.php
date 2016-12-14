@@ -18,8 +18,6 @@
         }
     </style>
 <?php endif; ?>
-
-
 <section id="body">
     <div class="container-fluid">
         <div class="row">
@@ -30,6 +28,7 @@
                 </div>
                 <div id="MiddleContent"></div>
                 <div id="customerInformation"></div>
+               
             </div>
             <?php echo $template['partials']['right_sidebar'] ?>
         </div>
@@ -37,14 +36,14 @@
 </section>
 <script>
     $(document).ready(function () {
-        setPhoneNumKeys('phone');
+        setnumkeys('phone');
         manageWindowHeight();
-         $( "#caller_order_type").autocomplete({
-         delay:0,
-         source:["delivery","collection", "table", "waiting"],
-         minLength: 0
-       });  
+        $("#caller_order_type").autocomplete({
+            delay: 0,
+            source: ["delivery", "collection", "table", "waiting"],
+            minLength: 0
+        });
     });
-    
+
 
 </script>
