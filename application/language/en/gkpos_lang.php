@@ -202,7 +202,7 @@ $lang['gkpos_click_to_get_customer_by_name'] = "Click to get customer informatio
 $lang['gkpos_caller_field_alert']="You must provide customer/caller ";
 $lang['gkpos_caller_field_alert_ext']="And by clicking on the search icon attached to this field you can get caller ";
 $lang['gkpos_invalid_customer']="INVALID CUSTOMER !!!";
-$lang['gkpos_customer_not_found']="There is not customer found by this ";
+$lang['gkpos_customer_not_found']="No customer found by this ";
 $lang['gkpos_order_type']="Order Type";
 $lang['gkpos_order_type_hints']="Start with: c,d,w or t";
 $lang['gkpos_order_type_hints_touch_screen']="type any one : collection,delivery,waiting or table";
@@ -211,7 +211,9 @@ $lang['gkpos_valid_name_required']="You must provide customer name with alphabet
 $lang['gkpos_customer_street_required']="Customer Street is required";
 $lang['gkpos_customer_postcode_required']="Please specify a valid Postcode";
 $lang['gkpos_order_delivery_time_required']="Order delivery Time is a required field";
-
+$lang['gkpos_table_number_required']="Please specify table number with integer value only";
+$lang['gkpos_table_guest_quantity_required']="Please specify table guest quantity with integer value only";
+$lang['gkpos_table_not_vacant']="is not vacant. Please pack up order of this first";
 
 
 

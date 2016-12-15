@@ -1,8 +1,8 @@
 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 right-item">
     <div class="paginationbg">
         <ul>
-            <li><a href="#"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/prevbg.png" width="89" height="69" /></a></li>
-            <li><a href="#"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/nextbg.png" width="89" height="69" /></a></li>
+            <li><a href="javascript:void(0)"  onclick="previousPage()"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/prevbg.png" width="89" height="69" /></a></li>
+            <li><a href="javascript:void(0)"  onclick="nextPage()"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/nextbg.png" width="89" height="69" /></a></li>
         </ul>
         <div class="center-div extra-bg">
             <h2><a href="#"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/callersbg.png" width="192" height="73" class="img-responsive center-block"/></a></h2>
@@ -14,7 +14,7 @@
                     <?php else: ?>
                         <input class="customernambg" type="text" name="caller_name" id="caller_name" onfocus="myJqueryKeyboard('caller_name')" placeholder="Caller Name" />
                     <?php endif ?>
-                    <span class="input-group-addon" style="background-color: #FF0000;" data-toggle="caller-name-tooltip" data-placement="top" title="<?php echo $this->lang->line('gkpos_click_to_get_caller_phone_number') ?>"><a href="javascript:void(0)" onclick="searchCaller('name')"><i class="fa fa-search" aria-hidden="true"></i></a></span>
+                   
                 </div>
             </div>
             <div class="callnumbg">
@@ -33,7 +33,7 @@
                 <?php if ($this->config->item('is_touch') == 'disable'): ?>
                     <input class="customernambg" type="text" name="caller_order_type" id="caller_order_type" placeholder="<?php echo $this->lang->line('gkpos_order_type_hints') ?>"/>
                 <?php else: ?>
-                    <input class="customernambg" type="text" name="caller_order_type" id="caller_order_type" onfocus="myJqueryKeyboard('caller_order_type')" placeholder="<?php echo $this->lang->line('gkpos_order_type_hints_touch_screen')?>"/>
+                    <input class="customernambg" type="text" name="caller_order_type" id="caller_order_type" onfocus="myJqueryKeyboard('caller_order_type')" placeholder="<?php echo $this->lang->line('gkpos_order_type_hints_touch_screen') ?>"/>
                 <?php endif ?>
             </div>
             <a href="javascript:void(0)" onclick="checkCallerInfo()"><div class="mainsystembg delivery-bg img-responsive caller-info-submit"><?php echo $this->lang->line('gkpos_finished') ?></div></a>
@@ -59,7 +59,6 @@
             minLength: 2
         });
         $('[data-toggle="caller-phone-tooltip"]').tooltip();
-        $('[data-toggle="caller-name-tooltip"]').tooltip();
         $("#caller_name").val('');
         $("#caller_phone").val('');
         $("#caller_order_type").val('');
@@ -165,6 +164,37 @@
                 }
             });
         }
+    }
+    function previousPage() {
+        var currentPage = $("#currentPage").val();
+        if (currentPage == 'table') {
+            getPage(base_url + "gkpos/waiting", "false");
+        } else if (currentPage == 'waiting') {
+            getPage(base_url + "gkpos/collection", "false");
+        } else if (currentPage == 'collection') {
+            getPage(base_url + "gkpos/delivery", "false");
+        } else if (currentPage == 'delivery') {
+            getPage(base_url + "gkpos/takeaway", "false");
+        } else {
+            window.location.reload();
+        }
+    }
+    function nextPage() {
+        var currentPage = $("#currentPage").val();
+        if (currentPage == 'takeaway') {
+            getPage(base_url + "gkpos/delivery", "false");
+        } else if (currentPage == 'delivery') {
+            getPage(base_url + "gkpos/collection", "false");
+        } else if (currentPage == 'collection') {
+            getPage(base_url + "gkpos/waiting", "false");
+        } else if (currentPage == 'waiting') {
+            getPage(base_url + "gkpos/table", "false");
+        } else if (currentPage == 'table') {
+            getPage(base_url + "gkpos/takeaway", "false");
+        } else {
+            window.location.reload();
+        }
+
     }
 
 </script>

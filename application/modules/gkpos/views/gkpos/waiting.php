@@ -6,16 +6,18 @@
             <span class="phone-no"><?php echo $this->lang->line('gkpos_no_call') ?></span>
         <?php endif ?>
         <span><?php echo" ( " . $current_section . " )" ?></span>
+           <span  class="loading centered" id="waitingAjaxLoading" style="display:none;"><img src="<?php echo ASSETS_GKPOS_PATH . 'images/ajax-loader.gif' ?>" alt="Loading..."/></span>
+        <input type="hidden" id="currentPage" value="<?php (isset($current_page) && ($current_page != '' || $current_page != null )) ? print $current_page : print'false' ?>">
     </div>
 </div>
 <div class="formpartbg">
     <fieldset>
-        <form class="form-horizontal" action=" " method="post"  id="gkposWaitingForm">
+        <form class="form-horizontal" action="<?php echo site_url('gkpos/set_customer_info') ?>" method="post"  id="gkposWaitingForm">
             <legend><?php echo $this->lang->line('gkpos_customer') . " " . $this->lang->line('gkpos_information') ?></legend>
             <!-- Text input-->
             <div class="form-group">
                 <label class="col-md-3 control-label" ><?php echo $this->lang->line('gkpos_phone') ?></label> 
-                <div class="col-md-8 inputGroupContainer">
+                <div class="col-md-8">
                     <div class="input-group">
                         <input name="phone" placeholder="<?php echo $this->lang->line('gkpos_phone') ?>" class="form-control" id="phone"  type="text" value="<?php (isset($callerPhone) && ($callerPhone != '' || $callerPhone != null)) ? print $callerPhone : print '' ?>">
                         <span class="input-group-addon"><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></span>
@@ -72,10 +74,14 @@
         $('#' + formId).validate({
             submitHandler: function (form) {
                 $(form).ajaxSubmit({
+                    beforeSend: function () {
+                        $("#waitingAjaxLoading").show();
+                    },
                     success: function (response) {
+                         $("#waitingAjaxLoading").hide();
                         if (response.success)
                         {
-                            set_feedback(response.message, 'alert alert-dismissible alert-success', false);
+                            window.location.replace('<?php echo site_url('gkpos') ?>');
                         } else
                         {
                             set_feedback(response.message, 'alert alert-dismissible alert-danger', true);
@@ -102,7 +108,7 @@
                     },
             messages:
                     {
-                        phone: "<?php echo $this->lang->line('gkpos_valid_phone_required')?>"
+                        phone: "<?php echo $this->lang->line('gkpos_valid_phone_required') ?>"
                     }
         });
     }

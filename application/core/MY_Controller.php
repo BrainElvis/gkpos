@@ -42,5 +42,17 @@ class MY_Controller extends MX_Controller {
         $data = elements($items, $this->input->post());
         return $data;
     }
+    
+    public function prepareGkposData($postedData) {
+        $items = [];
+        foreach ($postedData as $key => $value) {
+            if ($key == 'submit_form' || $key == 'id') {
+                continue;
+            }
+            $items[] = $key;
+        }
+        $data = elements($items, $postedData);
+        return $data;
+    }
 
 }

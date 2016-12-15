@@ -111,5 +111,90 @@ $config = array(
                 'required' => 'Menu Selection title is required field',
             ),
         )
+    ),
+    'gkpos_delivery' => array(
+        array(
+            'field' => 'phone',
+            'label' => 'Phone',
+            'rules' => 'required|trim',
+            'errors' => array(
+                'required' => 'Please specify a valid phone number'
+            ),
+        ),
+        array(
+            'field' => 'name',
+            'label' => 'name',
+            'rules' => 'required|trim',
+            'errors' => array(
+                'required' => 'You must provide customer name with alphabetical characters only',
+            ),
+        ),
+        array(
+            'field' => 'street',
+            'label' => 'Customer Street',
+            'rules' => 'required|trim',
+        ),
+        array(
+            'field' => 'postcode',
+            'label' => 'Postal Code',
+            'rules' => 'required|trim',
+            'errors' => array(
+                'required' => 'Please specify a valid Postcode',
+            ),
+        ),
+        array(
+            'field' => 'delivery_time',
+            'label' => 'Delivery Time',
+            'rules' => 'required|trim',
+            'errors' => array(
+                'required' => 'Order delivery Time is a required field',
+            ),
+        )
+    ),
+    'gkpos_collection' => array(
+        array(
+            'field' => 'phone',
+            'label' => 'Phone',
+            'rules' => 'required|trim',
+            'errors' => array(
+                'required' => 'Please specify a valid phone number'
+            ),
+        ),
+        array(
+            'field' => 'name',
+            'label' => 'name',
+            'rules' => 'required|trim',
+            'errors' => array(
+                'required' => 'You must provide customer name with alphabetical characters only',
+            ),
+        )
+    ),
+    'gkpos_waiting' => array(
+        array(
+            'field' => 'phone',
+            'label' => 'Phone',
+            'rules' => 'required|trim',
+            'errors' => array(
+                'required' => 'Please specify a valid phone number'
+            )
+        )
+    ),
+    'gkpos_table' => array(
+        array(
+            'field' => 'table_number',
+            'label' => 'Table Number',
+            'rules' => 'required|trim|integer',
+            'errors' => array(
+                'required' => 'Please specify table number with integer value only',
+            ),
+        ),
+        array(
+            'field' => 'guest_quantity',
+            'label' => 'Guest Quantity',
+            'rules' => 'required|trim|integer',
+            'errors' => array(
+                'required' => 'Please specify table guest quantity with integer value only',
+            ),
+        )
     )
 );

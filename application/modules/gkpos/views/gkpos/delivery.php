@@ -6,11 +6,13 @@
             <span class="phone-no"><?php echo $this->lang->line('gkpos_no_call') ?></span>
         <?php endif ?>
         <span><?php echo" ( " . $current_section . " )" ?></span>
+        <span  class="loading centered" id="deliveryAjaxLoading" style="display:none;"><img src="<?php echo ASSETS_GKPOS_PATH . 'images/ajax-loader.gif' ?>" alt="Loading..."/></span>
+        <input type="hidden" id="currentPage" value="<?php (isset($current_page) && ($current_page != '' || $current_page != null )) ? print $current_page : print'false' ?>">
     </div>
 </div>
 <div class="formpartbg">
     <fieldset>
-        <form class="form-horizontal" action=" " method="post" id="gkposDeliveryForm">
+        <form class="form-horizontal" action="<?php echo site_url('gkpos/set_customer_info') ?>" method="post" id="gkposDeliveryForm">
             <legend><?php echo $this->lang->line('gkpos_customer') . " " . $this->lang->line('gkpos_information') ?></legend>
             <!-- Text input-->
             <div class="form-group">
@@ -37,7 +39,7 @@
                         <?php else: ?>
                             <input  type="text" name="name" id="name" placeholder="<?php echo $this->lang->line('gkpos_name') ?>" class="form-control required" onfocus="myJqueryKeyboard('name')" value="<?php (isset($callerName) && ($callerName != '' || $callerName != null)) ? print $callerName : print '' ?>">
                         <?php endif; ?>
-                        <span class="input-group-addon" style="background-color: #FF0000;" data-toggle="tooltip-delivery-name" data-placement="top"  title="<?php echo $this->lang->line('gkpos_click_to_get_customer_by_name') ?>"><a href="javascript:void(0)" onclick="searchCustomer('name')"><i class="fa fa-search" aria-hidden="true"></i></a></span>
+
                     </div>
                 </div>
             </div>
@@ -138,7 +140,6 @@
 <script type="text/javascript">
     jQuery(document).ready(function () {
         $('[data-toggle="tooltip-delivery-phone"]').tooltip();
-        $('[data-toggle="tooltip-delivery-name"]').tooltip();
         //dont delete the following code it is alternative of tooptip
         //$('[data-toggle="tooltip-delivery-phone"]').popover({trigger: 'hover click'});
         $("#name").autocomplete({
@@ -182,14 +183,30 @@ if (strpos($this->config->item('timeformat'), 'a') !== false || strpos($this->co
                         },
                         success: function (output) {
                             var obj = $.parseJSON(output);
-                            var customer = obj.customer;
-                            $("#phone").val(customer.phone);
-                            $("#name").val(customer.name);
-                            $("#floor_or_apt").val(customer.floor_or_apt);
-                            $("#building").val(customer.building);
-                            $("#house").val(customer.house);
-                            $("#street").val(customer.street);
-                            $("#postcode").val(customer.postcode);
+                            if (true == obj.status) {
+                                var customer = obj.customer;
+                                $("#phone").val(customer.phone);
+                                $("#name").val(customer.name);
+                                $("#floor_or_apt").val(customer.floor_or_apt);
+                                $("#building").val(customer.building);
+                                $("#house").val(customer.house);
+                                $("#street").val(customer.street);
+                                $("#postcode").val(customer.postcode);
+                            } else {
+                                jQuery("#warningPopupHeader").text("<?php echo $this->lang->line('gkpos_invalid_customer') ?>");
+                                jQuery("#warningPopupContent").text("<?php echo $this->lang->line('gkpos_customer_not_found') . ' ' ?>" + key + "=>" + value);
+                                jQuery(".warningPopup").colorbox({
+                                    inline: true,
+                                    slideshow: false,
+                                    scrolling: false,
+                                    height: "250px",
+                                    open: true,
+                                    width: '100%',
+                                    maxWidth: '400px'
+                                });
+                                return false;
+                            }
+
                         },
                         complete: function (xhr, status) {
                             console.log("The request is complete!");
@@ -203,12 +220,15 @@ if (strpos($this->config->item('timeformat'), 'a') !== false || strpos($this->co
         $('#' + formId).validate({
             submitHandler: function (form) {
                 $(form).ajaxSubmit({
+                    beforeSend: function () {
+                        $("#deliveryAjaxLoading").show();
+                    },
                     success: function (response) {
+                        $("#deliveryAjaxLoading").hide();
                         if (response.success)
                         {
-                            set_feedback(response.message, 'alert alert-dismissible alert-success', false);
-                        } else
-                        {
+                            window.location.replace('<?php echo site_url('gkpos') ?>');
+                        } else {
                             set_feedback(response.message, 'alert alert-dismissible alert-danger', true);
                         }
                     },

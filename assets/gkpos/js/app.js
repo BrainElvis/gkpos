@@ -111,10 +111,23 @@ function manageWindowHeight() {
         if ($('#accordion').length > 0) {
             $('#accordion').css({"height": CalculatedResizeHeight - 70 + "px", "overflow-y": "auto", "overflow-x": "hidden"});
         }
+        if ($('.divider').length > 0) {
+            $('.divider').css({
+                "position": "absolute",
+                "left": ((width / 50) * 1.928) + "%",
+                "top": ((CalculatedResizeHeight / 50) * 0.295) + "%",
+                "bottom": ((CalculatedResizeHeight / 36) * 1.39) + "%",
+                "border-left": "5px solid white"
+            });
+        }
+
+
         $('.sidebar-heading,.liveclock').css('font-size', ($(window).width * 0.2) + 'px');
         $('h1').css('font-size', width * 0.03 + 'px');
         $('h2').css('font-size', width * 0.02 + 'px');
         $('h3').css('font-size', width * 0.01 + 'px');
+
+
     });
 }
 function addjqueryValidatorFunction() {

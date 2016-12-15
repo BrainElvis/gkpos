@@ -1,3 +1,4 @@
+<input type="hidden" id="currentPage" value="<?php (isset($current_page) && ($current_page != '' || $current_page != null )) ? print $current_page : print'false' ?>">
 <div class="middlebg body-vertical-align-center">
     <p class="text-center text-uppercase sidebar-heading"><?php echo $this->lang->line('gkpos_slecte_order_type') ?></p>
     <div class="deliverybg">

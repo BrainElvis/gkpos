@@ -28,7 +28,6 @@
                 </div>
                 <div id="MiddleContent"></div>
                 <div id="customerInformation"></div>
-               
             </div>
             <?php echo $template['partials']['right_sidebar'] ?>
         </div>
