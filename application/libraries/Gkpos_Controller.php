@@ -69,6 +69,7 @@ class Gkpos_Controller extends MY_Controller {
     public $assets_js = array(
         'js/jquery.js',
         'js/bootstrap.min.js',
+        'js/jquery-ui.min.js',
         'plugins/jskeyboard/js/jsKeyboard.js',
         'plugins/jskeyboard/js/main.js',
         'plugins/numpad/jquery.numpad.js',

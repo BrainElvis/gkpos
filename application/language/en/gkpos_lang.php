@@ -214,6 +214,11 @@ $lang['gkpos_order_delivery_time_required']="Order delivery Time is a required f
 $lang['gkpos_table_number_required']="Please specify table number with integer value only";
 $lang['gkpos_table_guest_quantity_required']="Please specify table guest quantity with integer value only";
 $lang['gkpos_table_not_vacant']="is not vacant. Please pack up order of this first";
+$lang['gkpos_add_item_to_cart']='Add item to cart';
+$lang['gkpos_edit_cart']='Edit cart';
+$lang['gkpos_delete_order']='Delete this order';
+$lang['gkpos_send_order_kitchen']='send order to kitchen';
+
 
 
 

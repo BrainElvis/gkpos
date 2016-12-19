@@ -44,7 +44,7 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 middle-bottom">
                 <div class="row action-button">
                     <a href="#"><div class="mainsystembg2 delivery-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_print_guest_bill'); ?></div></a>
-                    <a href="javascript:void(0)" onclick="getBaseAjaxIndexPage('<?php echo site_url('gkpos/baseajaxindex')?>','false')"><div class="mainsystembg2 collection-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_exit') ?></div></a>
+                    <a href="javascript:void(0)" onclick="getBaseAjaxPage('<?php echo site_url('gkpos/baseajaxindex')?>','false')"><div class="mainsystembg2 collection-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_exit') ?></div></a>
                     <a href="#"><div class="mainsystembg2 waiting-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_convert_to_takeaway') ?></div></a>
                 </div>
             </div>

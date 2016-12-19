@@ -1,12 +1,12 @@
 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 left-item">
     <div class="userlogingbg ">
-        <h3><img src="<?php echo ASSETS_GKPOS_PATH ?>images/seatedbg.png" width="192" height="69"  class="img-responsive center-block"/></h3>
-        <h3><img src="<?php echo ASSETS_GKPOS_PATH ?>images/seatedbg2.png" width="192" height="69" class="img-responsive center-block"/></h3>
-        <h3><img src="<?php echo ASSETS_GKPOS_PATH ?>images/seatedbg3.png" width="192" height="69" class="img-responsive center-block"/></h3>
+        <h3><a href="javascript:void(0)" onclick="getPage('<?php echo site_url('gkpos/table_seated_not_ordered') ?>', 'table')" ><img src="<?php echo ASSETS_GKPOS_PATH ?>images/seatedbg.png" width="192" height="69"  class="img-responsive center-block"/></a></h3>
+        <h3><a href="javascript:void(0)" onclick="getPage('<?php echo site_url('gkpos/table_seated_ordered') ?>', 'table')"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/seatedbg2.png" width="192" height="69" class="img-responsive center-block"/></a></h3>
+        <h3><a href="javascript:void(0)" onclick="getPage('<?php echo site_url('gkpos/table_waiting_payment') ?>', 'table')"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/seatedbg3.png" width="192" height="69" class="img-responsive center-block"/></a></h3>
         <h3><img src="<?php echo ASSETS_GKPOS_PATH ?>images/seatedbg4.png" width="192" height="69" class="img-responsive center-block"/></h3>
-        <h3><img src="<?php echo ASSETS_GKPOS_PATH ?>images/seatedbg5.png" width="192" height="69" class="img-responsive center-block"/></h3>
-        <h3><img src="<?php echo ASSETS_GKPOS_PATH ?>images/seatedbg6.png" width="192" height="69" class="img-responsive center-block"/></h3>
-        <h3><img src="<?php echo ASSETS_GKPOS_PATH ?>images/seatedbg7.png" width="192" height="69" class="img-responsive center-block"/></h3>
+        <h3><a href="javascript:void(0)" onclick="getPage('<?php echo site_url('gkpos/delivery_orders_only') ?>', 'delivery')"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/seatedbg5.png" width="192" height="69" class="img-responsive center-block"/></a></h3>
+        <h3><a href="javascript:void(0)" onclick="getPage('<?php echo site_url('gkpos/collection_orders_only') ?>', 'collection')"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/seatedbg6.png" width="192" height="69" class="img-responsive center-block"/></a></h3>
+        <h3><a href="javascript:void(0)" onclick="getPage('<?php echo site_url('gkpos/waiting_orders_only') ?>', 'waiting')"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/seatedbg7.png" width="192" height="69" class="img-responsive center-block"/></a></h3>
         <div class="mainboard-left-sideber-bottom">
             <div class="page-exit-button text-uppercase text-center">
                 <a href="javascript:void(0)" onclick="pageExit()"><i class="fa fa-power-off"></i>&nbsp;&nbsp;<?php echo $this->lang->line('gkpos_exit') ?></a>

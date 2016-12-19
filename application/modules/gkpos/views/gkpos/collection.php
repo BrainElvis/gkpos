@@ -12,7 +12,7 @@
 </div>
 <div class="formpartbg">
     <fieldset>
-        <form class="form-horizontal" action="<?php echo site_url('gkpos/set_customer_info') ?>" method="post"  id="gkposCollectionForm">
+        <form class="form-horizontal" action="<?php echo site_url('gkpos/orderinitiate') ?>" method="post"  id="gkposCollectionForm">
             <legend><?php echo $this->lang->line('gkpos_customer') . " " . $this->lang->line('gkpos_information') ?></legend>
             <!-- Text input-->
             <div class="form-group">
@@ -25,14 +25,14 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-3 control-label"><?php echo $this->lang->line('gkpos_name') ?></label>  
+                <label class="col-md-3 control-label required"><?php echo $this->lang->line('gkpos_name') ?></label>  
                 <div class="col-md-8">
                     <div class="input-group">
                         <span class="input-group-addon"><a href="#"><i class="fa fa-navicon" aria-hidden="true"></i></a></span>
                         <?php if ($this->config->item('is_touch') == 'disable'): ?>
-                            <input  name="name" id="name" placeholder="<?php echo $this->lang->line('gkpos_name') ?>" class="form-control"  type="text" value="<?php (isset($callerName) && ($callerName != '' || $callerName != null)) ? print $callerName : print '' ?>">
+                            <input  name="name" id="name" placeholder="<?php echo $this->lang->line('gkpos_name') ?>" class="form-control required"  type="text" value="<?php (isset($callerName) && ($callerName != '' || $callerName != null)) ? print $callerName : print '' ?>">
                         <?php else: ?>
-                            <input  name="name" id="name" placeholder="<?php echo $this->lang->line('gkpos_name') ?>" class="form-control"  type="text" value="<?php (isset($callerName) && ($callerName != '' || $callerName != null)) ? print $callerName : print '' ?>" onfocus="myJqueryKeyboard('name')">
+                            <input  name="name" id="name" placeholder="<?php echo $this->lang->line('gkpos_name') ?>" class="form-control required"  type="text" value="<?php (isset($callerName) && ($callerName != '' || $callerName != null)) ? print $callerName : print '' ?>" onfocus="myJqueryKeyboard('name')">
                         <?php endif; ?>
                     </div>
                 </div>
@@ -155,7 +155,7 @@
                         $("#collectionAjaxLoading").hide();
                         if (response.success)
                         {
-                            window.location.replace('<?php echo site_url("gkpos") ?>')
+                            getPage('<?php echo site_url('gkpos/ajaxindex') ?>','false');
                         } else
                         {
                             set_feedback(response.message, 'alert alert-dismissible alert-danger', true);
@@ -174,10 +174,10 @@
             },
             rules:
                     {
-                        /*name: {
+                        name: {
                          lettersonly: true,
                          required: true
-                         },*/
+                         },
                         phone: {
                             phone: true,
                             required: true

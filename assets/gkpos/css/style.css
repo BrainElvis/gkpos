@@ -1057,3 +1057,76 @@ legend {
 #GuestQuantity p {
     border: medium none !important;
 }
+.order-list {
+    margin: 15px 0;
+    padding: 5px 0 5px 10px;
+}
+.order-list-heading {
+    color: #eee;
+    font-size: 151%;
+    font-weight: bold;
+    letter-spacing: 7px;
+}
+.order-status-color-1{
+    color: #ff0000;
+}
+.order-status-color-2{
+    color: #2C9C15;
+}
+.order-status-color-3{
+    color: #D68613;
+}
+.order-table-bg-color-3 {
+    background: #d68613 none repeat scroll 0 0;
+    border-radius: 5px;
+    height: 60px;
+    width: 70px;
+}
+.order-table-bg-color-2 {
+    background: #2C9C15 none repeat scroll 0 0;
+    border-radius: 5px;
+    height: 60px;
+    width: 70px;
+}
+.order-table-bg-color-1 {
+    background: #C93B14 none repeat scroll 0 0;
+    border-radius: 5px;
+    height: 60px;
+    width: 70px;
+}
+
+.order-bg-color-collection {
+    border-radius: 5px;
+    height: 65px;
+    padding: 17px;
+    width: 70px;
+    background-color: #013C51   
+}
+.order-bg-color-delivery {
+    border-radius: 5px;
+    height: 65px;
+    padding: 17px;
+    width: 70px;
+    background-color: #2c9c15 
+}
+.order-bg-color-waiting {
+    border-radius: 5px;
+    height: 65px;
+    padding: 17px;
+    width: 70px;
+    background-color: #714f04   
+}
+.order-item {
+    margin: 10px 0;
+}
+.order-heading {
+    font-size: 80%;
+    font-weight: bold;
+}
+.order-manage-btn {
+    color: #000000;
+    font-weight: bold;
+    height: 50px;
+    margin: 5px 0;
+}
+

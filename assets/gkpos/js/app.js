@@ -193,6 +193,13 @@ function getPage(url, info) {
         success: function (output) {
             $('#KeyboardSetting').html('');
             $('#MiddleContent').html('');
+            $('#userPageHeading').html('');
+            $('#userPageHeading').html('');
+            if (Array.isArray(info)) {
+                $('#userPageHeading').append(info[2]);
+            } else {
+                $('#userPageHeading').append(info);
+            }
             $('#MiddleContent').append(output);
         },
         complete: function (xhr, status) {
@@ -201,5 +208,57 @@ function getPage(url, info) {
 
     });
 }
+function getOrderPage(url, info) {
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: {
+            info: info
+        },
+        success: function (output) {
+            $('#body').html('');
+            $('#body').html('');
+            $('#userPageHeading').html('');
+            $('#userPageHeading').append(info);
+            $('#body').append(output);
+            var windowScreenHeight = $(window).height();
+            $('.menuselection .left-top, .menuselection .middle-top,.menuselection .right-top').css({"height": windowScreenHeight - (windowScreenHeight * 0.223) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
+            $('.menuselection .order-menu-list').css({"height": windowScreenHeight - (windowScreenHeight * 0.44) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
+            $('.menuselection .left-bottom,.menuselection .middle-bottom,.menuselection .right-bottom').css({"height": windowScreenHeight - (windowScreenHeight * 0.887) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
+            manageWindowHeight();
+        },
+        complete: function (xhr, status) {
+            console.log("The request is complete!");
+        }
+
+    });
+}
+function getBaseAjaxPage(url, info) {
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: {
+            info: info
+        },
+        success: function (output) {
+            $('#body').html('');
+            $('#body').html('');
+            $('#body').append(output);
+            $('#userPageHeading').html('');
+            $('#userPageHeading').append(info);
+            var windowScreenHeight = $(window).height();
+            $('.menuselection .left-top, .menuselection .middle-top,.menuselection .right-top').css({"height": windowScreenHeight - (windowScreenHeight * 0.223) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
+            $('.menuselection .order-menu-list').css({"height": windowScreenHeight - (windowScreenHeight * 0.44) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
+            $('.menuselection .left-bottom,.menuselection .middle-bottom,.menuselection .right-bottom').css({"height": windowScreenHeight - (windowScreenHeight * 0.887) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
+            manageWindowHeight();
+        },
+        complete: function (xhr, status) {
+            console.log("The request is complete!");
+        }
+
+    });
+}
+
+
 
 

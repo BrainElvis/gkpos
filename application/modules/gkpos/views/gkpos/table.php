@@ -7,7 +7,7 @@
 </div>
 <div class="clearfix pages-height"></div>
 <div class="body-vertical-align-center">
-    <form class="form-horizontal" action="<?php echo site_url('gkpos/set_customer_info') ?>" method="post"  id="gkposTableForm">
+    <form class="form-horizontal" action="<?php echo site_url('gkpos/orderinitiate') ?>" method="post"  id="gkposTableForm">
         <div class="pin-calculatorbg collection-pin-calculatorbg">
             <div id="TableNumber" class="col-md-6 pull-left">
                 <p class="sidebar-heading text-center text-center text-uppercase"><?php echo $this->lang->line('gkpos_table') ?>&nbsp;<?php echo $this->lang->line('gkpos_number') ?></p>
@@ -100,7 +100,7 @@
                         $("#tableAjaxLoading").hide();
                         if (response.success)
                         {
-                            window.location.replace('<?php echo site_url("gkpos") ?>')
+                            getPage('<?php echo site_url('gkpos/ajaxindex') ?>','false');
                         } else
                         {
                             set_feedback(response.message, 'alert alert-dismissible alert-danger', true);

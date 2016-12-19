@@ -15,7 +15,7 @@ class Orders extends Gkpos_Controller {
         $this->load->model('Orders_Model');
     }
 
-    public function index() {
+    public function index($orderId = '') {
         $this->load->model('Orders_Model');
         $this->page_title = 'Gkpos | order';
         $this->current_section = "menu order";
@@ -24,6 +24,17 @@ class Orders extends Gkpos_Controller {
         $data['categories'] = $this->Orders_Model->get_list('gkpos_category', array('status' => 1), array('id', 'title', 'type', 'print_option', 'order', 'content'), null, $offset, 'order', 'ASC');
         $data['showcategory'] = $this->Orders_Model->showcategory();
         $this->render_page('gkpos/orders/index', $data);
+    }
+
+    public function ajaxindex($orderId = '') {
+        $this->load->model('Orders_Model');
+        $this->page_title = 'Gkpos | order';
+        $this->current_section = "menu order";
+        $this->body_class[] = "pos-menu selection order";
+        $offset = 0;
+        $data['categories'] = $this->Orders_Model->get_list('gkpos_category', array('status' => 1), array('id', 'title', 'type', 'print_option', 'order', 'content'), null, $offset, 'order', 'ASC');
+        $data['showcategory'] = $this->Orders_Model->showcategory();
+        $this->load->view('gkpos/orders/ajaxindex', $data, false);
     }
 
     public function getcategory($offset = 0) {
@@ -125,6 +136,39 @@ class Orders extends Gkpos_Controller {
 
     public function addtocart() {
         
+    }
+
+    public function manageAction() {
+        $order_info_str = $this->input->post('id');
+        $order_info_arr = explode('_', $order_info_str);
+        $order_type = $order_info_arr[0];
+        $order_id = $order_info_arr[1];
+        $action = $this->input->post('action');
+        $this->$action($order_id, $order_type, $order_info_str);
+    }
+
+    public function add_to_cart($order_id, $order_type, $dialog, $data = array()) {
+        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type,'info'=>'Create Order',  "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/orders/ajaxindex/' . $order_id))));
+    }
+
+    public function edit_cart($order_id, $order_type, $dialog, $data = array()) {
+        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type, 'info'=>'Edit Order', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/orders/ajaxindex/' . $order_id))));
+    }
+
+    public function delete_order($order_id, $order_type, $dialog, $data = array()) {
+        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type, 'info'=>'Mainboard',"dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/baseajaxindex'))));
+    }
+
+    public function vacant_table($order_id, $order_type, $dialog, $data = array()) {
+        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type, 'info'=>'Mainboard', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/baseajaxindex'))));
+    }
+
+    public function send_kitchen($order_id, $order_type, $dialog, $data = array()) {
+        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type,'info'=>'Mainboard', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/baseajaxindex'))));
+    }
+
+    public function print_guest_bill($order_id, $order_type, $dialog, $data = array()) {
+        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type,'info'=>'Mainboard', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/baseajaxindex'))));
     }
 
 }

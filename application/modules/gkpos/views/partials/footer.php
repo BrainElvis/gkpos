@@ -40,7 +40,7 @@
                 'Yes': {
                     'class': 'btn btn-success',
                     'action': function () {
-                        window.location.replace('<?php echo site_url('gkpos') ?>');
+                        getPage('<?php echo site_url('gkpos/ajaxindex') ?>','Mainboard');
                     }
                 },
                 'No': {

@@ -166,6 +166,13 @@ class MY_Model extends CI_Model {
         return $this->db->get($table)->row_array();
     }
 
+    function count_rows($table, $condition = null) {
+        if ($condition)
+            $this->db->where($condition);
+        $this->db->from($table);
+        return $this->db->count_all_results();
+    }
+
 }
 
 ?>

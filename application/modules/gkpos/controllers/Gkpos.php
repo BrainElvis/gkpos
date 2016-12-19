@@ -19,7 +19,27 @@ class Gkpos extends Gkpos_Controller {
         $this->page_title = 'Gkpos | Mainboard';
         $this->current_section = "Mainboard";
         $this->body_class [] = "pos-mainboard";
-        $this->render_page('gkpos/gkpos/index');
+        $data['table_orders'] = $this->Gkpos_Model->get_table_orders();
+        $data['takeaway_orders'] = $this->Gkpos_Model->get_takeaway_orders();
+        $this->render_page('gkpos/gkpos/index', $data);
+    }
+
+    public function baseajaxindex() {
+        $this->page_title = 'Gkpos | Mainboard';
+        $this->current_section = "Mainboard";
+        $this->body_class [] = "pos-mainboard";
+        $data['table_orders'] = $this->Gkpos_Model->get_table_orders();
+        $data['takeaway_orders'] = $this->Gkpos_Model->get_takeaway_orders();
+        $this->load->view('gkpos/gkpos/baseajaxindex', $data, false);
+    }
+
+    public function ajaxindex() {
+        $this->page_title = 'Gkpos | Mainboard';
+        $this->current_section = "Mainboard";
+        $this->body_class [] = "pos-mainboard";
+        $data['table_orders'] = $this->Gkpos_Model->get_table_orders();
+        $data['takeaway_orders'] = $this->Gkpos_Model->get_takeaway_orders();
+        $this->load->view('gkpos/gkpos/ajaxindex', $data, false);
     }
 
     public function takeaway() {
@@ -133,7 +153,7 @@ class Gkpos extends Gkpos_Controller {
         echo json_encode($customer);
     }
 
-    function set_customer_info() {
+    public function orderinitiate() {
         $this->session->unset_userdata('posCurrentCustomer');
         $postedData = $this->input->post();
         $success = false;
@@ -145,6 +165,7 @@ class Gkpos extends Gkpos_Controller {
             $message = "ok";
         }
         if ($success) {
+            $inner_success = false;
             $data = $postedData;
             if ($postedData['order_type'] != 'table') {
                 if (isset($postedData['delivery_time'])) {
@@ -168,42 +189,42 @@ class Gkpos extends Gkpos_Controller {
                     $data = $this->prepareGkposData($data);
                     $data['status'] = '1';
                     $data['created_by'] = $this->session->userdata('gkpos_userid');
-                    $this->Gkpos_Model->save_customer_info($data);
+                    $inner_success = $this->Gkpos_Model->save_customer_info($data);
                     $postedData = $this->prepareGkposData($postedData);
                     $postedData['status'] = '1';
                     $postedData['created_by'] = $this->session->userdata('gkpos_userid');
-                    if ($this->Gkpos_Model->save_order_info($postedData)) {
-                        $this->session->set_userdata('posCurrentCustomer', $postedData);
-                    }
+                    $inner_success = $this->Gkpos_Model->save_order_info($postedData);
+                    $message = $inner_success ? $message : "There is internal problem";
+                    echo json_encode(array('success' => $inner_success, 'message' => $message));
+                    exit();
                 } else {
-                    $data = $this->prepareGkposData($data);
+                    $data = $this->prepareGkposData($postedData);
                     $data['status'] = '1';
                     $data['created_by'] = $this->session->userdata('gkpos_userid');
-                    if ($this->Gkpos_Model->save_order_info($data)) {
-                        unset($postedData['submit_form']);
-                        $this->session->set_userdata('posCurrentCustomer', $postedData);
-                    }
+                    $inner_success = $this->Gkpos_Model->save_order_info($data);
+                    $message = $inner_success ? $message : "There is internal problem in saving customer info and order";
+                    echo json_encode(array('success' => $inner_success, 'message' => $message));
+                    exit();
                 }
             } else {
-                $table_info = $this->Gkpos_Model->get_single('gkpos_table', array('table_number' => $postedData['table_number']));
+                $table_info = $this->Gkpos_Model->get_single('gkpos_table', array('table_number' => (int) $postedData['table_number']));
                 if (!empty($table_info)) {
                     if ($table_info->is_vacant == '2') {
-                        echo json_encode(array('success' => false, 'message' => $this->lang->line('gkpos_table') . ' ' . $postedData['table_number'] . ' ' . $this->lang->line('gkpos_table_not_vacant')));
+                        echo json_encode(array('success' => false, 'message' => $this->lang->line('gkpos_table') . ' ' . (int) $postedData['table_number'] . ' ' . $this->lang->line('gkpos_table_not_vacant')));
+                        exit();
                     } else {
-                        if ($this->db->update('gkpos_table', array('guest_quantity' => $postedData['guest_quantity'], 'is_vacant' => '2', 'modified' => date('Y-m-d H:i:s'), 'modified_by' => $this->session->userdata('gkpos_userid')))) {
-                            $data = $this->prepareGkposData($data);
-                            if (isset($data['table_number'])) {
-                                unset($data['table_number']);
-                            }
-                            if (isset($data['guest_quantity'])) {
-                                unset($data['guest_quantity']);
-                            }
-                            $data['table_id'] = $table_info->id;
-                            $data['status'] = '1';
-                            $data['created_by'] = $this->session->userdata('gkpos_userid');
-                            $inner_status = $this->Gkpos_Model->save_order_info($data);
-                            $this->session->set_userdata('posCurrentCustomer', $postedData);
-                        }
+                        $inner_status1 = $this->db->update('gkpos_table', array('guest_quantity' => (int) $postedData['guest_quantity'], 'is_vacant' => '2', 'modified' => date('Y-m-d H:i:s'), 'modified_by' => $this->session->userdata('gkpos_userid')), array('id' => $table_info->id, 'table_number' => $table_info->table_number));
+                        $data = $this->prepareGkposData($data);
+                        $data['table_id'] = $table_info->id;
+                        $data['status'] = '1';
+                        $data['created_by'] = $this->session->userdata('gkpos_userid');
+                        $data['table_number'] = (int) $data['table_number'];
+                        $data['guest_quantity'] = (int) $data['guest_quantity'];
+                        $inner_status2 = $this->Gkpos_Model->save_order_info($data);
+                        $inner_status = ($inner_status1 && $inner_status2) ? true : false;
+                        $message = $inner_status ? "ok" : "There is some problem in processing table orders";
+                        echo json_encode(array('success' => $inner_status, 'message' => $message));
+                        exit();
                     }
                 } else {
                     if ($data['order_type']) {
@@ -212,27 +233,91 @@ class Gkpos extends Gkpos_Controller {
                     $data['status'] = '1';
                     $data['created_by'] = $this->session->userdata('gkpos_userid');
                     $data['is_vacant'] = '2';
+                    $data['table_number'] = (int) $data['table_number'];
+                    $data['guest_quantity'] = (int) $data['guest_quantity'];
                     $data = $this->prepareGkposData($data);
                     $id = $this->Gkpos_Model->save_table_info($data);
                     if ($id) {
                         $postedData = $this->prepareGkposData($postedData);
-                        if (isset($postedData['table_number'])) {
-                            unset($postedData['table_number']);
-                        }
-                        if (isset($postedData['guest_quantity'])) {
-                            unset($postedData['guest_quantity']);
-                        }
                         $postedData['table_id'] = $id;
                         $postedData['status'] = '1';
+                        $postedData['table_number'] = (int) $postedData['table_number'];
+                        $postedData['guest_quantity'] = (int) $postedData['guest_quantity'];
                         $postedData['created_by'] = $this->session->userdata('gkpos_userid');
-                        $this->Gkpos_Model->save_order_info($postedData);
-                        unset($postedData['submit_form']);
-                        $this->session->set_userdata('posCurrentCustomer', $postedData);
+                        $inner_status = $this->Gkpos_Model->save_order_info($postedData);
+                        $message = $inner_status ? "ok" : "There is some problem in processing table orders";
+                        echo json_encode(array('success' => $inner_status, 'message' => $message));
+                        exit();
                     }
                 }
             }
         }
         echo json_encode(array('success' => $success, 'message' => $message));
+    }
+
+    public function table_seated_not_ordered() {
+        $info = $this->input->post('info');
+        $data['info'] = $info;
+        $data['current_section'] = "Table Seated But Not Ordered";
+        $data['current_page'] = "table_seated_not_ordered";
+        $data['table_orders'] = $this->Gkpos_Model->get_table_seated_not_ordered();
+        $this->load->view('gkpos/gkpos/table_seated_not_ordered', $data, false);
+    }
+
+    public function table_seated_ordered() {
+        $info = $this->input->post('info');
+        $data['info'] = $info;
+        $data['current_section'] = "Table Seated and ordered";
+        $data['current_page'] = "table_seated_ordered";
+        $data['table_orders'] = $this->Gkpos_Model->get_table_seated_ordered();
+        $this->load->view('gkpos/gkpos/table_seated_ordered', $data, false);
+    }
+
+    public function table_waiting_payment() {
+        $info = $this->input->post('info');
+        $data['info'] = $info;
+        $data['current_section'] = "Waiting for table order Paymnet";
+        $data['current_page'] = "table_waiting_for_payment";
+        $data['table_orders'] = $this->Gkpos_Model->get_table_waiting_payment();
+        $this->load->view('gkpos/gkpos/table_wating_payment', $data, false);
+    }
+
+    public function delivery_orders_only() {
+        $info = $this->input->post('info');
+        $data['info'] = $info;
+        $data['current_section'] = "Takeaway-Delivery Orders Only";
+        $data['current_page'] = "delivery_orders_only";
+        $data['takeaway_orders'] = $this->Gkpos_Model->get_delivery_orders();
+        $this->load->view('gkpos/gkpos/delivery_orders_only', $data, false);
+    }
+
+    public function collection_orders_only() {
+        $info = $this->input->post('info');
+        $data['info'] = $info;
+        $data['current_section'] = "Takeaway-Collection Orders Only";
+        $data['current_page'] = "collection_orders_only";
+        $data['takeaway_orders'] = $this->Gkpos_Model->get_collection_orders();
+        $this->load->view('gkpos/gkpos/collection_orders_only', $data, false);
+    }
+
+    public function waiting_orders_only() {
+        $info = $this->input->post('info');
+        $data['info'] = $info;
+        $data['current_section'] = "Takeaway-Waiting Orders Only";
+        $data['current_page'] = "waiting_orders_only";
+        $data['takeaway_orders'] = $this->Gkpos_Model->get_waiting_orders();
+        $this->load->view('gkpos/gkpos/waiting_orders_only', $data, false);
+    }
+
+    public function manageThisOrder() {
+        $order_info_str = $this->input->post('id');
+        $order_info_arr = explode('_', $order_info_str);
+        $order_type = $order_info_arr[0];
+        $order_id = $order_info_arr[1];
+        $data = [];
+        $data['order'] = $order = $this->Gkpos_Model->get_single('gkpos_order', array('id' => $order_id, 'order_type' => $order_type));
+        $data['detail_counter'] = $detail_counter = $this->Gkpos_Model->count_rows('gkpos_order_detail', array('order_id' => $order_id));
+        $this->load->view('gkpos/gkpos/mangeThisOrder', $data, false);
     }
 
 }

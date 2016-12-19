@@ -12,7 +12,7 @@
 </div>
 <div class="formpartbg">
     <fieldset>
-        <form class="form-horizontal" action="<?php echo site_url('gkpos/set_customer_info') ?>" method="post"  id="gkposWaitingForm">
+        <form class="form-horizontal" action="<?php echo site_url('gkpos/orderinitiate') ?>" method="post"  id="gkposWaitingForm">
             <legend><?php echo $this->lang->line('gkpos_customer') . " " . $this->lang->line('gkpos_information') ?></legend>
             <!-- Text input-->
             <div class="form-group">
@@ -81,7 +81,7 @@
                          $("#waitingAjaxLoading").hide();
                         if (response.success)
                         {
-                            window.location.replace('<?php echo site_url('gkpos') ?>');
+                             getPage('<?php echo site_url('gkpos/ajaxindex') ?>','false');
                         } else
                         {
                             set_feedback(response.message, 'alert alert-dismissible alert-danger', true);
