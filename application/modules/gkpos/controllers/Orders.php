@@ -23,10 +23,11 @@ class Orders extends Gkpos_Controller {
         $offset = 0;
         $data['categories'] = $this->Orders_Model->get_list('gkpos_category', array('status' => 1), array('id', 'title', 'type', 'print_option', 'order', 'content'), null, $offset, 'order', 'ASC');
         $data['showcategory'] = $this->Orders_Model->showcategory();
+        $data['current_page'] = "orders";
         $this->render_page('gkpos/orders/index', $data);
     }
 
-    public function ajaxindex($orderId = '') {
+    public function indexajax($orderId = '') {
         $this->load->model('Orders_Model');
         $this->page_title = 'Gkpos | order';
         $this->current_section = "menu order";
@@ -34,6 +35,7 @@ class Orders extends Gkpos_Controller {
         $offset = 0;
         $data['categories'] = $this->Orders_Model->get_list('gkpos_category', array('status' => 1), array('id', 'title', 'type', 'print_option', 'order', 'content'), null, $offset, 'order', 'ASC');
         $data['showcategory'] = $this->Orders_Model->showcategory();
+        $data['current_page'] = "orders";
         $this->load->view('gkpos/orders/ajaxindex', $data, false);
     }
 
@@ -135,7 +137,82 @@ class Orders extends Gkpos_Controller {
     }
 
     public function addtocart() {
-        
+        $order_id = (int)$this->input->post('orderId');
+        $category = (int)$this->input->post('category');
+        $menu = (int)$this->input->post('menu');
+        $sel = $this->input->post('sel');
+        $quantity = (int)$this->input->post('quantity');
+        $item_info = array();
+        if ($sel == 'no') {
+            $item_info = $this->Orders_Model->get_cart_item($category, $menu);
+        } else {
+            $sel=(int)$sel;
+            $item_info = $this->Orders_Model->get_cart_item($category, $menu, $sel);
+        }
+        $items = $this->Orders_Model->get_cart($order_id);
+        $maxkey = 0;
+        $itemalreadyinsale = FALSE;
+        $insertkey = 0;
+        $updatekey = 0;
+        if (!empty($items)) {
+            foreach ($items as $item) {
+                if ($maxkey <= $item['line']) {
+                    $maxkey = $item['line'];
+                }
+                if ((isset($item_info->selection) && isset($item['selection'])) && $item_info->selection == $item['selection']) {
+                    $itemalreadyinsale = TRUE;
+                    $updatekey = $item['line'];
+                    $quantity = $items[$updatekey]['quantity'] + 1;
+                } else {
+                    $itemalreadyinsale = FALSE;
+                }
+
+                if ((isset($item_info->menu) && isset($item['menu'])) && $item_info->menu == $item['menu']) {
+                    $itemalreadyinsale = TRUE;
+                    $updatekey = $item['line'];
+                    $quantity = $items[$updatekey]['quantity'] + 1;
+                } else {
+                    $itemalreadyinsale = FALSE;
+                }
+            }
+        }
+        if (false == $itemalreadyinsale) {
+            $insertkey = $maxkey + 1;
+            $item = array(
+                'category' => $item_info->category,
+                'category_title' => $item_info->category_title,
+                'category_print_option' => $item_info->category_print_option,
+                'category_type' => $item_info->category_type,
+                'menu' => $item_info->menu,
+                'menu_title' => $item_info->menu_title,
+                'selection' => isset($item_info->selection) ? $item_info->selection : NULL,
+                'selection_title' => isset($item_info->selection_title) ? $item_info->selection_title : NULL,
+                'line' => $insertkey,
+                'quantity' => $quantity,
+                'base_price' => $item_info->base_price,
+                'in_price' => $item_info->in_price,
+                'out_price' => $item_info->in_price
+            );
+            $items[$insertkey] = $item;
+            $maxkey++;
+        } else {
+            $insertkey = $maxkey;
+            $line = &$items[$updatekey];
+            $line['quantity'] = $quantity;
+        }
+        $this->Orders_Model->set_cart($order_id, $items);
+        echo json_encode(array('status' => true, 'order_id' => $order_id, 'items' => $this->Orders_Model->get_cart($order_id)));
+    }
+
+    public function manageThisOrder() {
+        $order_info_str = $this->input->post('id');
+        $order_info_arr = explode('_', $order_info_str);
+        $order_type = $order_info_arr[0];
+        $order_id = $order_info_arr[1];
+        $data = [];
+        $data['order'] = $order = $this->Orders_Model->get_single('gkpos_order', array('id' => $order_id, 'order_type' => $order_type));
+        $data['detail_counter'] = $detail_counter = $this->Orders_Model->count_rows('gkpos_order_detail', array('order_id' => $order_id));
+        $this->load->view('gkpos/orders/mangeThisOrder', $data, false);
     }
 
     public function manageAction() {
@@ -148,27 +225,27 @@ class Orders extends Gkpos_Controller {
     }
 
     public function add_to_cart($order_id, $order_type, $dialog, $data = array()) {
-        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type,'info'=>'Create Order',  "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/orders/ajaxindex/' . $order_id))));
+        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type, 'info' => 'Create Order', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/orders/indexajax/' . $order_id))));
     }
 
     public function edit_cart($order_id, $order_type, $dialog, $data = array()) {
-        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type, 'info'=>'Edit Order', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/orders/ajaxindex/' . $order_id))));
+        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type, 'info' => 'Edit Order', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/orders/indexajax/' . $order_id))));
     }
 
     public function delete_order($order_id, $order_type, $dialog, $data = array()) {
-        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type, 'info'=>'Mainboard',"dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/baseajaxindex'))));
+        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type, 'info' => 'Mainboard', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/indexajax'))));
     }
 
     public function vacant_table($order_id, $order_type, $dialog, $data = array()) {
-        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type, 'info'=>'Mainboard', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/baseajaxindex'))));
+        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type, 'info' => 'Mainboard', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/indexajax'))));
     }
 
     public function send_kitchen($order_id, $order_type, $dialog, $data = array()) {
-        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type,'info'=>'Mainboard', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/baseajaxindex'))));
+        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type, 'info' => 'Mainboard', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/indexajax'))));
     }
 
     public function print_guest_bill($order_id, $order_type, $dialog, $data = array()) {
-        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type,'info'=>'Mainboard', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/baseajaxindex'))));
+        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type, 'info' => 'Mainboard', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/indexajax'))));
     }
 
 }

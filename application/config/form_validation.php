@@ -177,6 +177,14 @@ $config = array(
             'errors' => array(
                 'required' => 'Please specify a valid phone number'
             )
+        ),
+         array(
+            'field' => 'name',
+            'label' => 'name',
+            'rules' => 'required|trim',
+            'errors' => array(
+                'required' => 'You must provide customer name with alphabetical characters only',
+            ),
         )
     ),
     'gkpos_table' => array(

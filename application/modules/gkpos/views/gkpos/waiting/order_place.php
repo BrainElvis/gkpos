@@ -6,7 +6,7 @@
             <span class="phone-no"><?php echo $this->lang->line('gkpos_no_call') ?></span>
         <?php endif ?>
         <span><?php echo" ( " . $current_section . " )" ?></span>
-           <span  class="loading centered" id="waitingAjaxLoading" style="display:none;"><img src="<?php echo ASSETS_GKPOS_PATH . 'images/ajax-loader.gif' ?>" alt="Loading..."/></span>
+        <span  class="loading centered" id="waitingAjaxLoading" style="display:none;"><img src="<?php echo ASSETS_GKPOS_PATH . 'images/ajax-loader.gif' ?>" alt="Loading..."/></span>
         <input type="hidden" id="currentPage" value="<?php (isset($current_page) && ($current_page != '' || $current_page != null )) ? print $current_page : print'false' ?>">
     </div>
 </div>
@@ -16,14 +16,29 @@
             <legend><?php echo $this->lang->line('gkpos_customer') . " " . $this->lang->line('gkpos_information') ?></legend>
             <!-- Text input-->
             <div class="form-group">
-                <label class="col-md-3 control-label" ><?php echo $this->lang->line('gkpos_phone') ?></label> 
+                <label class="col-md-3 control-label required" ><?php echo $this->lang->line('gkpos_phone') ?></label> 
                 <div class="col-md-8">
                     <div class="input-group">
-                        <input name="phone" placeholder="<?php echo $this->lang->line('gkpos_phone') ?>" class="form-control" id="phone"  type="text" value="<?php (isset($callerPhone) && ($callerPhone != '' || $callerPhone != null)) ? print $callerPhone : print '' ?>">
-                        <span class="input-group-addon"><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></span>
+                        <input name="phone" placeholder="<?php echo $this->lang->line('gkpos_phone') ?>" class="form-control required" id="phone"  type="text" value="<?php (isset($callerPhone) && ($callerPhone != '' || $callerPhone != null)) ? print $callerPhone : print '' ?>">
+                        <span class="input-group-addon" style="background-color: #FF0000;" data-toggle="tooltip-waiting-phone" data-placement="top"  title="<?php echo $this->lang->line('gkpos_click_to_get_customer_by_phone') ?>"><a href="javascript:void(0)" onclick="searchCustomerByKey('phone')"><i class="fa fa-search" aria-hidden="true"></i></a></span>
                     </div>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label required"><?php echo $this->lang->line('gkpos_name') ?></label>  
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-addon"><a href="#"><i class="fa fa-navicon" aria-hidden="true"></i></a></span>
+                        <?php if ($this->config->item('is_touch') == 'disable'): ?>
+                            <input  name="name" id="name" placeholder="<?php echo $this->lang->line('gkpos_name') ?>" class="form-control required"  type="text" value="<?php (isset($callerName) && ($callerName != '' || $callerName != null)) ? print $callerName : print '' ?>">
+                        <?php else: ?>
+                            <input  name="name" id="name" placeholder="<?php echo $this->lang->line('gkpos_name') ?>" class="form-control required"  type="text" value="<?php (isset($callerName) && ($callerName != '' || $callerName != null)) ? print $callerName : print '' ?>" onfocus="myJqueryKeyboard('name')">
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group"> 
                 <div class="col-md-offset-3  col-md-9">
                     <ul id="gkposWaitingFormErrorMsgBox" class="error_message_box"></ul>
@@ -65,9 +80,9 @@
 </div>
 <script type="text/javascript">
     jQuery(document).ready(function () {
-        manageWindowHeight();
-        setnumkeys('phone');
         addjqueryValidatorFunction();
+        $('[data-toggle="tooltip-waiting-phone"]').tooltip();
+        setnumkeys('phone');
     });
 
     function saveWaitingInfo(formId, error_message_box, idToCheck) {
@@ -78,10 +93,10 @@
                         $("#waitingAjaxLoading").show();
                     },
                     success: function (response) {
-                         $("#waitingAjaxLoading").hide();
+                        $("#waitingAjaxLoading").hide();
                         if (response.success)
                         {
-                             getPage('<?php echo site_url('gkpos/ajaxindex') ?>','false');
+                            getPage('<?php echo site_url('gkpos/indexajaxccontent') ?>', 'Waiting');
                         } else
                         {
                             set_feedback(response.message, 'alert alert-dismissible alert-danger', true);
@@ -101,6 +116,10 @@
             },
             rules:
                     {
+                        name: {
+                            lettersonly: true,
+                            required: true
+                        },
                         phone: {
                             phone: true,
                             required: true
@@ -108,8 +127,10 @@
                     },
             messages:
                     {
+                        name: "<?php echo $this->lang->line('gkpos_valid_name_required') ?>",
                         phone: "<?php echo $this->lang->line('gkpos_valid_phone_required') ?>"
                     }
         });
     }
+
 </script>

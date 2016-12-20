@@ -1,6 +1,7 @@
 <section id="body">
     <div class="container-fluid menuselection">
         <div class="row">
+            <input type="hidden" id="currentPage" value="<?php (isset($current_page) && ($current_page != '' || $current_page != null )) ? print $current_page : print'false' ?>">
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 left-top">
                 <div class="sidebar-heading text-center text-uppercase"><?php echo $this->lang->line('gkpos_category_list') ?></div>
                 <?php echo $showcategory ?>
@@ -44,7 +45,7 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 middle-bottom">
                 <div class="row action-button">
                     <a href="#"><div class="mainsystembg2 delivery-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_print_guest_bill'); ?></div></a>
-                    <a href="javascript:void(0)" onclick="getBaseAjaxPage('<?php echo site_url('gkpos/baseajaxindex')?>','false')"><div class="mainsystembg2 collection-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_exit') ?></div></a>
+                    <a href="javascript:void(0)" onclick="pageExit('<?php echo site_url("gkpos/indexajax") ?>', 'Mainboard')"><div class="mainsystembg2 collection-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_exit') ?></div></a>
                     <a href="#"><div class="mainsystembg2 waiting-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_convert_to_takeaway') ?></div></a>
                 </div>
             </div>
@@ -56,10 +57,12 @@
 </section>
 <script>
     $(document).ready(function () {
-        var windowScreenHeight = $(window).height();
-        $('.menuselection .left-top, .menuselection .middle-top,.menuselection .right-top').css({"height": windowScreenHeight - (windowScreenHeight * 0.223) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
-        $('.menuselection .order-menu-list').css({"height": windowScreenHeight - (windowScreenHeight * 0.44) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
-        $('.menuselection .left-bottom,.menuselection .middle-bottom,.menuselection .right-bottom').css({"height": windowScreenHeight - (windowScreenHeight * 0.887) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
-        manageWindowHeight();
+        var MaxResizeHeight = $(window).height();
+        var CalculatedResizeHeight = MaxResizeHeight - 100;
+        if ($('.menuselection').length > 0) {
+            $('.menuselection .left-top, .menuselection .middle-top,.menuselection .right-top').css({"height": CalculatedResizeHeight - (CalculatedResizeHeight * 0.11) + "px"});
+            $('.menuselection .order-menu-list').css({"height": CalculatedResizeHeight - (CalculatedResizeHeight * 0.38) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
+            $('.menuselection .left-bottom,.menuselection .middle-bottom,.menuselection .right-bottom').css({"height": CalculatedResizeHeight - (CalculatedResizeHeight * 0.89) + "px"});
+        }
     });
 </script>

@@ -25,7 +25,7 @@
                         <?php else: ?>
                             <input name="phone" placeholder="<?php echo $this->lang->line('gkpos_phone') ?>" class="form-control required"  type="text" id="phone" onfocus="myJqueryKeyboard('phone')" value="<?php (isset($callerPhone) && ($callerPhone != '' || $callerPhone != null)) ? print $callerPhone : print '' ?>">
                         <?php endif; ?>
-                        <span class="input-group-addon" style="background-color: #FF0000;" data-toggle="tooltip-delivery-phone" data-placement="bottom"  title="<?php echo $this->lang->line('gkpos_click_to_get_customer_by_phone') ?>"><a href="javascript:void(0)" onclick="searchCustomer('phone')"><i class="fa fa-search" aria-hidden="true"></i></a></span>
+                        <span class="input-group-addon" style="background-color: #FF0000;" data-toggle="tooltip-delivery-phone" data-placement="bottom"  title="<?php echo $this->lang->line('gkpos_click_to_get_customer_by_phone') ?>"><a href="javascript:void(0)" onclick="searchCustomerByKey('phone')"><i class="fa fa-search" aria-hidden="true"></i></a></span>
                     </div>
                 </div>
             </div>
@@ -142,12 +142,7 @@
         $('[data-toggle="tooltip-delivery-phone"]').tooltip();
         //dont delete the following code it is alternative of tooptip
         //$('[data-toggle="tooltip-delivery-phone"]').popover({trigger: 'hover click'});
-        $("#name").autocomplete({
-            delay: 0,
-            source: '<?php echo site_url('gkpos/get_customer') ?>',
-            minLength: 2
-        });
-        manageWindowHeight();
+        
         addjqueryValidatorFunction();
 <?php $this->load->view('gkpos/partials/datepicker_locale'); ?>
         $(".date_filter").datetimepicker({
@@ -169,107 +164,60 @@ if (strpos($this->config->item('timeformat'), 'a') !== false || strpos($this->co
                 language: "<?php echo $this->config->item('language'); ?>"
     });
     });
-            function searchCustomer(key) {
-                var value = $('#' + key).val();
-                if (value == '') {
-                    alert("please provide existing customer's " + key);
-                } else {
-                    $.ajax({
-                        url: "<?php echo site_url('gkpos/search_customer') ?>",
-                        type: "POST",
-                        data: {
-                            key: key,
-                            value: value
-                        },
-                        success: function (output) {
-                            var obj = $.parseJSON(output);
-                            if (true == obj.status) {
-                                var customer = obj.customer;
-                                $("#phone").val(customer.phone);
-                                $("#name").val(customer.name);
-                                $("#floor_or_apt").val(customer.floor_or_apt);
-                                $("#building").val(customer.building);
-                                $("#house").val(customer.house);
-                                $("#street").val(customer.street);
-                                $("#postcode").val(customer.postcode);
-                            } else {
-                                jQuery("#warningPopupHeader").text("<?php echo $this->lang->line('gkpos_invalid_customer') ?>");
-                                jQuery("#warningPopupContent").text("<?php echo $this->lang->line('gkpos_customer_not_found') . ' ' ?>" + key + "=>" + value);
-                                jQuery(".warningPopup").colorbox({
-                                    inline: true,
-                                    slideshow: false,
-                                    scrolling: false,
-                                    height: "250px",
-                                    open: true,
-                                    width: '100%',
-                                    maxWidth: '400px'
-                                });
-                                return false;
+            function saveDeliveryInfo(formId, error_message_box, idToCheck) {
+                $('#' + formId).validate({
+                    submitHandler: function (form) {
+                        $(form).ajaxSubmit({
+                            beforeSend: function () {
+                                $("#deliveryAjaxLoading").show();
+                            },
+                            success: function (response) {
+                                $("#deliveryAjaxLoading").hide();
+                                if (response.success)
+                                {
+                                    getPage('<?php echo site_url('gkpos/indexajaxccontent') ?>', 'mainboard');
+                                } else {
+                                    set_feedback(response.message, 'alert alert-dismissible alert-danger', true);
+                                }
+                            },
+                            dataType: 'json'
+                        });
+                    },
+                    errorClass: "has-error",
+                    errorLabelContainer: "#" + error_message_box,
+                    wrapper: "li",
+                    highlight: function (e) {
+                        $(e).closest('.form-group').addClass('has-error');
+                    },
+                    unhighlight: function (e) {
+                        $(e).closest('.form-group').removeClass('has-error');
+                    },
+                    rules:
+                            {
+                                name: {
+                                    lettersonly: true,
+                                    required: true
+                                },
+                                phone: {
+                                    phone: true,
+                                    required: true
+                                },
+                                street: "required",
+                                postcode: {
+                                    required: true,
+                                    postcodeUK: true,
+                                },
+                                delivery_time: "required"
+                            },
+                    messages:
+                            {
+                                name: "<?php echo $this->lang->line('gkpos_valid_name_required') ?>",
+                                phone: "<?php echo $this->lang->line('gkpos_valid_phone_required') ?>",
+                                street: "<?php echo $this->lang->line('gkpos_customer_street_required') ?>",
+                                postcode: "<?php echo $this->lang->line('gkpos_customer_postcode_required') ?>",
+                                delivery_time: "<?php echo $this->lang->line('gkpos_order_delivery_time_required') ?>"
                             }
-
-                        },
-                        complete: function (xhr, status) {
-                            console.log("The request is complete!");
-                        }
-                    });
-                }
-            }
-
-
-    function saveDeliveryInfo(formId, error_message_box, idToCheck) {
-        $('#' + formId).validate({
-            submitHandler: function (form) {
-                $(form).ajaxSubmit({
-                    beforeSend: function () {
-                        $("#deliveryAjaxLoading").show();
-                    },
-                    success: function (response) {
-                        $("#deliveryAjaxLoading").hide();
-                        if (response.success)
-                        {
-                           getPage('<?php echo site_url('gkpos/ajaxindex') ?>','false');
-                        } else {
-                            set_feedback(response.message, 'alert alert-dismissible alert-danger', true);
-                        }
-                    },
-                    dataType: 'json'
                 });
-            },
-            errorClass: "has-error",
-            errorLabelContainer: "#" + error_message_box,
-            wrapper: "li",
-            highlight: function (e) {
-                $(e).closest('.form-group').addClass('has-error');
-            },
-            unhighlight: function (e) {
-                $(e).closest('.form-group').removeClass('has-error');
-            },
-            rules:
-                    {
-                        name: {
-                            lettersonly: true,
-                            required: true
-                        },
-                        phone: {
-                            phone: true,
-                            required: true
-                        },
-                        street: "required",
-                        postcode: {
-                            required: true,
-                            postcodeUK: true,
-                        },
-                        delivery_time: "required"
-                    },
-            messages:
-                    {
-                        name: "<?php echo $this->lang->line('gkpos_valid_name_required') ?>",
-                        phone: "<?php echo $this->lang->line('gkpos_valid_phone_required') ?>",
-                        street: "<?php echo $this->lang->line('gkpos_customer_street_required') ?>",
-                        postcode: "<?php echo $this->lang->line('gkpos_customer_postcode_required') ?>",
-                        delivery_time: "<?php echo $this->lang->line('gkpos_order_delivery_time_required') ?>"
-                    }
-        });
-    }
+            }
 
 </script>

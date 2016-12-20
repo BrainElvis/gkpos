@@ -86,63 +86,7 @@
         setnumkeys('phone');
         $('[data-toggle="tooltip-collection-phone"]').tooltip();
         addjqueryValidatorFunction();
-        $("#collection_name").autocomplete({
-            delay: 0,
-            source: '<?php echo site_url('gkpos/get_customer') ?>',
-            minLength: 2
-        });
     });
-    function searchCustomerByKey(key) {
-        var value = $('#' + key).val();
-        if (value == '') {
-            jQuery("#warningPopupHeader").text("<?php echo $this->lang->line('gkpos_caller_information_error') ?>");
-            jQuery("#warningPopupContent").text("<?php echo $this->lang->line('gkpos_caller_field_alert') . ' ' ?>" + key);
-            jQuery(".warningPopup").colorbox({
-                inline: true,
-                slideshow: false,
-                scrolling: false,
-                height: "250px",
-                open: true,
-                width: '100%',
-                maxWidth: '400px'
-            });
-            return false;
-        } else {
-            $.ajax({
-                url: "<?php echo site_url('gkpos/search_customer') ?>",
-                type: "POST",
-                data: {
-                    key: key,
-                    value: value
-                },
-                success: function (output) {
-                    var obj = $.parseJSON(output);
-                    if (true == obj.status) {
-                        var customer = obj.customer;
-                        $("#phone").val(customer.phone);
-                        $("#name").val(customer.name);
-                    } else {
-                        jQuery("#warningPopupHeader").text("<?php echo $this->lang->line('gkpos_invalid_customer') ?>");
-                        jQuery("#warningPopupContent").text("<?php echo $this->lang->line('gkpos_customer_not_found') . ' ' ?>" + key + "=>" + value);
-                        jQuery(".warningPopup").colorbox({
-                            inline: true,
-                            slideshow: false,
-                            scrolling: false,
-                            height: "250px",
-                            open: true,
-                            width: '100%',
-                            maxWidth: '400px'
-                        });
-                        return false;
-                    }
-
-                },
-                complete: function (xhr, status) {
-                    console.log("The request is complete!");
-                }
-            });
-        }
-    }
     function saveCollectionInfo(formId, error_message_box, idToCheck) {
         $('#' + formId).validate({
             submitHandler: function (form) {
@@ -155,7 +99,7 @@
                         $("#collectionAjaxLoading").hide();
                         if (response.success)
                         {
-                            getPage('<?php echo site_url('gkpos/ajaxindex') ?>','false');
+                            getPage('<?php echo site_url('gkpos/indexajaxccontent') ?>','Mainboard');
                         } else
                         {
                             set_feedback(response.message, 'alert alert-dismissible alert-danger', true);

@@ -93,15 +93,15 @@
         <table class="table table-responsive calculation-table">
             <tr>
                 <th>Discount</th>
-                <td>$0.00</td>
+                 <td><?php echo to_currency(0.0)?></td>
             </tr>
             <tr>
                 <th>Service Charge</th>
-                <td>$0.00</td>
+                <td><?php echo to_currency(0.0)?></td>
             </tr>
             <tr>
                 <th>Total</th>
-                <td>$0.00</td>
+                 <td><?php echo to_currency(0.0)?></td>
             </tr>
         </table>
     </div>

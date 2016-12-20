@@ -1,12 +1,3 @@
-$.fn.numpad.defaults.gridTpl = '<table class="table modal-content"></table>';
-$.fn.numpad.defaults.backgroundTpl = '<div class="modal-backdrop in"></div>';
-$.fn.numpad.defaults.displayTpl = '<input type="text" class="form-control" />';
-$.fn.numpad.defaults.buttonNumberTpl = '<button type="button" class="btn btn-default"></button>';
-$.fn.numpad.defaults.buttonFunctionTpl = '<button type="button" class="btn" style="width: 100%;"></button>';
-$.fn.numpad.defaults.onKeypadCreate = function () {
-    $(this).find('.done').addClass('btn-primary');
-};
-
 
 function setnumkeys2(inputFiledId) {
     jQuery('.numkey2').click(function (event) {
@@ -102,7 +93,7 @@ function manageWindowHeight() {
         $(".right-item").css({"min-height": CalculatedResizeHeight + "px"});
         if ($('.menuselection').length > 0) {
             $('.menuselection .left-top, .menuselection .middle-top,.menuselection .right-top').css({"height": CalculatedResizeHeight - (CalculatedResizeHeight * 0.11) + "px"});
-            $('.menuselection .order-menu-list').css({"height": CalculatedResizeHeight - (CalculatedResizeHeight * 0.36) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
+            $('.menuselection .order-menu-list').css({"height": CalculatedResizeHeight - (CalculatedResizeHeight * 0.38) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
             $('.menuselection .left-bottom,.menuselection .middle-bottom,.menuselection .right-bottom').css({"height": CalculatedResizeHeight - (CalculatedResizeHeight * 0.89) + "px"});
         }
         if ($('#menuManagerBody').length > 0) {
@@ -116,16 +107,16 @@ function manageWindowHeight() {
                 "position": "absolute",
                 "left": ((width / 50) * 1.928) + "%",
                 "top": ((CalculatedResizeHeight / 50) * 0.295) + "%",
-                "bottom": ((CalculatedResizeHeight / 36) * 1.39) + "%",
+                "bottom": ((CalculatedResizeHeight / 36) * 1.5) + "%",
                 "border-left": "5px solid white"
             });
         }
 
 
         $('.sidebar-heading,.liveclock').css('font-size', ($(window).width * 0.2) + 'px');
-        $('h1').css('font-size', width * 0.03 + 'px');
-        $('h2').css('font-size', width * 0.02 + 'px');
-        $('h3').css('font-size', width * 0.01 + 'px');
+        $('h1').css('font-size', width * 0.0 + 'px');
+        $('h2').css('font-size', width * 0.07 + 'px');
+        $('h3').css('font-size', width * 0.09 + 'px');
 
 
     });
@@ -201,30 +192,6 @@ function getPage(url, info) {
                 $('#userPageHeading').append(info);
             }
             $('#MiddleContent').append(output);
-        },
-        complete: function (xhr, status) {
-            console.log("The request is complete!");
-        }
-
-    });
-}
-function getOrderPage(url, info) {
-    $.ajax({
-        url: url,
-        type: "POST",
-        data: {
-            info: info
-        },
-        success: function (output) {
-            $('#body').html('');
-            $('#body').html('');
-            $('#userPageHeading').html('');
-            $('#userPageHeading').append(info);
-            $('#body').append(output);
-            var windowScreenHeight = $(window).height();
-            $('.menuselection .left-top, .menuselection .middle-top,.menuselection .right-top').css({"height": windowScreenHeight - (windowScreenHeight * 0.223) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
-            $('.menuselection .order-menu-list').css({"height": windowScreenHeight - (windowScreenHeight * 0.44) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
-            $('.menuselection .left-bottom,.menuselection .middle-bottom,.menuselection .right-bottom').css({"height": windowScreenHeight - (windowScreenHeight * 0.887) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
             manageWindowHeight();
         },
         complete: function (xhr, status) {
@@ -233,6 +200,7 @@ function getOrderPage(url, info) {
 
     });
 }
+
 function getBaseAjaxPage(url, info) {
     $.ajax({
         url: url,
@@ -246,16 +214,33 @@ function getBaseAjaxPage(url, info) {
             $('#body').append(output);
             $('#userPageHeading').html('');
             $('#userPageHeading').append(info);
-            var windowScreenHeight = $(window).height();
-            $('.menuselection .left-top, .menuselection .middle-top,.menuselection .right-top').css({"height": windowScreenHeight - (windowScreenHeight * 0.223) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
-            $('.menuselection .order-menu-list').css({"height": windowScreenHeight - (windowScreenHeight * 0.44) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
-            $('.menuselection .left-bottom,.menuselection .middle-bottom,.menuselection .right-bottom').css({"height": windowScreenHeight - (windowScreenHeight * 0.887) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
             manageWindowHeight();
         },
         complete: function (xhr, status) {
             console.log("The request is complete!");
         }
 
+    });
+}
+function manageThisOrder(id) {
+    $('#MangerOrderPopoUp').html('');
+    $.ajax({
+        url: base_url + 'gkpos/orders/manageThisOrder',
+        type: "POST",
+        data: {
+            id: id
+        },
+        success: function (output) {
+            if ($('#MangerOrderPopoUp').append(output)) {
+                $('#dialog_' + id).dialog({
+                    position: {my: "left top", at: "center top", of: "#" + id},
+                    minWidth: 400
+                });
+            }
+        },
+        complete: function (xhr, status) {
+            console.log("The request is complete!");
+        }
     });
 }
 

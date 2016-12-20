@@ -3,13 +3,11 @@
 	$.confirm = function(params){
 		
 		if($('#confirmOverlay').length){
-			// A confirm is already shown on the page:
 			return false;
 		}
 		
 		var buttonHTML = '';
 		$.each(params.buttons,function(name,obj){
-			// Generating the markup for the buttons:
 			buttonHTML += '<a href="#" class="confirm-button yes-no-btn '+obj['class']+'">'+name+'<span></span></a>';
 			
 			if(!obj.action){
@@ -34,10 +32,6 @@
 
 		$.each(params.buttons,function(name,obj){
 			buttons.eq(i++).click(function(){
-				
-				// Calling the action attribute when a
-				// click occurs, and hiding the confirm.
-				
 				obj.action();
 				$.confirm.hide();
 				return false;

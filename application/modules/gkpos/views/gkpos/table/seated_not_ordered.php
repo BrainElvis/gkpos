@@ -1,6 +1,7 @@
 <div class="modal-header">
     <div class="phone-call col-md-12">
         <span class="text-uppercase"><?php echo $current_section ?></span>
+         <input type="hidden" id="currentPage" value="<?php (isset($current_page) && ($current_page != '' || $current_page != null )) ? print $current_page : print'false' ?>">
     </div>
 </div>
  <?php if (!empty($table_orders)): ?>

@@ -74,8 +74,6 @@
     jQuery(document).ready(function () {
         setnumkeys('table_number');
         setnumkeys2('guest_quantity');
-        manageWindowHeight();
-
         var width = $(window).width();
         var MaxResizeHeight = $(window).height();
         var CalculatedResizeHeight = MaxResizeHeight - 100;
@@ -84,7 +82,7 @@
                 "position": "absolute",
                 "left": ((width / 50) * 1.928) + "%",
                 "top": ((CalculatedResizeHeight / 50) * 0.295) + "%",
-                "bottom": ((CalculatedResizeHeight / 36) * 1.39) + "%",
+                "bottom": ((CalculatedResizeHeight / 36) * 1.5) + "%",
                 "border-left": "5px solid white"
             });
         }
@@ -100,7 +98,7 @@
                         $("#tableAjaxLoading").hide();
                         if (response.success)
                         {
-                            getPage('<?php echo site_url('gkpos/ajaxindex') ?>','false');
+                            getPage('<?php echo site_url('gkpos/indexajaxccontent') ?>', 'mainboard');
                         } else
                         {
                             set_feedback(response.message, 'alert alert-dismissible alert-danger', true);

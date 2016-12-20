@@ -59,7 +59,7 @@
                             </ul>
                         </div>
 
-                        <div class="last-calculatorbg">
+                        <div class="last-calculatorbg" id="MiddleContent">
                             <form id="loginForm" name="loginForm">
                                 <input type="hidden" name="email" id="email"/>
                                 <input type="hidden" name="username" id="username"/>
@@ -174,7 +174,6 @@
         jQuery('#username').val('');
         jQuery('#password').val('');
         setLoginNumKeys('password');
-        manageWindowHeight();
 
     });
     function setLoginNumKeys(inputFiledId) {

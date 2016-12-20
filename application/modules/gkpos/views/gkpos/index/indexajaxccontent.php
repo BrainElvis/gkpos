@@ -1,5 +1,6 @@
 <div id="KeyboardSetting">
     <?php echo $this->load->view('gkpos/partials/keyboard_setting') ?>
+      <input type="hidden" id="currentPage" value="<?php (isset($current_page) && ($current_page != '' || $current_page != null )) ? print $current_page : print'false' ?>">
 </div>
 <div id="MiddleContent">
     <?php if (!empty($table_orders)): ?>

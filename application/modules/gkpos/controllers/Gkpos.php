@@ -21,25 +21,22 @@ class Gkpos extends Gkpos_Controller {
         $this->body_class [] = "pos-mainboard";
         $data['table_orders'] = $this->Gkpos_Model->get_table_orders();
         $data['takeaway_orders'] = $this->Gkpos_Model->get_takeaway_orders();
-        $this->render_page('gkpos/gkpos/index', $data);
+        $data['current_page'] = "gkpos";
+        $this->render_page('gkpos/gkpos/index/index', $data);
     }
 
-    public function baseajaxindex() {
-        $this->page_title = 'Gkpos | Mainboard';
-        $this->current_section = "Mainboard";
-        $this->body_class [] = "pos-mainboard";
+    public function indexajax() {
         $data['table_orders'] = $this->Gkpos_Model->get_table_orders();
         $data['takeaway_orders'] = $this->Gkpos_Model->get_takeaway_orders();
-        $this->load->view('gkpos/gkpos/baseajaxindex', $data, false);
+        $data['current_page'] = "indexajax";
+        $this->load->view('gkpos/gkpos/index/indexajax', $data, false);
     }
 
-    public function ajaxindex() {
-        $this->page_title = 'Gkpos | Mainboard';
-        $this->current_section = "Mainboard";
-        $this->body_class [] = "pos-mainboard";
+    public function indexajaxccontent() {
         $data['table_orders'] = $this->Gkpos_Model->get_table_orders();
         $data['takeaway_orders'] = $this->Gkpos_Model->get_takeaway_orders();
-        $this->load->view('gkpos/gkpos/ajaxindex', $data, false);
+        $data['current_page'] = "indexajaxccontent";
+        $this->load->view('gkpos/gkpos/index/indexajaxccontent', $data, false);
     }
 
     public function takeaway() {
@@ -63,7 +60,16 @@ class Gkpos extends Gkpos_Controller {
         }
         $data['current_section'] = $this->lang->line('gkpos_delivery');
         $data['current_page'] = "delivery";
-        $this->load->view('gkpos/gkpos/delivery', $data, false);
+        $this->load->view('gkpos/gkpos/delivery/order_place', $data, false);
+    }
+
+    public function delivery_order() {
+        $info = $this->input->post('info');
+        $data['info'] = $info;
+        $data['current_section'] = "Takeaway-Delivery Orders Only";
+        $data['current_page'] = "delivery_order";
+        $data['takeaway_orders'] = $this->Gkpos_Model->get_delivery_orders();
+        $this->load->view('gkpos/gkpos/delivery/order_list', $data, false);
     }
 
     public function collection() {
@@ -78,7 +84,16 @@ class Gkpos extends Gkpos_Controller {
         }
         $data['current_section'] = $this->lang->line('gkpos_collection');
         $data['current_page'] = "collection";
-        $this->load->view('gkpos/gkpos/collection', $data, false);
+        $this->load->view('gkpos/gkpos/collection/order_place', $data, false);
+    }
+
+    public function collection_order() {
+        $info = $this->input->post('info');
+        $data['info'] = $info;
+        $data['current_section'] = "Takeaway-Collection Orders Only";
+        $data['current_page'] = "collection_order";
+        $data['takeaway_orders'] = $this->Gkpos_Model->get_collection_orders();
+        $this->load->view('gkpos/gkpos/collection/order_list', $data, false);
     }
 
     public function waiting() {
@@ -94,7 +109,16 @@ class Gkpos extends Gkpos_Controller {
         }
         $data['current_section'] = $this->lang->line('gkpos_waiting');
         $data['current_page'] = "waiting";
-        $this->load->view('gkpos/gkpos/waiting', $data, false);
+        $this->load->view('gkpos/gkpos/waiting/order_place', $data, false);
+    }
+
+    public function waiting_order() {
+        $info = $this->input->post('info');
+        $data['info'] = $info;
+        $data['current_section'] = "Takeaway-Waiting Orders Only";
+        $data['current_page'] = "waiting_order";
+        $data['takeaway_orders'] = $this->Gkpos_Model->get_waiting_orders();
+        $this->load->view('gkpos/gkpos/waiting/order_list', $data, false);
     }
 
     public function table() {
@@ -110,7 +134,34 @@ class Gkpos extends Gkpos_Controller {
         }
         $data['current_section'] = $this->lang->line('gkpos_table');
         $data['current_page'] = "table";
-        $this->load->view('gkpos/gkpos/table', $data, false);
+        $this->load->view('gkpos/gkpos/table/order_place', $data, false);
+    }
+
+    public function table_seated_not_ordered() {
+        $info = $this->input->post('info');
+        $data['info'] = $info;
+        $data['current_section'] = "Table Seated But Not Ordered";
+        $data['current_page'] = "table_seated_not_ordered";
+        $data['table_orders'] = $this->Gkpos_Model->get_table_seated_not_ordered();
+        $this->load->view('gkpos/gkpos/table/seated_not_ordered', $data, false);
+    }
+
+    public function table_seated_ordered() {
+        $info = $this->input->post('info');
+        $data['info'] = $info;
+        $data['current_section'] = "Table Seated and ordered";
+        $data['current_page'] = "table_seated_ordered";
+        $data['table_orders'] = $this->Gkpos_Model->get_table_seated_ordered();
+        $this->load->view('gkpos/gkpos/table/seated_ordered', $data, false);
+    }
+
+    public function table_waiting_payment() {
+        $info = $this->input->post('info');
+        $data['info'] = $info;
+        $data['current_section'] = "Waiting for table order Paymnet";
+        $data['current_page'] = "table_waiting_payment";
+        $data['table_orders'] = $this->Gkpos_Model->get_table_waiting_payment();
+        $this->load->view('gkpos/gkpos/table/wating_payment', $data, false);
     }
 
     public function systemmanagement() {
@@ -142,12 +193,22 @@ class Gkpos extends Gkpos_Controller {
     }
 
     public function get_customer() {
-        //$customer = $this->Orders_Model->get_list('gkpos_customer', array('status' => 1), array('name'));
         $term = $this->input->get('term');
         $this->db->select('name');
         $this->db->from('gkpos_customer');
         $this->db->where("name LIKE '%" . $term . "%'");
         $this->db->order_by("name", "asc");
+        $result = $this->db->get()->result();
+        $customer = array_map('current', $result);
+        echo json_encode($customer);
+    }
+
+    public function get_customer_phone() {
+        $term = $this->input->get('term');
+        $this->db->select('phone');
+        $this->db->from('gkpos_customer');
+        $this->db->where("phone LIKE '%" . $term . "%'");
+        $this->db->order_by("phone", "asc");
         $result = $this->db->get()->result();
         $customer = array_map('current', $result);
         echo json_encode($customer);
@@ -253,71 +314,6 @@ class Gkpos extends Gkpos_Controller {
             }
         }
         echo json_encode(array('success' => $success, 'message' => $message));
-    }
-
-    public function table_seated_not_ordered() {
-        $info = $this->input->post('info');
-        $data['info'] = $info;
-        $data['current_section'] = "Table Seated But Not Ordered";
-        $data['current_page'] = "table_seated_not_ordered";
-        $data['table_orders'] = $this->Gkpos_Model->get_table_seated_not_ordered();
-        $this->load->view('gkpos/gkpos/table_seated_not_ordered', $data, false);
-    }
-
-    public function table_seated_ordered() {
-        $info = $this->input->post('info');
-        $data['info'] = $info;
-        $data['current_section'] = "Table Seated and ordered";
-        $data['current_page'] = "table_seated_ordered";
-        $data['table_orders'] = $this->Gkpos_Model->get_table_seated_ordered();
-        $this->load->view('gkpos/gkpos/table_seated_ordered', $data, false);
-    }
-
-    public function table_waiting_payment() {
-        $info = $this->input->post('info');
-        $data['info'] = $info;
-        $data['current_section'] = "Waiting for table order Paymnet";
-        $data['current_page'] = "table_waiting_for_payment";
-        $data['table_orders'] = $this->Gkpos_Model->get_table_waiting_payment();
-        $this->load->view('gkpos/gkpos/table_wating_payment', $data, false);
-    }
-
-    public function delivery_orders_only() {
-        $info = $this->input->post('info');
-        $data['info'] = $info;
-        $data['current_section'] = "Takeaway-Delivery Orders Only";
-        $data['current_page'] = "delivery_orders_only";
-        $data['takeaway_orders'] = $this->Gkpos_Model->get_delivery_orders();
-        $this->load->view('gkpos/gkpos/delivery_orders_only', $data, false);
-    }
-
-    public function collection_orders_only() {
-        $info = $this->input->post('info');
-        $data['info'] = $info;
-        $data['current_section'] = "Takeaway-Collection Orders Only";
-        $data['current_page'] = "collection_orders_only";
-        $data['takeaway_orders'] = $this->Gkpos_Model->get_collection_orders();
-        $this->load->view('gkpos/gkpos/collection_orders_only', $data, false);
-    }
-
-    public function waiting_orders_only() {
-        $info = $this->input->post('info');
-        $data['info'] = $info;
-        $data['current_section'] = "Takeaway-Waiting Orders Only";
-        $data['current_page'] = "waiting_orders_only";
-        $data['takeaway_orders'] = $this->Gkpos_Model->get_waiting_orders();
-        $this->load->view('gkpos/gkpos/waiting_orders_only', $data, false);
-    }
-
-    public function manageThisOrder() {
-        $order_info_str = $this->input->post('id');
-        $order_info_arr = explode('_', $order_info_str);
-        $order_type = $order_info_arr[0];
-        $order_id = $order_info_arr[1];
-        $data = [];
-        $data['order'] = $order = $this->Gkpos_Model->get_single('gkpos_order', array('id' => $order_id, 'order_type' => $order_type));
-        $data['detail_counter'] = $detail_counter = $this->Gkpos_Model->count_rows('gkpos_order_detail', array('order_id' => $order_id));
-        $this->load->view('gkpos/gkpos/mangeThisOrder', $data, false);
     }
 
 }

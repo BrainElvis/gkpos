@@ -767,6 +767,14 @@ legend {
     cursor: pointer;
     padding: 17.6px;
 }
+.next-button {
+    background-color: #000000;
+    border-radius: 2px 35px 35px 2px;
+    color: #fff;
+    cursor: pointer;
+    padding: 17.6px;
+}
+
 .pos-menu .category-list li {
     background-color: #ff0000;
     cursor: pointer;

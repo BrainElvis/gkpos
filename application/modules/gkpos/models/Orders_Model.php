@@ -57,4 +57,32 @@ class Orders_Model extends MY_Model {
         }
     }
 
+    public function get_cart_item($category, $menu, $sel = 0) {
+        if ($sel > 0) {
+            $this->db->select('GS.id as selection,GS.title as selection_title,GS.base_price,GS.in_price,GS.out_price,GS.menu,GM.title as menu_title,GS.category, GC.title as category_title,GC.print_option as category_print_option,GC.type as category_type');
+            $this->db->from('gkpos_selection GS');
+            $this->db->join('gkpos_menu as GM', 'GM.id=GS.menu', 'left');
+            $this->db->join('gkpos_category as GC', 'GS.category=GC.id', 'left');
+            $this->db->where(array('GS.id' => $sel, 'GM.id' => $menu, 'GC.id' => $category));
+            return $this->db->get()->row();
+        } else {
+            $this->db->select('GM.id as menu,GM.title as menu_title,GM.category,GM.base_price,GM.in_price,GM.out_price, GC.title as category_title,GC.print_option as category_print_option,GC.type as category_type ');
+            $this->db->from('gkpos_menu GM');
+            $this->db->join('gkpos_category as GC', 'GM.category=GC.id', 'left');
+            $this->db->where(array('GM.id' => $menu, 'GC.id' => $category));
+            return $this->db->get()->row();
+        }
+    }
+
+    function get_cart($order_id) {
+        if (!$this->session->userdata('cart' . $order_id)) {
+            $this->set_cart(false, array());
+        }
+        return $this->session->userdata('cart' . $order_id);
+    }
+
+    function set_cart($order_id, $cart_data) {
+        $this->session->set_userdata('cart' . $order_id, $cart_data);
+    }
+
 }

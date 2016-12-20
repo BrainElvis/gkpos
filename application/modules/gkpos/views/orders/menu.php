@@ -153,53 +153,81 @@
     }
     function checkSelection(category, menu, sel) {
         var menuTitle = $("#" + category + "_" + menu).text();
-        if ('false' == sel) {
-            $.ajax({
-                url: "<?php echo site_url('gkpos/orders/getmenuselection') ?>",
-                data: {
-                    category: category,
-                    menu: menu
-                },
-                type: "POST",
-                dataType: "json",
-                success: function (output) {
-                    if (true == output.status) {
-                        $('#warningPopupContent').html('');
-                        $.each(output.selections, function () {
-                            var btnColorClass = "item-btn item-btn-" + this.selMenuCategoryId + " ";
-                            $('#warningPopupContent').append('<div id="' + this.selMenuCategoryId + "_" + this.selMenuId + "_" + this.id + '" class="' + btnColorClass + 'col-lg-4 col-md-4 col-sm-4 col-xs-4 menu-item text-center text-uppercase" title="' + this.content + '" onclick=addtocart(\'' + this.selMenuCategoryId + '\',\'' + this.selMenuId + '\',\'' + this.id + '\')>' + this.title + '</div>');
-                        });
-                        jQuery("#warningPopupHeader").text(menuTitle + ' ' + "<?php echo $this->lang->line('gkpos_selection') ?>");
-                        jQuery(".warningPopup").colorbox({
-                            inline: true,
-                            slideshow: false,
-                            scrolling: false,
-                            height: "300px",
-                            className: 'menu-selection-popup',
-                            open: true,
-                            width: '100%',
-                            maxWidth: '550px'
-                        });
-                    } else {
-                        addtocart(category, menu, sel);
-                    }
-                    console.log(output);
-                },
-                error: function (xhr, status, errorThrown) {
-                    console.log("Sorry, there was a problem!");
-                },
-                complete: function (xhr, status) {
-                    console.log("The request is complete!");
+        $.ajax({
+            url: "<?php echo site_url('gkpos/orders/getmenuselection') ?>",
+            data: {
+                category: category,
+                menu: menu
+            },
+            type: "POST",
+            dataType: "json",
+            success: function (output) {
+                if (true == output.status) {
+                    $('#warningPopupContent').html('');
+                    $.each(output.selections, function () {
+                        var btnColorClass = "item-btn item-btn-" + this.selMenuCategoryId + " ";
+                        $('#warningPopupContent').append('<div id="' + this.selMenuCategoryId + "_" + this.selMenuId + "_" + this.id + '" class="' + btnColorClass + 'col-lg-4 col-md-4 col-sm-4 col-xs-4 menu-item text-center text-uppercase" title="' + this.content + '" onclick=addtocart(\'' + this.selMenuCategoryId + '\',\'' + this.selMenuId + '\',\'' + this.id + '\')>' + this.title + '</div>');
+                    });
+                    jQuery("#warningPopupHeader").text(menuTitle + ' ' + "<?php echo $this->lang->line('gkpos_selection') ?>");
+                    jQuery(".warningPopup").colorbox({
+                        inline: true,
+                        slideshow: false,
+                        scrolling: false,
+                        height: "300px",
+                        className: 'menu-selection-popup',
+                        open: true,
+                        width: '100%',
+                        maxWidth: '550px'
+                    });
+                } else {
+                    addtocart(category, menu, 'no');
                 }
-
-            });
-        } else {
-            addtocart(category, menu, sel);
-        }
-
+            },
+            error: function (xhr, status, errorThrown) {
+                console.log("Sorry, there was a problem!");
+            },
+            complete: function (xhr, status) {
+                console.log("The request is complete!");
+            }
+        });
     }
+
+
     function addtocart(category, menu, sel) {
         jQuery.colorbox.close();
         console.log(category + "-" + menu + "-" + sel);
+        $.ajax({
+            url: "<?php echo site_url('gkpos/orders/addtocart') ?>",
+            data: {
+                orderId: '<?php echo $this->uri->segment(4) ?>',
+                category: category,
+                menu: menu,
+                sel: sel,
+                quantity: 1
+            },
+            type: "POST",
+            dataType: "json",
+            beforeSend: function () {
+
+            },
+            success: function (output) {
+                //var obj = $.parseJSON(output);
+                console.log(output);
+            },
+            error: function (xhr, status, errorThrown) {
+                console.log("Sorry, there was a problem!");
+                console.log("Error: " + errorThrown);
+                console.log("Status: " + status);
+                console.dir(xhr);
+            },
+            complete: function (xhr, status) {
+                console.log("The request is complete!");
+            }
+
+        });
+
+
+
+
     }
 </script>

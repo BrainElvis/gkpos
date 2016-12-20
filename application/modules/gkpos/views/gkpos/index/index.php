@@ -1,30 +1,11 @@
-<?php if ($this->config->item('is_touch') == 'disable'): ?>
-    <style>
-        .ui-autocomplete {
-            border: none !important ;
-        }
-        .ui-autocomplete .ui-menu-item {
-            padding: 7px;
-        }
-    </style>
-<?php else: ?>
-    <style>
-        .ui-autocomplete {
-            left: 5% !important;
-            border: none !important ;
-        }
-        .ui-autocomplete .ui-menu-item {
-            padding: 10px 7px 10px 7px;
-        }
-    </style>
-<?php endif; ?>
 <section id="body">
     <div class="container-fluid">
         <div class="row">
-            <?php  echo $this->load->view('gkpos/partials/left_sidebar')?>
+            <?php echo $template['partials']['left_sidebar'] ?>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-8 bodyitem">
                 <div id="KeyboardSetting">
                     <?php echo $this->load->view('gkpos/partials/keyboard_setting') ?>
+                    <input type="hidden" id="currentPage" value="<?php (isset($current_page) && ($current_page != '' || $current_page != null )) ? print $current_page : print'false' ?>">
                 </div>
                 <div id="MiddleContent">
                     <?php if (!empty($table_orders)): ?>
@@ -55,7 +36,7 @@
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 order-item">
                                         <!--<div class="order-heading text-center text-uppercase center-block <?php echo $order_status_color; ?>"><?php echo $takeaway_order->order_type ?></div>-->
                                         <div onclick="manageThisOrder('<?php echo $takeaway_order->order_type . '_' . $takeaway_order->id ?>')" id="<?php echo $takeaway_order->order_type . '_' . $takeaway_order->id ?>" class="table-icon <?php echo $takeaway_bg_color ?>"><img src="<?php echo ASSETS_GKPOS_PATH . 'images/' . $takeaway_icon . '.png' ?>" class="img-responsive center-block"></div> 
-                                        <div class="order-heading text-center text-uppercase <?php echo $order_status_color; ?>"><?php isset($takeaway_order->name) && $takeaway_order->name != null ? print substr($takeaway_order->name,0,8). "<br/>" : print '...........<br/>' ?><?php echo $takeaway_order->phone ?></div>
+                                        <div class="order-heading text-center text-uppercase <?php echo $order_status_color; ?>"><?php isset($takeaway_order->name) && $takeaway_order->name != null ? print substr($takeaway_order->name, 0, 8) . "<br/>" : print '...........<br/>' ?><?php echo $takeaway_order->phone ?></div>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
@@ -64,14 +45,13 @@
                 </div>
                 <div id="customerInformation"></div>
             </div>
-            <?php  echo $this->load->view('gkpos/partials/right_sidebar')?>
+            <?php echo $template['partials']['right_sidebar'] ?>
         </div>
     </div>
 </section>
 <div id="MangerOrderPopoUp"></div>
 <script>
     $(document).ready(function () {
-        setnumkeys('phone');
         manageWindowHeight();
         $('#MangerOrderPopoUp').html('');
         $("#caller_order_type").autocomplete({
@@ -80,26 +60,5 @@
             minLength: 0
         });
     });
-    function manageThisOrder(id) {
-        $('#MangerOrderPopoUp').html('');
-        $.ajax({
-            url: '<?php echo site_url('gkpos/manageThisOrder') ?>',
-            type: "POST",
-            data: {
-                id: id
-            },
-            success: function (output) {
-                if ($('#MangerOrderPopoUp').append(output)) {
-                    $('#dialog_' + id).dialog({
-                        position: {my: "left top", at: "center top", of: "#" + id},
-                        minWidth: 400
-                    });
-                }
-            },
-            complete: function (xhr, status) {
-                console.log("The request is complete!");
-            }
-        });
-    }
 
 </script>

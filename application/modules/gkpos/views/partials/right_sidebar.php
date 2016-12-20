@@ -14,7 +14,7 @@
                     <?php else: ?>
                         <input class="customernambg" type="text" name="caller_name" id="caller_name" onfocus="myJqueryKeyboard('caller_name')" placeholder="Caller Name" />
                     <?php endif ?>
-                   
+
                 </div>
             </div>
             <div class="callnumbg">
@@ -41,7 +41,7 @@
 
         <div class="bottom-right mainboard-rihgt-sideber-bottom">
             <div class="page-exit-button text-uppercase text-center">
-                <a href="javascript:void(0)" onclick="pageExit()"><i class="fa fa-power-off"></i>&nbsp;&nbsp;<?php echo $this->lang->line('gkpos_exit') ?></a>
+                <a href="javascript:void(0)" onclick="pageExit('<?php echo site_url("gkpos/indexajax") ?>', 'Mainboard')"><i class="fa fa-power-off"></i>&nbsp;&nbsp;<?php echo $this->lang->line('gkpos_exit') ?></a>
             </div>
             <a href="javascript:void(0)" onclick="getPage('<?php echo site_url('gkpos/takeaway') ?>', 'takeaway')"  id="takeaway"><div class="mainsystembg collection-bg img-responsive"><?php echo $this->lang->line('gkpos_takeaway') ?></div></a>
             <a href="#"><div class="mainsystembg2 img-responsive waiting-bg"><?php echo $this->lang->line('gkpos_bar_service') ?></div></a>
@@ -57,6 +57,11 @@
             delay: 0,
             source: '<?php echo site_url('gkpos/get_customer') ?>',
             minLength: 2
+        });
+         $("#caller_phone").autocomplete({
+            delay: 0,
+            source: '<?php echo site_url('gkpos/get_customer_phone') ?>',
+            minLength: 6
         });
         $('[data-toggle="caller-phone-tooltip"]').tooltip();
         $("#caller_name").val('');
@@ -165,36 +170,6 @@
             });
         }
     }
-    function previousPage() {
-        var currentPage = $("#currentPage").val();
-        if (currentPage == 'table') {
-            getPage(base_url + "gkpos/waiting", "false");
-        } else if (currentPage == 'waiting') {
-            getPage(base_url + "gkpos/collection", "false");
-        } else if (currentPage == 'collection') {
-            getPage(base_url + "gkpos/delivery", "false");
-        } else if (currentPage == 'delivery') {
-            getPage(base_url + "gkpos/takeaway", "false");
-        } else {
-            window.location.reload();
-        }
-    }
-    function nextPage() {
-        var currentPage = $("#currentPage").val();
-        if (currentPage == 'takeaway') {
-            getPage(base_url + "gkpos/delivery", "false");
-        } else if (currentPage == 'delivery') {
-            getPage(base_url + "gkpos/collection", "false");
-        } else if (currentPage == 'collection') {
-            getPage(base_url + "gkpos/waiting", "false");
-        } else if (currentPage == 'waiting') {
-            getPage(base_url + "gkpos/table", "false");
-        } else if (currentPage == 'table') {
-            getPage(base_url + "gkpos/takeaway", "false");
-        } else {
-            window.location.reload();
-        }
-
-    }
+    
 
 </script>
