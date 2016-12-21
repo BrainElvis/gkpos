@@ -218,6 +218,7 @@ $lang['gkpos_add_item_to_cart']='Add item to cart';
 $lang['gkpos_edit_cart']='Edit cart';
 $lang['gkpos_delete_order']='Delete this order';
 $lang['gkpos_send_order_kitchen']='send order to kitchen';
+$lang['gkpos_home']="home";
 
 
 

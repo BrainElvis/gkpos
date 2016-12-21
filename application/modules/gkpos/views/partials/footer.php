@@ -1,10 +1,16 @@
 <footer id="gkposFooter">
     <div class="container-fluid">
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  pull-left text-left back"><span class="back-button" onclick="previousPage()">PREV</span></div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><p class="text-center"><a href="http://gksoft.co.uk"><?php echo $this->lang->line('gkpos_powered_by') ?>:<img src="<?php echo ASSETS_GKPOS_PATH ?>images/gk-logo.png" width="98" height="47" /></a></p></div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right text-right back"><span class="next-button" onclick="nextPage()">NEXT</span></div>
+        <?php if (uri_string() != 'gkpos/entry'): ?>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  pull-left text-left back"><span class="back-button" onclick="previousPage()">PREV</span></div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><p class="text-center"><a href="http://gksoft.co.uk"><?php echo $this->lang->line('gkpos_powered_by') ?>:<img src="<?php echo ASSETS_GKPOS_PATH ?>images/gk-logo.png" width="98" height="47" /></a></p></div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right text-right back"><span class="next-button" onclick="nextPage()">NEXT</span></div>
+        <?php else: ?>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><p class="text-center"><a href="http://gksoft.co.uk"><?php echo $this->lang->line('gkpos_powered_by') ?>:<img src="<?php echo ASSETS_GKPOS_PATH ?>images/gk-logo.png" width="98" height="47" /></a></p></div>
+        <?php endif; ?>
     </div>
-</footer>
+</footer>    
+
+
 <a class='warningPopup' href="#warningPopup" style="display:none"></a>
 <div style="display:none">
     <div id="warningPopup" class="popupouter">

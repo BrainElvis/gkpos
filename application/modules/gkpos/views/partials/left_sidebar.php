@@ -9,7 +9,7 @@
         <h3><a href="javascript:void(0)" onclick="getPage('<?php echo site_url('gkpos/waiting_order') ?>', 'waiting order')"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/seatedbg7.png" width="192" height="69" class="img-responsive center-block"/></a></h3>
         <div class="mainboard-left-sideber-bottom">
             <div class="page-exit-button text-uppercase text-center">
-                <a href="javascript:void(0)" onclick="pageExit('<?php echo site_url("gkpos/indexajax") ?>', 'Mainboard')"><i class="fa fa-power-off"></i>&nbsp;&nbsp;<?php echo $this->lang->line('gkpos_exit') ?></a>
+                <a href="javascript:void(0)" onclick="pageExit('<?php echo site_url("gkpos/indexajax") ?>', 'Mainboard')"><i class="fa fa-home"></i>&nbsp;&nbsp;<?php echo $this->lang->line('gkpos_home') ?></a>
             </div>
             <a href="<?php echo site_url('gkpos/systemmanagement') ?>"><div class="mainsystembg collection-bg img-responsive"><?php echo $this->lang->line('gkpos_system_management') ?></div></a>
             <a href="#"><div class="mainsystembg2 waiting-bg img-responsive"><?php echo $this->lang->line('gkpos_table_information') ?></div></a>

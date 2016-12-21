@@ -250,6 +250,11 @@
                 console.log("The request is complete!");
             }
         });
+
+        $('#foodCart tr').click(function (e) {
+            $(this).removeClass('highlighted');
+            $(this).addClass('highlighted');
+        });
     });
 
     function getPrice(price) {

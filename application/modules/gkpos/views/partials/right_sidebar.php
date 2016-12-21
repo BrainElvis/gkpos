@@ -36,12 +36,12 @@
                     <input class="customernambg" type="text" name="caller_order_type" id="caller_order_type" onfocus="myJqueryKeyboard('caller_order_type')" placeholder="<?php echo $this->lang->line('gkpos_order_type_hints_touch_screen') ?>"/>
                 <?php endif ?>
             </div>
-            <a href="javascript:void(0)" onclick="checkCallerInfo()"><div class="mainsystembg delivery-bg img-responsive caller-info-submit"><?php echo $this->lang->line('gkpos_finished') ?></div></a>
+            <a href="javascript:void(0)" onclick="checkCallerInfo()"><div class="mainsystembg delivery-bg img-responsive caller-info-submit"><?php echo $this->lang->line('gkpos_numpad_key_enter') ?></div></a>
         </div>
 
         <div class="bottom-right mainboard-rihgt-sideber-bottom">
             <div class="page-exit-button text-uppercase text-center">
-                <a href="javascript:void(0)" onclick="pageExit('<?php echo site_url("gkpos/indexajax") ?>', 'Mainboard')"><i class="fa fa-power-off"></i>&nbsp;&nbsp;<?php echo $this->lang->line('gkpos_exit') ?></a>
+                <a href="javascript:void(0)" onclick="pageExit('<?php echo site_url("gkpos/indexajax") ?>', 'Mainboard')"><i class="fa fa-home"></i>&nbsp;&nbsp;<?php echo $this->lang->line('gkpos_home') ?></a>
             </div>
             <a href="javascript:void(0)" onclick="getPage('<?php echo site_url('gkpos/takeaway') ?>', 'takeaway')"  id="takeaway"><div class="mainsystembg collection-bg img-responsive"><?php echo $this->lang->line('gkpos_takeaway') ?></div></a>
             <a href="#"><div class="mainsystembg2 img-responsive waiting-bg"><?php echo $this->lang->line('gkpos_bar_service') ?></div></a>

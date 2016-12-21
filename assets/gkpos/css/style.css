@@ -1161,3 +1161,6 @@ legend {
     margin: 5px 0;
 }
 
+tr.highlighted td {
+    background: red;
+}

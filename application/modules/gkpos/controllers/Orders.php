@@ -159,6 +159,7 @@ class Orders extends Gkpos_Controller {
         $itemalreadyinsale = FALSE;
         $insertkey = 0;
         $updatekey = 0;
+        $plus='no';
         // if item already in the cart 
         if (!empty($items)) {
             foreach ($items as $item) {
@@ -171,12 +172,14 @@ class Orders extends Gkpos_Controller {
                         $itemalreadyinsale = TRUE;
                         $updatekey = $item['line'];
                         $quantity = $items[$updatekey]['quantity'] + 1;
+                        $plus='yes';
                     }
                 } else {
                     if ($item_info->menu == $item['menu']) {
                         $itemalreadyinsale = TRUE;
                         $updatekey = $item['line'];
                         $quantity = $items[$updatekey]['quantity'] + 1;
+                        $plus='yes';
                     }
                 }
             }
@@ -209,6 +212,7 @@ class Orders extends Gkpos_Controller {
                 'selection_title' => isset($item_info->selection_title) ? $item_info->selection_title : NULL,
                 'quantity' => $quantity,
                 'price' => $price,
+                'plus' => $plus
             );
             $items[$insertkey] = $item;
             $maxkey++;
@@ -225,9 +229,13 @@ class Orders extends Gkpos_Controller {
         $data = [];
         if ($order_id != null || $order_id = '') {
             $cart_items = $this->Orders_Model->get_cart($order_id);
+            $max_line = 0;
             $food_cart_items = array();
             $beverage_cart_items = array();
             if (!empty($cart_items)) {
+                $max_line = array_reduce($cart_items, function ($a, $b) {
+                    return @$a['line'] > $b['line'] ? $a['line'] : $b['line'];
+                });
                 foreach ($cart_items as $key => $itemObj) {
                     if ($itemObj ['category_type'] == '1') {
                         $food_cart_items[] = $itemObj;
@@ -236,7 +244,7 @@ class Orders extends Gkpos_Controller {
                     }
                 }
             }
-
+            $data['maxLine'] = $max_line;
             $data['foodCart'] = $food_cart_items;
             $data['nonFoodCart'] = $beverage_cart_items;
         }
