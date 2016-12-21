@@ -6,7 +6,7 @@
                 <div class="sidebar-heading text-center text-uppercase"><?php echo $this->lang->line('gkpos_category_list') ?></div>
                 <?php echo $showcategory ?>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 middle-top">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 middle-top">
                 <?php echo $this->load->view('gkpos/orders/menu') ?>
                 <div class="row action-button">
                     <div class="main-arrowbg col-md-offset-3 col-md-6 col-md-offset-3 text-center">
@@ -28,7 +28,9 @@
                     <a href="#"><div class="mainsystembg2 delivery-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_item_description') ?></div></a>
                 </div>
             </div>
-            <?php echo $this->load->view('gkpos/orders/cart') ?>
+            <div id="cartBody">
+                <?php echo $this->load->view('gkpos/orders/cart') ?>
+            </div>
         </div>
         <div class="clearfix"></div>
         <div class="row">
@@ -42,14 +44,14 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 middle-bottom">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 middle-bottom">
                 <div class="row action-button">
                     <a href="#"><div class="mainsystembg2 delivery-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_print_guest_bill'); ?></div></a>
                     <a href="javascript:void(0)" onclick="pageExit('<?php echo site_url("gkpos/indexajax") ?>', 'Mainboard')"><div class="mainsystembg2 collection-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_exit') ?></div></a>
                     <a href="#"><div class="mainsystembg2 waiting-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_convert_to_takeaway') ?></div></a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 right-bottom pay-close">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 right-bottom pay-close">
                 <a href="#"><div class="mainsystembg collection-bg-color img-responsive"><?php echo $this->lang->line('gkpos_pay_and_close') ?></div></a>
             </div>
         </div>

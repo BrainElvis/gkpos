@@ -72,6 +72,11 @@
                         $('#categoryList > .category-list').append('<div id="category_' + this.id + '" class="' + btnColorClass + 'btn btn-block btn-primary text-uppercase" data-order="' + this.order + '" title="' + this.content + '" onclick=getMenuByCategory("' + this.id + '","")>' + this.title + '</div>');
                         index++;
                     });
+                    var windowScreenHeight = $(window).height();
+                    $('.menuselection .left-top, .menuselection .middle-top,.menuselection .right-top').css({"height": windowScreenHeight - (windowScreenHeight * 0.223) + "px", "overflow-y": "scroll", "overflow-x": "hidden"});
+                    $('.menuselection .order-menu-list').css({"height": windowScreenHeight - (windowScreenHeight * 0.44) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
+                    $('.menuselection .left-bottom,.menuselection .middle-bottom,.menuselection .right-bottom').css({"height": windowScreenHeight - (windowScreenHeight * 0.887) + "px", "overflow-y": "scroll", "overflow-x": "hidden"});
+                    manageWindowHeight();
                 } else {
                     jQuery("#warningPopupHeader").text("<?php echo $this->lang->line('gkpos_category_not_found') ?>");
                     jQuery("#warningPopupContent").text("<?php echo $this->lang->line('gkpos_category_not_found_desc') ?>");

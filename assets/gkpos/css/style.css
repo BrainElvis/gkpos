@@ -831,10 +831,32 @@ legend {
 }
 
 .item-btn {
-    height: 45px;
-    padding: 12px;
     border: none;
     cursor: pointer;
+}
+.category-list .item-btn {
+    padding: 7% 0;
+    min-height: 60px;
+}
+
+#menuListArea .item-btn {
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: bold;
+  height: 80px;
+  padding: 2% 1%;
+}
+.price-tag {
+  font-size: 11px;
+  font-weight: bold;
+}
+
+#warningPopupContent .item-btn {
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: bold;
+  height: 80px;
+  padding: 2% 1%;
 }
 .item-btn.item-btn-1{
     background: #F91937 none repeat scroll 0 0;
@@ -947,7 +969,8 @@ legend {
     color: #ffffff;
 }
 #categoryDescription .info {
-    padding: 5px 10px;
+  border-radius: 3px;
+  padding: 5px 10px;
 }
 #menuPagination {
     background: mintcream none repeat scroll 0 0 !important;

@@ -99,6 +99,11 @@
                     $('#categoryDescription').html('');
                     $('#categoryDescription').append('<p class="' + btnColorClass + 'info text-uppercase"><?php echo $this->lang->line("gkpos_menu_not_found"); ?></p>');
                 }
+                var windowScreenHeight = $(window).height();
+                $('.menuselection .left-top, .menuselection .middle-top,.menuselection .right-top').css({"height": windowScreenHeight - (windowScreenHeight * 0.223) + "px", "overflow-y": "scroll", "overflow-x": "hidden"});
+                $('.menuselection .order-menu-list').css({"height": windowScreenHeight - (windowScreenHeight * 0.44) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
+                $('.menuselection .left-bottom,.menuselection .middle-bottom,.menuselection .right-bottom').css({"height": windowScreenHeight - (windowScreenHeight * 0.887) + "px", "overflow-y": "scroll", "overflow-x": "hidden"});
+                manageWindowHeight();
             }
         });
     }
@@ -137,11 +142,16 @@
                                     $('#categoryDescription').append(' <p class="' + btnColorClass + 'info text-uppercase">' + this.categoryContent + '</p>');
                                 }
                             }
-                            $('#menuListArea').append('<div id="' + this.categoryId + "_" + this.id + '" class="' + btnColorClass + 'col-lg-4 col-md-4 col-sm-4 col-xs-4 menu-item text-center text-uppercase" title="' + this.content + '" onclick=checkSelection(\'' + this.categoryId + '\',\'' + this.id + '\',\'' + false + '\')>' + this.title + '</div>');
+                            $('#menuListArea').append('<div id="' + this.categoryId + "_" + this.id + '" class="' + btnColorClass + 'col-lg-4 col-md-4 col-sm-4 col-xs-4 menu-item text-center text-uppercase" title="' + this.content + '" onclick=checkSelection(\'' + this.categoryId + '\',\'' + this.id + '\',\'' + false + '\')>' + this.title + '<br/><span class="price-tag">TB-' + getPrice(this.base_price) + ' IN-' + getPrice(this.in_price) + ' OUT-' + getPrice(this.out_price) + '<span></div>');
                             menuIndex++;
                         });
                     }
                 }
+                var windowScreenHeight = $(window).height();
+                $('.menuselection .left-top, .menuselection .middle-top,.menuselection .right-top').css({"height": windowScreenHeight - (windowScreenHeight * 0.223) + "px", "overflow-y": "scroll", "overflow-x": "hidden"});
+                $('.menuselection .order-menu-list').css({"height": windowScreenHeight - (windowScreenHeight * 0.44) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
+                $('.menuselection .left-bottom,.menuselection .middle-bottom,.menuselection .right-bottom').css({"height": windowScreenHeight - (windowScreenHeight * 0.887) + "px", "overflow-y": "scroll", "overflow-x": "hidden"});
+                manageWindowHeight();
             },
             error: function (xhr, status, errorThrown) {
                 console.log("Sorry, there was a problem!");
@@ -166,7 +176,7 @@
                     $('#warningPopupContent').html('');
                     $.each(output.selections, function () {
                         var btnColorClass = "item-btn item-btn-" + this.selMenuCategoryId + " ";
-                        $('#warningPopupContent').append('<div id="' + this.selMenuCategoryId + "_" + this.selMenuId + "_" + this.id + '" class="' + btnColorClass + 'col-lg-4 col-md-4 col-sm-4 col-xs-4 menu-item text-center text-uppercase" title="' + this.content + '" onclick=addtocart(\'' + this.selMenuCategoryId + '\',\'' + this.selMenuId + '\',\'' + this.id + '\')>' + this.title + '</div>');
+                        $('#warningPopupContent').append('<div id="' + this.selMenuCategoryId + "_" + this.selMenuId + "_" + this.id + '" class="' + btnColorClass + 'col-lg-4 col-md-4 col-sm-4 col-xs-4 menu-item text-center text-uppercase" title="' + this.content + '" onclick=addtocart(\'' + this.selMenuCategoryId + '\',\'' + this.selMenuId + '\',\'' + this.id + '\')>' + this.title + '<br/><span class="price-tag">TB-' + getPrice(this.base_price) + ' IN-' + getPrice(this.in_price) + ' OUT-' + getPrice(this.out_price) + '<span></div>');
                     });
                     jQuery("#warningPopupHeader").text(menuTitle + ' ' + "<?php echo $this->lang->line('gkpos_selection') ?>");
                     jQuery(".warningPopup").colorbox({
@@ -206,28 +216,46 @@
                 quantity: 1
             },
             type: "POST",
-            dataType: "json",
             beforeSend: function () {
 
             },
             success: function (output) {
-                //var obj = $.parseJSON(output);
-                console.log(output);
-            },
-            error: function (xhr, status, errorThrown) {
-                console.log("Sorry, there was a problem!");
-                console.log("Error: " + errorThrown);
-                console.log("Status: " + status);
-                console.dir(xhr);
+                $('#cartBody').html('');
+                $('#cartBody').append(output);
+                var windowScreenHeight = $(window).height();
+                $('.menuselection .left-top, .menuselection .middle-top,.menuselection .right-top').css({"height": windowScreenHeight - (windowScreenHeight * 0.223) + "px", "overflow-y": "scroll", "overflow-x": "hidden"});
+                $('.menuselection .order-menu-list').css({"height": windowScreenHeight - (windowScreenHeight * 0.44) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
+                $('.menuselection .left-bottom,.menuselection .middle-bottom,.menuselection .right-bottom').css({"height": windowScreenHeight - (windowScreenHeight * 0.887) + "px", "overflow-y": "scroll", "overflow-x": "hidden"});
+                manageWindowHeight();
             },
             complete: function (xhr, status) {
                 console.log("The request is complete!");
             }
 
         });
+    }
+    $(document).ready(function () {
+        $.ajax({
+            url: "<?php echo site_url('gkpos/orders/ajaxcart/' . $this->uri->segment(4)) ?>",
+            success: function (output) {
+                $('#cartBody').html('');
+                $('#cartBody').append(output);
+                var windowScreenHeight = $(window).height();
+                $('.menuselection .left-top, .menuselection .middle-top,.menuselection .right-top').css({"height": windowScreenHeight - (windowScreenHeight * 0.223) + "px", "overflow-y": "scroll", "overflow-x": "hidden"});
+                $('.menuselection .order-menu-list').css({"height": windowScreenHeight - (windowScreenHeight * 0.44) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
+                $('.menuselection .left-bottom,.menuselection .middle-bottom,.menuselection .right-bottom').css({"height": windowScreenHeight - (windowScreenHeight * 0.887) + "px", "overflow-y": "scroll", "overflow-x": "hidden"});
+                manageWindowHeight();
+            },
+            complete: function (xhr, status) {
+                console.log("The request is complete!");
+            }
+        });
+    });
 
-
-
+    function getPrice(price) {
+        var currencySymbol = '<?php echo $this->config->item("currency_symbol") ?>';
+        return currencySymbol + price;
 
     }
+
 </script>

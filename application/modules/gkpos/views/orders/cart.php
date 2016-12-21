@@ -1,4 +1,4 @@
-<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 right-top cart">
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 right-top cart">
     <div class="sidebar-heading text-center text-uppercase"><?php echo $this->lang->line('gkpos_food') ?></div>
     <div class="tablebackgroundbg">
         <table class="table table-responsive item-table-header cart-table">
