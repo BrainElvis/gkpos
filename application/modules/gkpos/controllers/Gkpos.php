@@ -164,13 +164,6 @@ class Gkpos extends Gkpos_Controller {
         $this->load->view('gkpos/gkpos/table/wating_payment', $data, false);
     }
 
-    public function systemmanagement() {
-        $this->page_title = 'Gkpos | system management';
-        $this->current_section = "system management";
-        $this->body_class[] = "pos-system managementt";
-        $this->render_page('gkpos/gkpos/systemmanagement');
-    }
-
     public function logoff() {
         $this->Entry_Model->logout();
     }

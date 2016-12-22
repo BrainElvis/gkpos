@@ -840,23 +840,23 @@ legend {
 }
 
 #menuListArea .item-btn {
-  border-radius: 3px;
-  font-size: 14px;
-  font-weight: bold;
-  height: 80px;
-  padding: 2% 1%;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: bold;
+    height: 80px;
+    padding: 2% 1%;
 }
 .price-tag {
-  font-size: 11px;
-  font-weight: bold;
+    font-size: 11px;
+    font-weight: bold;
 }
 
 #warningPopupContent .item-btn {
-  border-radius: 3px;
-  font-size: 14px;
-  font-weight: bold;
-  height: 80px;
-  padding: 2% 1%;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: bold;
+    height: 80px;
+    padding: 2% 1%;
 }
 .item-btn.item-btn-1{
     background: #F91937 none repeat scroll 0 0;
@@ -969,8 +969,8 @@ legend {
     color: #ffffff;
 }
 #categoryDescription .info {
-  border-radius: 3px;
-  padding: 5px 10px;
+    border-radius: 3px;
+    padding: 5px 10px;
 }
 #menuPagination {
     background: mintcream none repeat scroll 0 0 !important;
@@ -1071,6 +1071,10 @@ legend {
     font-weight: bold;
     padding: 20px 70px;
 }
+.system-management-page-exit a{
+     padding: 9%!important; 
+}
+
 .phone-yes {
     color: #04fa00;
     font-weight: bold;
@@ -1161,6 +1165,6 @@ legend {
     margin: 5px 0;
 }
 
-tr.highlighted td {
+.highlighted {
     background: red;
 }

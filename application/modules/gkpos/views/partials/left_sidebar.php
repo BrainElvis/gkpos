@@ -11,7 +11,7 @@
             <div class="page-exit-button text-uppercase text-center">
                 <a href="javascript:void(0)" onclick="pageExit('<?php echo site_url("gkpos/indexajax") ?>', 'Mainboard')"><i class="fa fa-home"></i>&nbsp;&nbsp;<?php echo $this->lang->line('gkpos_home') ?></a>
             </div>
-            <a href="<?php echo site_url('gkpos/systemmanagement') ?>"><div class="mainsystembg collection-bg img-responsive"><?php echo $this->lang->line('gkpos_system_management') ?></div></a>
+            <a href="javascript:void(0)" onclick="pageExit('<?php echo site_url("gkpos/settings") ?>', '<?php echo $this->lang->line('gkpos_system_management') ?>')"><div class="mainsystembg collection-bg img-responsive"><?php echo $this->lang->line('gkpos_system_management') ?></div></a>
             <a href="#"><div class="mainsystembg2 waiting-bg img-responsive"><?php echo $this->lang->line('gkpos_table_information') ?></div></a>
             <a href="#"><div class="mainsystembg waiting-bg img-responsive"><?php echo $this->lang->line('gkpos_name_table') ?></div></a>
             <a href="#"><div class="mainsystembg2 collection-bg  img-responsive"><?php echo $this->lang->line('gkpos_change_details') ?></div></a>

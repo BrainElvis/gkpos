@@ -114,9 +114,9 @@ function manageWindowHeight() {
 
 
         $('.sidebar-heading,.liveclock').css('font-size', ($(window).width * 0.2) + 'px');
-        $('h1').css('font-size', width * 0.0 + 'px');
-        $('h2').css('font-size', width * 0.07 + 'px');
-        $('h3').css('font-size', width * 0.09 + 'px');
+       // $('h1').css('font-size', width * 0.0 + 'px');
+        //$('h2').css('font-size', width * 0.07 + 'px');
+       // $('h3').css('font-size', width * 0.09 + 'px');
 
 
     });

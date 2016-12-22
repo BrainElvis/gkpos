@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 system-management center-block">
                 <div class="modal-header">
-                    <div class="page-title col-md-12"><?php isset($current_section) ? print $current_section : print 'Delivery' ?></div>
+                    <div class="page-title col-md-12"><?php isset($current_section) ? print $current_section : print $this->lang->line('gkpos_system_management') ?></div>
                 </div>
                 <div  class="col-lg-2 col-md-2 col-sm-2  col-xs-2 tabbg1">
                     <a href="#"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/orderbg.png" class="img-responsive center-block" /></a>
@@ -93,9 +93,9 @@
                     <h1><a href="#"><?php echo $this->lang->line('gkpos_system_admin') ?></a></h1>
                 </div>
 
-                <div  class="col-lg-2 col-md-2 col-sm-2 col-xs-2 tabbg1">
+                <div  class="col-lg-2 col-md-2 col-sm-2 col-xs-2 tabbg1" id="dialog_geberal" onclick="getBaseAjaxPage('<?php echo site_url('gkpos/settings/general') ?>','<?php echo $this->lang->line('gkpos_system_general_setting') ?>')">
                     <a href="#"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/settingbg3.png" class="img-responsive center-block" /></a>
-                    <h1><a href="#"><?php echo $this->lang->line('gkpos_system_general_setting') ?></a></h1>
+                    <h1><a href="javascript:void(0)"><?php echo $this->lang->line('gkpos_system_general_setting') ?></a></h1>
                 </div>
                 <div  class="col-lg-2 col-md-2 col-sm-2 col-xs-2 tabbg1">
                     <a href="#"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/pinterbg.png" class="img-responsive center-block" /></a>
@@ -107,10 +107,9 @@
                 </div>
             </div>
         </div>
+        <div class="clearfix pages-height"></div>
+        <div class="page-exit-button text-uppercase text-center">
+            <a href="javascript:void(0)" onclick="pageExit('<?php echo site_url("gkpos/indexajax") ?>', 'Mainboard')"><i class="fa fa-home"></i>&nbsp;&nbsp;<?php echo $this->lang->line('gkpos_home') ?></a>
+        </div>
     </div>
 </section>
-<script type="text/javascript">
-    jQuery(document).ready(function () {
-        manageWindowHeight();
-    });
-</script>

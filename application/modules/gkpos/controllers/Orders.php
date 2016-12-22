@@ -43,7 +43,7 @@ class Orders extends Gkpos_Controller {
         $firstCatOrder = $this->input->post('firstCatOrder');
         $lastCatOrder = $this->input->post('lastCatOrder');
         $pageBtn = $this->input->post('pageBtn');
-        $limit = $this->config->item('category_line_page');
+        $limit = $this->config->item('gk_category_line_page');
         $maxmin = $this->Orders_Model->get_min_max('gkpos_category', 'order', array('status' => 1));
         $result = array();
         if ($pageBtn == "nextBtn" && $lastCatOrder <= $maxmin['max']) {
@@ -69,7 +69,7 @@ class Orders extends Gkpos_Controller {
         $menuPrevBtnCounter = $this->input->post('menuPrevBtnCounter');
 
         $maxmin = $this->Orders_Model->get_min_max('gkpos_menu', 'order', array('status' => 1));
-        $limit = $this->config->item('menu_line_page');
+        $limit = $this->config->item('gk_menu_line_page');
         $offset = 0;
         if ($pageBtn == "menuNextBtn" && $menuLastOrder <= $maxmin['max']) {
             $offset = $limit * (int) $menuNextBtnCounter;
@@ -159,33 +159,38 @@ class Orders extends Gkpos_Controller {
         $itemalreadyinsale = FALSE;
         $insertkey = 0;
         $updatekey = 0;
-        $plus='no';
+        $plus = 'no';
         // if item already in the cart 
         if (!empty($items)) {
-            foreach ($items as $item) {
+            foreach ($items as $key => $item) {
                 if ($maxkey <= $item['line']) {
                     $maxkey = $item['line'];
                 }
+                if (isset($item['plus'])) {
+                    unset($item['plus']);
+                }
+                $items[$key] = $item;
                 //check for selection first then menu
                 if (isset($item_info->selection) && (int) $item_info->selection > 0) {
                     if (isset($item['selection']) && $item_info->selection == $item['selection']) {
                         $itemalreadyinsale = TRUE;
                         $updatekey = $item['line'];
                         $quantity = $items[$updatekey]['quantity'] + 1;
-                        $plus='yes';
+                        $plus = 'yes';
                     }
                 } else {
                     if ($item_info->menu == $item['menu']) {
                         $itemalreadyinsale = TRUE;
                         $updatekey = $item['line'];
                         $quantity = $items[$updatekey]['quantity'] + 1;
-                        $plus='yes';
+                        $plus = 'yes';
                     }
                 }
             }
         }
-
+        $this->Orders_Model->set_cart($order_id, $items);
         if (false == $itemalreadyinsale) {
+            $plus = 'yes';
             $insertkey = $maxkey + 1;
             $order_type_obj = $this->Orders_Model->get_single('gkpos_order', array('id' => $order_id), array('order_type'));
             $order_type = $order_type_obj->order_type;
@@ -220,6 +225,7 @@ class Orders extends Gkpos_Controller {
             $insertkey = $maxkey;
             $line = &$items[$updatekey];
             $line['quantity'] = $quantity;
+            $line['plus'] = $plus;
         }
         $this->Orders_Model->set_cart($order_id, $items);
         echo $this->ajaxcart($order_id);
@@ -249,6 +255,45 @@ class Orders extends Gkpos_Controller {
             $data['nonFoodCart'] = $beverage_cart_items;
         }
         return $this->load->view('gkpos/orders/cartajax', $data, false);
+    }
+
+    public function change_quantity() {
+        $data = array();
+        $line = (int) $this->input->post('line');
+        $action = $this->input->post('action');
+        $order_id = (int) $this->input->post('order_id');
+        if ($order_id != null || $order_id = '') {
+            $items = $this->Orders_Model->get_cart($order_id);
+            foreach ($items as $key => $item) {
+                if ($item['line'] == $line) {
+                    if ($action == 'minus') {
+                        $item['quantity'] = $item['quantity'] > 1 ? $item['quantity'] - 1 : $item['quantity'];
+                    } if ($action == 'plus') {
+                        $item['quantity'] = $item['quantity'] + 1;
+                    }
+                }
+                $items[$key] = $item;
+            }
+            $this->Orders_Model->set_cart($order_id, $items);
+            $cart_items = $this->Orders_Model->get_cart($order_id);
+            $food_cart_items = array();
+            $beverage_cart_items = array();
+            $data['maxLine'] = $max_line = array_reduce($cart_items, function ($a, $b) {
+                return @$a['line'] > $b['line'] ? $a['line'] : $b['line'];
+            });
+            foreach ($cart_items as $key => $itemObj) {
+                if ($itemObj ['category_type'] == '1') {
+                    $food_cart_items[] = $itemObj;
+                } else {
+                    $beverage_cart_items [] = $itemObj;
+                }
+            }
+            $data['changeLine'] = $line;
+            $data['orderId'] = $order_id;
+            $data['foodCart'] = $food_cart_items;
+            $data['nonFoodCart'] = $beverage_cart_items;
+        }
+        $this->load->view('gkpos/orders/cartajax', $data, false);
     }
 
     public function manageThisOrder() {
