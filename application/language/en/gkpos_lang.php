@@ -225,22 +225,37 @@ $lang['gkpos_discount'] = "Discount";
 $lang['gkpos_promotion'] = "Promotion";
 $lang['gkpos_delivery_plan'] = "Delivery Plan";
 $lang['gkpos_pagination'] = "Pagination";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//Gkpos Setting Language 
+$lang['gkpos_restaurant_name'] = "restaurant name";
+$lang['gkpos_logo'] = "Logo";
+$lang["gkpos_select_image"] = "relect image";
+$lang["gkpos_change_image"] = "change image";
+$lang["gkpos_remove_image"] = "remove image";
+$lang['gkpos_address'] = "address";
+$lang['gkpos_website'] = "website";
+$lang['gkpos_email'] = "email";
+$lang['gkpos_fax'] = "fax";
+$lang['gkpos_term_condition'] = "Terms & Condition";
+$lang["gkpos_restaurant_name_required"] = "Restaurant name is a required field";
+$lang["gkpos_address_required"] = "Restaurant address is a required field";
+$lang["gkpos_email_invalid_format"] = "The email address is not in the proper format";
+$lang['gkpos_return_policy_required'] = "Terms and condition is required field";
+$lang['gkpos_vat_reg_no'] = "vat registration no";
+$lang['gkpos_vat_percent'] = "vat percentage";
+$lang['gkpos_tax_incuded'] = "Is tax included?";
+$lang['gkpos_yes'] = "Yes";
+$lang['gkpos_no'] = "No";
+$lang['gkpos_vat_reg_no_required'] = "You must provided vat registration number.";
+$lang['gkpos_vat_percent_required'] = "What is your VAT percentage on an order?";
+$lang['gkpos_tax_included_required'] = "Make sure if vat included?";
+$lang['dkpos_default_discount'] = "Default Discount";
+$lang['gkpos_auto_default_discount_applied'] = "Auto Default Discount Applied?";
+$lang['gkpos_discount_percent_required'] = "What is your deafault  discount?";
+$lang['gkpos_discount_auto_applied_required'] = "Make sure if Discount Applied By default?";
+$lang['gkpos_category_num_per_page'] = "Number of Category to display on pagination";
+$lang['gkpos_menu_num_per_page'] = "Number of Menus to display on pagination";
+$lang['gkpos_voucher']="voucher";
+$lang['gkpos_voucher_title']="voucher title";
+$lang['gkpos_voucher_code']="voucher code";
+$lang['gkpos_voucher_amount']="voucher amount";
+$lang['gkpos_voucher_amount_function']="Amount Function";

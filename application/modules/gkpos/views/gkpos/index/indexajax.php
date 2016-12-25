@@ -21,11 +21,11 @@
 <section id="body">
     <div class="container-fluid">
         <div class="row">
-            <?php  echo $this->load->view('gkpos/partials/left_sidebar')?>
+            <?php echo $this->load->view('gkpos/partials/left_sidebar') ?>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-8 bodyitem">
                 <div id="KeyboardSetting">
                     <?php echo $this->load->view('gkpos/partials/keyboard_setting') ?>
-                     <input type="hidden" id="currentPage" value="<?php (isset($current_page) && ($current_page != '' || $current_page != null )) ? print $current_page : print'false' ?>">
+                    <input type="hidden" id="currentPage" value="<?php (isset($current_page) && ($current_page != '' || $current_page != null )) ? print $current_page : print'false' ?>">
                 </div>
                 <div id="MiddleContent">
                     <?php if (!empty($table_orders)): ?>
@@ -36,8 +36,8 @@
                                     <?php $order_status_color = 'order-status-color-' . $table->status ?>
                                     <?php $order_table_bg_color = 'order-table-bg-color-' . $table->status ?>
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                        <div class="order-heading text-center text-uppercase center-block <?php echo $order_status_color; ?>"><?php echo "t-no(" . $table->table_number . ")" ?></div>
-                                        <div onclick="manageThisOrder('<?php echo $table->order_type . '_' . $table->id ?>')" id="<?php echo $table->order_type . '_' . $table->id ?>" class="table-icon center-block text-center <?php echo $order_table_bg_color ?>"><img src="<?php echo ASSETS_GKPOS_PATH . 'images/' . $table->order_type . '.png' ?>" class="img-responsive center-block"></div> 
+                                        <!--<div class="order-heading text-center text-uppercase center-block <?php echo $order_status_color; ?>"><?php echo "t-no(" . $table->table_number . ")" ?></div>-->
+                                        <div onclick="manageThisOrder('<?php echo $table->order_type . '_' . $table->id ?>')" id="<?php echo $table->order_type . '_' . $table->id ?>" class="center-block text-center <?php echo $order_table_bg_color   ?>"><div class="table-number"><?php echo $table->table_number ?></div></div> 
                                         <div class="order-heading center-block text-center text-uppercase <?php echo $order_status_color; ?>"><?php echo "g-qty(" . $table->guest_quantity . ")" ?></div>
                                     </div>
                                 <?php endforeach; ?>
@@ -56,7 +56,7 @@
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 order-item">
                                         <!--<div class="order-heading text-center text-uppercase center-block <?php echo $order_status_color; ?>"><?php echo $takeaway_order->order_type ?></div>-->
                                         <div onclick="manageThisOrder('<?php echo $takeaway_order->order_type . '_' . $takeaway_order->id ?>')" id="<?php echo $takeaway_order->order_type . '_' . $takeaway_order->id ?>" class="table-icon <?php echo $takeaway_bg_color ?>"><img src="<?php echo ASSETS_GKPOS_PATH . 'images/' . $takeaway_icon . '.png' ?>" class="img-responsive center-block"></div> 
-                                        <div class="order-heading text-center text-uppercase <?php echo $order_status_color; ?>"><?php isset($takeaway_order->name) && $takeaway_order->name != null ? print substr($takeaway_order->name,0,8). "<br/>" : print '...........<br/>' ?><?php echo $takeaway_order->phone ?></div>
+                                        <div class="order-heading text-center text-uppercase <?php echo $order_status_color; ?>"><?php isset($takeaway_order->name) && $takeaway_order->name != null ? print substr($takeaway_order->name, 0, 8) . "<br/>" : print '...........<br/>' ?><?php echo $takeaway_order->phone ?></div>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
@@ -65,7 +65,7 @@
                 </div>
                 <div id="customerInformation"></div>
             </div>
-            <?php  echo $this->load->view('gkpos/partials/right_sidebar')?>
+            <?php echo $this->load->view('gkpos/partials/right_sidebar') ?>
         </div>
     </div>
 </section>

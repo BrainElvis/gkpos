@@ -101,7 +101,7 @@ class Orders extends Gkpos_Controller {
         $menuNextBtnCounter = $this->input->post('menuNextBtnCounter');
         $menuPrevBtnCounter = $this->input->post('menuPrevBtnCounter');
         $maxmin = $this->Orders_Model->get_min_max('gkpos_menu', 'order', array('status' => 1));
-        $limit = $this->config->item('menu_line_page');
+        $limit = $this->config->item('gk_menu_line_page');
         $offset = 0;
         if ($pageBtn == "menuNextBtn" && $menuLastOrder <= $maxmin['max']) {
             $offset = $limit * (int) $menuNextBtnCounter;

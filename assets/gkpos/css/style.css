@@ -1072,7 +1072,7 @@ legend {
     padding: 20px 70px;
 }
 .system-management-page-exit a{
-     padding: 9%!important; 
+    padding: 9%!important; 
 }
 
 .phone-yes {
@@ -1112,24 +1112,28 @@ legend {
     color: #D68613;
 }
 .order-table-bg-color-3 {
-    background: #d68613 none repeat scroll 0 0;
+    background-image: url('../images/table_3.png'); 
     border-radius: 5px;
-    height: 60px;
-    width: 70px;
+    height: 47px;
+    width: 47px;
 }
 .order-table-bg-color-2 {
-    background: #2C9C15 none repeat scroll 0 0;
+    background-image: url('../images/table_2.png'); 
     border-radius: 5px;
-    height: 60px;
-    width: 70px;
+    height: 47px;
+    width: 47px;
 }
 .order-table-bg-color-1 {
-    background: #C93B14 none repeat scroll 0 0;
+    /*background: #C93B14 none repeat scroll 0 0;*/
+    background-image: url('../images/table_1.png'); 
     border-radius: 5px;
-    height: 60px;
-    width: 70px;
+    height: 47px;
+    width: 47px;
 }
-
+.table-number {
+  padding: 13px 0 0;
+  cursor: pointer;
+}
 .order-bg-color-collection {
     border-radius: 5px;
     height: 65px;

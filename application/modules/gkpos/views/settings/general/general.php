@@ -30,40 +30,36 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 bodyitem">
                 <div id="KeyboardSetting">
-                    <?php echo $this->load->view('gkpos/partials/keyboard_setting') ?>
+                    <?php echo $this->load->view('gkpos/settings/keyboard_setting') ?>
                     <input type="hidden" id="currentPage" value="<?php (isset($current_page) && ($current_page != '' || $current_page != null )) ? print $current_page : print'false' ?>">
                 </div>
                 <div id="MiddleContent">
-                    <?php echo form_open('admin/config/save_general/', array('id' => 'info_config_form', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal')); ?>
+                    <?php echo form_open('gkpos/settings/save_general/', array('id' => 'general_form', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal')); ?>
                     <div id="config_wrapper">
                         <fieldset id="config_info">
-                            <div id="required_fields_message"><?php echo $this->lang->line('common_fields_required_message'); ?></div>
-                            <ul id="general_error_message_box" class="error_message_box"></ul>
                             <div class="form-group form-group-sm">	
-                                <?php echo form_label($this->lang->line('config_company'), 'company', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4 required')); ?>
+                                <?php echo form_label($this->lang->line('gkpos_restaurant_name'), 'gk_name', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4 text-uppercase required')); ?>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <div class="input-group">
-                                        <span class="input-group-addon input-sm"><span class="glyphicon glyphicon-home"></span></span>
-                                        <?php
-                                        echo form_input(array(
-                                            'name' => 'company',
-                                            'id' => 'company',
-                                            'class' => 'form-control input-sm required',
-                                            'value' => $this->config->item('company')));
-                                        ?>
+                                        <span class="input-group-addon" style="background-color: #FF0000;"><a href="#"><i class="fa fa-home" aria-hidden="true"></i></a></span>
+                                        <?php if ($this->config->item('is_touch') == 'disable'): ?>
+                                            <input name="gk_name" class="form-control required"  type="text" id="gk_name" value="<?php echo $this->config->item('gk_name') ?>">
+                                        <?php else: ?>
+                                            <input name="gk_name" class="form-control required"  type="text" id="gk_name" onfocus="myJqueryKeyboard('gk_name')" value="<?php echo $this->config->item('gk_name') ?>">
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group form-group-sm">	
-                                <?php echo form_label($this->lang->line('config_company_logo'), 'company_logo', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4')); ?>
+                                <?php echo form_label($this->lang->line('gkpos_logo'), 'gk_logo', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4 text-uppercase')); ?>
                                 <div class='col-lg-8 col-md-8 col-sm-8 col-xs-8'>
                                     <div class="fileinput <?php echo isset($logo_exists) ? 'fileinput-exists' : 'fileinput-new'; ?>" data-provides="fileinput">
                                         <div class="fileinput-new thumbnail" style="width: 100px; height: 100px;"></div>
                                         <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 200px;">
-                                            <img data-src="holder.js/100%x100%" alt="<?php echo $this->lang->line('config_company_logo'); ?>"
+                                            <img data-src="holder.js/100%x100%" alt="<?php echo $this->lang->line('gk_logo'); ?>"
                                                  src="<?php
                                                  if (isset($logo_exists))
-                                                     echo base_url('uploads/' . $this->Appconfig->get('company_logo'));
+                                                     echo base_url('uploads/gkpos/logo/' . $this->Appconfig->get('gk_logo'));
                                                  else
                                                      echo '';
                                                  ?>"
@@ -71,110 +67,97 @@
                                         </div>
                                         <div>
                                             <span class="btn btn-default btn-sm btn-file">
-                                                <span class="fileinput-new"><?php echo $this->lang->line("config_company_select_image"); ?></span>
-                                                <span class="fileinput-exists"><?php echo $this->lang->line("config_company_change_image"); ?></span>
-                                                <input type="file" name="company_logo">
+                                                <span class="fileinput-new"><?php echo $this->lang->line("gkpos_select_image"); ?></span>
+                                                <span class="fileinput-exists"><?php echo $this->lang->line("gkpos_change_image"); ?></span>
+                                                <input type="file" name="gk_logo">
                                             </span>
-                                            <a href="#" class="btn btn-default btn-sm fileinput-exists" data-dismiss="fileinput"><?php echo $this->lang->line("config_company_remove_image"); ?></a>
+                                            <a href="#" class="btn btn-default btn-sm fileinput-exists" data-dismiss="fileinput"><?php echo $this->lang->line("gkpos_remove_image"); ?></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group form-group-sm">	
-                                <?php echo form_label($this->lang->line('config_address'), 'address', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4 required')); ?>
+                                <?php echo form_label($this->lang->line('gkpos_address'), 'gk_address', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4 required text-uppercase')); ?>
                                 <div class='col-lg-8 col-md-8 col-sm-8 col-xs-8'>
-                                    <?php
-                                    echo form_textarea(array(
-                                        'name' => 'address',
-                                        'id' => 'address',
-                                        'class' => 'form-control input-sm required',
-                                        'rows' => 2,
-                                        'value' => $this->config->item('address')));
-                                    ?>
+                                    <?php if ($this->config->item('is_touch') == 'disable'): ?>
+                                        <?php echo form_textarea(array('name' => 'gk_address', 'rows' => 2, 'class' => 'form-control', 'id' => 'gk_address'), $this->config->item('gk_address')) ?>
+                                    <?php else: ?>
+                                        <textarea rows="2" name="gk_address" id="gk_address" class="form-control" onfocus="myJqueryKeyboard('gk_address')" ><?php echo $this->config->item('gk_address') ?></textarea>
+                                    <?php endif; ?>
                                 </div>
                             </div>
 
                             <div class="form-group form-group-sm">	
-                                <?php echo form_label($this->lang->line('config_website'), 'website', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4')); ?>
+                                <?php echo form_label($this->lang->line('gkpos_website'), 'gk_website', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4 text-uppercase')); ?>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <div class="input-group">
-                                        <span class="input-group-addon input-sm"><span class="glyphicon glyphicon-globe"></span></span>
-                                        <?php
-                                        echo form_input(array(
-                                            'name' => 'website',
-                                            'id' => 'website',
-                                            'class' => 'form-control input-sm',
-                                            'value' => $this->config->item('website')));
-                                        ?>
+                                        <span class="input-group-addon" style="background-color: #FF0000;"><a href="#"><i class="fa fa-home" aria-hidden="true"></i></a></span>
+                                        <?php if ($this->config->item('is_touch') == 'disable'): ?>
+                                            <input name="gk_website" class="form-control required"  type="text" id="gk_website" value="<?php echo $this->config->item('gk_website') ?>">
+                                        <?php else: ?>
+                                            <input name="gk_website" class="form-control required"  type="text" id="gk_website" onfocus="myJqueryKeyboard('gk_website')" value="<?php echo $this->config->item('gk_website') ?>">
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group form-group-sm">	
-                                <?php echo form_label($this->lang->line('common_email'), 'email', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4')); ?>
+                                <?php echo form_label($this->lang->line('gkpos_email'), 'gk_email', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4 text-uppercase')); ?>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <div class="input-group">
-                                        <span class="input-group-addon input-sm"><span class="glyphicon glyphicon-envelope"></span></span>
-                                        <?php
-                                        echo form_input(array(
-                                            'name' => 'email',
-                                            'id' => 'email',
-                                            'type' => 'email',
-                                            'class' => 'form-control input-sm',
-                                            'value' => $this->config->item('email')));
-                                        ?>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                                        <?php if ($this->config->item('is_touch') == 'disable'): ?>
+                                            <input name="gk_email" class="form-control"  type="text" id="gk_email" value="<?php echo $this->config->item('gk_email') ?>">
+                                        <?php else: ?>
+                                            <input name="gk_email" class="form-control"  type="text" id="gk_email" onfocus="myJqueryKeyboard('gk_email')" value="<?php echo $this->config->item('gk_email') ?>">
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group form-group-sm">	
-                                <?php echo form_label($this->lang->line('config_phone'), 'phone', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4 required')); ?>
+                                <?php echo form_label($this->lang->line('gkpos_phone'), 'gk_phone', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4 required text-uppercase')); ?>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <div class="input-group">
-                                        <span class="input-group-addon input-sm"><span class="glyphicon glyphicon-phone-alt"></span></span>
-                                        <?php
-                                        echo form_input(array(
-                                            'name' => 'phone',
-                                            'id' => 'phone',
-                                            'class' => 'form-control input-sm required',
-                                            'value' => $this->config->item('phone')));
-                                        ?>
+                                        <span class="input-group-addon"  style="background-color: #FF0000;"><span class="glyphicon glyphicon-phone-alt"></span></span>
+                                        <?php if ($this->config->item('is_touch') == 'disable'): ?>
+                                            <input name="gk_phone" class="form-control required"  type="text" id="gk_phone" value="<?php echo $this->config->item('gk_phone') ?>">
+                                        <?php else: ?>
+                                            <input name="gk_phone" class="form-control required"  type="text" id="gk_phone" onfocus="myJqueryKeyboard('gk_phone')" value="<?php echo $this->config->item('gk_phone') ?>">
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group form-group-sm">	
-                                <?php echo form_label($this->lang->line('config_fax'), 'fax', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4')); ?>
+                                <?php echo form_label($this->lang->line('gkpos_fax'), 'gk_fax', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4 text-uppercase')); ?>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <div class="input-group">
-                                        <span class="input-group-addon input-sm"><span class="glyphicon glyphicon-phone-alt"></span></span>
-                                        <?php
-                                        echo form_input(array(
-                                            'name' => 'fax',
-                                            'id' => 'fax',
-                                            'class' => 'form-control input-sm',
-                                            'value' => $this->config->item('fax')));
-                                        ?>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-phone-alt"></span></span>
+                                        <?php if ($this->config->item('is_touch') == 'disable'): ?>
+                                            <input name="gk_fax" class="form-control"  type="text" id="gk_fax" value="<?php echo $this->config->item('gk_fax') ?>">
+                                        <?php else: ?>
+                                            <input name="gk_fax" class="form-control"  type="text" id="gk_fax" onfocus="myJqueryKeyboard('gk_fax')" value="<?php echo $this->config->item('gk_fax') ?>">
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group form-group-sm">	
-                                <?php echo form_label($this->lang->line('common_return_policy'), 'return_policy', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4 required')); ?>
+                                <?php echo form_label($this->lang->line('gkpos_term_condition'), 'gk_policy', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4 required text-uppercase')); ?>
                                 <div class='col-lg-8 col-md-8 col-sm-8 col-xs-8'>
-                                    <?php
-                                    echo form_textarea(array(
-                                        'name' => 'return_policy',
-                                        'id' => 'return_policy',
-                                        'class' => 'form-control input-sm required',
-                                        'rows' => 2,
-                                        'value' => $this->config->item('return_policy')));
-                                    ?>
+                                    <?php if ($this->config->item('is_touch') == 'disable'): ?>
+                                        <?php echo form_textarea(array('name' => 'gk_policy', 'rows' => 2, 'class' => 'form-control', 'id' => 'gk_policy'), $this->config->item('gk_policy')) ?>
+                                    <?php else: ?>
+                                        <textarea rows="2" name="gk_policy" id="gk_policy" class="form-control" onfocus="myJqueryKeyboard('gk_policy')" ><?php echo $this->config->item('gk_policy') ?></textarea>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="form-group form-group-md">	
+
                                 <div class="col-md-offset-4 col-md-8">
+                                    <ul id="general_error_message_box" class="error_message_box"></ul>
                                     <?php
                                     echo form_submit(array(
                                         'name' => 'submit_form',
@@ -200,7 +183,7 @@
                                 });
                             });
 
-                            $('#info_config_form').validate({
+                            $('#general_form').validate({
                                 submitHandler: function (form) {
                                     $(form).ajaxSubmit({
                                         success: function (response) {
@@ -226,19 +209,19 @@
                                 },
                                 rules:
                                         {
-                                            company: "required",
-                                            address: "required",
-                                            phone: "required",
-                                            email: "email",
-                                            return_policy: "required"
+                                            gk_name: "required",
+                                            gk_address: "required",
+                                            gk_phone: "required",
+                                            gk_email: "email",
+                                            gk_policy: "required"
                                         },
                                 messages:
                                         {
-                                            company: "<?php echo $this->lang->line('config_company_required'); ?>",
-                                            address: "<?php echo $this->lang->line('config_address_required'); ?>",
-                                            phone: "<?php echo $this->lang->line('config_phone_required'); ?>",
-                                            email: "<?php echo $this->lang->line('common_email_invalid_format'); ?>",
-                                            return_policy: "<?php echo $this->lang->line('config_return_policy_required'); ?>"
+                                            gk_name: "<?php echo $this->lang->line('gkpos_restaurant_name_required'); ?>",
+                                            gk_address: "<?php echo $this->lang->line('gkpos_address_required'); ?>",
+                                            gk_phone: "<?php echo $this->lang->line('gkpos_valid_phone_required'); ?>",
+                                            gk_email: "<?php echo $this->lang->line('gkpos_email_invalid_format'); ?>",
+                                            gk_policy: "<?php echo $this->lang->line('gkpos_return_policy_required'); ?>"
                                         }
                             });
                         });

@@ -31,7 +31,7 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 bodyitem">
                 <div id="KeyboardSetting">
-                    <?php echo $this->load->view('gkpos/partials/keyboard_setting') ?>
+                    <?php echo $this->load->view('gkpos/settings/keyboard_setting') ?>
                     <input type="hidden" id="currentPage" value="<?php (isset($current_page) && ($current_page != '' || $current_page != null )) ? print $current_page : print'false' ?>">
                 </div>
                 <div id="MiddleContent">
