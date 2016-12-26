@@ -432,4 +432,47 @@
             });
         }
     }
+    function submitCart(order_id) {
+        if (order_id == null || order_id == '') {
+            alert('Please put some item on the cart');
+        } else {
+            $.confirm({
+                'title': 'Order completion warning!!!',
+                'message': 'Are you sure that your item insertion on cart is completed? <br/> Continue proceed? Click Yes',
+                'buttons': {
+                    'Yes': {
+                        'class': 'btn btn-success',
+                        'action': function () {
+                            sendCart(order_id);
+                        }
+                    },
+                    'No': {
+                        'class': 'btn btn-danger',
+                        'action': function () {}	// Nothing to do in this case. You can as well omit the action property.
+                    }
+                }
+            });
+        }
+    }
+    function sendCart(order_id) {
+        $.ajax({
+            url: "<?php echo site_url('gkpos/orders/sendcart/') ?>",
+            data: {
+                order_id: parseInt(order_id)
+            },
+            type: "POST",
+            beforeSend: function () {
+
+            },
+            success: function (output) {
+                var obj = $.parseJSON(output);
+                if (obj.success == true) {
+                    alert(obj.message);
+                    getBaseAjaxPage('<?php echo site_url('gkpos/indexajax') ?>', 'mainboard');
+                } else {
+                    alert(obj.message);
+                }
+            }
+        });
+    }
 </script>

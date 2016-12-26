@@ -84,6 +84,7 @@
             </table>
         </div>
     </div>
+    <?php //debugPrint($deliveryplan) ?>
     <div class="tablebackgroundbg">
         <table class="table table-responsive calculation-table">
             <tr>
@@ -94,16 +95,40 @@
                 <th>Service Charge</th>
                 <td><?php echo to_currency(0.0) ?></td>
             </tr>
+            <?php if (!empty($deliveryplan) && (!empty($foodCart) || !empty($nonFoodCart))): ?>
+                <tr>
+                    <th>Delivery Fee</th>
+                    <td><?php
+                        $deliveryplan->is_free == 1 ? print'free' : $total+=$deliveryplan->delivery_charge;
+                        print to_currency($deliveryplan->delivery_charge)
+                        ?></td>
+                </tr>
+            <?php endif; ?>
             <tr>
                 <?php $total+=$foodTotal + $nonFoodTotal ?>
                 <th>Total</th>
                 <td><?php echo to_currency($total) ?></td>
             </tr>
+            <?php if (!empty($deliveryplan) && ($foodTotal + $nonFoodTotal) < $deliveryplan->min_order): ?>
+                <tr>
+                    <td colspan="2"><?php print'Minimum Delivery Order Amount:' . to_currency($deliveryplan->min_order) ?></td>
+                </tr>
+            <?php endif; ?>
+
         </table>
     </div>
     <input type="hidden" id="selectedRow" value="<?php isset($changeLine) ? print $changeLine : '' ?>">
     <input type="hidden" id="orderId" value="<?php isset($orderId) ? print $orderId : '' ?>">
-    <div class="sendbg col-lg-3 col-md-3 col-sm-3 col-xs-3"><?php echo $this->lang->line('gkpos_send') ?></div>
+    <input type="hidden" id="sentAction" value="">
+    <?php
+    $order_id = null;
+    if (!empty($foodCart)) {
+        $order_id = $foodCart[0]['order_id'];
+    } else {
+        $order_id = isset($nonFoodCart[0]['order_id']) ? $nonFoodCart[0]['order_id'] : null;
+    }
+    ?>
+    <div class="sendbg col-lg-3 col-md-3 col-sm-3 col-xs-3" onclick="submitCart('<?php echo $order_id ?>')"><?php echo $this->lang->line('gkpos_send') ?></div>
     <div class="ktcbg col-lg-3 col-md-3 col-sm-3 col-xs-3"><?php echo $this->lang->line('gkpos_ktc') ?></div>
     <div class="minusbg col-lg-3 col-md-3 col-sm-3 col-xs-3" onclick="changeQuantity('minus')"><span class="minustextbg"> <?php echo $this->lang->line('gkpos_minus') ?> </span></div>
     <div class="plusbg col-lg-3 col-md-3 col-sm-3 col-xs-3" onclick="changeQuantity('plus')"><span class="plustextbg"> <?php echo $this->lang->line('gkpos_plus') ?> </span></div>

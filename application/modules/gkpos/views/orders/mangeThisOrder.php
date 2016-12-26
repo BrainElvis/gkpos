@@ -58,9 +58,7 @@ $title.=$name;
                         $('#MangerOrderPopoUp').html('');
                     }
                     getBaseAjaxPage(actionObj.data.url, actionObj.data.info);
-                    //document.location.replace(actionObj.data.url);
                 }
-                console.log(actionObj);
             },
             complete: function (xhr, status) {
                 console.log("The request is complete!");

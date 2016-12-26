@@ -382,6 +382,7 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
     margin-top: 0px;
     color: #fff;
     background-position: center;
+    cursor: pointer;
 }
 .ktcbg {
     background: url(../images/ktcbg.png) no-repeat;
@@ -1131,8 +1132,8 @@ legend {
     width: 47px;
 }
 .table-number {
-  padding: 13px 0 0;
-  cursor: pointer;
+    padding: 13px 0 0;
+    cursor: pointer;
 }
 .order-bg-color-collection {
     border-radius: 5px;
@@ -1171,4 +1172,7 @@ legend {
 
 .highlighted {
     background: red;
+}
+.voucher-list {
+    background: #00aeef none repeat scroll 0 0;
 }

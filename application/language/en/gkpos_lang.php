@@ -254,8 +254,17 @@ $lang['gkpos_discount_percent_required'] = "What is your deafault  discount?";
 $lang['gkpos_discount_auto_applied_required'] = "Make sure if Discount Applied By default?";
 $lang['gkpos_category_num_per_page'] = "Number of Category to display on pagination";
 $lang['gkpos_menu_num_per_page'] = "Number of Menus to display on pagination";
-$lang['gkpos_voucher']="voucher";
-$lang['gkpos_voucher_title']="voucher title";
-$lang['gkpos_voucher_code']="voucher code";
-$lang['gkpos_voucher_amount']="voucher amount";
-$lang['gkpos_voucher_amount_function']="Amount Function";
+$lang['gkpos_voucher'] = "voucher";
+$lang['gkpos_voucher_title'] = "voucher title";
+$lang['gkpos_voucher_code'] = "voucher code";
+$lang['gkpos_voucher_amount'] = "voucher amount";
+$lang['gkpos_voucher_amount_function'] = "Amount Function";
+$lang['gkpos_voucher_list'] = "voucher list";
+//dElivery Plan 
+
+$lang['gkpos_area_or_title'] = "Area/Title";
+$lang['gkpos_is_free'] = "is free?";
+$lang['gkpos_delivery_charge'] = "Delivery Charge";
+$lang['gkpos_minimum_order'] = "Minimum Order";
+$lang['gkpos_applied_to_poscodes'] = "Postcode full list";
+$lang['gkpos_initial_postcode'] = "Postcode initial";

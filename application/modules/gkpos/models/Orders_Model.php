@@ -85,4 +85,29 @@ class Orders_Model extends MY_Model {
         $this->session->set_userdata('cart' . $order_id, $cart_data);
     }
 
+    public function clear_cart($order_id) {
+        $this->session->unset_userdata('cart' . $order_id);
+    }
+
+    function get_deliveryplan($order_id) {
+        if (!$this->session->userdata('deliveryplan' . $order_id)) {
+            $this->set_deliveryplan(false, array());
+        }
+        return $this->session->userdata('deliveryplan' . $order_id);
+    }
+
+    function set_deliveryplan($order_id, $data) {
+        $this->session->set_userdata('deliveryplan' . $order_id, $data);
+    }
+
+    public function clear_deliveryplan($order_id) {
+        $this->session->unset_userdata('deliveryplan' . $order_id);
+    }
+
+    public function save_cart($data, $id = null) {
+        $this->_table_name = 'gkpos_order_detail';
+        $this->_primary_key = 'id';
+        return $this->save($data, $id);
+    }
+
 }

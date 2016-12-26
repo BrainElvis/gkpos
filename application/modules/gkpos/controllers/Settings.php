@@ -159,7 +159,60 @@ class Settings extends Gkpos_Controller {
     public function depliveryplan() {
         $data['current_section'] = $this->lang->line('gkpos_system_management') . 'Delivery Plan';
         $data['current_page'] = "depliveryplan";
+        $data['deliveryplan_list'] = $this->Settings_Model->get_list('gkpos_deliveryplan');
         $this->load->view('gkpos/settings/general/deliveryplan', $data, false);
+    }
+
+    public function get_postcodelist() {
+        $id = $this->input->post('id');
+        $postcodes = $this->Settings_Model->get_single('gkpos_deliveryplan', array('id' => $id), array('postcodes'));
+        if (!empty($postcodes)) {
+            echo json_encode(array('success' => true, 'postcodes' => $postcodes, 'message' => $id));
+        } else {
+            echo json_encode(array('success' => false, 'postcodes' => $postcodes, 'message' => $id));
+        }
+    }
+
+    public function save_deliveryplan($id = null) {
+        $data = array(
+            'area' => $this->input->post('area'),
+            'is_free' => $this->input->post('is_free'),
+            'delivery_charge' => $this->input->post('delivery_charge'),
+            'min_order' => $this->input->post('min_order'),
+            'initial_code' => $this->input->post('initial_code'),
+            'postcodes' => $this->input->post('postcodes'),
+        );
+        $data = $this->prepareData($data);
+        if ($id == null) {
+            $data['status'] = 1;
+            $data['created_by'] = $this->session->userdata('gkpos_userid');
+        }
+        if ($id != null && $id > 0) {
+            $data['modified'] = date('Y-m-d H:i:s');
+            $data['modified_by'] = $this->session->userdata('gkpos_userid');
+        }
+        $result = $this->Settings_Model->save_deliveryplan($data, $id);
+        $success = $result ? true : false;
+        $message = $this->lang->line('config_saved_' . ($success ? '' : 'un') . 'successfully');
+        echo json_encode(array('success' => $success, 'message' => $message));
+    }
+
+    public function update_deliveryplan() {
+        $action = $this->input->post('action');
+        $id = $this->input->post('id');
+        if ($action == 'delete') {
+            $success = $this->db->delete('gkpos_deliveryplan', array('id' => $id));
+            $message = $success ? 'Plan deleted successfully' : 'Plan Deletion failed';
+        }
+        if ($action == 'activate') {
+            $success = $this->db->update('gkpos_deliveryplan', array('status' => 1), array('id' => $id));
+            $message = $success ? 'Plan activated successfully' : 'Plan Deletion failed';
+        }
+        if ($action == 'deactivate') {
+            $success = $this->db->update('gkpos_deliveryplan', array('status' => 2), array('id' => $id));
+            $message = $success ? 'Plan activated successfully' : 'Plan Deletion failed';
+        }
+        echo json_encode(array('success' => $success, 'message' => $message));
     }
 
     public function pagination() {

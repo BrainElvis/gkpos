@@ -134,6 +134,21 @@ class MY_Model extends CI_Model {
         return $this->db->get($table)->result();
     }
 
+    public function get_list_array($table, $condition = null, $columns = null, $limit = null, $offset = 0, $order_field = null, $order_type = null) {
+        if ($columns)
+            $this->db->select($columns);
+        if ($limit)
+            $this->db->limit($limit, $offset);
+
+        if ($condition)
+            $this->db->where($condition);
+
+        if ($order_field && $order_type)
+            $this->db->order_by($order_field, $order_type);
+
+        return $this->db->get($table)->result_array();
+    }
+
     public function get_single($table, $condition = null, $columns = '*', $order = null) {
         $this->db->select($columns);
         if ($order)

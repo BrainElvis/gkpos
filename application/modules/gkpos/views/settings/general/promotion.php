@@ -52,7 +52,7 @@
                             </div>
 
                             <div class="form-group form-group-sm">	
-                                <?php echo form_label($this->lang->line('gkpos_voucher_code'), 'gk_vat_percent', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4 text-uppercase required')); ?>
+                                <?php echo form_label($this->lang->line('gkpos_voucher_code'), 'code', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4 text-uppercase required')); ?>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <div class="input-group">
                                         <span class="input-group-addon" style="background-color: #FF0000;"><a href="#"><i class="fa fa-table" aria-hidden="true"></i></a></span>
@@ -67,7 +67,7 @@
 
 
                             <div class="form-group form-group-sm">	
-                                <?php echo form_label($this->lang->line('gkpos_voucher_amount'), 'gk_vat_percent', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4 text-uppercase required')); ?>
+                                <?php echo form_label($this->lang->line('gkpos_voucher_amount'), 'amount', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4 text-uppercase required')); ?>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <div class="input-group">
                                         <span class="input-group-addon" style="background-color: #FF0000;"><a href="#"><i class="fa fa-table" aria-hidden="true"></i></a></span>
@@ -83,8 +83,8 @@
                             <div class="form-group form-group-sm">	
                                 <label for="radio-inline" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label text-uppercase required"><?php echo $this->lang->line('gkpos_voucher_amount_function') ?></label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <label class="radio-inline text-uppercase required"><input type="radio" name="function" id="function-percent" value="percent" <?php (isset($function) && $function == "percent") ? print "checked" : '' ?> ><?php echo $this->lang->line('gkpos_fixed') ?></label>
-                                    <label class="radio-inline text-uppercase required"><input type="radio" name="function" id="function-percent" value="fixed" <?php (isset($function) && $function == "fixed") ? print "checked" : '' ?> ><?php echo $this->lang->line('gkpos_percentage') ?></label>
+                                    <label class="radio-inline text-uppercase required"><input type="radio" name="function" id="function-percent" value="percent" <?php (isset($function) && $function == "percent") ? print "checked" : '' ?> ><?php echo $this->lang->line('gkpos_percentage') ?></label>
+                                    <label class="radio-inline text-uppercase required"><input type="radio" name="function" id="function-percent" value="fixed" <?php (isset($function) && $function == "fixed") ? print "checked" : '' ?> ><?php echo $this->lang->line('gkpos_fixed') ?></label>
                                 </div>
                             </div>
 
@@ -113,7 +113,8 @@
                                         success: function (response) {
                                             if (response.success)
                                             {
-                                                set_feedback(response.message, 'alert alert-dismissible alert-success', false);
+                                                 getBaseAjaxPage('<?php echo site_url("gkpos/settings/promotion") ?>', 'General - Promotion');
+                                                //set_feedback(response.message, 'alert alert-dismissible alert-success', false);
                                             } else
                                             {
                                                 set_feedback(response.message, 'alert alert-dismissible alert-danger', true);
@@ -154,23 +155,27 @@
 
                     <div class="clearfix"></div>
                     <div class="voucher-list">
+                        <div class="modal-header">
+                            <div class="page-title col-md-12"><?php echo $this->lang->line('gkpos_voucher_list')?></div>
+                        </div>
+                        <div class="clearfix"></div>
                         <table class="table table-responsive table-bordered fieldset">
                             <tr>
-                                <th>title</th> 
-                                <th>code</th> 
-                                <th>Discount Amount</th> 
-                                <th>Action</th> 
+                                <th class="text-center text-uppercase"><?php echo $this->lang->line('gkpos_voucher_title')?></th> 
+                                <th class="text-center text-uppercase"><?php echo $this->lang->line('gkpos_voucher_code')?></th> 
+                                <th class="text-center text-uppercase"><?php echo $this->lang->line('gkpos_voucher_amount')?></th> 
+                                <th class="text-center text-uppercase"><?php echo $this->lang->line('gkpos_action')?></th> 
                             </tr>
                             <?php if (!empty($voucher_list)): ?>
                                 <?php foreach ($voucher_list as $voucher): ?> 
                                     <tr>
-                                        <td><?php echo $voucher->title ?></td> 
-                                        <td><?php echo $voucher->code ?></td> 
-                                        <td><?php $voucher->function == 'fixed' ? print to_currency($voucher->amount) : print to_tax_decimals($voucher->amount) . '&percnt;' ?></td> 
-                                        <td>
+                                        <td class="text-center"><?php echo $voucher->title ?></td> 
+                                        <td class="text-center"><?php echo $voucher->code ?></td> 
+                                        <td class="text-center"><?php $voucher->function == 'fixed' ? print to_currency($voucher->amount) : print to_tax_decimals($voucher->amount) . '&percnt;' ?></td> 
+                                        <td class="text-center">
                                             <a href='javascript:void(0)' onclick="updatePromotion('<?php echo $voucher->id ?>', '<?php echo site_url('gkpos/settings/update_promotion') ?>', '<?php $voucher->status == 1 ? print'deactivate' : print 'activate' ?>')"><?php $voucher->status == 1 ? print'Deactivate' : print 'Activate' ?> </a>
                                             |
-                                            <a href='javascript:void(0)' onclick="updatePromotion('<?php echo $voucher->id ?>', '<?php echo site_url('gkpos/settings/update_promotion') ?>','delete')">Delete</a> 
+                                            <a href='javascript:void(0)' onclick="updatePromotion('<?php echo $voucher->id ?>', '<?php echo site_url('gkpos/settings/update_promotion') ?>', 'delete')">Delete</a> 
                                         </td> 
                                     </tr>
                                 <?php endforeach; ?>
