@@ -158,6 +158,16 @@ class MY_Model extends CI_Model {
         $this->db->limit(1);
         return $this->db->get($table)->row();
     }
+    
+    public function get_single_array($table, $condition = null, $columns = '*', $order = null) {
+        $this->db->select($columns);
+        if ($order)
+            $this->db->order_by($order);
+        if ($condition)
+            $this->db->where($condition);
+        $this->db->limit(1);
+        return $this->db->get($table)->row_array();
+    }
 
     function get_last_row_id($table) {
         $last_row = $this->db->order_by('id', "desc")->limit(1)->get($table)->row();

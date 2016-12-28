@@ -342,6 +342,17 @@ class Orders extends Gkpos_Controller {
     public function edit_cart($order_id, $order_type, $dialog = false, $data = array()) {
         $cart_data = $this->Orders_Model->get_list_array('gkpos_order_detail', array('order_id' => $order_id));
         $order = $this->Orders_Model->get_single('gkpos_order', array('id' => $order_id, 'order_type' => $order_type));
+        $serviceCharge = array(
+            'service_charge' => $order->service_charge,
+            'charge_func' => $order->charge_func,
+        );
+        $this->Orders_Model->set_servicecharge($order_id, $serviceCharge);
+
+        $discountData = array(
+            'discount' => $order->discount,
+            'discount_func' => $order->discount_func,
+        );
+        $this->Orders_Model->set_discount($order_id, $discountData);
         $delivery_plan = array();
         if ($order_type == 'delivery') {
             $delivery_plan = $this->Orders_Model->get_deliveryplan($order_id);
@@ -352,7 +363,9 @@ class Orders extends Gkpos_Controller {
                 $this->Orders_Model->set_deliveryplan($order_id, $deliveryPlan);
             }
         }
+
         $this->Orders_Model->set_db_cart($order_id, $cart_data);
+        
         echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type, 'info' => 'Edit Order', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/orders/indexajax/' . $order_id))));
     }
 
@@ -375,14 +388,17 @@ class Orders extends Gkpos_Controller {
     public function sendcart() {
         $order_id = $this->input->post('order_id');
         $cart_data = $this->Orders_Model->get_cart($order_id);
-        $existingOrder = $this->Orders_Model->get_single_array('gkpos_order', array('id' => $order_id));
+        $db_cart_data = $this->Orders_Model->get_db_cart($order_id);
         $deliveryPlan = $this->Orders_Model->get_deliveryplan($order_id);
         $serviceCharge = $this->Orders_Model->get_servicecharge($order_id);
         $discountObj = $this->Orders_Model->get_discount($order_id);
+
+        
         $order_total = 0;
         $grand_total = 0;
         $success = false;
-        //Manage Item and Order Total 
+        
+        
         if (!empty($cart_data)) {
             foreach ($cart_data as $item) {
                 $order_total+=$item['price'] * $item['quantity'];
@@ -398,66 +414,37 @@ class Orders extends Gkpos_Controller {
                 }
             }
             
-            //manage vat 
-            $vat = 0;
-            if (($this->config->item('gk_vat_reg') != '' || $this->config->item('gk_vat_reg') != null) && $order_total > 0) {
-                if ($this->config->item('gk_vat_included') == 'no') {
-                    $order_vat = ($order_total * $this->config->item('gk_vat_percent')) / 100;
-                    $vat = ($existingOrder['vat'] != '' || $existingOrder['vat'] != null) && $existingOrder['vat'] > 0 ? $existingOrder['vat'] + $order_vat : $order_vat;
-                    $grand_total += $vat;
-                }
-            }
             
-            //manage discount 
-            $discount = 0;
+            
+            $grand_total+=$order_total;
+            $delivery_charge = NULL;
+            if (!empty($deliveryPlan)) {
+                $delivery_charge = is_object($deliveryPlan) ? $deliveryPlan->delivery_charge : $deliveryPlan['delivery_charge'];
+                $grand_total += $delivery_charge;
+            }
+            $charge_amount = NULL;
+            $charge_func = NULL;
+            if (!empty($serviceCharge)) {
+                $charge_amount = is_object($serviceCharge) ? $serviceCharge->service_charge : $serviceCharge['service_charge'];
+                $charge_func = is_object($serviceCharge) ? ($serviceCharge->charge_func == '' ? 'fixed' : $serviceCharge->charge_func) : ($serviceCharge['charge_func'] == '' ? 'fixed' : $serviceCharge['charge_func'] );
+                $grand_total += ($charge_func == 'percent') ? ($order_total * $charge_amount) / 100 : $charge_amount;
+            }
+
+            $discount_amount = NULL;
+            $discount_func = NULL;
             if (!empty($discountObj)) {
-                $order_discount = $discountObj['discount'];
-                $discount = ($existingOrder['discount'] != '' || $existingOrder['discount'] != null) && $existingOrder['discount'] > 0 ? $existingOrder['discount'] + $order_discount : $order_discount;
-                $grand_total -= $discount;
+                $discount_amount = is_object($discountObj) ? $discountObj->discount : $discountObj['discount'];
+                $discount_func = is_object($discountObj) ? ($discountObj->discount_func == '' ? 'fixed' : $discountObj->discount_func) : ($discountObj['discount_func'] == '' ? 'fixed' : $discountObj['discount_func']);
+                $grand_total -= ($discount_func == 'percent') ? ($order_total * $discount_amount) / 100 : $discount_amount;
             } else {
                 if ((int) $this->config->item('gk_discount_percent') > 0 && $this->config->item('gk_discount_applied') == 'yes') {
-                    $order_discount = $this->config->item('gk_discount_percent');
-                    $order_discount = ($order_discount * $order_total) / 100;
-                    $discount = ($existingOrder['discount'] != '' || $existingOrder['discount'] != null) && $existingOrder['discount'] > 0 ? $existingOrder['discount'] + $order_discount : $order_discount;
-                    $grand_total-= $discount;
-                }
-            }    
-            
-            //manage service charge 
-            $service_charge = 0;
-            if (intval($existingOrder['service_charge']) > 0) {
-                $service_charge = $existingOrder['service_charge'];
-                if (!empty($serviceCharge)) {
-                    $order_service_charge = $serviceCharge['service_charge'];
-                    $service_charge += $order_service_charge;
-                }
-            } else {
-                if (!empty($serviceCharge)) {
-                    $order_service_charge = $serviceCharge['service_charge'];
-                    $service_charge = $order_service_charge;
-                }
-            }
-            $grand_total += $service_charge;
-            
-           
-            //Manage delivery plan 
-            $delivery_charge = 0;
-            if (intval($existingOrder['delivery_charge']) > 0) {
-                $delivery_charge = $existingOrder['delivery_charge'];
-                $grand_total += $delivery_charge;
-            } else {
-                if (!empty($deliveryPlan)) {
-                    $delivery_charge = is_object($deliveryPlan) ? $deliveryPlan->delivery_charge : $deliveryPlan['delivery_charge'];
-                    $grand_total += $delivery_charge;
+                    $discount_amount = $this->config->item('gk_discount_percent');
+                    $discount_func = 'percent';
+                    $grand_total-= ($discount_amount * $order_total) / 100;
                 }
             }
 
-            //Accumulate  order item total 
-            $order_total +=!empty($existingOrder) ? $existingOrder['order_total'] : 0;
-            //Assign item order total to grand total 
-            $grand_total+=$order_total;
-            //update order and reset order carts 
-            if ($this->db->update('gkpos_order', array('order_total' => $order_total, 'vat' => $vat, 'grand_total' => $grand_total, 'delivery_charge' => $delivery_charge, 'discount' => $discount, 'service_charge' => $service_charge), array('id' => $order_id))) {
+            if ($this->db->update('gkpos_order', array('order_total' => $order_total, 'grand_total' => $grand_total, 'delivery_charge' => $delivery_charge, 'discount' => $discount_amount, 'discount_func' => $discount_func, 'service_charge' => $charge_amount, 'charge_func' => $charge_func), array('id' => $order_id))) {
                 if ($this->Orders_Model->get_deliveryplan($order_id)) {
                     $this->Orders_Model->clear_deliveryplan($order_id);
                 }
@@ -470,9 +457,10 @@ class Orders extends Gkpos_Controller {
                 if ($this->Orders_Model->get_discount($order_id)) {
                     $this->Orders_Model->clear_discount($order_id);
                 }
-                if ($this->Orders_Model->get_db_cart($order_id)) {
+                 if ($this->Orders_Model->get_db_cart($order_id)) {
                     $this->Orders_Model->clear_db_cart($order_id);
                 }
+                
             }
             echo json_encode(array('success' => $success, 'message' => 'cart send successfully'));
         } else {
@@ -482,37 +470,19 @@ class Orders extends Gkpos_Controller {
 
     public function addservicecharge() {
         $order_id = (int) $this->input->post('order_id');
-        $amount = $this->input->post('service_charge');
-        $function = $this->input->post('charge_func');
-        $order_total = $this->input->post('order_total');
-        $service_charge = 0;
-        if ($function == 'percent') {
-            $service_charge = ($order_total * $amount) / 100;
-        } else {
-            $service_charge = $amount;
-        }
         $data = array(
-            'service_charge' => $service_charge,
+            'service_charge' => $this->input->post('service_charge'),
+            'charge_func' => $this->input->post('charge_func')
         );
-
-
         $this->Orders_Model->set_servicecharge($order_id, $data);
         $this->add_to_cart($order_id, $this->input->post('order_type'));
     }
 
     public function adddiscount() {
         $order_id = (int) $this->input->post('order_id');
-        $amount = $this->input->post('discount');
-        $function = $this->input->post('discount_func');
-        $order_total = $this->input->post('order_total');
-        $discount = 0;
-        if ($function == 'percent') {
-            $discount = ($order_total * $amount) / 100;
-        } else {
-            $discount = $amount;
-        }
         $data = array(
-            'discount' => $discount,
+            'discount' => $this->input->post('discount'),
+            'discount_func' => $this->input->post('discount_func')
         );
         $this->Orders_Model->set_discount($order_id, $data);
         $this->add_to_cart($order_id, $this->input->post('order_type'));

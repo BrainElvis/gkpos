@@ -5,7 +5,7 @@
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 left-top">
                 <div class="sidebar-heading text-center text-uppercase"><?php echo $this->lang->line('gkpos_category_list') ?></div>
                 <?php echo $showcategory ?>
-            </div>
+            </div>          
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 middle-top">
                 <?php echo $this->load->view('gkpos/orders/menu') ?>
                 <div class="row action-button">
@@ -22,12 +22,13 @@
                     <div class="clearfix"></div>
                     <a href="#"><div class="mainsystembg2 waiting-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_change_table_details') ?></div></a>
                     <a href="#"><div class="mainsystembg2 delivery-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_quantity') ?></div></a>
-                    <a href="#"><div class="mainsystembg2 collection-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_promo_discount') ?></div></a>
-                    <a href="#"><div class="mainsystembg2 collection-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_add_service_charge') ?></div></a>
+                    <a href="javascript:void(0)" onclick="addDiscount('<?php echo $this->uri->segment(4) ?>','<?php echo get_order_type($this->uri->segment(4))?>')"><div class="mainsystembg2 collection-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_promo_discount') ?></div></a>
+                    <a href="javascript:void(0)" onclick="addServiceCharge('<?php echo $this->uri->segment(4) ?>','<?php echo get_order_type($this->uri->segment(4))?>')"><div class="mainsystembg2 collection-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_add_service_charge') ?></div></a>
                     <a href="#"><div class="mainsystembg2 waiting-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_special_modify') ?></div></a>
                     <a href="#"><div class="mainsystembg2 delivery-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_item_description') ?></div></a>
                 </div>
             </div>
+
             <div id="cartBody">
                 <?php echo $this->load->view('gkpos/orders/cart') ?>
             </div>
@@ -57,6 +58,8 @@
         </div>
     </div>
 </section>
+<?php echo $this->load->view('gkpos/orders/popups/servicecharge') ?>
+<?php echo $this->load->view('gkpos/orders/popups/discount') ?>
 <script>
     $(document).ready(function () {
         //load default category sidebar 
@@ -75,6 +78,10 @@
             complete: function (xhr, status) {
                 console.log("The request is complete!");
             }
+        });
+        jQuery(".closeServiceChargePopup").click(function () {
+            jQuery.colorbox.close();
+            return false;
         });
     });
     //load menu category Left sidebar 
@@ -432,6 +439,7 @@
             });
         }
     }
+    
     function submitCart(order_id) {
         if (order_id == null || order_id == '') {
             alert('Please put some item on the cart');

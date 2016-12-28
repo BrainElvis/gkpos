@@ -249,12 +249,7 @@ class Gkpos extends Gkpos_Controller {
                     $postedData['status'] = '1';
                     $postedData['created_by'] = $this->session->userdata('gkpos_userid');
                     $inner_success = $this->Gkpos_Model->save_order_info($postedData);
-                    if ($postedData['order_type'] == 'delivery') {
-                        $postCode = explode(' ', $postedData['postcode']);
-                        $postCode['initial_code']=$postCode[0];
-                        $deliveryPlan = $this->Gkpos_Model->get_single('gkpos_deliveryplan', array('status' => 1, 'initial_code' => $postCode['initial_code']), array('id', 'is_free', 'delivery_charge', 'min_order'));
-                        $this->Gkpos_Model->set_deliveryplan($inner_success, $deliveryPlan);
-                    }
+
                     $message = $inner_success ? $message : "There is internal problem";
                     echo json_encode(array('success' => $inner_success, 'message' => $message));
                     exit();
@@ -263,12 +258,6 @@ class Gkpos extends Gkpos_Controller {
                     $data['status'] = '1';
                     $data['created_by'] = $this->session->userdata('gkpos_userid');
                     $inner_success = $this->Gkpos_Model->save_order_info($data);
-                    if ($data['order_type'] == 'delivery') {
-                        $postCode = explode(' ', $data['postcode']);
-                        $postCode['initial_code']= $postCode[0];
-                        $deliveryPlan = $this->Gkpos_Model->get_single('gkpos_deliveryplan', array('status' => 1, 'initial_code' => $postCode['initial_code']), array('id', 'is_free', 'delivery_charge', 'min_order'));
-                        $this->Gkpos_Model->set_deliveryplan($inner_success, $deliveryPlan);
-                    }
                     $message = $inner_success ? $message : "There is internal problem in saving customer info and order";
                     echo json_encode(array('success' => $inner_success, 'message' => $message));
                     exit();

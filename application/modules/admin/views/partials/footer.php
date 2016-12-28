@@ -1,3 +1,4 @@
+<div id="feedback_bar"></div>
 <footer>
     <div class="copyright-info">
         <?php $api_host = explode('//', $this->config->item('api_host')); ?>
@@ -6,3 +7,4 @@
     </div>
     <div class="clearfix"></div>
 </footer>
+

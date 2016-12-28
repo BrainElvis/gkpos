@@ -129,3 +129,11 @@ function formatPhoneNumber($phoneNumber) {
     }
     return $phoneNumber;
 }
+function get_order_type($id) {
+      $ci  = & get_instance();
+      $sql = " SELECT *
+                   FROM gkpos_order
+               WHERE id = $id              
+               ";
+      return $ci->db->query($sql)->row()->order_type;
+   }

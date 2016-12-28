@@ -268,3 +268,5 @@ $lang['gkpos_delivery_charge'] = "Delivery Charge";
 $lang['gkpos_minimum_order'] = "Minimum Order";
 $lang['gkpos_applied_to_poscodes'] = "Postcode full list";
 $lang['gkpos_initial_postcode'] = "Postcode initial";
+$lang['gkpos_service_charge_required']="Please specify service charge amount";
+$lang['gkpos_discount_amount_required']="Please specify discount amount";

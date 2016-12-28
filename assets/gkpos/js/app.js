@@ -40,6 +40,7 @@ function setnumkeys(inputFiledId) {
 
 function set_feedback(text, classname, keep_displayed)
 {
+    $('#feedback_bar').html('');
     if (text)
     {
         $('#feedback_bar').removeClass().addClass(classname).html(text).css('opacity', '1');
@@ -114,9 +115,9 @@ function manageWindowHeight() {
 
 
         $('.sidebar-heading,.liveclock').css('font-size', ($(window).width * 0.2) + 'px');
-       // $('h1').css('font-size', width * 0.0 + 'px');
+        // $('h1').css('font-size', width * 0.0 + 'px');
         //$('h2').css('font-size', width * 0.07 + 'px');
-       // $('h3').css('font-size', width * 0.09 + 'px');
+        // $('h3').css('font-size', width * 0.09 + 'px');
 
 
     });
