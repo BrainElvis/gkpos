@@ -2,11 +2,11 @@
 <div style="display:none">
     <div id="serviceChargePopup" class="popupouter">
         <div class="popup-header row">
-            <div id="serviceChargePopupHeader" class="col-lg-10 col-md-10 col-sm-10 col-xs-10 pull-left">Add Service Charge</div>
+            <div id="serviceChargePopupHeader" class="warningPopupHeader text-uppercase col-lg-10 col-md-10 col-sm-10 col-xs-10 pull-left"><?php echo $this->lang->line('gkpos_add_service_charge') ?></div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull-left closeServiceChargePopup text-center times">&times;</div>
         </div>
         <div class="popup-body row">
-            <div id="serviceChargePopupContent" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div id="serviceChargePopupContent" class="warningPopupContent col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div id="MiddleContent">
                     <?php echo form_open('gkpos/orders/addservicecharge/', array('id' => 'addservicecharge_form', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal')); ?>
                     <div id="config_wrapper">
@@ -34,8 +34,7 @@
                             <ul id="addservicecharge_form_error_message_box" class="error_message_box"></ul>
                             <div class="form-group form-group-md">	
                                 <div class="col-md-offset-4 col-md-8">
-                                    <input type="hidden" id="serviceChargeOrderId" name="order_id">
-                                    <input type="hidden" id="serviceChargeOrderType" name="order_type">
+                                    <input type="hidden" id="serviceChargeOrderId" name="order_id" value="<?php isset($order_id) ? print $order_id : '' ?>">
                                     <input type="hidden" id="serviceChargeCurrentOrderTotal" name="order_total">
                                     <input class="form-submit-button mainsystembg2 waiting-bg img-responsive delivery-info-submit-btn" type="submit" name="submit_form" value="<?php echo $this->lang->line('gkpos_numpad_key_enter') ?>" onclick="saveServiceCharge()">
                                 </div>
@@ -49,41 +48,40 @@
     </div>
 </div>
 <script>
-    function addServiceCharge(order_id, order_type) {
+
+    function addServiceCharge(order_id) {
+        var orderId = $('#orderId').val();
         var CurrentOrderTotal = $('#CurrentOrderTotal').val();
-        if (!order_id || order_id == '') {
-            alert('Undefine order');
-        } else {
-            $('#serviceChargeOrderId').val(order_id);
-            $('#serviceChargeOrderType').val(order_type);
-            $('#serviceChargeCurrentOrderTotal').val(CurrentOrderTotal);
-            jQuery(".serviceChargePopup").colorbox({
-                inline: true,
-                slideshow: false,
-                scrolling: false,
-                height: "300px",
-                open: true,
-                width: '100%',
-                maxWidth: '400px'
-            });
+
+        if ((!order_id || !orderId) && order_id != orderId) {
+            jQuery('#cartWarningHeader').text("<?php echo $this->lang->line('gkpos_cart_warning') ?>");
+            jQuery('#cartWarningContent').text("<?php echo $this->lang->line('gkpos_make_order_sure') ?>");
+            jQuery(".cartWarning").colorbox({inline: true, slideshow: false, scrolling: false, height: "250px", open: true, width: '100%', maxWidth: '400px', 'left': '30%'});
             return false;
+        } else {
+            if (CurrentOrderTotal <= 0) {
+                jQuery('#cartWarningHeader').text("<?php echo $this->lang->line('gkpos_cart_warning') ?>");
+                jQuery('#cartWarningContent').text("<?php echo $this->lang->line('gkpos_put_item_on_cart') ?>");
+                jQuery(".cartWarning").colorbox({inline: true, slideshow: false, scrolling: false, height: "250px", open: true, width: '100%', maxWidth: '400px', 'left': '30%'});
+                return false;
+            } else {
+                $('#serviceChargeOrderId').val(order_id);
+                $('#serviceChargeCurrentOrderTotal').val(CurrentOrderTotal);
+                jQuery(".serviceChargePopup").colorbox({inline: true, slideshow: false, scrolling: false, height: "300px", open: true, width: '100%', maxWidth: '400px', left: "30%"});
+                return false;
+            }
+
         }
 
     }
+
     function saveServiceCharge() {
         $('#addservicecharge_form').validate({
             submitHandler: function (form) {
                 $(form).ajaxSubmit({
                     success: function (response) {
                         jQuery.colorbox.close();
-                        if (response.success)
-                        {
-                            //set_feedback(response.message, 'alert alert-dismissible alert-success', false);
-                            getBaseAjaxPage(response.data.url, response.data.info);
-                        } else
-                        {
-                            set_feedback(response.message, 'alert alert-dismissible alert-danger', true);
-                        }
+                        loadCart(response.order_id, 'service-charge');
                     },
                     dataType: 'json'
                 });

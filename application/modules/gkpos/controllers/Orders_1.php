@@ -230,38 +230,18 @@ class Orders extends Gkpos_Controller {
             $line['quantity'] = $quantity;
             $line['plus'] = $plus;
         }
-
         $this->Orders_Model->set_cart($order_id, $items);
-        echo json_encode(array('success' => true, 'order_id' => $order_id, 'item' => $item));
+        echo $this->ajaxcart($order_id);
     }
 
-    public function loadcart($order_id = null) {
+    public function ajaxcart($order_id = null) {
         $data = [];
-        $isCartEmty = true;
-        $isFoodCartEmpty = true;
-        $isNonFoodCartEmpty = true;
-        $isDbcEmpty = true;
-        $isDbcFoodCartEmpty = true;
-        $isDbcNonFoodCartEmpty = true;
-
-        if ($this->input->post('order_id')) {
-            $order_id = $this->input->post('order_id');
-        }
         if ($order_id != null || $order_id = '') {
-            $data['currentOrderObj'] = $this->Orders_Model->get_single('gkpos_order', array('id' => $order_id));
-            //check DBC cart data
-            if (!$this->Orders_Model->get_db_cart($order_id)) {
-                $dbc_cart_data = $this->Orders_Model->get_list_array('gkpos_order_detail', array('order_id' => $order_id));
-                $this->Orders_Model->set_db_cart($order_id, $dbc_cart_data);
-            }
-
-
             $cart_items = $this->Orders_Model->get_cart($order_id);
             $max_line = 0;
             $food_cart_items = array();
             $beverage_cart_items = array();
             if (!empty($cart_items)) {
-                $isCartEmty = false;
                 $max_line = array_reduce($cart_items, function ($a, $b) {
                     return @$a['line'] > $b['line'] ? $a['line'] : $b['line'];
                 });
@@ -273,92 +253,86 @@ class Orders extends Gkpos_Controller {
                     }
                 }
             }
-            $data['isCartEmty'] = $isCartEmty;
             $data['order_id'] = $order_id;
             $data['maxLine'] = $max_line;
             $data['foodCart'] = $food_cart_items;
-            $data['isFoodCartEmpty'] = $isFoodCartEmpty = empty($food_cart_items) ? true : false;
             $data['nonFoodCart'] = $beverage_cart_items;
-            $data['isNonFoodCartEmpty'] = $isNonFoodCartEmpty = empty($beverage_cart_items) ? true : false;
-
-            //Manage existing db cart items 
-            $dbc_food_cart_items = array();
-            $dbc_beverage_cart_items = array();
-            $dbcart_items = $this->Orders_Model->get_db_cart($order_id);
-            if (!empty($dbcart_items)) {
-                $isDbcEmpty = false;
-                foreach ($dbcart_items as $key => $itemObj) {
-                    if ($itemObj ['category_type'] == '1') {
-                        $dbc_food_cart_items[] = $itemObj;
-                    } else {
-                        $dbc_beverage_cart_items [] = $itemObj;
-                    }
-                }
-                $data['dbcFoodCart'] = $dbc_food_cart_items;
-                $isDbcFoodCartEmpty = empty($dbc_food_cart_items) ? true : false;
-                $data['dbcNonFoodCart'] = $dbc_beverage_cart_items;
-                $isDbcNonFoodCartEmpty = empty($dbc_beverage_cart_items) ? true : false;
-            }
-            $data['isDbcEmpty'] = $isDbcEmpty;
-            $data['newString'] = $isDbcEmpty && $data['currentOrderObj']->grand_total < 1 ? '' : 'New';
-            $data['hasDBCart'] = $isDbcEmpty && $data['currentOrderObj']->grand_total < 1 ? false : true;
-            $data['isDbcFoodCartEmpty'] = $isDbcFoodCartEmpty;
-            $data['isDbcNonFoodCartEmpty'] = $isDbcNonFoodCartEmpty;
-            $data['deliveryPlan'] = $this->Orders_Model->get_deliveryplan($order_id);
-            $data['serviceCharge'] = $this->Orders_Model->get_servicecharge($order_id);
-            $data['customDiscount'] = $this->Orders_Model->get_discount($order_id);
         }
-        $this->load->view('gkpos/orders/cartajax', $data, false);
+        return $this->load->view('gkpos/orders/cartajax', $data, false);
     }
 
-    public function updatecart() {
+    public function loadcart($order_id = null) {
+        $data = [];
+        if ($this->input->post('order_id')) {
+            $order_id = $this->input->post('order_id');
+        }
+        if ($order_id != null || $order_id = '') {
+            $cart_items = $this->Orders_Model->get_cart($order_id);
+            $max_line = 0;
+            $food_cart_items = array();
+            $beverage_cart_items = array();
+            if (!empty($cart_items)) {
+                $max_line = array_reduce($cart_items, function ($a, $b) {
+                    return @$a['line'] > $b['line'] ? $a['line'] : $b['line'];
+                });
+                foreach ($cart_items as $key => $itemObj) {
+                    if ($itemObj ['category_type'] == '1') {
+                        $food_cart_items[] = $itemObj;
+                    } else {
+                        $beverage_cart_items [] = $itemObj;
+                    }
+                }
+            }
+            $data['order_id'] = $order_id;
+            $data['maxLine'] = $max_line;
+            $data['foodCart'] = $food_cart_items;
+            $data['nonFoodCart'] = $beverage_cart_items;
+        }
+        return $this->load->view('gkpos/orders/cartajax', $data, false);
+    }
+
+    public function change_quantity() {
+        $data = array();
         $line = (int) $this->input->post('line');
         $action = $this->input->post('action');
         $order_id = (int) $this->input->post('order_id');
         if ($order_id != null || $order_id = '') {
             $items = $this->Orders_Model->get_cart($order_id);
-            if (!empty($items)) {
-                foreach ($items as $key => $item) {
-                    if ($item['line'] == $line) {
-                        if ($action == 'minus') {
-                            if ($item['quantity'] >= 2) {
-                                $item['quantity'] = $item['quantity'] - 1;
-                            } else {
-                                unset($items[$key]);
-                                continue;
-                            }
-                        }
-                        if ($action == 'plus') {
-                            $item['quantity'] = $item['quantity'] + 1;
-                        }
-                    }
-                    $items[$key] = $item;
-                }
-            }
-            $this->Orders_Model->set_cart($order_id, $items);
-            echo json_encode(array('success' => true, 'order_id' => $order_id, 'line' => $line));
-        } else {
-            echo json_encode(array('success' => false));
-        }
-    }
-
-    public function update_bulk_quantity() {
-        $line = (int) $this->input->post('line');
-        $order_id = (int) $this->input->post('order_id');
-        $quantity = (int) $this->input->post('quantity');
-        if ($order_id != null || $order_id = '') {
-            $items = $this->Orders_Model->get_cart($order_id);
             foreach ($items as $key => $item) {
                 if ($item['line'] == $line) {
-                    $item['quantity'] = $quantity;
+                    if ($action == 'minus') {
+                        if ($item['quantity'] >= 2) {
+                            $item['quantity'] = $item['quantity'] - 1;
+                        } else {
+                            unset($items[$key]);
+                            continue;
+                        }
+                    } if ($action == 'plus') {
+                        $item['quantity'] = $item['quantity'] + 1;
+                    }
                 }
                 $items[$key] = $item;
             }
             $this->Orders_Model->set_cart($order_id, $items);
-            echo json_encode(array('success' => true, 'order_id' => $order_id, 'line' => $line));
-        } else {
-            echo json_encode(array('success' => false));
+            $cart_items = $this->Orders_Model->get_cart($order_id);
+            $food_cart_items = array();
+            $beverage_cart_items = array();
+            $data['maxLine'] = $max_line = array_reduce($cart_items, function ($a, $b) {
+                return @$a['line'] > $b['line'] ? $a['line'] : $b['line'];
+            });
+            foreach ($cart_items as $key => $itemObj) {
+                if ($itemObj ['category_type'] == '1') {
+                    $food_cart_items[] = $itemObj;
+                } else {
+                    $beverage_cart_items [] = $itemObj;
+                }
+            }
+            $data['changeLine'] = $line;
+            $data['order_id'] = $order_id;
+            $data['foodCart'] = $food_cart_items;
+            $data['nonFoodCart'] = $beverage_cart_items;
         }
+        $this->load->view('gkpos/orders/cartajax', $data, false);
     }
 
     public function manageThisOrder() {
@@ -435,29 +409,25 @@ class Orders extends Gkpos_Controller {
         $deliveryPlan = $this->Orders_Model->get_deliveryplan($order_id);
         $serviceCharge = $this->Orders_Model->get_servicecharge($order_id);
         $discountObj = $this->Orders_Model->get_discount($order_id);
-        $dbcCart = $this->Orders_Model->get_db_cart($order_id);
         $order_total = 0;
         $grand_total = 0;
         $success = false;
         //Manage Item and Order Total 
         if (!empty($cart_data)) {
-            if (!$dbcCart) {
-                foreach ($cart_data as $item) {
-                    $order_total+=$item['price'] * $item['quantity'];
+            foreach ($cart_data as $item) {
+                $order_total+=$item['price'] * $item['quantity'];
+                if (!isset($item['id'])) {
                     $item = $this->prepareGkposData($item);
-                    $item['first_taken'] = date('Y-m-d H:i:s');
                     $id = $this->Orders_Model->save_cart($item);
                     $success = $id ? true : false;
-                }
-            } else {
-                foreach ($cart_data as $item) {
-                    $order_total+=$item['price'] * $item['quantity'];
-                    $item = $this->prepareGkposData($item);
-                    $item['last_taken'] = date('Y-m-d H:i:s');
-                    $id = $this->Orders_Model->save_cart($item);
-                    $success = $id ? true : false;
+                } else {
+                    $exiting = $this->Orders_Model->get_single('gkpos_order_detail', array('id' => $item['id']));
+                    if ($exiting->quantity != $item['quantity']) {
+                        $success = $this->db->update('gkpos_order_detail', array('quantity' => $item['quantity']), array('id' => $item['id']));
+                    }
                 }
             }
+
             //manage vat 
             $vat = 0;
             if (($this->config->item('gk_vat_reg') != '' || $this->config->item('gk_vat_reg') != null) && $order_total > 0) {
@@ -517,7 +487,7 @@ class Orders extends Gkpos_Controller {
             //Assign item order total to grand total 
             $grand_total+=$order_total;
             //update order and reset order carts 
-            if ($this->db->update('gkpos_order', array('status' => 2, 'order_total' => $order_total, 'vat' => $vat, 'grand_total' => $grand_total, 'delivery_charge' => $delivery_charge, 'discount' => $discount, 'service_charge' => $service_charge), array('id' => $order_id))) {
+            if ($this->db->update('gkpos_order', array('order_total' => $order_total, 'vat' => $vat, 'grand_total' => $grand_total, 'delivery_charge' => $delivery_charge, 'discount' => $discount, 'service_charge' => $service_charge), array('id' => $order_id))) {
                 if ($this->Orders_Model->get_deliveryplan($order_id)) {
                     $this->Orders_Model->clear_deliveryplan($order_id);
                 }
@@ -534,9 +504,9 @@ class Orders extends Gkpos_Controller {
                     $this->Orders_Model->clear_db_cart($order_id);
                 }
             }
-            echo json_encode(array('success' => $success, 'order_id' => $order_id));
+            echo json_encode(array('success' => $success, 'message' => 'cart send successfully'));
         } else {
-            echo json_encode(array('success' => $success, 'order_id' => $order_id));
+            echo json_encode(array('success' => $success, 'message' => 'Cart Already sent successfully'));
         }
     }
 
@@ -554,8 +524,10 @@ class Orders extends Gkpos_Controller {
         $data = array(
             'service_charge' => $service_charge,
         );
+
+
         $this->Orders_Model->set_servicecharge($order_id, $data);
-        echo json_encode(array('success' => true, 'order_id' => $order_id));
+        $this->add_to_cart($order_id, $this->input->post('order_type'));
     }
 
     public function adddiscount() {
@@ -573,7 +545,7 @@ class Orders extends Gkpos_Controller {
             'discount' => $discount,
         );
         $this->Orders_Model->set_discount($order_id, $data);
-        echo json_encode(array('success' => true, 'order_id' => $order_id));
+        $this->add_to_cart($order_id, $this->input->post('order_type'));
     }
 
 }

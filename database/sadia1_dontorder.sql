@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2016 at 05:18 PM
+-- Generation Time: Dec 29, 2016 at 04:44 PM
 -- Server version: 5.5.39
 -- PHP Version: 5.4.31
 
@@ -95,7 +95,6 @@ INSERT INTO `config` (`key`, `value`) VALUES
 ('barcode_third_row', 'unit_price'),
 ('barcode_type', 'Code39'),
 ('barcode_width', '300'),
-('category_line_page', '10'),
 ('company', 'Don''t order'),
 ('company_logo', 'company_logo3.png'),
 ('currency_decimals', '2'),
@@ -112,6 +111,21 @@ INSERT INTO `config` (`key`, `value`) VALUES
 ('default_tax_rate', '8'),
 ('email', 'aktarcse152@gmail.com'),
 ('fax', ''),
+('gk_address', 'restaurant address '),
+('gk_category_line_page', '10'),
+('gk_discount_applied', 'yes'),
+('gk_discount_percent', '10'),
+('gk_email', 'test@test.com'),
+('gk_fax', 'abc@fax'),
+('gk_logo', 'gk_logo1.png'),
+('gk_menu_line_page', ''),
+('gk_name', 'Restaurant Name'),
+('gk_phone', '01717103734'),
+('gk_policy', 'Thank you for your oder, Your attention is drawn to our terms and conditions of trading overleaf.'),
+('gk_vat_included', 'no'),
+('gk_vat_percent', '5'),
+('gk_vat_reg', '31479963'),
+('gk_website', 'gk_website'),
 ('home_menucarousel', 'off'),
 ('home_ourfeatures', 'on'),
 ('home_promotime', 'on'),
@@ -121,7 +135,6 @@ INSERT INTO `config` (`key`, `value`) VALUES
 ('is_touch', 'disable'),
 ('language', 'en'),
 ('lines_per_page', '13'),
-('menu_line_page', '5'),
 ('msg_msg', 'Thanks for buying with us  '),
 ('msg_pwd', 'ecse100200152'),
 ('msg_src', 'GK-POS'),
@@ -651,11 +664,11 @@ CREATE TABLE IF NOT EXISTS `gkpos_category` (
 --
 
 INSERT INTO `gkpos_category` (`id`, `title`, `type`, `print_option`, `order`, `status`, `content`, `modified`, `modified_by`, `created`, `created_by`, `image`) VALUES
-(1, 'Vagetarian Starters', 2, 1, 1, 1, 'description on vageterian starter', '0000-00-00 00:00:00', '', '2016-12-09 09:49:12', '1', ''),
+(1, 'Vagetarian Starters', 1, 1, 1, 1, 'description on vageterian starter', '0000-00-00 00:00:00', '', '2016-12-21 06:51:07', '1', ''),
 (2, 'Non Vegetarian Starters', 1, 1, 3, 1, '', '0000-00-00 00:00:00', '', '2016-12-09 09:49:07', '1', ''),
 (3, 'Seafood Starters', 1, 1, 4, 1, '', '0000-00-00 00:00:00', '', '2016-12-09 09:49:07', '1', ''),
 (4, 'Special Tandoori Grilled Starters', 1, 1, 5, 1, '', '0000-00-00 00:00:00', '', '2016-12-09 09:49:07', '1', ''),
-(5, 'Exotic Tandoori Courses', 1, 1, 2, 1, '', '0000-00-00 00:00:00', '', '2016-12-09 09:49:12', '1', ''),
+(5, 'Exotic Tandoori Courses', 2, 1, 2, 1, '', '0000-00-00 00:00:00', '', '2016-12-21 06:40:34', '1', ''),
 (6, 'South Asian specialty curries', 1, 1, 6, 1, '', '0000-00-00 00:00:00', '', '2016-12-08 14:36:26', '1', ''),
 (7, 'Chef’s own specialty Dishes', 1, 1, 7, 1, '', '0000-00-00 00:00:00', '', '2016-12-08 14:36:47', '1', ''),
 (8, 'Classic Indian mild dishes', 1, 1, 8, 1, '', '0000-00-00 00:00:00', '', '2016-12-08 14:37:12', '1', ''),
@@ -710,10 +723,45 @@ CREATE TABLE IF NOT EXISTS `gkpos_customer` (
 --
 
 INSERT INTO `gkpos_customer` (`phone`, `name`, `floor_or_apt`, `building`, `house`, `street`, `postcode`, `status`, `order`, `modified`, `modified_by`, `created`, `created_by`, `image`) VALUES
-('01717103734', 'Mr zaman', '3rd floor', 'Boro Bari ', '165/5', 'sonar para shibgonj', 'CF5 4DR', 1, 0, '0000-00-00 00:00:00', '', '2016-12-15 15:19:03', '1', ''),
-('01717103735', 'collection tester ', '', '', '', '', '', 1, 0, '0000-00-00 00:00:00', '', '2016-12-15 15:21:55', '1', ''),
-('01717103738', '', '', '', '', '', '', 1, 0, '0000-00-00 00:00:00', '', '2016-12-15 15:26:25', '1', ''),
-('0818183734', '', '', '', '', '', '', 1, 0, '0000-00-00 00:00:00', '', '2016-12-15 15:27:09', '1', '');
+('+44785963258', 'tyyuu', '', '', '', '', '', 1, 0, '0000-00-00 00:00:00', '', '2016-12-20 10:55:05', '1', ''),
+('01717103732', 'Don', '', '', '', '', '', 1, 0, '0000-00-00 00:00:00', '', '2016-12-29 14:10:42', '1', ''),
+('01717103734', 'mr zaman', '3rd floor', 'Baba Monjil', '165/5', 'sonar para shibgonj', 'e1 5de', 1, 0, '0000-00-00 00:00:00', '', '2016-12-18 08:17:20', '1', ''),
+('01717103735', 'Mr Aktar', '', '', '', '', '', 1, 0, '0000-00-00 00:00:00', '', '2016-12-18 08:19:32', '1', ''),
+('01717103736', '', '', '', '', '', '', 1, 0, '0000-00-00 00:00:00', '', '2016-12-18 08:21:07', '1', ''),
+('01717103738', 'mr zamantwo', '3rd floor', 'Baba Monjil', '165/5', 'sonar para shibgonj', 'e1 5de', 1, 0, '0000-00-00 00:00:00', '', '2016-12-18 15:36:37', '1', ''),
+('123345345234', 'jamil', '32', '54df', '234', 'sonar para shibgonj', 'e1 5de', 1, 0, '0000-00-00 00:00:00', '', '2016-12-20 05:45:23', '1', ''),
+('234234324324', 'zobbar', '', '', '', '', '', 1, 0, '0000-00-00 00:00:00', '', '2016-12-20 05:46:04', '1', ''),
+('23423434324', 'Hamburi', '3rd floor', 'Monjil House', '165/5', 'sonar para shibgonj', 'CF5 4DR', 1, 0, '0000-00-00 00:00:00', '', '2016-12-26 10:14:34', '1', ''),
+('234345435345', 'mr tester', '3rd floor', 'Baba Monjil', '165/5', 'sonar para shibgonj', 'CF5 4DR', 1, 0, '0000-00-00 00:00:00', '', '2016-12-26 09:42:00', '1', ''),
+('345345345435', 'kanna', '', '', '', '', '', 1, 0, '0000-00-00 00:00:00', '', '2016-12-20 06:08:11', '1', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gkpos_deliveryplan`
+--
+
+CREATE TABLE IF NOT EXISTS `gkpos_deliveryplan` (
+`id` int(11) NOT NULL,
+  `area` varchar(50) NOT NULL,
+  `is_free` tinyint(1) NOT NULL COMMENT '1=yes,2=no',
+  `delivery_charge` double NOT NULL,
+  `min_order` double NOT NULL,
+  `initial_code` varchar(11) DEFAULT NULL,
+  `postcodes` text NOT NULL,
+  `status` tinyint(4) NOT NULL COMMENT '1=active,2=inactive',
+  `modified` datetime NOT NULL,
+  `modified_by` int(11) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` int(11) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `gkpos_deliveryplan`
+--
+
+INSERT INTO `gkpos_deliveryplan` (`id`, `area`, `is_free`, `delivery_charge`, `min_order`, `initial_code`, `postcodes`, `status`, `modified`, `modified_by`, `created`, `created_by`) VALUES
+(1, 'Cardiff', 0, 2, 20, 'CF5', 'CF5 1AA,CF5 1AB,CF5 1AD,CF5 1AE,CF5 1AF,CF5 1AG,CF5 1AH,CF5 1AJ,CF5 1AL,CF5 1AN,CF5 1AP,CF5 1AQ,CF5 1AR,CF5 1AS,CF5 1AT,CF5 1AW,CF5 1AX,CF5 1BA,CF5 1BB,CF5 1BD,CF5 1BE,CF5 1BG,CF5 1BH,CF5 1BJ,CF5 1BL,CF5 1BN,CF5 1BP,CF5 1BQ,CF5 1BR,CF5 1BS,CF5 1BT,CF5 1BU,CF5 1BW,CF5 1BX,CF5 1BY,CF5 1BZ,CF5 1DG,CF5 1DH,CF5 1DJ,CF5 1DL,CF5 1DN,CF5 1DP,CF5 1DQ,CF5 1DR,CF5 1DS,CF5 1DT,CF5 1DU,CF5 1DW,CF5 1DX,CF5 1DY,CF5 1DZ,CF5 1EA,CF5 1EB,CF5 1EF,CF5 1EG,CF5 1EH,CF5 1EJ,CF5 1EL,CF5 1EN,CF5 1EP,CF5 1EQ,CF5 1ER,CF5 1ES,CF5 1ET,CF5 1EU,CF5 1EW,CF5 1EX,CF5 1EY,CF5 1EZ,CF5 1FA,CF5 1FB,CF5 1FH,CF5 1FJ,CF5 1FL,CF5 1FN,CF5 1FP,CF5 1FQ,CF5 1FR,CF5 1FS,CF5 1FT,CF5 1FU,CF5 1FW,CF5 1FX,CF5 1FY,CF5 1FZ,CF5 1GB,CF5 1GD,CF5 1GE,CF5 1GF,CF5 1GG,CF5 1GH,CF5 1GJ,CF5 1GL,CF5 1GN,CF5 1GP,CF5 1GQ,CF5 1GR,CF5 1GT,CF5 1GW,CF5 1GX,CF5 1GY,CF5 1GZ,CF5 1HA,CF5 1HB,CF5 1HD,CF5 1HE,CF5 1HF,CF5 1HG,CF5 1HH,CF5 1HJ,CF5 1HL,CF5 1HN,CF5 1HP,CF5 1HQ,CF5 1HR,CF5 1HS,CF5 1HT,CF5 1HU,CF5 1HW,CF5 1HX,CF5 1HY,CF5 1HZ,CF5 1JA,CF5 1JB,CF5 1JD,CF5 1JE,CF5 1JF,CF5 1JG,CF5 1JH,CF5 1JJ,CF5 1JL,CF5 1JN,CF5 1JP,CF5 1JQ,CF5 1JR,CF5 1JS,CF5 1JT,CF5 1JU,CF5 1JW,CF5 1JX,CF5 1JY,CF5 1JZ,CF5 1LA,CF5 1LF,CF5 1LH,CF5 1LJ,CF5 1LL,CF5 1LN,CF5 1LP,CF5 1LQ,CF5 1LR,CF5 1LS,CF5 1LT,CF5 1LU,CF5 1LW,CF5 1LX,CF5 1LY,CF5 1LZ,CF5 1NA,CF5 1NB,CF5 1ND,CF5 1NE,CF5 1NF,CF5 1NG,CF5 1NH,CF5 1NJ,CF5 1NL,CF5 1NR,CF5 1NS,CF5 1NT,CF5 1NU,CF5 1NW,CF5 1NX,CF5 1NY,CF5 1NZ,CF5 1PA,CF5 1PB,CF5 1PD,CF5 1PE,CF5 1PF,CF5 1PG,CF5 1PH,CF5 1PJ,CF5 1PL,CF5 1PN,CF5 1PP,CF5 1PQ,CF5 1PR,CF5 1PS,CF5 1PT,CF5 1PU,CF5 1PW,CF5 1PX,CF5 1PY,CF5 1PZ,CF5 1QA,CF5 1QB,CF5 1QD,CF5 1QE,CF5 1QF,CF5 1QG,CF5 1QH,CF5 1QJ,CF5 1QL,CF5 1QN,CF5 1QP,CF5 1QQ,CF5 1QR,CF5 1QS,CF5 1QT,CF5 1QU,CF5 1QW,CF5 1QX,CF5 1QY,CF5 1QZ,CF5 1RA,CF5 1RB,CF5 1RD,CF5 1RE,CF5 1RF,CF5 1RG,CF5 1RH,CF5 1RT,CF5 1RU,CF5 1RY,CF5 1RZ,CF5 1SA,CF5 1SB,CF5 1SD,CF5 1SE,CF5 1SG,CF5 1UF,CF5 1UL,CF5 1WU,CF5 1WX,CF5 1XA,CF5 1XB,CF5 1XT,CF5 1YE,CF5 1YR,CF5 1ZB,CF5 1ZE,CF5 1ZS,CF5 2AA,CF5 2AB,CF5 2AD,CF5 2AE,CF5 2AF,CF5 2AG,CF5 2AH,CF5 2AJ,CF5 2AL,CF5 2AN,CF5 2AP,CF5 2AQ,CF5 2AR,CF5 2AS,CF5 2AW,CF5 2AX,CF5 2AY,CF5 2AZ,CF5 2BA,CF5 2BB,CF5 2BD,CF5 2BE,CF5 2BG,CF5 2BH,CF5 2BJ,CF5 2BL,CF5 2BN,CF5 2BP,CF5 2BQ,CF5 2BR,CF5 2BS,CF5 2BT,CF5 2BU,CF5 2BW,CF5 2BX,CF5 2BY,CF5 2BZ,CF5 2DA,CF5 2DE,CF5 2DL,CF5 2DN,CF5 2DP,CF5 2DQ,CF5 2DR,CF5 2DS,CF5 2DT,CF5 2DU,CF5 2DW,CF5 2DX,CF5 2DY,CF5 2DZ,CF5 2EA,CF5 2EB,CF5 2ED,CF5 2EE,CF5 2EF,CF5 2EG,CF5 2EH,CF5 2EJ,CF5 2EL,CF5 2EN,CF5 2EP,CF5 2EQ,CF5 2ER,CF5 2ES,CF5 2ET,CF5 2EU,CF5 2EW,CF5 2EY,CF5 2EZ,CF5 2FQ,CF5 2HA,CF5 2HB,CF5 2HD,CF5 2HE,CF5 2HF,CF5 2HG,CF5 2HH,CF5 2HJ,CF5 2HL,CF5 2HN,CF5 2HP,CF5 2HQ,CF5 2HR,CF5 2HS,CF5 2HT,CF5 2HU,CF5 2HW,CF5 2HX,CF5 2JB,CF5 2JD,CF5 2JE,CF5 2JF,CF5 2JG,CF5 2JH,CF5 2JJ,CF5 2JL,CF5 2JN,CF5 2JP,CF5 2JQ,CF5 2JR,CF5 2JS,CF5 2JT,CF5 2JU,CF5 2JW,CF5 2LA,CF5 2LB,CF5 2LD,CF5 2LE,CF5 2LF,CF5 2LG,CF5 2LH,CF5 2LJ,CF5 2LL,CF5 2LN,CF5 2LP,CF5 2LQ,CF5 2LR,CF5 2LS,CF5 2LT,CF5 2LU,CF5 2NA,CF5 2NB,CF5 2ND,CF5 2NG,CF5 2NH,CF5 2NJ,CF5 2NL,CF5 2NN,CF5 2NP,CF5 2NQ,CF5 2NR,CF5 2NS,CF5 2NZ,CF5 2PA,CF5 2PD,CF5 2PG,CF5 2PH,CF5 2PN,CF5 2PT,CF5 2PU,CF5 2PX,CF5 2PZ,CF5 2QA,CF5 2QB,CF5 2QD,CF5 2QE,CF5 2QJ,CF5 2SG,CF5 2SJ,CF5 2UT,CF5 2WZ,CF5 2XA,CF5 2XB,CF5 2XD,CF5 2XJ,CF5 2XP,CF5 2YB,CF5 2YD,CF5 2YE,CF5 2YF,CF5 2YH,CF5 2YJ,CF5 2YN,CF5 2YQ,CF5 2YX,CF5 2ZR,CF5 3AB,CF5 3AD,CF5 3AE,CF5 3AF,CF5 3AG,CF5 3AH,CF5 3AJ,CF5 3AL,CF5 3AN,CF5 3AP,CF5 3AQ,CF5 3AR,CF5 3AS,CF5 3AT,CF5 3AU,CF5 3AW,CF5 3AX,CF5 3AY,CF5 3AZ,CF5 3BA,CF5 3BB,CF5 3BD,CF5 3BE,CF5 3BF,CF5 3BG,CF5 3BH,CF5 3BJ,CF5 3BL,CF5 3BN,CF5 3BP,CF5 3BQ,CF5 3BR,CF5 3BS,CF5 3BT,CF5 3BU,CF5 3BW,CF5 3BX,CF5 3BY,CF5 3BZ,CF5 3DA,CF5 3DB,CF5 3DD,CF5 3DE,CF5 3DF,CF5 3DG,CF5 3DH,CF5 3DJ,CF5 3DL,CF5 3DN,CF5 3DP,CF5 3DT,CF5 3DU,CF5 3DW,CF5 3DX,CF5 3DY,CF5 3DZ,CF5 3EA,CF5 3EB,CF5 3ED,CF5 3EE,CF5 3EF,CF5 3EG,CF5 3EH,CF5 3EJ,CF5 3EL,CF5 3EN,CF5 3EP,CF5 3EQ,CF5 3ER,CF5 3ES,CF5 3EU,CF5 3EW,CF5 3EX,CF5 3EY,CF5 3EZ,CF5 3HA,CF5 3HB,CF5 3HD,CF5 3HE,CF5 3HF,CF5 3HG,CF5 3HH,CF5 3HJ,CF5 3HL,CF5 3HN,CF5 3HP,CF5 3HQ,CF5 3HR,CF5 3HS,CF5 3HT,CF5 3HU,CF5 3HW,CF5 3HX,CF5 3HY,CF5 3HZ,CF5 3JA,CF5 3JB,CF5 3JD,CF5 3JE,CF5 3JN,CF5 3JP,CF5 3JQ,CF5 3JR,CF5 3JS,CF5 3JT,CF5 3JU,CF5 3JW,CF5 3JX,CF5 3JY,CF5 3JZ,CF5 3LA,CF5 3LB,CF5 3LD,CF5 3LE,CF5 3LF,CF5 3LG,CF5 3LH,CF5 3LJ,CF5 3LS,CF5 3LT,CF5 3NA,CF5 3NB,CF5 3ND,CF5 3NG,CF5 3NL,CF5 3NN,CF5 3NP,CF5 3NS,CF5 3NT,CF5 3NU,CF5 3NW,CF5 3NY,CF5 3PD,CF5 3PE,CF5 3PF,CF5 3PG,CF5 3PJ,CF5 3PL,CF5 3PN,CF5 3PP,CF5 3PQ,CF5 3PR,CF5 3PS,CF5 3PT,CF5 3PU,CF5 3PW,CF5 3PX,CF5 3PY,CF5 3PZ,CF5 3QA,CF5 3QB,CF5 3QD,CF5 3QE,CF5 3QF,CF5 3QG,CF5 3QH,CF5 3QJ,CF5 3QL,CF5 3QN,CF5 3QP,CF5 3RA,CF5 3RU,CF5 3RW,CF5 3SH,CF5 3SJ,CF5 3SL,CF5 3SP,CF5 3SQ,CF5 3SR,CF5 3SS,CF5 3ST,CF5 3SU,CF5 3SW,CF5 3SX,CF5 3SY,CF5 3SZ,CF5 3TA,CF5 3TB,CF5 3TD,CF5 3TE,CF5 3TF,CF5 3TG,CF5 3TH,CF5 3TJ,CF5 3TL,CF5 3TN,CF5 3TP,CF5 3TQ,CF5 3TR,CF5 3TS,CF5 3TT,CF5 3TU,CF5 3TW,CF5 3UA,CF5 3UB,CF5 3UD,CF5 3UE,CF5 3UF,CF5 3UG,CF5 3WZ,CF5 3XN,CF5 3YE,CF5 3YQ,CF5 3YR,CF5 3YY,CF5 4AA,CF5 4AB,CF5 4AD,CF5 4AE,CF5 4AF,CF5 4AG,CF5 4AH,CF5 4AJ,CF5 4AL,CF5 4AN,CF5 4AP,CF5 4AQ,CF5 4AR,CF5 4BA,CF5 4BB,CF5 4BD,CF5 4BE,CF5 4BG,CF5 4BH,CF5 4BJ,CF5 4BL,CF5 4BN,CF5 4BP,CF5 4BQ,CF5 4BR,CF5 4BS,CF5 4BT,CF5 4BU,CF5 4BW,CF5 4BX,CF5 4DD,CF5 4DE,CF5 4DF,CF5 4DG,CF5 4DH,CF5 4DJ,CF5 4DL,CF5 4DN,CF5 4DP,CF5 4DQ,CF5 4DR,CF5 4DS,CF5 4DT,CF5 4DU,CF5 4DW,CF5 4DX,CF5 4DY,CF5 4DZ,CF5 4EA,CF5 4EB,CF5 4EF,CF5 4EU,CF5 4EW,CF5 4EX,CF5 4EY,CF5 4EZ,CF5 4FA,CF5 4FB,CF5 4FD,CF5 4FE,CF5 4FF,CF5 4FG,CF5 4FH,CF5 4FJ,CF5 4FL,CF5 4FN,CF5 4FP,CF5 4FQ,CF5 4FR,CF5 4FS,CF5 4FT,CF5 4FU,CF5 4FW,CF5 4FX,CF5 4FY,CF5 4FZ,CF5 4GA,CF5 4GJ,CF5 4GL,CF5 4GN,CF5 4GP,CF5 4GQ,CF5 4GR,CF5 4GS,CF5 4GT,CF5 4GU,CF5 4GW,CF5 4GX,CF5 4GY,CF5 4GZ,CF5 4HA,CF5 4HB,CF5 4HD,CF5 4HE,CF5 4HF,CF5 4HG,CF5 4HH,CF5 4HJ,CF5 4HL,CF5 4HN,CF5 4HU,CF5 4HW,CF5 4HX,CF5 4HY,CF5 4HZ,CF5 4JA,CF5 4JB,CF5 4JD,CF5 4JE,CF5 4JF,CF5 4JG,CF5 4JH,CF5 4JJ,CF5 4JL,CF5 4JP,CF5 4JQ,CF5 4JR,CF5 4JS,CF5 4JT,CF5 4JU,CF5 4LE,CF5 4LF,CF5 4LG,CF5 4LH,CF5 4LJ,CF5 4LL,CF5 4LN,CF5 4LP,CF5 4LQ,CF5 4LR,CF5 4LS,CF5 4LT,CF5 4LU,CF5 4LW,CF5 4LX,CF5 4LY,CF5 4NF,CF5 4NH,CF5 4NL,CF5 4NN,CF5 4NP,CF5 4NQ,CF5 4NR,CF5 4NS,CF5 4PB,CF5 4PD,CF5 4PE,CF5 4PQ,CF5 4PR,CF5 4PW,CF5 4PY,CF5 4PZ,CF5 4QF,CF5 4QG,CF5 4RA,CF5 4RF,CF5 4XB,CF5 4XD,CF5 4XL,CF5 4YT,CF5 5AA,CF5 5AB,CF5 5AD,CF5 5AE,CF5 5AF,CF5 5AG,CF5 5AH,CF5 5AJ,CF5 5AL,CF5 5AN,CF5 5AP,CF5 5AQ,CF5 5AR,CF5 5AS,CF5 5AT,CF5 5AU,CF5 5AW,CF5 5AX,CF5 5AY,CF5 5AZ,CF5 5BA,CF5 5BB,CF5 5BD,CF5 5BE,CF5 5BG,CF5 5BH,CF5 5BJ,CF5 5BL,CF5 5BN,CF5 5BP,CF5 5BQ,CF5 5BR,CF5 5BS,CF5 5BT,CF5 5BU,CF5 5BW,CF5 5BX,CF5 5BY,CF5 5BZ,CF5 5DA,CF5 5DB,CF5 5DD,CF5 5DE,CF5 5DF,CF5 5DG,CF5 5DH,CF5 5DJ,CF5 5DL,CF5 5DN,CF5 5DP,CF5 5DQ,CF5 5DR,CF5 5DS,CF5 5DT,CF5 5DU,CF5 5DW,CF5 5DX,CF5 5DY,CF5 5DZ,CF5 5EA,CF5 5EB,CF5 5ED,CF5 5EE,CF5 5EF,CF5 5EG,CF5 5EH,CF5 5EJ,CF5 5EL,CF5 5EN,CF5 5EP,CF5 5EQ,CF5 5ER,CF5 5ES,CF5 5ET,CF5 5EU,CF5 5EW,CF5 5EX,CF5 5EY,CF5 5EZ,CF5 5HA,CF5 5HB,CF5 5HD,CF5 5HE,CF5 5HF,CF5 5HG,CF5 5HH,CF5 5HJ,CF5 5HL,CF5 5HN,CF5 5HP,CF5 5HQ,CF5 5HR,CF5 5HS,CF5 5HT,CF5 5HU,CF5 5HW,CF5 5HX,CF5 5HY,CF5 5HZ,CF5 5JA,CF5 5JB,CF5 5JD,CF5 5JE,CF5 5JF,CF5 5JG,CF5 5JH,CF5 5JJ,CF5 5JL,CF5 5JN,CF5 5JP,CF5 5JQ,CF5 5JR,CF5 5JS,CF5 5JT,CF5 5JU,CF5 5JW,CF5 5JX,CF5 5JY,CF5 5LA,CF5 5LB,CF5 5LD,CF5 5LE,CF5 5LF,CF5 5LG,CF5 5LH,CF5 5LJ,CF5 5LL,CF5 5LN,CF5 5LP,CF5 5LQ,CF5 5LR,CF5 5LS,CF5 5LT,CF5 5LU,CF5 5LW,CF5 5LX,CF5 5LY,CF5 5LZ,CF5 5NA,CF5 5NB,CF5 5ND,CF5 5NE,CF5 5NF,CF5 5NG,CF5 5NH,CF5 5NJ,CF5 5NL,CF5 5NN,CF5 5NR,CF5 5NS,CF5 5NT,CF5 5NU,CF5 5NW,CF5 5NX,CF5 5NY,CF5 5NZ,CF5 5PA,CF5 5PB,CF5 5PD,CF5 5PE,CF5 5PF,CF5 5PG,CF5 5PH,CF5 5PJ,CF5 5PL,CF5 5PN,CF5 5PP,CF5 5PQ,CF5 5PR,CF5 5PS,CF5 5PT,CF5 5PU,CF5 5PZ,CF5 5QA,CF5 5QB,CF5 5QD,CF5 5QE,CF5 5QF,CF5 5QG,CF5 5QH,CF5 5QJ,CF5 5QL,CF5 5QN,CF5 5QP,CF5 5QQ,CF5 5QR,CF5 5QS,CF5 5QT,CF5 5QU,CF5 5QW,CF5 5QX,CF5 5QZ,CF5 5RA,CF5 5RB,CF5 5RD,CF5 5SE,CF5 5TA,CF5 5TB,CF5 5TD,CF5 5TE,CF5 5WF,CF5 5WS,CF5 5XA,CF5 5XE,CF5 5XP,CF5 5YD,CF5 5YZ,CF5 6AA,CF5 6AB,CF5 6AD,CF5 6AE,CF5 6AF,CF5 6AG,CF5 6AH,CF5 6AJ,CF5 6AL,CF5 6AN,CF5 6AQ,CF5 6AS,CF5 6AT,CF5 6AU,CF5 6BB,CF5 6BD,CF5 6BE,CF5 6BX,CF5 6BZ,CF5 6DA,CF5 6DF,CF5 6DJ,CF5 6WJ,CF5 6WN,CF5 6WT,CF5 6WW,CF5 6XE,CF5 6XS,CF5 6XT,CF5 6YP,CF5 6YU,CF5 9AB,CF5 9AE,CF5 9AJ,CF5 9AL,CF5 9AY,CF5 9BB,CF5 9BE,CF5 9BH,CF5 9BQ,CF5 9BR,CF5 9BT,CF5 9DA,CF5 9DD,CF5 9DN,CF5 9DQ,CF5 9DS,CF5 9DT,CF5 9DU,CF5 9DW,CF5 9DX,CF5 9DY,CF5 9DZ,CF5 9EB,CF5 9ED,CF5 9EE,CF5 9EF,CF5 9EG,CF5 9EH,CF5 9EJ,CF5 9EL,CF5 9EN,CF5 9EP,CF5 9EQ,CF5 9ER,CF5 9ES,CF5 9ET ', 1, '0000-00-00 00:00:00', 0, '2016-12-26 08:27:49', 1);
 
 -- --------------------------------------------------------
 
@@ -791,7 +839,9 @@ CREATE TABLE IF NOT EXISTS `gkpos_order` (
 `id` int(10) NOT NULL,
   `order_type` varchar(20) NOT NULL,
   `table_id` int(11) DEFAULT NULL,
-  `status` tinyint(1) DEFAULT NULL COMMENT '1=pending,2=confirmed,3=rejected,4=archieved',
+  `table_number` varchar(10) DEFAULT NULL,
+  `guest_quantity` varchar(5) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL COMMENT '1=initiate,2=ordered,3=completed,4=archieved',
   `phone` varchar(20) DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
   `floor_or_apt` varchar(50) DEFAULT NULL,
@@ -803,25 +853,80 @@ CREATE TABLE IF NOT EXISTS `gkpos_order` (
   `payment_method` varchar(250) DEFAULT NULL,
   `is_delivered` tinyint(1) DEFAULT NULL COMMENT '1=yes,2=no',
   `delivery_time` varchar(250) DEFAULT NULL,
-  `VAT` double DEFAULT NULL,
+  `delivery_charge` double DEFAULT NULL,
+  `service_charge` double DEFAULT NULL,
+  `vat` double DEFAULT NULL,
   `promocode_price` double DEFAULT NULL,
   `promocode` varchar(100) DEFAULT NULL,
   `discount` double DEFAULT NULL,
-  `order_total` double NOT NULL,
+  `order_total` double DEFAULT NULL,
   `grand_total` double DEFAULT NULL,
   `invoice_status` tinyint(1) DEFAULT NULL COMMENT '1=created,2=not_created',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` int(11) NOT NULL,
   `modified` datetime NOT NULL,
   `modified_by` int(11) NOT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `gkpos_order`
 --
 
-INSERT INTO `gkpos_order` (`id`, `order_type`, `table_id`, `status`, `phone`, `name`, `floor_or_apt`, `building`, `house`, `street`, `postcode`, `paid_status`, `payment_method`, `is_delivered`, `delivery_time`, `VAT`, `promocode_price`, `promocode`, `discount`, `order_total`, `grand_total`, `invoice_status`, `created`, `created_by`, `modified`, `modified_by`) VALUES
-(1, 'table', 1, 1, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2016-12-15 16:15:35', 1, '0000-00-00 00:00:00', 0);
+INSERT INTO `gkpos_order` (`id`, `order_type`, `table_id`, `table_number`, `guest_quantity`, `status`, `phone`, `name`, `floor_or_apt`, `building`, `house`, `street`, `postcode`, `paid_status`, `payment_method`, `is_delivered`, `delivery_time`, `delivery_charge`, `service_charge`, `vat`, `promocode_price`, `promocode`, `discount`, `order_total`, `grand_total`, `invoice_status`, `created`, `created_by`, `modified`, `modified_by`) VALUES
+(1, 'table', 1, '1', '5', 3, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, 0, 5, 4.32, NULL, NULL, 6.79, 86.4, 88.93, NULL, '2016-12-29 13:41:42', 1, '0000-00-00 00:00:00', 0),
+(2, 'delivery', NULL, NULL, NULL, 2, '01717103734', 'mr zaman', '3rd floor', 'Baba Monjil', '165/5', 'sonar para shibgonj', 'E1 5DE', NULL, NULL, NULL, '2016-12-29 19:50:20', 0, 0, 3.255, NULL, NULL, 6.51, 65.1, 61.845, NULL, '2016-12-29 13:53:31', 1, '0000-00-00 00:00:00', 0),
+(3, 'table', 2, '2', '2', 2, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, 0, 4, 3.315, NULL, NULL, 5.3025, 66.3, 68.3125, NULL, '2016-12-29 14:01:23', 1, '0000-00-00 00:00:00', 0),
+(4, 'table', 3, '3', '3', 1, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2016-12-29 14:03:26', 1, '0000-00-00 00:00:00', 0),
+(5, 'collection', NULL, NULL, NULL, 1, '01717103734', 'developer', NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2016-12-29 14:05:06', 1, '0000-00-00 00:00:00', 0),
+(6, 'waiting', NULL, NULL, NULL, 1, '01717103732', 'Don', NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2016-12-29 14:10:42', 1, '0000-00-00 00:00:00', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gkpos_order_detail`
+--
+
+CREATE TABLE IF NOT EXISTS `gkpos_order_detail` (
+`id` int(11) NOT NULL,
+  `line` int(2) DEFAULT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `category` int(11) DEFAULT NULL,
+  `category_title` text,
+  `category_print_option` tinyint(1) DEFAULT NULL,
+  `category_type` tinyint(1) DEFAULT NULL,
+  `menu` int(11) DEFAULT NULL,
+  `menu_title` text,
+  `selection` int(11) DEFAULT NULL,
+  `selection_title` text,
+  `quantity` int(5) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `first_taken` datetime DEFAULT NULL,
+  `last_taken` datetime DEFAULT NULL,
+  `plus` varchar(3) DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+
+--
+-- Dumping data for table `gkpos_order_detail`
+--
+
+INSERT INTO `gkpos_order_detail` (`id`, `line`, `order_id`, `category`, `category_title`, `category_print_option`, `category_type`, `menu`, `menu_title`, `selection`, `selection_title`, `quantity`, `price`, `first_taken`, `last_taken`, `plus`) VALUES
+(1, 1, 1, 1, 'Vagetarian Starters', 1, 1, 2, 'SPONGY ONION BHAJI2', NULL, NULL, 5, 2.7, '2016-12-29 14:43:02', NULL, NULL),
+(2, 2, 1, 5, 'Exotic Tandoori Courses', 1, 2, 27, 'TANDOORI CHICKEN (D) FULL', NULL, NULL, 5, 11, '2016-12-29 14:43:02', NULL, 'yes'),
+(3, 1, 1, 5, 'Exotic Tandoori Courses', 1, 2, 27, 'TANDOORI CHICKEN (D) FULL', NULL, NULL, 1, 11, NULL, '2016-12-29 14:44:50', NULL),
+(4, 2, 1, 2, 'Non Vegetarian Starters', 1, 1, 9, 'CHICKEN CHATT', NULL, NULL, 1, 2.95, NULL, '2016-12-29 14:44:50', NULL),
+(5, 3, 1, 2, 'Non Vegetarian Starters', 1, 1, 10, 'CHICKEN TIKKA WRAP (G)', NULL, NULL, 1, 3.95, NULL, '2016-12-29 14:44:50', 'yes'),
+(6, 1, 3, 1, 'Vagetarian Starters', 1, 1, 7, 'GARLIC MUSHROOM', NULL, NULL, 1, 3.1, '2016-12-29 15:03:03', NULL, NULL),
+(7, 2, 3, 2, 'Non Vegetarian Starters', 1, 1, 9, 'CHICKEN CHATT', NULL, NULL, 1, 2.95, '2016-12-29 15:03:03', NULL, NULL),
+(8, 3, 3, 5, 'Exotic Tandoori Courses', 1, 2, 27, 'TANDOORI CHICKEN (D) FULL', NULL, NULL, 1, 11, '2016-12-29 15:03:03', NULL, NULL),
+(9, 4, 3, 5, 'Exotic Tandoori Courses', 1, 2, 31, 'CHICKEN SHASHLICK (D)', NULL, NULL, 1, 9.5, '2016-12-29 15:03:03', NULL, 'yes'),
+(10, 1, 2, 6, 'South Asian specialty curries', 1, 1, 34, 'BENGAL NAGAJHOL', NULL, NULL, 1, 9.85, '2016-12-29 15:04:19', NULL, NULL),
+(11, 2, 2, 6, 'South Asian specialty curries', 1, 1, 35, 'DONESIA MEE GORENG (G)', NULL, NULL, 1, 9.85, '2016-12-29 15:04:19', NULL, NULL),
+(12, 3, 2, 6, 'South Asian specialty curries', 1, 1, 36, 'NEPAL GORKHA LAMB', NULL, NULL, 1, 9.1, '2016-12-29 15:04:19', NULL, NULL),
+(13, 4, 2, 5, 'Exotic Tandoori Courses', 1, 2, 24, 'GARLIC CHICKEN, GRILLED TIKKA (D)', NULL, NULL, 1, 7.95, '2016-12-29 15:04:19', NULL, NULL),
+(14, 5, 2, 5, 'Exotic Tandoori Courses', 1, 2, 25, 'GRILLED LAMB TIKKA (D)', NULL, NULL, 1, 7.95, '2016-12-29 15:04:19', NULL, NULL),
+(15, 6, 2, 5, 'Exotic Tandoori Courses', 1, 2, 28, 'TANDOORI KING PRAWNS (D)', NULL, NULL, 1, 10.9, '2016-12-29 15:04:19', NULL, NULL),
+(16, 7, 2, 5, 'Exotic Tandoori Courses', 1, 2, 31, 'CHICKEN SHASHLICK (D)', NULL, NULL, 1, 9.5, '2016-12-29 15:04:19', NULL, 'yes'),
+(17, 1, 3, 5, 'Exotic Tandoori Courses', 1, 2, 24, 'GARLIC CHICKEN, GRILLED TIKKA (D)', NULL, NULL, 5, 7.95, NULL, '2016-12-29 16:28:57', 'yes');
 
 -- --------------------------------------------------------
 
@@ -875,14 +980,16 @@ CREATE TABLE IF NOT EXISTS `gkpos_table` (
   `modified_by` int(11) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_by` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `gkpos_table`
 --
 
 INSERT INTO `gkpos_table` (`id`, `table_number`, `guest_quantity`, `is_vacant`, `status`, `order`, `modified`, `modified_by`, `created`, `created_by`) VALUES
-(1, '2323', 324, 2, 1, 0, '0000-00-00 00:00:00', 0, '2016-12-15 16:15:35', 1);
+(1, '1', 5, 2, 1, 0, '0000-00-00 00:00:00', 0, '2016-12-29 13:41:42', 1),
+(2, '2', 2, 2, 1, 0, '0000-00-00 00:00:00', 0, '2016-12-29 14:01:23', 1),
+(3, '3', 3, 2, 1, 0, '0000-00-00 00:00:00', 0, '2016-12-29 14:03:23', 1);
 
 -- --------------------------------------------------------
 
@@ -930,6 +1037,33 @@ INSERT INTO `gkpos_user` (`id`, `first_name`, `last_name`, `gender`, `image`, `e
 (8, 'mrs ', 'Bill', 2, '', 'mrsbill@gmail.com', 'mrs bill ', 'e10adc3949ba59abbe56e057f20f883e', 1, 0, 3, '', '', '', '', '', '', '', '0000-00-00 00:00:00', '', '2016-12-04 12:47:44', 1),
 (9, 'mr', 'Don', 1, '', 'don@gmail.com', 'don', 'e10adc3949ba59abbe56e057f20f883e', 1, 0, 3, '', '', '', '', '', '', '', '0000-00-00 00:00:00', '', '2016-12-04 12:47:55', 1),
 (10, 'mrs', 'don', 2, '', 'mrsdon@gmail.com', 'mrs don', 'e10adc3949ba59abbe56e057f20f883e', 1, 0, 3, '', '', '', '', '', '', '', '0000-00-00 00:00:00', '', '2016-12-04 12:47:58', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gkpos_voucher`
+--
+
+CREATE TABLE IF NOT EXISTS `gkpos_voucher` (
+`id` int(11) NOT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `code` varchar(32) DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `function` varchar(10) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL COMMENT '1=active,2=delete',
+  `modified` datetime NOT NULL,
+  `modified_by` int(5) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` int(5) DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `gkpos_voucher`
+--
+
+INSERT INTO `gkpos_voucher` (`id`, `title`, `code`, `amount`, `function`, `status`, `modified`, `modified_by`, `created`, `created_by`) VALUES
+(3, 'Chirsmas offer ', 'CH2016', 10, 'fixed', 1, '0000-00-00 00:00:00', 0, '2016-12-26 06:19:44', 1),
+(5, 'Victory Day Offer', 'VH2016', 20, 'percent', 1, '0000-00-00 00:00:00', 0, '2016-12-26 06:23:32', 1);
 
 -- --------------------------------------------------------
 
@@ -1338,6 +1472,12 @@ ALTER TABLE `gkpos_customer`
  ADD PRIMARY KEY (`phone`);
 
 --
+-- Indexes for table `gkpos_deliveryplan`
+--
+ALTER TABLE `gkpos_deliveryplan`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `gkpos_menu`
 --
 ALTER TABLE `gkpos_menu`
@@ -1347,6 +1487,12 @@ ALTER TABLE `gkpos_menu`
 -- Indexes for table `gkpos_order`
 --
 ALTER TABLE `gkpos_order`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `gkpos_order_detail`
+--
+ALTER TABLE `gkpos_order_detail`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -1365,6 +1511,12 @@ ALTER TABLE `gkpos_table`
 -- Indexes for table `gkpos_user`
 --
 ALTER TABLE `gkpos_user`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `gkpos_voucher`
+--
+ALTER TABLE `gkpos_voucher`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -1453,6 +1605,11 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=48;
 ALTER TABLE `gkpos_category`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
 --
+-- AUTO_INCREMENT for table `gkpos_deliveryplan`
+--
+ALTER TABLE `gkpos_deliveryplan`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `gkpos_menu`
 --
 ALTER TABLE `gkpos_menu`
@@ -1461,7 +1618,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
 -- AUTO_INCREMENT for table `gkpos_order`
 --
 ALTER TABLE `gkpos_order`
-MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `gkpos_order_detail`
+--
+ALTER TABLE `gkpos_order_detail`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `gkpos_selection`
 --
@@ -1471,12 +1633,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `gkpos_table`
 --
 ALTER TABLE `gkpos_table`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `gkpos_user`
 --
 ALTER TABLE `gkpos_user`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `gkpos_voucher`
+--
+ALTER TABLE `gkpos_voucher`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `order_attribute`
 --
