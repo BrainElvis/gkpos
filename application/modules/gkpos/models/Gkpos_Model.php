@@ -65,7 +65,7 @@ class Gkpos_Model extends MY_Model {
         return $this->get_by(array('order_type' => 'waiting', 'created >=' => date('Y-m-d H:i:s', strtotime('today'))));
     }
 
-    public function get_delivery_orders() {
+    public function orders() {
         $this->_table_name = "gkpos_order";
         $this->_primary_key = "id";
         return $this->get_by(array('order_type' => 'delivery', 'created >=' => date('Y-m-d H:i:s', strtotime('today'))));
@@ -76,15 +76,6 @@ class Gkpos_Model extends MY_Model {
         $this->_primary_key = "id";
         return $this->get_by(array('order_type' => 'collection', 'created >=' => date('Y-m-d H:i:s', strtotime('today'))));
     }
-     function get_deliveryplan($order_id) {
-        if (!$this->session->userdata('deliveryplan' . $order_id)) {
-            $this->set_deliveryplan(false, array());
-        }
-        return $this->session->userdata('deliveryplan' . $order_id);
-    }
-
-    function set_deliveryplan($order_id, $data) {
-        $this->session->set_userdata('deliveryplan' . $order_id, $data);
-    }
+     
 
 }

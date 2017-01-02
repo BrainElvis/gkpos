@@ -22,7 +22,7 @@ class Gkpos extends Gkpos_Controller {
         $data['table_orders'] = $this->Gkpos_Model->get_table_orders();
         $data['takeaway_orders'] = $this->Gkpos_Model->get_takeaway_orders();
         $data['current_page'] = "gkpos";
-        //debugPrint($this->session->userdata());
+        debugPrint($this->session->userdata());
         $this->render_page('gkpos/gkpos/index/index', $data);
     }
 
@@ -233,7 +233,6 @@ class Gkpos extends Gkpos_Controller {
                 }
 
                 $exists = $this->Gkpos_Model->exists('gkpos_customer', 'phone', $postedData['phone']);
-
                 if (!$exists) {
                     if (isset($data['order_type'])) {
                         unset($data['order_type']);

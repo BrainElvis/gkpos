@@ -394,22 +394,24 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
     background-position: center;
 }
 .minusbg {
-    background: url(../images/minusbg.png) no-repeat;
     float: left;
-    padding: 15px;
     text-align: center;
-    margin-top: 0px;
     color:#fff;
-    background-position: center;
+    background-color:  #C2401D;
 }
 .plusbg {
-    background: url(../images/plusicon.png) no-repeat;
     float: left;
-    padding: 15px;
     text-align: center;
-    margin-top: 0px;
     color:#fff;
-    background-position: center;
+    background-color:#147BA1;
+    
+}
+.update-button-width {
+  border-radius: 6px;
+  margin: 2px 3px 0;
+  padding: 12.5px;
+  width: 15% !important;
+  border: 1px solid #818181;
 }
 .minustextbg { font-size:14px; font-weight:bold;}
 .bodybtnbg { 

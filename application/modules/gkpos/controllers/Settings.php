@@ -95,6 +95,8 @@ class Settings extends Gkpos_Controller {
         $batch_save_data = array(
             'gk_discount_percent' => $this->input->post('gk_discount_percent'),
             'gk_discount_applied' => $this->input->post('gk_discount_applied'),
+            'gk_discount_food' => $this->input->post('gk_discount_food'),
+            'gk_discount_nonfood' => $this->input->post('gk_discount_nonfood'),
         );
         $result = $this->Appconfig->batch_save($batch_save_data);
         $success = $result ? true : false;

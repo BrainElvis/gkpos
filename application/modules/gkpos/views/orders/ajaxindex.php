@@ -50,9 +50,7 @@
                     <a href="#"><div class="mainsystembg2 waiting-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_convert_to_takeaway') ?></div></a>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 right-bottom pay-close">
-                <a href="#"><div class="mainsystembg collection-bg-color img-responsive"><?php echo $this->lang->line('gkpos_pay_and_close') ?></div></a>
-            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 right-bottom">&nbsp;</div>
         </div>
     </div>
 </section>
@@ -62,13 +60,13 @@
 <?php echo $this->load->view('gkpos/orders/popups/cart_warning') ?>
 <script>
     $(document).ready(function () {
-        getcategory();
         var order_id = '<?php isset($order_id) && $order_id > 0 ? print $order_id : print $this->uri->segment(4) ?>'
         loadCart(order_id);
         jQuery(".closeServiceChargePopup").click(function () {
             jQuery.colorbox.close();
             return false;
         });
+        getcategory();
     });
 
     function loadCart(order_id, line) {
@@ -82,44 +80,23 @@
                 jQuery.colorbox.close();
                 $('#cartBody').html(output);
                 if (line) {
-
-                    if ($('#FoodMaxLine').length > 0) {
-                        $('#FoodMaxLine').removeClass('alert alert-success');
-                    }
-                    if ($('#nonFoodMaxLine').length > 0) {
-                        $('#nonFoodMaxLine').removeClass('alert alert-success');
-                    }
-                    $('#nonFoodMaxLine').removeClass('alert alert-success');
-
                     $('.line').removeClass('highlighted');
                     $('.line-' + line).addClass('highlighted');
                     $('#selectedRow').val(line);
                     $('#orderId').val(order_id);
-
-
-                } else {
-                    if ($('#FoodMaxLine').length > 0) {
-                        setTimeout(function () {
-                            $('#FoodMaxLine').removeClass('alert-success');
-                        }, 1000);
-                    }
-                    if ($('#nonFoodMaxLine').length > 0) {
-                        setTimeout(function () {
-                            $('#nonFoodMaxLine').removeClass('alert-success');
-                        }, 1000);
-                    }
                 }
                 var windowScreenHeight = $(window).height();
                 $('.menuselection .left-top, .menuselection .middle-top,.menuselection .right-top').css({"height": windowScreenHeight - (windowScreenHeight * 0.223) + "px", "overflow-y": "scroll", "overflow-x": "hidden"});
                 $('.menuselection .order-menu-list').css({"height": windowScreenHeight - (windowScreenHeight * 0.44) + "px", "overflow-y": "auto", "overflow-x": "hidden"});
                 $('.menuselection .left-bottom,.menuselection .middle-bottom,.menuselection .right-bottom').css({"height": windowScreenHeight - (windowScreenHeight * 0.887) + "px", "overflow-y": "scroll", "overflow-x": "hidden"});
+                $('.item-table, .calculation-table').css({"height": "140px", "overflow-y": "scroll", "overflow-x": "hidden"});
                 manageWindowHeight();
             }
         });
     }
 
-    function addtocart(category, menu, sel) {
-        var order_id = '<?php echo $this->uri->segment(4) ?>'
+    function addtocart(category, menu, sel, quantity = 1, extras) {
+        var order_id = '<?php isset($order_id) ? print $order_id : print $this->uri->segment(4) ?>'
         $.ajax({
             url: '<?php echo site_url("gkpos/orders/addtocart") ?>',
             data: {
@@ -127,17 +104,19 @@
                 category: category,
                 menu: menu,
                 sel: sel,
-                quantity: 1
+                quantity: quantity,
+                extra: extras ? extras : false
             },
             type: "POST",
             dataType: "json",
             success: function (output) {
-                loadCart(output.order_id, false);
+                loadCart(output.order_id, output.line);
             }
         });
     }
 
     function selectRow(line, orderId) {
+        //alert(line + '---' + orderId);
         $('#selectedRow').val('');
         $('#orderId').val('');
         $('.line').removeClass('highlighted');
@@ -147,7 +126,7 @@
     }
 
 
-    function updatecart(action) {
+    function updatecart(action, quantity) {
         var line = $('#selectedRow').val();
         var order_id = $('#orderId').val();
         var CurrentOrderTotal = $('#CurrentOrderTotal').val();
@@ -157,12 +136,7 @@
             jQuery(".cartWarning").colorbox({inline: true, slideshow: false, scrolling: false, height: "250px", open: true, width: '100%', maxWidth: '400px', 'left': '30%'});
             return false;
         } else {
-            if (CurrentOrderTotal <= 0) {
-                jQuery('#cartWarningHeader').text("<?php echo $this->lang->line('gkpos_cart_warning') ?>");
-                jQuery('#cartWarningContent').text("<?php echo $this->lang->line('gkpos_put_item_on_cart') ?>");
-                jQuery(".cartWarning").colorbox({inline: true, slideshow: false, scrolling: false, height: "250px", open: true, width: '100%', maxWidth: '400px', 'left': '30%'});
-                return false;
-            } else if (!line) {
+            if (!line) {
                 jQuery('#cartWarningHeader').text("<?php echo $this->lang->line('gkpos_cart_warning') ?>");
                 jQuery('#cartWarningContent').text("<?php echo $this->lang->line('gkpos_select_item_row_to_change_quantity') ?>");
                 jQuery(".cartWarning").colorbox({inline: true, slideshow: false, scrolling: false, height: "250px", open: true, width: '100%', maxWidth: '400px', 'left': '30%'});
@@ -174,6 +148,7 @@
                         line: parseInt(line),
                         action: action,
                         order_id: order_id,
+                        quantity: quantity
                     },
                     type: "POST",
                     dataType: "json",
@@ -185,43 +160,84 @@
         }
     }
 
-    function submitCart(order_id, min, isCartEmty, isDbcEmpty) {
+    function submitCart(order_id, min, isCartEmty, isDbcEmpty, hasNew) {
         if (order_id == null || order_id == '') {
             jQuery('#cartWarningHeader').text("<?php echo $this->lang->line('gkpos_cart_warning') ?>");
             jQuery('#cartWarningContent').text("<?php echo $this->lang->line('gkpos_make_order_sure') ?>");
             jQuery(".cartWarning").colorbox({inline: true, slideshow: false, scrolling: false, height: "250px", open: true, width: '100%', maxWidth: '400px', 'left': '30%'});
             return false;
-        }
-        if (isCartEmty && isDbcEmpty) {
+        } else if (hasNew == 'no') {
             jQuery('#cartWarningHeader').text("<?php echo $this->lang->line('gkpos_cart_warning') ?>");
             jQuery('#cartWarningContent').text("<?php echo $this->lang->line('gkpos_put_item_on_cart') ?>");
             jQuery(".cartWarning").colorbox({inline: true, slideshow: false, scrolling: false, height: "250px", open: true, width: '100%', maxWidth: '400px', 'left': '30%'});
             return false;
-        }
-        if (isCartEmty && !isDbcEmpty) {
-            jQuery('#cartWarningHeader').text("<?php echo $this->lang->line('gkpos_cart_warning') ?>");
-            jQuery('#cartWarningContent').text("<?php echo $this->lang->line('gkpos_no_new_item_to_send') ?>");
-            jQuery(".cartWarning").colorbox({inline: true, slideshow: false, scrolling: false, height: "250px", open: true, width: '100%', maxWidth: '400px', 'left': '30%'});
-            return false;
-        }
-        if (min == 'minYes') {
+        } else if (min == 'minYes') {
             //alert();
             jQuery('#cartWarningHeader').text("<?php echo $this->lang->line('gkpos_cart_warning') ?>");
             jQuery('#cartWarningContent').text("<?php echo $this->lang->line('gkpos_meet_delivery_condition') ?>");
             jQuery(".cartWarning").colorbox({inline: true, slideshow: false, scrolling: false, height: "250px", open: true, width: '100%', maxWidth: '400px', 'left': '30%'});
             return false;
-        }
-        $.ajax({
-            url: "<?php echo site_url('gkpos/orders/sendcart') ?>",
-            data: {
-                order_id: parseInt(order_id)
-            },
-            type: "POST",
-            dataType: "json",
-            success: function (output) {
-                loadCart(output.order_id, 5);
+        } else {
+            if (!isDbcEmpty) {
+                $.confirm({
+                    'title': 'Sending Warning',
+                    'message': 'Choose option to send items to kitchen',
+                    'buttons': {
+                        'Sent All': {
+                            'class': 'btn btn-success',
+                            'action': function () {
+                                $.ajax({
+                                    url: "<?php echo site_url('gkpos/orders/save_order') ?>",
+                                    data: {
+                                        order_id: parseInt(order_id),
+                                        sent: 'all'
+                                    },
+                                    type: "POST",
+                                    dataType: "json",
+                                    success: function (output) {
+                                        loadCart(output.order_id, 5);
+                                    }
+                                });
+                            }
+                        },
+                        'Sent New': {
+                            'class': 'btn btn-warning',
+                            'action': function () {
+                                $.ajax({
+                                    url: "<?php echo site_url('gkpos/orders/save_order') ?>",
+                                    data: {
+                                        order_id: parseInt(order_id),
+                                        sent: 'new'
+                                    },
+                                    type: "POST",
+                                    dataType: "json",
+                                    success: function (output) {
+                                        loadCart(output.order_id, 5);
+                                    }
+                                });
+                            }
+                        },
+                        'close': {
+                            'class': 'btn btn-danger',
+                            'action': function () {}
+                        }
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: "<?php echo site_url('gkpos/orders/save_order') ?>",
+                    data: {
+                        order_id: parseInt(order_id),
+                        sent:'all'
+                    },
+                    type: "POST",
+                    dataType: "json",
+                    success: function (output) {
+                        loadCart(output.order_id, 5);
+                    }
+                });
             }
-        });
-
+        }
     }
+
 </script>

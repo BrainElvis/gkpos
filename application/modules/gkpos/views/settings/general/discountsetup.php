@@ -59,6 +59,11 @@
                                 </div>
                             </div>
 
+                            <div class="form-group form-group-sm">	
+                                <?php echo form_label($this->lang->line('gkpos_discount_applied'), '', array('class' => 'text-uppercase control-label col-lg-5 col-md-5 col-sm-5 col-xs-5')); ?>
+                                <div class='col-lg-2 col-md-2 col-sm-2 col-xs-2 text-uppercase '><?php echo form_checkbox(array('name' => 'gk_discount_food', 'class' => 'checkbox-inline', 'value' => 'yes', 'checked' => $this->config->item('gk_discount_food'))); ?><span class="discount-lebel"><?php echo $this->lang->line('gkpos_food') ?></span></div>
+                                <div class='col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center text-uppercase '><?php echo form_checkbox(array('name' => 'gk_discount_nonfood', 'class' => 'checkbox-inline', 'value' => 'yes', 'checked' => $this->config->item('gk_discount_nonfood'))); ?> <span class="discount-lebel"><?php echo $this->lang->line('gkpos_non_food') ?></span></div>
+                            </div>
                             <div class="form-group form-group-md">	
                                 <div class="col-md-offset-5 col-md-7">
                                     <ul id="discount_error_message_box" class="error_message_box"></ul>

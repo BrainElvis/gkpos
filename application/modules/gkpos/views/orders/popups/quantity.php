@@ -8,7 +8,7 @@
         <div class="popup-body row">
             <div id="QuantityPopupContent" class="warningPopupContent col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div id="MiddleContent">
-                    <?php echo form_open('gkpos/orders/update_bulk_quantity', array('id' => 'custom_quantity_form', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal')); ?>
+                    <?php echo form_open('gkpos/orders/updatecart', array('id' => 'custom_quantity_form', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal')); ?>
                     <div id="config_wrapper">
                         <fieldset id="config_info">
                             <div class="form-group form-group-sm">	
@@ -29,7 +29,7 @@
                                 <div class="col-md-offset-4 col-md-8">
                                     <input type="hidden" id="quantityOrderId" name="order_id" value="<?php isset($order_id) ? print $order_id : '' ?>">
                                     <input type="hidden" id="quantityLine" name="line" value="">
-                                    <input type="hidden" id="quantityLine" name="action" value="bulk_quantity">
+                                    <input type="hidden" name="action" value="quantity">
                                     <input class="form-submit-button mainsystembg2 waiting-bg img-responsive delivery-info-submit-btn" type="submit" name="submit_form" value="<?php echo $this->lang->line('gkpos_numpad_key_enter') ?>" onclick="saveQuantity()">
                                 </div>
                             </div>

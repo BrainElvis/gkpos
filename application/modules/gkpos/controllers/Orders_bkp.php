@@ -164,7 +164,7 @@ class Orders extends Gkpos_Controller {
         // if item already in the cart 
         if (!empty($items)) {
             foreach ($items as $key => $item) {
-                if ($maxkey <= $item['line']) {
+                if ($maxkey == $item['line']) {
                     $maxkey = $item['line'];
                 }
                 if (isset($item['plus'])) {

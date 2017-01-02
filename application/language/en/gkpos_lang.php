@@ -281,4 +281,6 @@ $lang['gkpos_add_discount'] = "Add Discount";
 $lang['gkpos_add_quantity'] = "Add Quantity";
 $lang['gkpos_select_item_row_to_change_quantity'] = "Select an item row on the cart to update quantity";
 $lang['gkpos_quantity_required'] = "Please specify quantity in number only";
+$lang['gkpos_discount_applied'] = "Appled on";
+$lang['gkpos_vat_included'] = "VAT included";
 

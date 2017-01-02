@@ -10,6 +10,60 @@ function get_record_list($table, $condition = null, $columns = '*', $order = nul
     return $CI->db->get($table)->result();
 }
 
+function calculate_discount($order_id, $total, $foodTotal, $nonFoodTotal, $data) {
+    $discount = 0;
+    if ($data['func'] == 1) {
+        if (isset($data['food']) && isset($data['nonfood'])) {
+            if ($data['food'] == 'yes' && ($data['nonfood'] != '' || $data['nonfood'] == 'yes' )) {
+                $discount = $total * $data['number'] / 100;
+            } else if ($data['food'] == 'yes' && ($data['nonfood'] == '' || $data['nonfood'] == 'no' )) {
+                $discount = $foodTotal * $data['number'] / 100;
+            } else if (($data['food'] == '' || $data['food'] == 'no' ) && ($data['nonfood'] != '' && $data['nonfood'] == 'yes' )) {
+                $discount = $nonFoodTotal * $data['number'] / 100;
+            } else {
+                $discount = $total * $data['number'] / 100;
+            }
+        } else if (isset($data['food']) && !isset($data['nonfood'])) {
+            if ($data['food'] == 'yes') {
+                $discount = $foodTotal * $data['number'] / 100;
+            }
+        } else if (!isset($data['food']) && isset($data['nonfood'])) {
+            if ($data['nonfood'] == 'yes') {
+                $discount = $nonFoodTotal * $data['number'] / 100;
+            }
+        } else {
+            $discount = $total * $data['number'] / 100;
+        }
+    } else {
+        $discount = $data['number'];
+    }
+    $CI = & get_instance();
+    $CI->Orders_Model->set_discount_amount($order_id, $discount);
+    return $discount;
+}
+
+function calculate_service_charge($order_id, $total, $data) {
+    $service_charge = 0;
+    if ($total > 0 && $order_id > 0 && $data['func'] == 1) {
+        $service_charge = $total * $data['number'] / 100;
+    } else {
+        $service_charge = isset($data['number']) && $data['number'] > 0 ? $data['number'] : $service_charge;
+    }
+    $CI = & get_instance();
+    $CI->Orders_Model->set_servicecharge_amount($order_id, $service_charge);
+    return $service_charge;
+}
+
+function calculate_vat($order_id, $total, $vat_data) {
+    $vat = 0;
+    if ($vat_data['func'] == 1) {
+        $vat = $total * $vat_data['number'] / 100;
+    }
+    $CI = & get_instance();
+    $CI->Orders_Model->set_vat_amount($order_id, $vat);
+    return $vat;
+}
+
 function gkpos_dateformat($php_format) {
     $SYMBOLS_MATCHING = array(
         // Day
@@ -129,11 +183,12 @@ function formatPhoneNumber($phoneNumber) {
     }
     return $phoneNumber;
 }
+
 function get_order_type($id) {
-      $ci  = & get_instance();
-      $sql = " SELECT *
+    $ci = & get_instance();
+    $sql = " SELECT *
                    FROM gkpos_order
                WHERE id = $id              
                ";
-      return $ci->db->query($sql)->row()->order_type;
-   }
+    return $ci->db->query($sql)->row()->order_type;
+}
