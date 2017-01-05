@@ -39,7 +39,7 @@
                 <?php if (!$isDbcFoodCartEmpty): ?>
                     <?php $dbcFoodCart = array_reverse($dbcFoodCart, true) ?>
                     <?php foreach ($dbcFoodCart as $dbc): ?>
-                        <tr onclick="selectRow('<?php echo $dbc['line'] ?>', '<?php echo $dbc['order_id'] ?>')" class="line line-<?php echo $dbc['line'] ?> alert-warning " >
+                        <tr onclick="selectRow('<?php echo $dbc['line'] ?>', '<?php echo $dbc['order_id'] ?>')" class="line line-<?php echo $dbc['line'] ?> alert-warning db-row" >
                             <td style="width: 60%;" class="text-capitalize"><?php (isset($dbc['selection_title']) && $dbc['selection_title'] != null) ? print $dbc['menu_title'] . '-' . $dbc['selection_title'] : print $dbc['menu_title'] ?></td>
                             <td style="width: 15%;" class="text-capitalize"><?php echo $dbc ['quantity'] ?></td>
                             <td style="width: 25%;" class="text-capitalize"><?php echo to_currency($dbc ['quantity'] * $dbc ['price']) ?></td>
@@ -83,7 +83,7 @@
                 <?php if (!$isDbcNonFoodCartEmpty): ?>
                     <?php $dbcNonFoodCart = array_reverse($dbcNonFoodCart, true) ?>
                     <?php foreach ($dbcNonFoodCart as $dbc): ?>
-                        <tr onclick="selectRow('<?php echo $dbc['line'] ?>', '<?php echo $dbc['order_id'] ?>')" class="line line-<?php echo $dbc['line'] ?> alert-warning " >
+                        <tr onclick="selectRow('<?php echo $dbc['line'] ?>', '<?php echo $dbc['order_id'] ?>')" class="line line-<?php echo $dbc['line'] ?> alert-warning db-row " >
                             <td style="width: 60%;" class="text-capitalize"><?php (isset($dbc['selection_title']) && $dbc['selection_title'] != null) ? print $dbc['menu_title'] . '-' . $dbc['selection_title'] : print $dbc['menu_title'] ?></td>
                             <td style="width: 15%;" class="text-capitalize"><?php echo $dbc ['quantity'] ?></td>
                             <td style="width: 25%;" class="text-capitalize"><?php echo to_currency($dbc ['quantity'] * $dbc ['price']) ?></td>
@@ -98,37 +98,33 @@
     <?php
     $subtotal = $foodTotal + $nonFoodTotal;
     $this->Orders_Model->set_subtotal($order_id, $subtotal);
-    $total+= $subtotal
+    $total+= $subtotal;
     ?>
-    <div class="tablebackgroundbg">
+    <div class="tablebackgroundbg" id="calculationTable">
         <input type="hidden" id="CurrentOrderTotal" value='<?php echo $total ?>'/>
+
         <table class="table table-responsive calculation-table">
-            <?php if ($total > 0) : ?>
-                <tr>
-                    <th>Sub Total</th>
-                    <td><?php echo to_currency($total) ?></td>
-                </tr>
-            <?php endif; ?>
-
+            <tr>
+                <th>Sub Total</th>
+                <td><?php echo to_currency($total) ?></td>
+            </tr>
             <!--DISCOUNT MANAGE PART -->    
-
             <?php
             $discount_data = $this->Orders_Model->get_discount($order_id);
-            $discount = !empty($discount_data) ? calculate_discount($order_id, $total, $foodTotal, $nonFoodTotal, $discount_data) : 0;
-            //$this->Orders_Model->set_discount_amount($order_id, $discount);
+            $discountArray = !empty($discount_data) ? calculate_discount($order_id, $total, $foodTotal, $nonFoodTotal, $discount_data) : 0;
+            $discount = $discountArray['discount'];
+            $discount_string = $discountArray['dsicount_string'];
+            $this->Orders_Model->set_discount_amount($order_id, $discount);
             ?>
-            <?php if ($total > 0): ?> 
-                <tr class="line-discount">
-                    <th>Discount</th>
-                    <td><?php echo to_currency(!$this->Orders_Model->get_discount_amount($order_id) ? $discount : $this->Orders_Model->get_discount_amount($order_id) ) ?></td>
-                </tr>
-            <?php endif; ?>
-
+            <tr class="line-discount">
+                <th>Discount</th>
+                <td><?php echo to_currency(!$this->Orders_Model->get_discount_amount($order_id) ? $discount : $this->Orders_Model->get_discount_amount($order_id) ) ?></td>
+            </tr>
             <!--DISCOUNT MANAGE PART END--> 
             <?php $delivery_charge = 0; ?>
             <?php if ($currentOrderObj->order_type = 'delivery'): ?>
                 <?php $delivery_plan = $this->Orders_Model->get_deliveryplan($order_id); ?>
-                <?php if (isset($delivery_plan) && !empty($delivery_plan) && $total > $delivery_plan['delivery_charge']): ?>
+                <?php if (isset($delivery_plan) && !empty($delivery_plan)): ?>
                     <tr>
                         <?php $delivery_charge = $delivery_plan['is_free'] == 0 ? $delivery_plan['delivery_charge'] : 0; ?>
                         <th>Delivery Fee</th>
@@ -160,7 +156,7 @@
             }
             ?>   
             <tr>
-                <th>VAT <?php !empty($vat_data) && $vat_data['is_included'] == 2 ? print'(' . $vat_data['number'] . '&percnt;' . ')' : print'' ?></th>
+                <th>VAT</th>
                 <td><?php $vat_data['is_included'] == 1 ? print'<span class="alert-info">' . $vat_data['number'] . '&percnt;' . $this->lang->line('gkpos_vat_included') . '</span>' : print to_currency($vat) ?></td>
             </tr>
 
@@ -168,19 +164,17 @@
 
             <!--TOTAL MANAGE PART --> 
             <?php $total+=($service_charge + $vat + $delivery_charge) - $discount; ?>
-            <?php $this->Orders_Model->set_total($order_id, $total) ?>;
+            <?php $this->Orders_Model->set_total($order_id, $total) ?>
             <tr>
                 <th>Grant Total</th>
                 <td><?php echo to_currency($total) ?></td>
             </tr>
-
             <!--TOTAL MANAGE PART --> 
             <?php if (!empty($delivery_plan) && ($foodTotal + $nonFoodTotal) < $delivery_plan ['min_order']): ?>
                 <tr>
                     <td colspan="2" class="text-center text-capitalize alert-info"><?php print'Minimum Delivery Order Amount:' . to_currency($delivery_plan['min_order']) ?></td>
                 </tr>
             <?php endif; ?>
-
         </table>
     </div>
     <input type="hidden" id="selectedRow" value="<?php isset($line) ? print $line : '' ?>">
@@ -191,22 +185,11 @@
         <div class="sendbg col-lg-3 col-md-3 col-sm-3 col-xs-3" onclick="submitCart('<?php echo $order_id ?>', 'minNo', '<?php echo $isCartEmty ?>', '<?php echo $isDbcEmpty ?>', '<?php echo $has_new ?>')"><?php echo $this->lang->line('gkpos_send') ?></div>
     <?php endif; ?>
     <div class="ktcbg col-lg-3 col-md-3 col-sm-3 col-xs-3"><?php echo $this->lang->line('gkpos_ktc') ?></div>
-    <div class="minusbg col-lg-2 col-md-2 col-sm-2 col-xs-2 update-button-width" onclick="updatecart('minus', '1')"><span class="minustextbg"> <?php echo $this->lang->line('gkpos_minus') ?> </span></div>
-    <div class="plusbg col-lg-2 col-md-2 col-sm-2 col-xs-2  update-button-width" onclick="updatecart('plus', '1')"><span class="plustextbg"> <?php echo $this->lang->line('gkpos_plus') ?> </span></div>
-    <div class="minusbg col-lg-2 col-md-2 col-sm-2 col-xs-2  update-button-width" onclick="updatecart('del', '1')"><span class="plustextbg"> <?php echo $this->lang->line('gkpos_numpad_key_del') ?> </span></div>
+    <div class="minusbg col-lg-2 col-md-2 col-sm-2 col-xs-2 update-button-width" onclick="updatecart('minus', '1', '<?php echo $isCartEmty ?>', '<?php echo $isDbcEmpty ?>')"><span class="minustextbg"> <?php echo $this->lang->line('gkpos_minus') ?> </span></div>
+    <div class="plusbg col-lg-2 col-md-2 col-sm-2 col-xs-2  update-button-width" onclick="updatecart('plus', '1', '<?php echo $isCartEmty ?>', '<?php echo $isDbcEmpty ?>')"><span class="plustextbg"> <?php echo $this->lang->line('gkpos_plus') ?> </span></div>
+    <div class="minusbg col-lg-2 col-md-2 col-sm-2 col-xs-2  update-button-width" onclick="updatecart('del', '1', '<?php echo $isCartEmty ?>', '<?php echo $isDbcEmpty ?>')"><span class="plustextbg"> <?php echo $this->lang->line('gkpos_numpad_key_del') ?> </span></div>
     <div class="clearfix"></div>
     <div class="colpay-close">
-        <a href="javascript:void(0)" onclick="payAndClose('<?php isset($order_id) ? print $order_id : print $this->uri->segment(4) ?>', '<?php echo $isCartEmty ?>', '<?php echo $isDbcEmpty ?>')"><div class="mainsystembg collection-bg-color img-responsive"><?php echo $this->lang->line('gkpos_pay_and_close') ?></div></a>
+        <a href="javascript:void(0)" onclick="payAndClose('<?php isset($order_id) ? print $order_id : print $this->uri->segment(4) ?>', '<?php echo $isCartEmty ?>', '<?php echo $isDbcEmpty ?>', '<?php echo $has_new ?>')"><div class="mainsystembg collection-bg-color img-responsive"><?php echo $this->lang->line('gkpos_pay_and_close') ?></div></a>
     </div>
 </div>
-
-<script>
-    function payAndClose(order_id, isCartEmty, isDbcEmpty) {
-        if (order_id == null || order_id == '') {
-            jQuery('#cartWarningHeader').text("<?php echo $this->lang->line('gkpos_cart_warning') ?>");
-            jQuery('#cartWarningContent').text("<?php echo $this->lang->line('gkpos_make_order_sure') ?>");
-            jQuery(".cartWarning").colorbox({inline: true, slideshow: false, scrolling: false, height: "250px", open: true, width: '100%', maxWidth: '400px', 'left': '30%'});
-            return false;
-        }
-    }
-</script>

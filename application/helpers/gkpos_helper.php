@@ -11,40 +11,49 @@ function get_record_list($table, $condition = null, $columns = '*', $order = nul
 }
 
 function calculate_discount($order_id, $total, $foodTotal, $nonFoodTotal, $data) {
+    $CI = & get_instance();
     $discount = 0;
-    if ($data['func'] == 1) {
+    $discount_string = '';
+    if (isset($data['func']) && $data['func'] == 1) {
         if (isset($data['food']) && isset($data['nonfood'])) {
             if ($data['food'] == 'yes' && ($data['nonfood'] != '' || $data['nonfood'] == 'yes' )) {
                 $discount = $total * $data['number'] / 100;
+                $discount_string = "(" . $data['number'] . "%)";
             } else if ($data['food'] == 'yes' && ($data['nonfood'] == '' || $data['nonfood'] == 'no' )) {
                 $discount = $foodTotal * $data['number'] / 100;
+                $discount_string = '(' . $data['number'] . '% on ' . '[' . $CI->lang->line('gkpos_food') . '])';
             } else if (($data['food'] == '' || $data['food'] == 'no' ) && ($data['nonfood'] != '' && $data['nonfood'] == 'yes' )) {
                 $discount = $nonFoodTotal * $data['number'] / 100;
+                $discount_string = '(' . $data['number'] . '% on ' . '[' . $CI->lang->line('gkpos_non_food') . '])';
             } else {
                 $discount = $total * $data['number'] / 100;
+                $discount_string = "(" . $data['number'] . "%)";
             }
         } else if (isset($data['food']) && !isset($data['nonfood'])) {
             if ($data['food'] == 'yes') {
                 $discount = $foodTotal * $data['number'] / 100;
+                $discount_string = '(' . $data['number'] . '% on ' . '[' . $CI->lang->line('gkpos_food') . '])';
             }
         } else if (!isset($data['food']) && isset($data['nonfood'])) {
             if ($data['nonfood'] == 'yes') {
                 $discount = $nonFoodTotal * $data['number'] / 100;
+                $discount_string = '(' . $data['number'] . '% on ' . '[' . $CI->lang->line('gkpos_non_food') . '])';
             }
         } else {
             $discount = $total * $data['number'] / 100;
+            $discount_string = "(" . $data['number'] . "%)";
         }
     } else {
         $discount = $data['number'];
     }
-    $CI = & get_instance();
+
     $CI->Orders_Model->set_discount_amount($order_id, $discount);
-    return $discount;
+    return array('discount' => $discount, 'dsicount_string' => $discount_string);
 }
 
 function calculate_service_charge($order_id, $total, $data) {
     $service_charge = 0;
-    if ($total > 0 && $order_id > 0 && $data['func'] == 1) {
+    if ($total > 0 && $order_id > 0 && isset($data['func']) && $data['func'] == 1) {
         $service_charge = $total * $data['number'] / 100;
     } else {
         $service_charge = isset($data['number']) && $data['number'] > 0 ? $data['number'] : $service_charge;

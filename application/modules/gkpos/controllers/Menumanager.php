@@ -24,6 +24,12 @@ class Menumanager extends Gkpos_Controller {
         $this->render_page('gkpos/menumanager/index', $data);
     }
 
+    public function indexcontent() {
+        $data = [];
+        $data['categories'] = $this->Menumanager_Model->get_menu_category();
+        $this->load->view('gkpos/menumanager/index', $data);
+    }
+
     public function category() {
         $success = false;
         $message = '';
@@ -74,7 +80,7 @@ class Menumanager extends Gkpos_Controller {
         $result = $this->db->update('gkpos_category', array($name => $value), array('id' => $id));
         echo json_encode(array('status' => $result));
     }
-    
+
     public function menu() {
         $success = false;
         $message = '';

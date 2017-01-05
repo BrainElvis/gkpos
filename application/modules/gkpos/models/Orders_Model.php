@@ -147,12 +147,16 @@ class Orders_Model extends MY_Model {
     }
 
     function dbcart_item_minus($order_id, $line, $quantity = false) {
-        $items = $this->get_cart_db($order_id);
-        $items[$line]['quantity'] > 1 ? $this->set_cart_new($order_id, 'yes') : $this->get_cart_new($order_id);
-        $items[$line]['quantity']-=$items[$line]['quantity'] > 1 ? 1 : 0;
-        $this->set_cart_db($order_id, $items);
-        $this->set_cart_new($order_id, 'yes');
-        return array('success' => true, 'order_id' => $order_id, 'line' => $line);
+        if ($this->session->userdata('gkpos_userid') == 0) {
+            $items = $this->get_cart_db($order_id);
+            $items[$line]['quantity'] > 1 ? $this->set_cart_new($order_id, 'yes') : $this->get_cart_new($order_id);
+            $items[$line]['quantity']-=$items[$line]['quantity'] > 1 ? 1 : 0;
+            $this->set_cart_db($order_id, $items);
+            $this->set_cart_new($order_id, 'yes');
+            return array('success' => true, 'order_id' => $order_id, 'line' => $line);
+        } else {
+            return array('success' => true, 'order_id' => $order_id, 'line' => $line, 'not_allowed' => 1);
+        }
     }
 
     function dbcart_item_quantity($order_id, $line, $quantity = false) {
@@ -164,11 +168,15 @@ class Orders_Model extends MY_Model {
     }
 
     function dbcart_item_del($order_id, $line, $quantity = false) {
-        $items = $this->get_cart_db($order_id);
-        unset($items[$line]);
-        $this->set_cart_db($order_id, $items);
-        $this->set_cart_new($order_id, 'yes');
-        return array('success' => true, 'order_id' => $order_id, 'line' => $order_id);
+        if ($this->session->userdata('gkpos_userid') == 0) {
+            $items = $this->get_cart_db($order_id);
+            unset($items[$line]);
+            $this->set_cart_db($order_id, $items);
+            $this->set_cart_new($order_id, 'yes');
+            return array('success' => true, 'order_id' => $order_id, 'line' => 0);
+        } else {
+            return array('success' => true, 'order_id' => $order_id, 'line' => $line, 'not_allowed' => 1);
+        }
     }
 
     function get_cart_new($order_id) {
@@ -538,43 +546,19 @@ class Orders_Model extends MY_Model {
 
     // Multiple Payments
     function get_payments($order_id) {
-        if (!$this->session->userdata('payments_' . $order_id))
-            $this->set_payments(false, array());
-        return $this->session->userdata('payments_' . $order_id);
+        if ($this->session->userdata('payments_' . $order_id))
+            return $this->session->userdata('payments_' . $order_id);
     }
 
-    // Multiple Payments
     function set_payments($order_id, $payments_data) {
         $this->session->set_userdata('payments_' . $order_id, $payments_data);
     }
 
-    function add_payment($order_id, $payment_id, $payment_amount) {
-        $payments = $this->get_payments($order_id);
-        if (isset($payments[$payment_id])) {
-            //payment_method already exists, add to payment_amount
-            $payments[$payment_id]['payment_amount'] = bcadd($payments[$payment_id]['payment_amount'], $payment_amount, PRECISION);
-        } else {
-            //add to existing array
-            $payment = array(
-                'payment_type' => $payment_id,
-                'payment_amount' => $payment_amount
-            );
-            $payments [$payment_id] = $payment;
-        }
-        $this->set_payments($order_id, $payments);
-
-        return true;
-    }
-
     // Multiple Payments
-    function edit_payment($order_id, $payment_id, $payment_amount) {
-        $payments = $this->get_payments($order_id);
-        if (isset($payments[$payment_id])) {
-            $payments[$payment_id]['payment_type'] = $payment_id;
-            $payments[$payment_id]['payment_amount'] = $payment_amount;
-            $this->set_payments($order_id, $payments);
+    function empty_payments($order_id) {
+        if ($this->session->userdata('payments_' . $order_id)) {
+            $this->session->unset_userdata('payments_' . $order_id);
         }
-        return false;
     }
 
     // Multiple Payments
@@ -582,18 +566,17 @@ class Orders_Model extends MY_Model {
         $payments = $this->get_payments($order_id);
         unset($payments[urldecode($payment_id)]);
         $this->set_payments($order_id, $payments);
-    }
-
-    // Multiple Payments
-    function empty_payments() {
-        $this->session->unset_userdata('payments');
+        return true;
     }
 
     // Multiple Payments
     function get_payments_total($order_id) {
         $subtotal = 0;
-        foreach ($this->get_payments($order_id) as $payments) {
-            $subtotal = bcadd($payments['payment_amount'], $subtotal, PRECISION);
+        $payemts_arr = $this->get_payments($order_id);
+        if (!empty($payemts_arr)) {
+            foreach ($this->get_payments($order_id) as $payments) {
+                $subtotal = bcadd($payments['amount'], $subtotal, PRECISION);
+            }
         }
         return to_currency_no_money($subtotal);
     }
@@ -618,6 +601,7 @@ class Orders_Model extends MY_Model {
         $this->clear_total($order_id);
         $this->clear_deliveryplan($order_id);
         $this->clear_deliveryplan_amount($order_id);
+        $this->empty_payments($order_id);
         // $this->clear_giftcard_remainder($order_id);
         // $this->empty_payments($order_id);
     }
@@ -650,6 +634,16 @@ class Orders_Model extends MY_Model {
         $this->_table_name = 'gkpos_order';
         $this->_primary_key = 'order_id';
         return $this->save($order_data, $order_id);
+    }
+
+    public function get_payment_options() {
+        $payments = array(
+            $this->lang->line('gkpos_payment_cash') => $this->lang->line('gkpos_payment_cash'),
+            $this->lang->line('gkpos_payment_card') => $this->lang->line('gkpos_payment_card'),
+            $this->lang->line('gkpos_payment_cheque') => $this->lang->line('gkpos_payment_cheque'),
+            $this->lang->line('gkpos_payment_voucher') => $this->lang->line('gkpos_payment_voucher')
+        );
+        return $payments;
     }
 
 }

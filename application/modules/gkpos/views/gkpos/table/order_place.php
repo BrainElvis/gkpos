@@ -98,10 +98,11 @@
                         $("#tableAjaxLoading").hide();
                         if (response.success)
                         {
-                            getPage('<?php echo site_url('gkpos/indexajaxccontent') ?>', 'mainboard');
+                            getBaseAjaxPage('<?php echo site_url('gkpos/orders/indexajax/') ?>' + response.order_id, 'Table-' + response.name);
+                            //getPage('<?php echo site_url('gkpos/indexajaxccontent') ?>', 'mainboard');
                         } else
                         {
-                            set_feedback(response.message, 'alert alert-dismissible alert-danger', true);
+                            set_feedback(response.message, 'alert alert-dismissible alert-danger', false);
                         }
                     },
                     dataType: 'json'

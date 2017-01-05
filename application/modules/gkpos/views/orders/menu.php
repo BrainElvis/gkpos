@@ -280,7 +280,7 @@
                         inline: true,
                         slideshow: false,
                         scrolling: false,
-                        height: "300px",
+                        height: "auto",
                         className: 'menu-selection-popup',
                         open: true,
                         width: '100%',

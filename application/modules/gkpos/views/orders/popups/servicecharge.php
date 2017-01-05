@@ -10,7 +10,7 @@
                 <div id="MiddleContent">
                     <?php echo form_open('gkpos/orders/addservicecharge/', array('id' => 'addservicecharge_form', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal')); ?>
                     <div id="config_wrapper">
-                         <?php $OrderServiceData = $this->Orders_Model->get_servicecharge($this->Orders_Model->get_current_orderid()); ?>
+                        <?php $OrderServiceData = $this->Orders_Model->get_servicecharge($this->Orders_Model->get_current_orderid()); ?>
                         <fieldset id="config_info">
                             <div class="form-group form-group-sm">	
                                 <?php echo form_label($this->lang->line('gkpos_amount'), 'gk_category_line_page', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4 text-uppercase required')); ?>
@@ -18,9 +18,9 @@
                                     <div class="input-group">
                                         <span class="input-group-addon" style="background-color: #FF0000;"><a href="#"><i aria-hidden="true"> <?php echo $this->config->item('currency_symbol') ?></i></a></span>
                                         <?php if ($this->config->item('is_touch') == 'disable'): ?>
-                                        <input name="number" class="form-control required"  type="text" id="service_charge" value="<?php !empty($OrderServiceData)? print $OrderServiceData['number']:print''?>">
+                                            <input name="number" class="form-control required"  type="text" id="service_charge" value="<?php !empty($OrderServiceData) ? print $OrderServiceData['number'] : print'' ?>">
                                         <?php else: ?>
-                                            <input name="number" class="form-control required"  type="text" id="service_charge" onfocus="myJqueryKeyboard('service_charge')" value="<?php !empty($OrderServiceData)? print $OrderServiceData['number']:print''?>">
+                                            <input name="number" class="form-control required"  type="text" id="service_charge" onfocus="myJqueryKeyboard('service_charge')" value="<?php !empty($OrderServiceData) ? print $OrderServiceData['number'] : print'' ?>">
                                         <?php endif; ?>
                                     </div>
                                 </div>
@@ -28,8 +28,8 @@
                             <div class="form-group form-group-sm">	
                                 <label for="radio-inline" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label text-uppercase required"><?php echo $this->lang->line('gkpos_function') ?></label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <label class="radio-inline text-uppercase required"><input type="radio" name="func" id="charge_func1" value="2" <?php (!empty($OrderServiceData) && $OrderServiceData['func'] == 2) ? print "checked" : '' ?> ><?php echo $this->lang->line('gkpos_fixed') ?></label>
-                                    <label class="radio-inline text-uppercase required"><input type="radio" name="func" id="charge_func2" value="1" <?php (!empty($OrderServiceData) && $OrderServiceData['func']==1) ? print "checked" : '' ?> ><?php echo $this->lang->line('gkpos_percentage') ?></label>
+                                    <label class="radio-inline text-uppercase required"><input type="radio" name="func" id="charge_func1" value="2" <?php (!empty($OrderServiceData) && (isset($OrderServiceData['func'] ) && $OrderServiceData['func'] == 2)) ? print "checked" : '' ?> ><?php echo $this->lang->line('gkpos_fixed') ?></label>
+                                    <label class="radio-inline text-uppercase required"><input type="radio" name="func" id="charge_func2" value="1" <?php (!empty($OrderServiceData) && (isset($OrderServiceData['func'] ) && $OrderServiceData['func'] == 1)) ? print "checked" : '' ?> ><?php echo $this->lang->line('gkpos_percentage') ?></label>
                                 </div>
                             </div>
                             <ul id="addservicecharge_form_error_message_box" class="error_message_box"></ul>

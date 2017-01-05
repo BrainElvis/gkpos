@@ -404,14 +404,14 @@ span.usernamebg { color:#fff; text-shadow: 0px 2px 2px #076d92; font-weight:400;
     text-align: center;
     color:#fff;
     background-color:#147BA1;
-    
+
 }
 .update-button-width {
-  border-radius: 6px;
-  margin: 2px 3px 0;
-  padding: 12.5px;
-  width: 15% !important;
-  border: 1px solid #818181;
+    border-radius: 6px;
+    margin: 2px 3px 0;
+    padding: 12.5px;
+    width: 15% !important;
+    border: 1px solid #818181;
 }
 .minustextbg { font-size:14px; font-weight:bold;}
 .bodybtnbg { 
@@ -1004,6 +1004,11 @@ legend {
     border-radius: 7px;
     height: 45px;
 }
+.table-bg-color {
+    background: #147bae  none repeat scroll 0 0;
+    border-radius: 7px;
+    height: 45px;
+}
 #cboxContent {
     background: #00AEEF none repeat scroll 0 0;
     margin-top: 20px;
@@ -1187,4 +1192,90 @@ legend {
 }
 .voucher-list {
     background: #00aeef none repeat scroll 0 0;
+}
+#calculationTable {
+    min-height: 150px;
+}
+.calculation-table th {
+    padding: 2px 10px !important;
+}
+.calculation-table td {
+    font-weight: bold;
+    padding: 2px 0px !important;
+    text-align: left;
+}
+.row.payment-row {
+    margin: 5px 10px;
+}
+.payment-button {
+    /*background: rgb(255, 0, 0) linear-gradient(rgb(100, 0, 0), rgb(255, 0, 0)) repeat scroll 0 0;*/
+    border-radius: 10px;
+    font-size: 150%;
+    line-height: 0;
+    margin: 0 auto;
+    padding: 33px 0;
+}
+.payment-pin-calculatorbg ul li {
+    background: rgb(255, 0, 0) linear-gradient(rgb(100, 0, 0), rgb(255, 0, 0)) repeat scroll 0 0;
+    border-radius: 5px;
+    line-height: 83px;
+    padding: 21px 33px;
+}
+.payment-pin-calculatorbg .btnPin {
+    padding: 21px 19px !important;
+}
+.payment-clear-btn {
+    background: rgb(255, 0, 0) linear-gradient(rgb(100, 0, 0), rgb(255, 0, 0)) repeat scroll 0 0;
+    border-radius: 5px;
+    line-height: 58px;
+    margin-left: -22px;
+    padding: 19px 25px 34px 30px !important;
+}
+.add-payment-btn {
+    background: rgb(255, 0, 0) linear-gradient(rgb(100, 0, 0), rgb(255, 0, 0)) repeat scroll 0 0;
+    border-radius: 5px;
+    font-size: 150%;
+    line-height: 0;
+    padding: 35px 0;
+    width: 100%;
+}
+.payment-info-submit-btn {
+    background: rgb(0, 255, 0) linear-gradient(rgb(0, 200, 0), rgb(0, 120, 0)) repeat scroll 0 0;
+    border-radius: 5px;
+    font-size: 150%;
+    line-height: 0;
+    padding: 35px 0;
+    width: 100%;
+}
+.payment-due-block {
+    background: black none repeat scroll 0 0;
+    border-radius: 10px;
+    height: 354px;
+    margin: 20px 0 20px 0;
+}
+.due-figure {
+    background: rgb(150, 0, 0) linear-gradient(rgb(200, 0, 0), rgb(150, 0, 0)) repeat scroll 0 0;
+    border-radius: 10px;
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 130px;
+    text-align: center;
+}
+.due-figure #dueLabel {
+    font-size: 28px;
+    text-align: center;
+}
+.payment-info-button {
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    height: 63px;
+    line-height: 1.2;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+.popup-header .pay-close-times {
+    cursor: pointer;
+    font-size: 30px;
+    padding-left: 10%!important;
 }

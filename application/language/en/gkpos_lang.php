@@ -283,4 +283,13 @@ $lang['gkpos_select_item_row_to_change_quantity'] = "Select an item row on the c
 $lang['gkpos_quantity_required'] = "Please specify quantity in number only";
 $lang['gkpos_discount_applied'] = "Appled on";
 $lang['gkpos_vat_included'] = "VAT included";
+$lang['gkpos_not_allowed_to_update'] = 'you are not allowed to do this on those items already sent to kitchen';
+$lang['gkpos_payment_warning'] = "PAYMENT WARNING";
+$lang['gkpos_payment_for_nothing'] = "Sorry,Nothing in the cart for making any payment";
+$lang['gkpos_cart_not_save_before_pay'] = "Sorry,It seems some changes still not sent. Please, save or finialize your cart before you make payment.";
+$lang['gkpos_payment_cash'] = "Cash";
+$lang['gkpos_payment_card'] = "EFT";
+$lang['gkpos_payment_cheque'] = "Cheque";
+$lang['gkpos_payment_voucher'] = "Voucher";
+$lang['gkpos_add_payment']="Add Payment"; 
 

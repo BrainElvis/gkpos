@@ -22,7 +22,7 @@ class Gkpos extends Gkpos_Controller {
         $data['table_orders'] = $this->Gkpos_Model->get_table_orders();
         $data['takeaway_orders'] = $this->Gkpos_Model->get_takeaway_orders();
         $data['current_page'] = "gkpos";
-        debugPrint($this->session->userdata());
+        //debugPrint($this->session->userdata());
         $this->render_page('gkpos/gkpos/index/index', $data);
     }
 
@@ -209,6 +209,7 @@ class Gkpos extends Gkpos_Controller {
     }
 
     public function orderinitiate() {
+        $order_id = '';
         $this->session->unset_userdata('posCurrentCustomer');
         $postedData = $this->input->post();
         $success = false;
@@ -247,18 +248,19 @@ class Gkpos extends Gkpos_Controller {
                     $postedData = $this->prepareGkposData($postedData);
                     $postedData['status'] = '1';
                     $postedData['created_by'] = $this->session->userdata('gkpos_userid');
-                    $inner_success = $this->Gkpos_Model->save_order_info($postedData);
-
+                    $order_id = $this->Gkpos_Model->save_order_info($postedData);
+                    $inner_success = $order_id?true:false;
                     $message = $inner_success ? $message : "There is internal problem";
-                    echo json_encode(array('success' => $inner_success, 'message' => $message));
+                    echo json_encode(array('success' => $inner_success,'order_id'=>$order_id, 'name'=>$postedData['name'], 'message' => $message));
                     exit();
                 } else {
                     $data = $this->prepareGkposData($postedData);
                     $data['status'] = '1';
                     $data['created_by'] = $this->session->userdata('gkpos_userid');
-                    $inner_success = $this->Gkpos_Model->save_order_info($data);
+                    $order_id = $this->Gkpos_Model->save_order_info($data);
+                    $inner_success = $order_id ? true : false;
                     $message = $inner_success ? $message : "There is internal problem in saving customer info and order";
-                    echo json_encode(array('success' => $inner_success, 'message' => $message));
+                    echo json_encode(array('success' => $inner_success, 'order_id'=>$order_id, 'name'=>$data['name'], 'message' => $message));
                     exit();
                 }
             } else {
@@ -275,10 +277,11 @@ class Gkpos extends Gkpos_Controller {
                         $data['created_by'] = $this->session->userdata('gkpos_userid');
                         $data['table_number'] = (int) $data['table_number'];
                         $data['guest_quantity'] = (int) $data['guest_quantity'];
-                        $inner_status2 = $this->Gkpos_Model->save_order_info($data);
+                        $order_id = $this->Gkpos_Model->save_order_info($data);
+                        $inner_status2 = $order_id;
                         $inner_status = ($inner_status1 && $inner_status2) ? true : false;
                         $message = $inner_status ? "ok" : "There is some problem in processing table orders";
-                        echo json_encode(array('success' => $inner_status, 'message' => $message));
+                        echo json_encode(array('success' => $inner_status, 'order_id' => $order_id,'name'=>$data['table_number'], 'message' => $message));
                         exit();
                     }
                 } else {
@@ -299,15 +302,20 @@ class Gkpos extends Gkpos_Controller {
                         $postedData['table_number'] = (int) $postedData['table_number'];
                         $postedData['guest_quantity'] = (int) $postedData['guest_quantity'];
                         $postedData['created_by'] = $this->session->userdata('gkpos_userid');
-                        $inner_status = $this->Gkpos_Model->save_order_info($postedData);
+                        $order_id = $this->Gkpos_Model->save_order_info($postedData);
+                        $inner_status = $order_id ? true : false;
                         $message = $inner_status ? "ok" : "There is some problem in processing table orders";
-                        echo json_encode(array('success' => $inner_status, 'message' => $message));
+                        echo json_encode(array('success' => $inner_status, 'order_id' => $order_id, 'name'=>$postedData['table_number'],  'message' => $message));
                         exit();
                     }
                 }
             }
         }
-        echo json_encode(array('success' => $success, 'message' => $message));
+        if ($order_id && $order_id != '') {
+            echo json_encode(array('success' => $success, 'order_id' => $order_id, 'message' => $message));
+        } else {
+            echo json_encode(array('success' => $success, 'message' => $message));
+        }
     }
 
 }

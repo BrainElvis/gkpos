@@ -31,15 +31,29 @@ class Orders extends Gkpos_Controller {
         $this->render_page('gkpos/orders/index', $data);
     }
 
-    public function indexajax($orderId = '') {
+    public function indexajax($order_id = '') {
         $this->load->model('Orders_Model');
-        $this->page_title = 'Gkpos | order';
-        $this->current_section = "menu order";
-        $this->body_class[] = "pos-menu selection order";
         $offset = 0;
         $data['categories'] = $this->Orders_Model->get_list('gkpos_category', array('status' => 1), array('id', 'title', 'type', 'print_option', 'order', 'content'), null, $offset, 'order', 'ASC');
         $data['showcategory'] = $this->Orders_Model->showcategory();
         $data['current_page'] = "orders";
+        if ($order_id != '' || $order_id != null) {
+            $data['payments_option'] = $this->Orders_Model->get_payment_options();
+            $this->Orders_Model->set_current_orderid($order_id);
+            if (!$this->Orders_Model->get_discount($order_id)) {
+                $this->Orders_Model->initiate_discount($order_id);
+            }
+            if (!$this->Orders_Model->get_servicecharge($order_id)) {
+                $this->Orders_Model->initiate_service_charge($order_id);
+            }
+            if (!$this->Orders_Model->get_vat($order_id)) {
+                $this->Orders_Model->initiate_vat($order_id);
+            }
+            $data['currentOrderObj'] = $this->Orders_Model->get_single('gkpos_order', array('id' => $order_id));
+            if ($data['currentOrderObj']->order_type = 'delivery' && !$this->Orders_Model->get_deliveryplan($order_id)) {
+                $this->Orders_Model->initiate_deliveryplan($order_id);
+            }
+        }
         $this->load->view('gkpos/orders/ajaxindex', $data, false);
     }
 
@@ -150,15 +164,6 @@ class Orders extends Gkpos_Controller {
         echo json_encode($result);
     }
 
-    public function update_item_cart($line, $order_id, $menu, $selection = false, $quantity = false, $extra) {
-
-        return array('success' => true, 'order_id' => $order_id, 'line' => $line);
-    }
-
-    public function update_dbc_cart($line, $order_id, $item_detail_id, $quantity = false, $extra = false) {
-        return array('success' => true, 'order_id' => $order_id, 'line' => $line);
-    }
-
     public function loadcart($order_id = null) {
         $data = [];
         $isCartEmty = true;
@@ -172,6 +177,8 @@ class Orders extends Gkpos_Controller {
             $order_id = $this->input->post('order_id');
         }
         if ($order_id != null || $order_id = '') {
+            $this->Orders_Model->set_current_orderid($order_id);
+
             if (!$this->Orders_Model->get_discount($order_id)) {
                 $this->Orders_Model->initiate_discount($order_id);
             }
@@ -199,7 +206,6 @@ class Orders extends Gkpos_Controller {
             $cart_items = $this->Orders_Model->get_cart($order_id);
             $food_cart_items = array();
             $beverage_cart_items = array();
-
             if (!empty($cart_items)) {
                 $isCartEmty = false;
                 foreach ($cart_items as $key => $itemObj) {
@@ -291,87 +297,11 @@ class Orders extends Gkpos_Controller {
         }
     }
 
-    public function manageThisOrder() {
-        $order_info_str = $this->input->post('id');
-        $order_info_arr = explode('_', $order_info_str);
-        $order_type = $order_info_arr[0];
-        $order_id = $order_info_arr[1];
-        $data = [];
-        $data['order'] = $order = $this->Orders_Model->get_single('gkpos_order', array('id' => $order_id, 'order_type' => $order_type));
-        $data['detail_counter'] = $detail_counter = $this->Orders_Model->count_rows('gkpos_order_detail', array('order_id' => $order_id));
-        $this->load->view('gkpos/orders/mangeThisOrder', $data, false);
-    }
-
-    public function manageAction() {
-        $order_info_str = $this->input->post('id');
-        $order_info_arr = explode('_', $order_info_str);
-        $order_type = $order_info_arr[0];
-        $order_id = $order_info_arr[1];
-        $action = $this->input->post('action');
-        $this->$action($order_id, $order_type, $order_info_str);
-    }
-
-    public function add_to_cart($order_id, $order_type, $dialog = false, $data = array()) {
-        $this->Orders_Model->set_current_orderid($order_id);
-        $this->Orders_Model->initiate_discount($order_id);
-        if ($this->config->item('gk_vat_reg') != '' || $this->config->item('gk_vat_reg')) {
-            $this->Orders_Model->initiate_vat($order_id);
-        }
-        if ($order_type == 'delivery' && !$this->Orders_Model->get_deliveryplan($order_id)) {
-            $this->Orders_Model->initiate_deliveryplan($order_id);
-        }
-        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type, 'info' => 'Create Order', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/orders/indexajax/' . $order_id))));
-    }
-
-    public function edit_cart($order_id, $order_type, $dialog = false, $data = array()) {
-        $this->Orders_Model->set_current_orderid($order_id);
-        if (!$this->Orders_Model->get_vat($order_id)) {
-            $this->Orders_Model->initiate_vat($order_id);
-        }
-        if (!$this->Orders_Model->get_discount($order_id)) {
-            $this->Orders_Model->initiate_discount($order_id);
-        }
-        if (!$this->Orders_Model->get_servicecharge($order_id)) {
-            $this->Orders_Model->initiate_service_charge($order_id);
-        }
-        if ($this->Orders_Model->get_cart_db($order_id)) {
-            $cart_data_db = $this->Orders_Model->get_list_array('gkpos_order_detail', array('order_id' => $order_id));
-            //rearrange db cart Data
-            $items = array();
-            if (!empty($cart_data_db)) {
-                foreach ($cart_data_db as $key => $item) {
-                    $items[$item['line']] = $item;
-                }
-                $this->Orders_Model->set_cart_db($order_id, $items);
-            }
-        }
-        if ($order_type == 'delivery' && !$this->Orders_Model->get_deliveryplan($order_id)) {
-            $this->Orders_Model->initiate_deliveryplan($order_id);
-        }
-
-        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type, 'info' => 'Edit Order', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/orders/indexajax/' . $order_id))));
-    }
-
-    public function delete_order($order_id, $order_type, $dialog = false, $data = array()) {
-        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type, 'info' => 'Mainboard', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/indexajax'))));
-    }
-
-    public function vacant_table($order_id, $order_type, $dialog = false, $data = array()) {
-        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type, 'info' => 'Mainboard', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/indexajax'))));
-    }
-
-    public function send_kitchen($order_id, $order_type, $dialog = false, $data = array()) {
-        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type, 'info' => 'Mainboard', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/indexajax'))));
-    }
-
-    public function print_guest_bill($order_id, $order_type, $dialog = false, $data = array()) {
-        echo json_encode(array('success' => true, 'data' => array('id' => $order_id, 'order_type' => $order_type, 'info' => 'Mainboard', "dialog" => "dialog_" . $dialog, 'url' => site_url('gkpos/indexajax'))));
-    }
-
     public function addservicecharge() {
         $order_id = $this->input->post('order_id');
         $data = $this->prepareData();
         $this->Orders_Model->set_servicecharge($order_id, $data);
+        $this->Orders_Model->set_cart_new($order_id, 'yes');
         if ($this->Orders_Model->get_servicecharge($order_id)) {
             echo json_encode(array('success' => true, 'order_id' => $order_id));
         }
@@ -381,6 +311,7 @@ class Orders extends Gkpos_Controller {
         $order_id = $this->input->post('order_id');
         $data = $this->prepareData();
         $this->Orders_Model->set_discount($order_id, $data);
+        $this->Orders_Model->set_cart_new($order_id, 'yes');
         if ($this->Orders_Model->get_discount($order_id)) {
             echo json_encode(array('success' => true, 'order_id' => $order_id));
         }
@@ -442,11 +373,11 @@ class Orders extends Gkpos_Controller {
                 $success = $id ? true : false;
             }
         }
-        // get delivery plan from session 
         // get discount from session and save it into order discount table 
         $discount_data = $this->Orders_Model->get_discount($order_id);
         if (!empty($discount_data)) {
-            $discount_data['amount'] = $this->Orders_Model->get_discount_amount($order_id);
+            $discount_amount = $this->Orders_Model->get_discount_amount($order_id);
+            $discount_data['amount'] = $discount_amount > 0 ? $discount_amount : '0';
             $discount_data_exists = $this->Orders_Model->exists('gkpos_order_discount', 'order_id', $order_id);
             if ($discount_data_exists) {
                 $discount_data['amount'] = $this->Orders_Model->get_discount_amount($order_id);
@@ -481,7 +412,6 @@ class Orders extends Gkpos_Controller {
                 $this->Orders_Model->save_servicecharge($servicecharge_data);
             }
         }
-
         // get promo from session 
         $is_printed = 1;
         $has_print = 0;
@@ -489,12 +419,76 @@ class Orders extends Gkpos_Controller {
             $is_printed = 0;
             $has_print = 1;
         }
-
         if ($this->db->update('gkpos_order', array('status' => 2, 'order_total' => $this->Orders_Model->get_subtotal($order_id), 'grand_total' => $this->Orders_Model->get_total($order_id), 'delivery_charge' => $this->Orders_Model->get_deliveryplan_amount($order_id), 'is_printed' => $is_printed, 'has_print' => $has_print, 'sent_option' => $sent_option), array('id' => $order_id))) {
             $this->Orders_Model->clear_all($order_id);
             echo json_encode(array('success' => $success, 'order_id' => $order_id));
         } else {
             echo json_encode(array('success' => $success, 'order_id' => $order_id));
+        }
+    }
+
+    public function addpayment() {
+        $order_id = $this->input->post('order_id');
+        $method = $this->input->post('method');
+        $amount = $this->input->post('amount');
+        if ($method && $amount) {
+            $payments = $this->Orders_Model->get_payments($order_id);
+            if (isset($payments[$method])) {
+                $payments[$method]['amount'] = bcadd($payments[$method]['amount'], $amount, PRECISION);
+            } else {
+                $payment = array(
+                    'method' => $method,
+                    'amount' => to_currency_no_money($amount)
+                );
+                $payments [$method] = $payment;
+            }
+            $this->Orders_Model->set_payments($order_id, $payments);
+            echo json_encode(array('success' => true, 'payments' => $this->Orders_Model->get_payments($order_id), 'dueAmount' => $this->Orders_Model->get_amount_due($order_id)));
+        } else {
+            echo json_encode(array('success' => false));
+        }
+    }
+
+    public function deletepayment() {
+        $order_id = $this->input->post('order_id');
+        $method = $this->input->post('method');
+        if ($this->Orders_Model->delete_payment($order_id, $method)) {
+            echo json_encode(array('success' => true, 'payments' => $this->Orders_Model->get_payments($order_id), 'dueAmount' => $this->Orders_Model->get_amount_due($order_id)));
+        } else {
+            echo json_encode(array('success' => false));
+        }
+    }
+
+    public function get_due_amount() {
+        $order_id = $this->input->post('order_id');
+        echo json_encode(array('success' => true, 'dueAmount' => $this->Orders_Model->get_amount_due($order_id)));
+    }
+
+    public function payandclose() {
+        $order_id = $this->input->post('order_id');
+        $payments = $this->Orders_Model->get_payments($order_id);
+        if (!empty($payments)) {
+            foreach ($payments as $payment) {
+                $sales_payments_data = array(
+                    'order_id' => $order_id,
+                    'method' => $payment['method'],
+                    'amount' => $payment['amount']
+                );
+                $this->db->insert('gkpos_order_payment', $sales_payments_data);
+            }
+            $dueAmount = $this->Orders_Model->get_amount_due($order_id);
+            if ($this->db->update('gkpos_order', array('status' => 4, 'paid_status' => 1, 'change_due' => $dueAmount), array('id' => $order_id))) {
+                $currentOrderObj = $this->Orders_Model->get_single('gkpos_order', array('id' => $order_id));
+                if ($currentOrderObj->order_type == 'table') {
+                    $this->db->update('gkpos_table', array('guest_quantity' => '', 'is_vacant' => 1), array('id' => $currentOrderObj->table_id, 'table_number' => $currentOrderObj->table_number));
+                }
+                $this->Orders_Model->clear_all($order_id);
+                echo json_encode(array('success' => true, 'message' => 'paid and close successfully'));
+            } else {
+                echo json_encode(array('success' => false, 'message' => 'There is an internal problem in processing. Please Try again later'));
+            }
+        } else {
+            echo json_encode(array('success' => false, 'message' => 'You have not yet made any payment'));
         }
     }
 

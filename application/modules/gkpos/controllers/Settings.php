@@ -15,6 +15,12 @@ class Settings extends Gkpos_Controller {
         $this->load->view('gkpos/settings/index', $data);
     }
 
+    public function indexcontent() {
+        $data['current_section'] = $this->lang->line('gkpos_system_management');
+        $data['current_page'] = "settings";
+        $this->load->view('gkpos/settings/indexcontent', $data);
+    }
+
     public function general() {
         $data['current_section'] = $this->lang->line('gkpos_system_management');
         $data['current_page'] = "general";

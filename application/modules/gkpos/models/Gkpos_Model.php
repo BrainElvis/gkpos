@@ -28,54 +28,53 @@ class Gkpos_Model extends MY_Model {
         $this->_table_name = "gkpos_order";
         $this->_primary_key = "id";
         $this->_order_by = "status";
-        return $this->get_by(array('order_type' => 'table', 'created >=' => date('Y-m-d H:i:s', strtotime('today'))));
+        return $this->get_by(array('order_type' => 'table', 'created >=' => date('Y-m-d H:i:s', strtotime('today')), 'paid_status' => 2));
     }
 
     public function get_table_seated_not_ordered() {
         $this->_table_name = "gkpos_order";
         $this->_primary_key = "id";
         $this->_order_by = "status";
-        return $this->get_by(array('order_type' => 'table', 'status' => 1, 'created >=' => date('Y-m-d H:i:s', strtotime('today'))));
+        return $this->get_by(array('order_type' => 'table', 'status' => 1, 'created >=' => date('Y-m-d H:i:s', strtotime('today')), 'paid_status' => 2));
     }
 
     public function get_table_seated_ordered() {
         $this->_table_name = "gkpos_order";
         $this->_primary_key = "id";
         $this->_order_by = "status";
-        return $this->get_by(array('order_type' => 'table', 'status' => 2, 'created >=' => date('Y-m-d H:i:s', strtotime('today'))));
+        return $this->get_by(array('order_type' => 'table', 'status' => 2, 'created >=' => date('Y-m-d H:i:s', strtotime('today')), 'paid_status' => 2));
     }
 
     public function get_table_waiting_payment() {
         $this->_table_name = "gkpos_order";
         $this->_primary_key = "id";
         $this->_order_by = "status";
-        return $this->get_by(array('order_type' => 'table', 'status' => 3, 'created >=' => date('Y-m-d H:i:s', strtotime('today'))));
+        return $this->get_by(array('order_type' => 'table', 'status' => 3, 'created >=' => date('Y-m-d H:i:s', strtotime('today')), 'paid_status' => 2));
     }
 
     public function get_takeaway_orders() {
         $this->_table_name = "gkpos_order";
         $this->_primary_key = "id";
         $this->_order_by = "order_type";
-        return $this->get_by(array('order_type<>' => 'table', 'created >=' => date('Y-m-d H:i:s', strtotime('today'))));
+        return $this->get_by(array('order_type<>' => 'table', 'created >=' => date('Y-m-d H:i:s', strtotime('today')), 'paid_status' => 2));
     }
 
     public function get_waiting_orders() {
         $this->_table_name = "gkpos_order";
         $this->_primary_key = "id";
-        return $this->get_by(array('order_type' => 'waiting', 'created >=' => date('Y-m-d H:i:s', strtotime('today'))));
+        return $this->get_by(array('order_type' => 'waiting', 'created >=' => date('Y-m-d H:i:s', strtotime('today')), 'paid_status' => 2));
     }
 
-    public function orders() {
+    public function get_delivery_orders() {
         $this->_table_name = "gkpos_order";
         $this->_primary_key = "id";
-        return $this->get_by(array('order_type' => 'delivery', 'created >=' => date('Y-m-d H:i:s', strtotime('today'))));
+        return $this->get_by(array('order_type' => 'delivery', 'created >=' => date('Y-m-d H:i:s', strtotime('today')), 'paid_status' => 2));
     }
 
     public function get_collection_orders() {
         $this->_table_name = "gkpos_order";
         $this->_primary_key = "id";
-        return $this->get_by(array('order_type' => 'collection', 'created >=' => date('Y-m-d H:i:s', strtotime('today'))));
+        return $this->get_by(array('order_type' => 'collection', 'created >=' => date('Y-m-d H:i:s', strtotime('today')), 'paid_status' => 2));
     }
-     
 
 }

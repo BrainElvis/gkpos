@@ -97,12 +97,13 @@
                     dataType: 'json',
                     success: function (response) {
                         $("#collectionAjaxLoading").hide();
-                        if (response.success)
+                        if (response.success && response.order_id)
                         {
-                            getPage('<?php echo site_url('gkpos/indexajaxccontent') ?>','Mainboard');
+                            getBaseAjaxPage('<?php echo site_url('gkpos/orders/indexajax/') ?>'+response.order_id,'Collection-'+response.name);
+                            //getPage('<?php echo site_url('gkpos/indexajaxccontent') ?>','Mainboard');
                         } else
                         {
-                            set_feedback(response.message, 'alert alert-dismissible alert-danger', true);
+                            set_feedback(response.message, 'alert alert-dismissible alert-danger', false);
                         }
                     }
                 });

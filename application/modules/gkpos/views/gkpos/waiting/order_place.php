@@ -16,16 +16,6 @@
             <legend><?php echo $this->lang->line('gkpos_customer') . " " . $this->lang->line('gkpos_information') ?></legend>
             <!-- Text input-->
             <div class="form-group">
-                <label class="col-md-3 control-label required" ><?php echo $this->lang->line('gkpos_phone') ?></label> 
-                <div class="col-md-8">
-                    <div class="input-group">
-                        <input name="phone" placeholder="<?php echo $this->lang->line('gkpos_phone') ?>" class="form-control required" id="phone"  type="text" value="<?php (isset($callerPhone) && ($callerPhone != '' || $callerPhone != null)) ? print $callerPhone : print '' ?>">
-                        <span class="input-group-addon" style="background-color: #FF0000;" data-toggle="tooltip-waiting-phone" data-placement="top"  title="<?php echo $this->lang->line('gkpos_click_to_get_customer_by_phone') ?>"><a href="javascript:void(0)" onclick="searchCustomerByKey('phone')"><i class="fa fa-search" aria-hidden="true"></i></a></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
                 <label class="col-md-3 control-label required"><?php echo $this->lang->line('gkpos_name') ?></label>  
                 <div class="col-md-8">
                     <div class="input-group">
@@ -39,6 +29,15 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="col-md-3 control-label" ><?php echo $this->lang->line('gkpos_phone') ?></label> 
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <input name="phone" placeholder="<?php echo $this->lang->line('gkpos_phone') ?>" class="form-control" id="phone"  type="text" value="<?php (isset($callerPhone) && ($callerPhone != '' || $callerPhone != null)) ? print $callerPhone : print '' ?>">
+                        <span class="input-group-addon" style="background-color: #FF0000;" data-toggle="tooltip-waiting-phone" data-placement="top"  title="<?php echo $this->lang->line('gkpos_click_to_get_customer_by_phone') ?>"><a href="javascript:void(0)" onclick="searchCustomerByKey('phone')"><i class="fa fa-search" aria-hidden="true"></i></a></span>
+                    </div>
+                </div>
+            </div>
             <div class="form-group"> 
                 <div class="col-md-offset-3  col-md-9">
                     <ul id="gkposWaitingFormErrorMsgBox" class="error_message_box"></ul>
@@ -96,10 +95,11 @@
                         $("#waitingAjaxLoading").hide();
                         if (response.success)
                         {
-                            getPage('<?php echo site_url('gkpos/indexajaxccontent') ?>', 'Waiting');
+                              getBaseAjaxPage('<?php echo site_url('gkpos/orders/indexajax/') ?>'+response.order_id,'Waiting-'+response.name);
+                            //getPage('<?php echo site_url('gkpos/indexajaxccontent') ?>', 'Waiting');
                         } else
                         {
-                            set_feedback(response.message, 'alert alert-dismissible alert-danger', true);
+                            set_feedback(response.message, 'alert alert-dismissible alert-danger', false);
                         }
                     },
                     dataType: 'json'
@@ -121,8 +121,8 @@
                             required: true
                         },
                         phone: {
-                            phone: true,
-                            required: true
+                            required: false,
+                            phone: true
                         }
                     },
             messages:

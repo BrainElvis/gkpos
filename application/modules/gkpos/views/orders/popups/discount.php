@@ -24,9 +24,9 @@
                                     <div class="input-group">
                                         <span class="input-group-addon" style="background-color: #FF0000;"><a href="#"><i aria-hidden="true"> <?php echo $this->config->item('currency_symbol') ?></i></a></span>
                                         <?php if ($this->config->item('is_touch') == 'disable'): ?>
-                                        <input name="number" class="form-control required"  type="text" id="discount" value="<?php !empty($OrderDiscountData)? print$OrderDiscountData['number']:print ''?>">
+                                            <input name="number" class="form-control required"  type="text" id="discount" value="<?php !empty($OrderDiscountData) ? print$OrderDiscountData['number'] : print '' ?>">
                                         <?php else: ?>
-                                        <input name="number" class="form-control required"  type="text" id="discount" onfocus="myJqueryKeyboard('discount')" value="<?php !empty($OrderDiscountData)? print$OrderDiscountData['number']:print ''?>">
+                                            <input name="number" class="form-control required"  type="text" id="discount" onfocus="myJqueryKeyboard('discount')" value="<?php !empty($OrderDiscountData) ? print$OrderDiscountData['number'] : print '' ?>">
                                         <?php endif; ?>
                                     </div>
                                 </div>
@@ -34,15 +34,15 @@
                             <div class="form-group form-group-sm">	
                                 <label for="radio-inline" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label text-uppercase required"><?php echo $this->lang->line('gkpos_function') ?></label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <label class="radio-inline text-uppercase required"><input type="radio" name="func" id="discount_func1" value="2" <?php (!empty($OrderDiscountData) && $OrderDiscountData['func'] ==2) ? print "checked" : '' ?> ><?php echo $this->lang->line('gkpos_fixed') ?></label>
-                                    <label class="radio-inline text-uppercase required"><input type="radio" name="func" id="discount_func2" value="1" <?php (!empty($OrderDiscountData) && $OrderDiscountData['func'] ==1) ? print "checked" : '' ?> ><?php echo $this->lang->line('gkpos_percentage') ?></label>
+                                    <label class="radio-inline text-uppercase required"><input type="radio" name="func" id="discount_func1" value="2" <?php (!empty($OrderDiscountData) && ( isset($OrderDiscountData['func']) && $OrderDiscountData['func'] == 2)) ? print "checked" : '' ?> ><?php echo $this->lang->line('gkpos_fixed') ?></label>
+                                    <label class="radio-inline text-uppercase required"><input type="radio" name="func" id="discount_func2" value="1" <?php (!empty($OrderDiscountData) && (isset($OrderDiscountData['func']) && $OrderDiscountData['func'] == 1)) ? print "checked" : '' ?> ><?php echo $this->lang->line('gkpos_percentage') ?></label>
                                 </div>
                             </div>
 
                             <div class="form-group form-group-sm">	
                                 <?php echo form_label($this->lang->line('gkpos_discount_applied'), '', array('class' => 'text-uppercase control-label col-lg-4 col-md-4 col-sm-4 col-xs-4')); ?>
-                                <div class='col-lg-3 col-md-3 col-sm-3 col-xs-2 text-uppercase'><?php echo form_checkbox(array('name' => 'food', 'class' => 'checkbox-inline', 'value' => 'yes', 'checked' => $OrderDiscountData['food'])); ?><span class="discount-lebel"><?php echo $this->lang->line('gkpos_food') ?></span></div>
-                                <div class='col-lg-4 col-md-4 col-sm-4 col-xs-3 text-center text-uppercase '><?php echo form_checkbox(array('name' => 'nonfood', 'class' => 'checkbox-inline', 'value' => 'yes', 'checked' => $OrderDiscountData['nonfood'])); ?> <span class="discount-lebel"><?php echo $this->lang->line('gkpos_non_food') ?></span></div
+                                <div class='col-lg-3 col-md-3 col-sm-3 col-xs-2 text-uppercase'><?php echo form_checkbox(array('name' => 'food', 'class' => 'checkbox-inline', 'value' => 'yes', 'checked' => isset($OrderDiscountData['food']) ? $OrderDiscountData['food'] : false)); ?><span class="discount-lebel"><?php echo $this->lang->line('gkpos_food') ?></span></div>
+                                <div class='col-lg-4 col-md-4 col-sm-4 col-xs-3 text-center text-uppercase '><?php echo form_checkbox(array('name' => 'nonfood', 'class' => 'checkbox-inline', 'value' => 'yes', 'checked' => isset($OrderDiscountData['nonfood']) ? $OrderDiscountData['nonfood'] : false)); ?> <span class="discount-lebel"><?php echo $this->lang->line('gkpos_non_food') ?></span></div
                             </div>
 
                             <ul id="custom_discount_form_error_message_box" class="error_message_box"></ul>
@@ -114,7 +114,7 @@
                     },
             messages:
                     {
-                        service_charge: "<?php echo $this->lang->line('gkpos_discount_amount_required'); ?>",
+                        number: "<?php echo $this->lang->line('gkpos_discount_amount_required'); ?>",
                     }
         });
     }

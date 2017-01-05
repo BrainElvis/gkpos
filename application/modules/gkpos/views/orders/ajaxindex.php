@@ -20,10 +20,11 @@
                         </ul>
                     </div>
                     <div class="clearfix"></div>
-                    <a href="#"><div class="mainsystembg2 waiting-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_change_table_details') ?></div></a>
-                    <a href="javascript:void(0)" onclick="addQuantity('<?php echo $this->uri->segment(4) ?>')"><div class="mainsystembg2 delivery-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_quantity') ?></div></a>
-                    <a href="javascript:void(0)" onclick="addDiscount('<?php echo $this->uri->segment(4) ?>')"><div class="mainsystembg2 collection-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_promo_discount') ?></div></a>
-                    <a href="javascript:void(0)" onclick="addServiceCharge('<?php echo $this->uri->segment(4) ?>')"><div class="mainsystembg2 collection-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_add_service_charge') ?></div></a>
+
+                    <a href="javascript:void(0)" onclick="addDiscount('<?php $this->Orders_Model->get_current_orderid() ? print $this->Orders_Model->get_current_orderid() : $this->uri->segment(4) ?>')"><div class="mainsystembg2 collection-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_promo_discount') ?></div></a>
+                    <a href="javascript:void(0)" onclick="addQuantity('<?php $this->Orders_Model->get_current_orderid() ? print $this->Orders_Model->get_current_orderid() : $this->uri->segment(4) ?>')"><div class="mainsystembg2 delivery-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_quantity') ?></div></a>
+                    <a href="javascript:void(0)" onclick="addServiceCharge('<?php $this->Orders_Model->get_current_orderid() ? print $this->Orders_Model->get_current_orderid() : $this->uri->segment(4) ?>')"><div class="mainsystembg2 collection-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_add_service_charge') ?></div></a>
+                    <a href="#"><div class="mainsystembg2 delivery-bg-color  img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_change_table_details') ?></div></a>
                     <a href="#"><div class="mainsystembg2 waiting-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_special_modify') ?></div></a>
                     <a href="#"><div class="mainsystembg2 delivery-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_item_description') ?></div></a>
                 </div>
@@ -45,7 +46,7 @@
             </div>
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 middle-bottom">
                 <div class="row action-button">
-                    <a href="#"><div class="mainsystembg2 delivery-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_print_guest_bill'); ?></div></a>
+                    <a href="#"><div class="mainsystembg2 waiting-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_print_guest_bill'); ?></div></a>
                     <a href="javascript:void(0)" onclick="pageExit('<?php echo site_url("gkpos/indexajax") ?>', 'Mainboard')"><div class="mainsystembg2 collection-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_exit') ?></div></a>
                     <a href="#"><div class="mainsystembg2 waiting-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_convert_to_takeaway') ?></div></a>
                 </div>
@@ -57,10 +58,13 @@
 <?php echo $this->load->view('gkpos/orders/popups/servicecharge') ?>
 <?php echo $this->load->view('gkpos/orders/popups/discount') ?>
 <?php echo $this->load->view('gkpos/orders/popups/quantity') ?>
+<?php echo $this->load->view('gkpos/orders/popups/payandclose') ?>
 <?php echo $this->load->view('gkpos/orders/popups/cart_warning') ?>
+
+
 <script>
     $(document).ready(function () {
-        var order_id = '<?php isset($order_id) && $order_id > 0 ? print $order_id : print $this->uri->segment(4) ?>'
+        var order_id = '<?php $this->Orders_Model->get_current_orderid() ? print $this->Orders_Model->get_current_orderid() : $this->uri->segment(4) ?>'
         loadCart(order_id);
         jQuery(".closeServiceChargePopup").click(function () {
             jQuery.colorbox.close();
@@ -80,8 +84,7 @@
                 jQuery.colorbox.close();
                 $('#cartBody').html(output);
                 if (line) {
-                    $('.line').removeClass('highlighted');
-                    $('.line-' + line).addClass('highlighted');
+                    $('.line-' + line).removeClass('alert-success alert-warning').addClass('alert-success');
                     $('#selectedRow').val(line);
                     $('#orderId').val(order_id);
                 }
@@ -116,23 +119,31 @@
     }
 
     function selectRow(line, orderId) {
-        //alert(line + '---' + orderId);
         $('#selectedRow').val('');
         $('#orderId').val('');
-        $('.line').removeClass('highlighted');
-        $('.line-' + line).addClass('highlighted');
+        $('.line').removeClass('alert-success');
+        if ($('.line-' + line).hasClass('alert-warning')) {
+            $('.db-row').addClass('alert-warning');
+            $('.line-' + line).removeClass('alert-warning').addClass('alert-success');
+        } else {
+            $('.line-' + line).addClass('alert-success');
+        }
         $('#selectedRow').val(line);
         $('#orderId').val(orderId);
     }
 
 
-    function updatecart(action, quantity) {
+    function updatecart(action, quantity, isCartEmty, isDbcEmpty) {
         var line = $('#selectedRow').val();
         var order_id = $('#orderId').val();
-        var CurrentOrderTotal = $('#CurrentOrderTotal').val();
         if (!order_id) {
             jQuery('#cartWarningHeader').text("<?php echo $this->lang->line('gkpos_cart_warning') ?>");
             jQuery('#cartWarningContent').text("<?php echo $this->lang->line('gkpos_make_order_sure') ?>");
+            jQuery(".cartWarning").colorbox({inline: true, slideshow: false, scrolling: false, height: "250px", open: true, width: '100%', maxWidth: '400px', 'left': '30%'});
+            return false;
+        } else if (isCartEmty && isDbcEmpty) {
+            jQuery('#cartWarningHeader').text("<?php echo $this->lang->line('gkpos_cart_warning') ?>");
+            jQuery('#cartWarningContent').text("<?php echo $this->lang->line('gkpos_put_item_on_cart') ?>");
             jQuery(".cartWarning").colorbox({inline: true, slideshow: false, scrolling: false, height: "250px", open: true, width: '100%', maxWidth: '400px', 'left': '30%'});
             return false;
         } else {
@@ -153,7 +164,15 @@
                     type: "POST",
                     dataType: "json",
                     success: function (output) {
-                        loadCart(output.order_id, output.line);
+                        if (output.not_allowed) {
+                            jQuery('#cartWarningHeader').text("<?php echo $this->lang->line('gkpos_cart_warning') ?>");
+                            jQuery('#cartWarningContent').text("<?php echo $this->lang->line('gkpos_not_allowed_to_update') ?>");
+                            jQuery(".cartWarning").colorbox({inline: true, slideshow: false, scrolling: false, height: "250px", open: true, width: '100%', maxWidth: '400px', 'left': '30%'});
+                            return false;
+                        } else {
+                            loadCart(output.order_id, output.line);
+                        }
+
                     }
                 });
             }
@@ -228,7 +247,7 @@
                     url: "<?php echo site_url('gkpos/orders/save_order') ?>",
                     data: {
                         order_id: parseInt(order_id),
-                        sent:'all'
+                        sent: 'all'
                     },
                     type: "POST",
                     dataType: "json",

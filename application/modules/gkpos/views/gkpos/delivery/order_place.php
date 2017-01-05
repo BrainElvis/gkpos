@@ -142,7 +142,7 @@
         $('[data-toggle="tooltip-delivery-phone"]').tooltip();
         //dont delete the following code it is alternative of tooptip
         //$('[data-toggle="tooltip-delivery-phone"]').popover({trigger: 'hover click'});
-        
+
         addjqueryValidatorFunction();
 <?php $this->load->view('gkpos/partials/datepicker_locale'); ?>
         $(".date_filter").datetimepicker({
@@ -175,9 +175,10 @@ if (strpos($this->config->item('timeformat'), 'a') !== false || strpos($this->co
                                 $("#deliveryAjaxLoading").hide();
                                 if (response.success)
                                 {
-                                    getPage('<?php echo site_url('gkpos/indexajaxccontent') ?>', 'mainboard');
+                                    getBaseAjaxPage('<?php echo site_url('gkpos/orders/indexajax/') ?>' + response.order_id, 'Delivery-' + response.name);
+                                    // getPage('<?php echo site_url('gkpos/indexajaxccontent') ?>', 'mainboard');
                                 } else {
-                                    set_feedback(response.message, 'alert alert-dismissible alert-danger', true);
+                                    set_feedback(response.message, 'alert alert-dismissible alert-danger', false);
                                 }
                             },
                             dataType: 'json'

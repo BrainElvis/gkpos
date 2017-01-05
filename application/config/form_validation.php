@@ -173,12 +173,9 @@ $config = array(
         array(
             'field' => 'phone',
             'label' => 'Phone',
-            'rules' => 'required|trim',
-            'errors' => array(
-                'required' => 'Please specify a valid phone number'
-            )
+            'rules' => 'trim',
         ),
-         array(
+        array(
             'field' => 'name',
             'label' => 'name',
             'rules' => 'required|trim',
