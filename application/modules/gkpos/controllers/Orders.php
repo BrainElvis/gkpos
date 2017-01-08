@@ -15,10 +15,6 @@ class Orders extends Gkpos_Controller {
         $this->load->model('Orders_Model');
     }
 
-    public function test() {
-        var_dump($this->Gkpos_lib);
-    }
-
     public function index($orderId = '') {
         $this->load->model('Orders_Model');
         $this->page_title = 'Gkpos | order';
@@ -50,9 +46,11 @@ class Orders extends Gkpos_Controller {
                 $this->Orders_Model->initiate_vat($order_id);
             }
             $data['currentOrderObj'] = $this->Orders_Model->get_single('gkpos_order', array('id' => $order_id));
-            if ($data['currentOrderObj']->order_type = 'delivery' && !$this->Orders_Model->get_deliveryplan($order_id)) {
+            if ($data['currentOrderObj']->order_type == 'delivery' && !$this->Orders_Model->get_deliveryplan($order_id)) {
                 $this->Orders_Model->initiate_deliveryplan($order_id);
             }
+            $data['firstTaken'] = $this->Orders_Model->get_list('gkpos_order_detail', array('order_id' => $order_id), array('first_taken'), 1, 0, 'first_taken', 'ASC');
+            $data['lastTaken'] = $this->Orders_Model->get_list('gkpos_order_detail', array('order_id' => $order_id), array('last_taken'), 1, 0, 'last_taken', 'DESC');
         }
         $this->load->view('gkpos/orders/ajaxindex', $data, false);
     }
@@ -278,7 +276,7 @@ class Orders extends Gkpos_Controller {
         $line = $this->input->post('line');
         $action = $this->input->post('action');
         $order_id = (int) $this->input->post('order_id');
-        $quantity = (int) $this->input->post('quantity');
+        $quantity = $this->input->post('quantity');
         if ($order_id && $line && $action) {
             $items = $this->Orders_Model->get_cart($order_id);
             if ($items != null && array_key_exists($line, $items)) {
@@ -368,6 +366,7 @@ class Orders extends Gkpos_Controller {
                 $item = $this->prepareGkposData($item);
                 $item['changed'] = 'yes';
                 $item['first_taken'] = date('Y-m-d H:i:s');
+                $item['last_taken'] = date('Y-m-d H:i:s');
                 $id = $this->Orders_Model->save_cart($item);
                 $changed = $id ? 'yes' : 'no';
                 $success = $id ? true : false;
@@ -477,7 +476,7 @@ class Orders extends Gkpos_Controller {
                 $this->db->insert('gkpos_order_payment', $sales_payments_data);
             }
             $dueAmount = $this->Orders_Model->get_amount_due($order_id);
-            if ($this->db->update('gkpos_order', array('status' => 4, 'paid_status' => 1, 'change_due' => $dueAmount), array('id' => $order_id))) {
+            if ($this->db->update('gkpos_order', array('status' => 4, 'paid_status' => 1, 'change_due' => $dueAmount, 'pay_tip' => $this->input->post('pay_tip')), array('id' => $order_id))) {
                 $currentOrderObj = $this->Orders_Model->get_single('gkpos_order', array('id' => $order_id));
                 if ($currentOrderObj->order_type == 'table') {
                     $this->db->update('gkpos_table', array('guest_quantity' => '', 'is_vacant' => 1), array('id' => $currentOrderObj->table_id, 'table_number' => $currentOrderObj->table_number));
@@ -490,6 +489,18 @@ class Orders extends Gkpos_Controller {
         } else {
             echo json_encode(array('success' => false, 'message' => 'You have not yet made any payment'));
         }
+    }
+
+    public function get_special() {
+        $term = $this->input->get('term');
+        $this->db->select('title');
+        $this->db->from('gkpos_special');
+        $this->db->where("title LIKE '%" . $term . "%'");
+        $this->db->where('status', 1);
+        $this->db->order_by("title", "asc");
+        $result = $this->db->get()->result();
+        $customer = array_map('current', $result);
+        echo json_encode($customer);
     }
 
 }

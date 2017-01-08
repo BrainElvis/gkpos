@@ -25,7 +25,7 @@
                     <a href="javascript:void(0)" onclick="addQuantity('<?php $this->Orders_Model->get_current_orderid() ? print $this->Orders_Model->get_current_orderid() : $this->uri->segment(4) ?>')"><div class="mainsystembg2 delivery-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_quantity') ?></div></a>
                     <a href="javascript:void(0)" onclick="addServiceCharge('<?php $this->Orders_Model->get_current_orderid() ? print $this->Orders_Model->get_current_orderid() : $this->uri->segment(4) ?>')"><div class="mainsystembg2 collection-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_add_service_charge') ?></div></a>
                     <a href="#"><div class="mainsystembg2 delivery-bg-color  img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_change_table_details') ?></div></a>
-                    <a href="#"><div class="mainsystembg2 waiting-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_special_modify') ?></div></a>
+                    <a href="javascript:void(0)" onclick="addSpecial('<?php $this->Orders_Model->get_current_orderid() ? print $this->Orders_Model->get_current_orderid() : $this->uri->segment(4) ?>')"><div class="mainsystembg2 waiting-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_special_modify') ?></div></a>
                     <a href="#"><div class="mainsystembg2 delivery-bg-color img-responsive col-lg-4 col-md-4 col-sm-4 col-xs-4"><?php echo $this->lang->line('gkpos_item_description') ?></div></a>
                 </div>
             </div>
@@ -58,6 +58,7 @@
 <?php echo $this->load->view('gkpos/orders/popups/servicecharge') ?>
 <?php echo $this->load->view('gkpos/orders/popups/discount') ?>
 <?php echo $this->load->view('gkpos/orders/popups/quantity') ?>
+<?php echo $this->load->view('gkpos/orders/popups/special') ?>
 <?php echo $this->load->view('gkpos/orders/popups/payandclose') ?>
 <?php echo $this->load->view('gkpos/orders/popups/cart_warning') ?>
 

@@ -50,6 +50,7 @@
                                 <input type="hidden" id="exactDueAmountTotal" value="<?php isset($dueAmount) ? print $dueAmount : '' ?>">
                                 <span><?php echo $this->config->item('currency_symbol') ?></span><span id="dueAmount"><?php echo to_currency_no_money(abs($dueAmount)) ?></span>
                             </div>
+                            <div style="background: #ff0000;height: 40px;border-radius: 5px; margin-top: 20px;<?php isset($dueAmount) && $dueAmount > 0 ? print'display:none;' : print'' ?>" id="PayAsTipBox"><input type="checkbox" id="payAsTip" value="yes" class="checkbox-inline" style="margin:-3px 1px 0px 2px"><label style="font-size: 20px; padding: 7px;" class="text-center">PAY AS TIP</label></div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <div class="pin-calculatorbg payment-pin-calculatorbg">
@@ -122,6 +123,7 @@
     $(document).ready(function () {
         $("#paymentAmount").attr("disabled", 'disabled');
         setPaymentNumKeys('paymentAmount');
+        //$('#PayAsTipBox').hide();
     });
     function savePayments(order_id) {
         var dueAmount = $('#exactDueAmountTotal').val();
@@ -140,7 +142,8 @@
             $.ajax({
                 url: "<?php echo site_url("gkpos/orders/payandclose") ?>",
                 data: {
-                    order_id: order_id
+                    order_id: order_id,
+                    pay_tip: $('#payAsTip').is(":checked") ? 'yes' : 'no'
                 },
                 type: "POST",
                 dataType: "json",
@@ -229,7 +232,9 @@
                     var dueAmount = Number(output.dueAmount);
                     if (dueAmount < 0) {
                         $('#dueLabel').text('PAY BACK').css({'font-size': '27px', 'line-height': '5px'});
+                        $('#PayAsTipBox').show();
                     } else {
+                        $('#PayAsTipBox').hide();
                         $('#dueLabel').text('DUE').css({'font-size': '27px', 'line-height': '5px'});
                     }
                     $('#exactDueAmountTotal').val(dueAmount);
@@ -268,8 +273,10 @@
                             var dueAmount = Number(output.dueAmount);
                             if (dueAmount < 0) {
                                 $('#dueLabel').text('PAY BACK').css({'font-size': '27px', 'line-height': '5px'});
+                                $('#PayAsTipBox').show();
                             } else {
                                 $('#dueLabel').text('DUE').css({'font-size': '27px', 'line-height': '5px'});
+                                $('#PayAsTipBox').hide();
                             }
                             $('#exactDueAmountTotal').val(dueAmount);
                             $('#dueAmount').text(Math.abs(dueAmount));
@@ -319,8 +326,10 @@
                             var dueAmount = Number(output.dueAmount);
                             if (dueAmount < 0) {
                                 $('#dueLabel').text('PAY BACK').css({'font-size': '27px', 'line-height': '5px'});
+                                $('#PayAsTipBox').show();
                             } else {
                                 $('#dueLabel').text('DUE').css({'font-size': '27px', 'line-height': '5px'});
+                                $('#PayAsTipBox').hide();
                             }
                             $('#exactDueAmountTotal').val(dueAmount);
                             $('#dueAmount').text(Math.abs(dueAmount));

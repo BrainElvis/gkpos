@@ -748,6 +748,7 @@ legend {
 .ui-accordion-content {
     height: auto!important;
 }
+.ui-autocomplete-input, .ui-menu, .ui-menu-item {  z-index: 2006; }
 .touch-enable-disbled {
     background: #f8f8f8 none repeat scroll 0 0;
     border-radius: 100px 0;
@@ -1279,3 +1280,61 @@ legend {
     font-size: 30px;
     padding-left: 10%!important;
 }
+
+.report-button .btn {
+    margin: 0 5px;
+    padding: 10px;
+    width: 85px;
+}
+.row.report-row {
+    margin: 0 auto;
+}
+.report-row table td {
+    padding: 2px !important;
+}
+.row .report-row .checkbox-inline {
+    margin-top: -2px !important;
+}
+.report-summary {
+    background: #ffffff none repeat scroll 0 0;
+    border-radius: 5px;
+    margin: 0 20px;
+}
+.table.table-bordered.summary-table td {
+    border: 1px solid #000000;
+    padding: 0 5px;
+    font-size: 10px;
+}
+.report-brief-table {
+    background: #fff none repeat scroll 0 0;
+    border-radius:  0px 0px 10px 10px;
+    margin: 0 auto;
+    width: 50%;
+}
+
+.report-brief-table .table td {
+    padding: 0 7px;
+    text-transform: uppercase;
+    color: #000;
+    font-size: 12px;
+}
+.row.report-button-operations {
+    margin: 0 20px;
+}
+.report-button-operations .report-button .btn {
+    color: #000;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0 5px;
+    padding: 10px;
+    width: 15%;
+}
+legend {
+    border-bottom: 1px solid #000000;
+    border-radius: 20px 0 0 12px;
+    font-size: 20px;
+    margin: 0 0 5px;
+    padding: 0;
+    text-transform: uppercase;
+}
+

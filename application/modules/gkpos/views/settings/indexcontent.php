@@ -34,9 +34,9 @@
         <img src="<?php echo ASSETS_GKPOS_PATH ?>images/settingbg1.png" class="img-responsive center-block" />
         <h1><?php echo $this->lang->line('gkpos_system_update_menu') ?></h1>
     </div>
-    <div  class="col-lg-2 col-md-2 col-sm-2 col-xs-2 tabbg1">
-        <a href="#"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/textbg.png" class="img-responsive center-block" /></a>
-        <h1><a href="#"><?php echo $this->lang->line('gkpos_system_view_report') ?></a></h1>
+    <div  class="col-lg-2 col-md-2 col-sm-2 col-xs-2 tabbg1" onclick="getSettingPage('<?php echo site_url('gkpos/report/index') ?>', '<?php echo $this->lang->line('gkpos_system_view_report') ?>')">
+        <img src="<?php echo ASSETS_GKPOS_PATH ?>images/textbg.png" class="img-responsive center-block" />
+        <h1><?php echo $this->lang->line('gkpos_system_view_report') ?></h1>
     </div>
     <div  class="col-lg-2 col-md-2 col-sm-2 col-xs-2 tabbg1">
         <a href="#"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/stockbg.png"  /></a>
@@ -98,5 +98,9 @@
     <div  class="col-lg-2 col-md-2 col-sm-2 col-xs-2 tabbg1">
         <a href="#"><img src="<?php echo ASSETS_GKPOS_PATH ?>images/logoutbg.png" class="img-responsive center-block" /></a>
         <h1><a href="#"><?php echo $this->lang->line('gkpos_system_logout') ?></a></h1>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 tabbg1" id="dialog_geberal" onclick="getSettingPage('<?php echo site_url('gkpos/settings/special') ?>', '<?php echo $this->lang->line('gkpos_system_spacial') ?>')">
+        <img src="<?php echo ASSETS_GKPOS_PATH ?>images/settingbg3.png" class="img-responsive center-block" />
+        <h1><?php echo $this->lang->line('gkpos_system_spacial') ?></h1>
     </div>
 </div>

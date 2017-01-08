@@ -240,4 +240,41 @@ class Settings extends Gkpos_Controller {
         echo json_encode(array('success' => $success, 'message' => $message));
     }
 
+    public function special() {
+        $data['current_section'] = $this->lang->line('gkpos_system_management') . 'Special';
+        $data['current_page'] = "Special";
+        $data['voucher_list'] = $this->Settings_Model->get_list('gkpos_special');
+        $this->load->view('gkpos/settings/special', $data, false);
+    }
+
+    public function save_spacial() {
+        $data = $this->prepareData();
+        $exists = $this->Settings_Model->exists('gkpos_special', 'LOWER(title)', strtolower($data['title']));
+        if ($exists) {
+            echo json_encode(array('success' => false, 'message' => 'This modifier aleady exists in the record'));
+        } else {
+            if ($this->db->insert('gkpos_special', $data)) {
+                echo json_encode(array('success' => true));
+            }
+        }
+    }
+
+    public function update_special() {
+        $action = $this->input->post('action');
+        $id = $this->input->post('id');
+        if ($action == 'delete') {
+            $success = $this->db->delete('gkpos_special', array('id' => $id));
+            $message = $success ? 'Special deleted successfully' : 'Voucher Deletion failed';
+        }
+        if ($action == 'activate') {
+            $success = $this->db->update('gkpos_special', array('status' => 1), array('id' => $id));
+            $message = $success ? 'Special activated successfully' : 'Voucher Deletion failed';
+        }
+        if ($action == 'deactivate') {
+            $success = $this->db->update('gkpos_special', array('status' => 2), array('id' => $id));
+            $message = $success ? 'Special activated successfully' : 'Voucher Deletion failed';
+        }
+        echo json_encode(array('success' => $success, 'message' => $message));
+    }
+
 }

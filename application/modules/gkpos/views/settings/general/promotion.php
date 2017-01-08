@@ -100,7 +100,7 @@
                             success: function (response) {
                                 if (response.success)
                                 {
-                                    getBaseAjaxPage('<?php echo site_url("gkpos/settings/promotion") ?>', 'General - Promotion');
+                                    getSettingPage('<?php echo site_url('gkpos/settings/promotion') ?>', 'general - promotion');
                                     //set_feedback(response.message, 'alert alert-dismissible alert-success', false);
                                 } else
                                 {

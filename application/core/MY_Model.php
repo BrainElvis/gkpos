@@ -158,7 +158,7 @@ class MY_Model extends CI_Model {
         $this->db->limit(1);
         return $this->db->get($table)->row();
     }
-    
+
     public function get_single_array($table, $condition = null, $columns = '*', $order = null) {
         $this->db->select($columns);
         if ($order)
@@ -196,6 +196,28 @@ class MY_Model extends CI_Model {
             $this->db->where($condition);
         $this->db->from($table);
         return $this->db->count_all_results();
+    }
+
+    public function get_payment_options() {
+        $payments = array(
+            $this->lang->line('gkpos_payment_cash') => $this->lang->line('gkpos_payment_cash'),
+            $this->lang->line('gkpos_payment_card') => $this->lang->line('gkpos_payment_card'),
+            $this->lang->line('gkpos_payment_cheque') => $this->lang->line('gkpos_payment_cheque'),
+            $this->lang->line('gkpos_payment_voucher') => $this->lang->line('gkpos_payment_voucher')
+        );
+        return $payments;
+    }
+
+    public function get_ordertype_options() {
+        $payments = array(
+            'table' => 'Table',
+            'collection' => 'Collection',
+            'delivery' => 'Delivery',
+            'waiting' => 'Waiting',
+            'bar' => 'Bar',
+            'online' => 'Online',
+        );
+        return $payments;
     }
 
 }

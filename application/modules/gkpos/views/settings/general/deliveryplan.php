@@ -119,7 +119,7 @@
                             success: function (response) {
                                 if (response.success)
                                 {
-                                    getBaseAjaxPage('<?php echo site_url("gkpos/settings/depliveryplan") ?>', 'G-Deliveryplan');
+                                    getSettingPage('<?php echo site_url('gkpos/settings/depliveryplan') ?>', 'g - deliveryplan')
                                     //set_feedback(response.message, 'alert alert-dismissible alert-success', false);
                                 } else
                                 {

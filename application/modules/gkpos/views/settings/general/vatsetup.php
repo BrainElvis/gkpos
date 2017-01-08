@@ -52,9 +52,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
                 <div class="form-group form-group-sm">	
                     <label for="radio-inline" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label text-uppercase required"><?php echo $this->lang->line('gkpos_tax_incuded') ?></label>
                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
@@ -82,7 +79,6 @@
             //validation and submit handling
             $(document).ready(function ()
             {
-
                 $('#vat_form').validate({
                     submitHandler: function (form) {
                         $(form).ajaxSubmit({

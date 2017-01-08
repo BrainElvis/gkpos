@@ -145,6 +145,50 @@ class Orders_Model extends MY_Model {
         $this->set_cart_new($order_id, 'yes');
         return array('success' => true, 'order_id' => $order_id, 'line' => $line);
     }
+    
+    function cart_item_special($order_id, $line, $quantity = false) {
+        $items = $this->get_cart($order_id);
+        if ($items[$line]['selection_title'] != '' || $items[$line]['selection_title'] != '') {
+            $title = explode('-[', $items[$line]['selection_title']);
+            if (count($title) > 1) {
+                $items[$line]['selection_title'] = $title[0] . "-[" . $quantity . "]";
+            } else {
+                $items[$line]['selection_title'].="-[" . $quantity . "]";
+            }
+        } else {
+            $title = explode('-[', $items[$line]['menu_title']);
+            if (count($title) > 1) {
+                $items[$line]['menu_title'] = $title[0] . "-[" . $quantity . "]";
+            } else {
+                $items[$line]['menu_title'].="-[" . $quantity . "]";
+            }
+        }
+        $this->set_cart($order_id, $items);
+        $this->set_cart_new($order_id, 'yes');
+        return array('success' => true, 'order_id' => $order_id, 'line' => $line);
+    }
+
+    function dbcart_item_special($order_id, $line, $quantity = false) {
+        $items = $this->get_cart_db($order_id);
+        if ($items[$line]['selection_title'] != '' || $items[$line]['selection_title'] != '') {
+            $title = explode('-[', $items[$line]['selection_title']);
+            if (count($title) > 1) {
+                $items[$line]['selection_title'] = $title[0] . "-[" . $quantity . "]";
+            } else {
+                $items[$line]['selection_title'].="-[" . $quantity . "]";
+            }
+        } else {
+            $title = explode('-[', $items[$line]['menu_title']);
+            if (count($title) > 1) {
+                $items[$line]['menu_title'] = $title[0] . "-[" . $quantity . "]";
+            } else {
+                $items[$line]['menu_title'].="-[" . $quantity . "]";
+            }
+        }
+        $this->set_cart_db($order_id, $items);
+        $this->set_cart_new($order_id, 'yes');
+        return array('success' => true, 'order_id' => $order_id, 'line' => $line);
+    }
 
     function dbcart_item_minus($order_id, $line, $quantity = false) {
         if ($this->session->userdata('gkpos_userid') == 0) {
@@ -634,16 +678,6 @@ class Orders_Model extends MY_Model {
         $this->_table_name = 'gkpos_order';
         $this->_primary_key = 'order_id';
         return $this->save($order_data, $order_id);
-    }
-
-    public function get_payment_options() {
-        $payments = array(
-            $this->lang->line('gkpos_payment_cash') => $this->lang->line('gkpos_payment_cash'),
-            $this->lang->line('gkpos_payment_card') => $this->lang->line('gkpos_payment_card'),
-            $this->lang->line('gkpos_payment_cheque') => $this->lang->line('gkpos_payment_cheque'),
-            $this->lang->line('gkpos_payment_voucher') => $this->lang->line('gkpos_payment_voucher')
-        );
-        return $payments;
     }
 
 }

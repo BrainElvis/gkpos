@@ -178,6 +178,7 @@ $lang['gkpos_male'] = "Male";
 $lang['gkpos_female'] = "Female";
 $lang['gkpos_action'] = "Action";
 $lang['gkpos_update_status'] = "Updata Status";
+$lang['gkpos_status']="Status";
 $lang['gkpos_manage'] = "Manage";
 $lang['gkpos_selection'] = "Selection";
 $lang['gkpos_price'] = "PRICE";
@@ -291,5 +292,11 @@ $lang['gkpos_payment_cash'] = "Cash";
 $lang['gkpos_payment_card'] = "EFT";
 $lang['gkpos_payment_cheque'] = "Cheque";
 $lang['gkpos_payment_voucher'] = "Voucher";
-$lang['gkpos_add_payment']="Add Payment"; 
+$lang['gkpos_add_payment'] = "Add Payment";
+$lang['gkpos_customer_information'] = "Customer Information";
+$lang['gkpos_system_spacial']="Special/Modify";
+$lang['gkpos_special_required']="Special Modifier title is required";
+
+$lang['gkpos_system_spacial_title']="Special/Modify Title";
+$lang['gkpos_bill_printed']="Bill Printed?";
 
