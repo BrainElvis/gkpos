@@ -44,11 +44,25 @@
                         <div class="input-group">
                             <span class="input-group-addon" style="background-color: #FF0000;"><a href="#"><i class="fa fa-table" aria-hidden="true"></i></a></span>
                             <?php if ($this->config->item('is_touch') == 'disable'): ?>
-                                <input name="gk_menu_line_page" class="form-control required"  type="text" id="gk_vat_percent" value="<?php echo $this->config->item('gk_menu_line_page') ?>">
+                                <input name="gk_menu_line_page" class="form-control required"  type="text" id="gk_menu_line_page" value="<?php echo $this->config->item('gk_menu_line_page') ?>">
                             <?php else: ?>
-                                <input name="gk_menu_line_page" class="form-control required"  type="text" id="gk_vat_percent" onfocus="myJqueryKeyboard('gk_vat_percent')" value="<?php echo $this->config->item('gk_menu_line_page') ?>">
+                                <input name="gk_menu_line_page" class="form-control required"  type="text" id="gk_menu_line_page" onfocus="myJqueryKeyboard('gk_menu_line_page')" value="<?php echo $this->config->item('gk_menu_line_page') ?>">
                             <?php endif; ?>
-                            <span class="input-group-addon" style="background-color: #FF0000;"><a href="#"><i class="fa fa-percent" aria-hidden="true"></i></a></span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group form-group-sm">	
+                    <?php echo form_label($this->lang->line('gkpos_report_num_per_page'), 'gk_report_line_page', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4 text-uppercase required')); ?>
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="background-color: #FF0000;"><a href="#"><i class="fa fa-table" aria-hidden="true"></i></a></span>
+                            <?php if ($this->config->item('is_touch') == 'disable'): ?>
+                                <input name="gk_report_line_page" class="form-control required"  type="text" id="gk_report_line_page" value="<?php echo $this->config->item('gk_report_line_page') ?>">
+                            <?php else: ?>
+                                <input name="gk_report_line_page" class="form-control required"  type="text" id="gk_report_line_page" onfocus="myJqueryKeyboard('gk_report_line_page')" value="<?php echo $this->config->item('gk_report_line_page') ?>">
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -107,11 +121,16 @@
                                     number: true,
                                     required: true
                                 },
+                                gk_report_line_page: {
+                                    number: true,
+                                    required: true
+                                }
                             },
                     messages:
                             {
                                 gk_category_line_page: "<?php echo $this->lang->line('gkpos_category_num_per_page'); ?>",
                                 gk_menu_line_page: "<?php echo $this->lang->line('gkpos_menu_num_per_page') ?>",
+                                gk_report_line_page: "<?php echo $this->lang->line('gkpos_report_num_per_page') ?>",
                             }
                 });
             });

@@ -147,7 +147,7 @@
 <?php $this->load->view('gkpos/partials/datepicker_locale'); ?>
         $(".date_filter").datetimepicker({
         format: "<?php echo gkpos_dateformat($this->config->item("dateformat")) . ' ' . dateformat_bootstrap($this->config->item("timeformat")); ?>",
-                startDate: "<?php echo date($this->config->item('dateformat') . ' ' . $this->config->item('timeformat'), mktime(0, 0, 0, 1, 1, 2010)); ?>",
+        startDate: "<?php echo date($this->config->item('dateformat') . ' ' . $this->config->item('timeformat'), mktime(0, 0, 0, 1, 1, 2010)); ?>",
 <?php
 $t = $this->config->item('timeformat');
 $m = $t[strlen($t) - 1];

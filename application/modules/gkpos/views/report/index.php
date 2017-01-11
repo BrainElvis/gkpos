@@ -17,13 +17,13 @@
                         <th>To </th>
                         <th>Order Type</th>
                         <th>Payment Method</th>
-                        <th>&nbsp;</th>
+                        <th class="text-left"><input type="checkbox" name="is_by_closing" value="yes" class="checkbox-inline" id="byClosingDay" style="margin-top: -3px;">By Closing Day</th>
                     </tr>
                     <tr>
-                        <td><?php echo form_input(array('name' => 'start_date', 'value' => $start_date, 'class' => 'date_filter form-control input-sm')); ?></td>
-                        <td><?php echo form_input(array('name' => 'end_date', 'value' => $end_date, 'class' => 'date_filter form-control input-sm')); ?></td>
+                        <td><?php echo form_input(array('name' => 'start_date', 'value' => $start_date, 'class' => 'date_filter form-control input-sm', 'id' => 'filterStartDate')); ?></td>
+                        <td><?php echo form_input(array('name' => 'end_date', 'value' => $end_date, 'class' => 'date_filter form-control input-sm', 'id' => 'filterEndDate')); ?></td>
                         <td>
-                            <select class="form-control input-sm" id="orderType" name="order_type">
+                            <select class="form-control input-sm" id="filterOrderType" name="order_type">
                                 <option value="">Select Order Type</option>
                                 <?php foreach ($ordertype_options as $key => $value): ?>
                                     <option value="<?php echo $key ?>"><?php echo $value ?></option>
@@ -31,7 +31,7 @@
                             </select>
                         </td>
                         <td id="posPayment">
-                            <select class="form-control input-sm" name="pos_method">
+                            <select class="form-control input-sm" name="pos_method" id="filterPosMethod">
                                 <option value="">Select Payment Type</option>
                                 <?php foreach ($payment_options as $key => $value): ?>
                                     <option value="<?php echo $key ?>"><?php echo $value ?></option>
@@ -39,13 +39,13 @@
                             </select>
                         </td>
                         <td id="onlinePayment" style="display: none">
-                            <select class="form-control input-sm" name="online_method">
+                            <select class="form-control input-sm" name="online_method" id="filterOnlineMethod">
                                 <option value="">Select Payment Type</option>
                                 <option value="cod">COD</option>
                                 <option value="online">Online</option>
                             </select>
                         </td>
-                        <td><button class="btn btn-success btn-large" type="submit" onclick="filterReport()"><?php echo "Submit" ?></button></td>
+                        <td class="text-center"><button class="btn btn-success btn-large" type="submit" onclick="filterReport()"><?php echo "Submit" ?></button></td>
                     </tr>
                 </table>
             </form>

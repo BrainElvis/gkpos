@@ -103,4 +103,8 @@
         <img src="<?php echo ASSETS_GKPOS_PATH ?>images/settingbg3.png" class="img-responsive center-block" />
         <h1><?php echo $this->lang->line('gkpos_system_spacial') ?></h1>
     </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 tabbg1" id="dialog_geberal" onclick="getSettingPage('<?php echo site_url('gkpos/settings/locale') ?>', '<?php echo $this->lang->line('gkpos_Localisation') ?>')">
+        <img src="<?php echo ASSETS_GKPOS_PATH ?>images/settingbg3.png" class="img-responsive center-block" />
+        <h1><?php echo $this->lang->line('gkpos_Localisation') ?></h1>
+    </div>
 </div>

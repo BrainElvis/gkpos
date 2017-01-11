@@ -245,28 +245,4 @@ function manageThisOrder(id) {
     });
 }
 
-function showDivOnCheck(checkBoxClass, divClass) {
-    $("." + divClass).hide();
-    $("." + checkBoxClass).click(function () {
-        if ($(this).is(":checked")) {
-            $("." + divClass).show();
-            var MaxResizeHeight = $(window).height();
-            var CalculatedResizeHeight = MaxResizeHeight + 120;
-            $(".bodyitem").css({"min-height": CalculatedResizeHeight + "px"});
-            $(".left-item").css({"min-height": CalculatedResizeHeight + "px"});
-            $(".right-item").css({"min-height": CalculatedResizeHeight + "px"});
-        } else {
-            $("." + divClass).hide();
-            var MaxResizeHeight = $(window).height();
-            var CalculatedResizeHeight = MaxResizeHeight - 100;
-            $(".bodyitem").css({"min-height": CalculatedResizeHeight + "px"});
-            $(".left-item").css({"min-height": CalculatedResizeHeight + "px"});
-            $(".right-item").css({"min-height": CalculatedResizeHeight + "px"});
-        }
-    });
-}
-
-
-
-
 

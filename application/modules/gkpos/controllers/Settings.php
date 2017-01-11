@@ -233,6 +233,7 @@ class Settings extends Gkpos_Controller {
         $batch_save_data = array(
             'gk_category_line_page' => $this->input->post('gk_category_line_page'),
             'gk_menu_line_page' => $this->input->post('gk_menu_line_page'),
+            'gk_report_line_page'=>$this->input->post('gk_report_line_page')
         );
         $result = $this->Appconfig->batch_save($batch_save_data);
         $success = $result ? true : false;
@@ -275,6 +276,35 @@ class Settings extends Gkpos_Controller {
             $message = $success ? 'Special activated successfully' : 'Voucher Deletion failed';
         }
         echo json_encode(array('success' => $success, 'message' => $message));
+    }
+
+    public function locale() {
+        $data['current_section'] = $this->lang->line('gkpos_system_management') . ' VAT SETUP';
+        $data['current_page'] = "Localization";
+        $this->load->view('gkpos/settings/locale', $data, false);
+    }
+
+    function save_locale() {
+        $batch_save_data = array(
+            'currency_symbol' => $this->input->post('currency_symbol'),
+            'currency_side' => $this->input->post('currency_side') != null,
+            'language' => $this->input->post('language'),
+            'timezone' => $this->input->post('timezone'),
+            'dateformat' => $this->input->post('dateformat'),
+            'timeformat' => $this->input->post('timeformat'),
+            'thousands_separator' => $this->input->post('thousands_separator'),
+            'decimal_point' => $this->input->post('decimal_point'),
+            'currency_decimals' => $this->input->post('currency_decimals'),
+            'tax_decimals' => $this->input->post('tax_decimals'),
+            'quantity_decimals' => $this->input->post('quantity_decimals'),
+            'gk_week_start' => $this->input->post('gk_week_start'),
+            'gk_week_end' => $this->input->post('gk_week_end')
+        );
+
+        $result = $this->Appconfig->batch_save($batch_save_data);
+        $success = $result ? true : false;
+
+        echo json_encode(array('success' => $success, 'message' => $this->lang->line('config_saved_' . ($success ? '' : 'un') . 'successfully')));
     }
 
 }

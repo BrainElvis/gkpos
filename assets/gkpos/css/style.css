@@ -1337,4 +1337,17 @@ legend {
     padding: 0;
     text-transform: uppercase;
 }
+.ui-datepicker {
+    z-index: 9999 !important;
+}
+.close-day {
+    height: 45px;
+    padding: 12px;
+}
+.report-nav img {
+    width: 70px;
+}
+.pagination > li > a, .pagination > li > span {
+    padding: 12px 18px!important;
+}
 
