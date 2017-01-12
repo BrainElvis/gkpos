@@ -123,7 +123,7 @@
     $(document).ready(function () {
         $("#paymentAmount").attr("disabled", 'disabled');
         setPaymentNumKeys('paymentAmount');
-        //$('#PayAsTipBox').hide();
+        $("#paymentIdentity").text('');
     });
     function savePayments(order_id) {
         var dueAmount = $('#exactDueAmountTotal').val();
@@ -220,6 +220,7 @@
             type: "POST",
             dataType: "json",
             success: function (output) {
+                $("#paymentIdentity").text('');
                 if (output.payments) {
                     $.each(output.payments, function () {
                         $('#' + this.method + 'Amount').text(this.amount);
@@ -265,6 +266,7 @@
                 dataType: "json",
                 success: function (output) {
                     if (true == output.success) {
+                        $("#paymentIdentity").text('');
                         $('#paymentOption').val('');
                         $("#paymentAmount").val('');
                         $("#paymentAmount").attr("disabled", 'disabled');

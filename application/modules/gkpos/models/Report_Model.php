@@ -14,6 +14,19 @@ class Report_Model extends MY_Model {
         return $this->get_list('gkpos_order_payment', array('order_id' => $order_id));
     }
 
+    public function get_order_paymentscool($order_id) {
+        $payments = $this->get_list('gkpos_order_payment', array('order_id' => $order_id));
+        $payments_cool = array();
+        foreach ($payments as $key => $obj) {
+            $payments_cool[$obj->method] = array(
+                'method' => $obj->method,
+                'amount' => $obj->amount,
+                'order_id' => $obj->order_id
+            );
+        }
+        return $payments_cool;
+    }
+
     public function search($filters = array(), $rows = 0, $limit = 0) {
         $this->db->select('gpo.*,gpod.amount as discount,gpov.amount as vat,gpos.amount as service_charge');
         $this->db->from('gkpos_order gpo');
@@ -91,6 +104,24 @@ class Report_Model extends MY_Model {
     public function empty_btn_counter() {
         $this->clear_nextbtn_counter();
         $this->clear_prevbtn_counter();
+    }
+
+    function delete_order($order_id) {
+        $this->db->trans_start();
+        //delete from vat
+        $this->db->delete('gkpos_order_vat', array('order_id' => $order_id));
+        //delete order discount
+        $this->db->delete('gkpos_order_discount', array('order_id' => $order_id));
+        //delete service charge 
+        $this->db->delete('gkpos_order_servicecharge', array('order_id' => $order_id));
+        //delete payments
+        $this->db->delete('gkpos_order_payment', array('order_id' => $order_id));
+        //delete order_detail 
+        $this->db->delete('gkpos_order_detail', array('order_id' => $order_id));
+        //delete order 
+        $this->db->delete('gkpos_order', array('id' => $order_id));
+        $this->db->trans_complete();
+        return $this->db->trans_status();
     }
 
 }

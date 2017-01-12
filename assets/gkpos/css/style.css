@@ -1286,9 +1286,7 @@ legend {
     padding: 10px;
     width: 85px;
 }
-.row.report-row {
-    margin: 0 auto;
-}
+
 .report-row table td {
     padding: 2px !important;
 }
@@ -1349,5 +1347,16 @@ legend {
 }
 .pagination > li > a, .pagination > li > span {
     padding: 12px 18px!important;
+}
+.table-bg-color-white {
+    background: #ffffff none repeat scroll 0 0;
+    color: #000000;
+}
+.first-row {
+  border: 1px solid #4682b4!important;
+  height: 25px !important;
+}
+.delete-btn {
+  padding: 1px 7px!important;
 }
 

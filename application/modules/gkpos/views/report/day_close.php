@@ -9,13 +9,12 @@
             <div id="DayClosePopupContent" class="warningPopupContent col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <?php echo form_open('gkpos/report/closeday', array('id' => 'custom_closeday_form', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal')); ?>
                 <fieldset>
-                    <div class="alert-danger text-center text-uppercase" style="height:40px;border-radius:5px; margin-bottom: 10px; padding: 10px 0 10px 0; font-size: 10px;">Use the date inside or choose one if necessary</div>
                     <div class="form-group form-group-sm">	
                         <?php echo form_label($this->lang->line('gkpos_close_date'), 'closing_date', array('class' => 'control-label col-lg-4 col-md-4 col-sm-4 col-xs-4 text-uppercase required')); ?>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><a href="#"><i class="fa fa-calendar" aria-hidden="true"></i></a></span>
-                                <input name="closing_date" class="form-control required date_filter"  type="text" id="closing_date" value="<?php isset($end_date) ? print $end_date : '' ?>">
+                                <input name="closing_date" class="form-control required"  type="text" id="closing_date" value="<?php isset($end_date) ? print $end_date : '' ?>">
                             </div>
                         </div>
                     </div>
@@ -34,14 +33,23 @@
     </div>
 </div>
 <script>
+    $(document).ready(function () {
+        $("#closing_date").datepicker({
+            dateFormat: "dd/mm/yy",
+        });
+    });
     function dayClose() {
         $('#custom_closeday_form').validate({
             submitHandler: function (form) {
                 $(form).ajaxSubmit({
                     success: function (response) {
                         if (true == response.success) {
+                            $('#custom_closeday_form_error_message_box').hide();
                             jQuery.colorbox.close();
                             getSettingPage('<?php echo site_url("gkpos/report/index") ?>', 'View Transaction');
+                        } else {
+                            $('#custom_closeday_form_error_message_box').html('<li>' + response.message + '</li>');
+                            $('#custom_closeday_form_error_message_box').show();
                         }
 
                     },

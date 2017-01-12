@@ -22,14 +22,13 @@ class Report extends Gkpos_Controller {
         $today_end = date($this->config->item('dateformat') . ' ' . $this->config->item('timeformat'), mktime(23, 59, 59));
         $start_date_formatter = DateTime::createFromFormat($this->config->item('dateformat') . ' ' . $this->config->item('timeformat'), $today_start);
         $end_date_formatter = DateTime::createFromFormat($this->config->item('dateformat') . ' ' . $this->config->item('timeformat'), $today_end);
-        $data['orderList'] = $this->Report_Model->search(array('start_date' => $start_date_formatter->format('Y-m-d H:i:s'), 'end_date' => $end_date_formatter->format('Y-m-d H:i:s'), 'is_by_closing' => 'no'), $this->config->item('gk_report_line_page'))->result();
 
+        $data['orderList'] = $this->Report_Model->search(array('start_date' => $start_date_formatter->format('Y-m-d H:i:s'), 'end_date' => $end_date_formatter->format('Y-m-d H:i:s'), 'is_by_closing' => 'no'), $this->config->item('gk_report_line_page'))->result();
 
         $data['start_date'] = $start_date_formatter->format($this->config->item('dateformat'));
         $data['end_date'] = $end_date_formatter->format($this->config->item('dateformat'));
         $data['payment_options'] = $this->Report_Model->get_payment_options();
         $data['ordertype_options'] = $this->Report_Model->get_ordertype_options();
-
         $total_restuls = $this->Report_Model->get_total_report_rows('gkpos_order', array('start_date' => $start_date_formatter->format('Y-m-d H:i:s'), 'end_date' => $end_date_formatter->format('Y-m-d H:i:s')));
         $maxCounterVal = $total_restuls > 0 ? $total_restuls / $this->config->item('gk_report_line_page') : 0;
         $maxCounter = 0;
@@ -52,7 +51,7 @@ class Report extends Gkpos_Controller {
         $maxCounter = 0;
         $limit = $this->config->item('gk_report_line_page');
         $offset = 0;
-        $data['active_page']=1;
+        $data['active_page'] = 1;
         if ($is_by_closing == 'yes') {
             $start_date = DateTime::createFromFormat($this->config->item('dateformat'), $this->input->post('start_date') != null ? $this->input->post('start_date') : date($this->config->item('dateformat'), strtotime('today')));
             $end_date = DateTime::createFromFormat($this->config->item('dateformat'), $this->input->post('end_date') != null ? $this->input->post('end_date') : date($this->config->item('dateformat'), strtotime('today')));
@@ -113,6 +112,36 @@ class Report extends Gkpos_Controller {
                 } else if ($pageBtn == 'prevBtn' && $firstOrderId < $maxmin['max']) {
                     $offset = abs(($nextBtnCounter - 1) * $limit);
                     $data['active_page'] = abs($nextBtnCounter);
+                } else if ($pageBtn == 'del') {
+                    $order_id = $this->input->post('order_id');
+                    $active_page = $this->input->post('active_page');
+                    $status = $this->Report_Model->delete_order($order_id);
+                    if ($status) {
+                        $total_restuls = $this->Report_Model->get_total_report_rows('gkpos_order', $filters);
+                        $maxCounterVal = $total_restuls > 0 ? $total_restuls / $limit : 0;
+                        $maxCounterNew = 0;
+                        if (is_integer($maxCounterVal) && $maxCounterVal > 0) {
+                            $maxCounterNew = $maxCounterVal;
+                        } else if ((is_double($maxCounterVal) || is_float($maxCounterVal)) && $maxCounterVal > 0) {
+                            $maxCounterNew = floor($maxCounterVal) + 1;
+                        } else {
+                            $maxCounterNew = 0;
+                        }
+                        if ($maxCounter > $maxCounterNew) {
+                            $active_page-=1;
+                        } else {
+                            $active_page = $active_page;
+                        }
+                        if ($active_page == 1) {
+                            $offset = 0;
+                        } else {
+                            $offset = ($active_page - 1) * $limit;
+                        }
+                        $data['active_page'] = $active_page;
+                        $data['maxCounter'] = $maxCounterNew;
+                        $this->Report_Model->set_nextbtn_counter($active_page);
+                        $this->Report_Model->set_prevbtn_counter($active_page - 1);
+                    }
                 } else {
                     $page = (int) $pageBtn;
                     if ($page == 1) {
@@ -128,6 +157,11 @@ class Report extends Gkpos_Controller {
                 if (empty($data['orderList'])) {
                     $this->Report_Model->empty_btn_counter();
                 }
+            } else {
+                $data['active_page'] = 1;
+                $this->Report_Model->set_nextbtn_counter(1);
+                $this->Report_Model->set_prevbtn_counter(0);
+                $data['orderList'] = $this->Report_Model->search($filters, $limit, 0)->result();
             }
         } else {
             $data['orderList'] = $this->Report_Model->search($filters, 0, 0)->result();
@@ -136,19 +170,74 @@ class Report extends Gkpos_Controller {
     }
 
     public function closeday() {
+
+        $this->db->select_max('closing_date');
+        $this->db->from('gkpos_order');
+        $max_closing_date = $this->db->get()->row()->closing_date;
         $date = DateTime::createFromFormat($this->config->item('dateformat'), $this->input->post('closing_date'));
-        $closing_date = array(
-            'closing_date' => $date->format('Y-m-d')
-        );
-        if ($this->db->update('gkpos_order', $closing_date, array('closing_date' => NULL))) {
-            echo json_encode(array('success' => true, 'message' => 'Days Closed for ' . $this->input->post('closing_date')));
+        $given_closing_date = $date->format('Y-m-d');
+        $maxClosingDate = new DateTime($max_closing_date);
+        $givenClosingDate = new DateTime($given_closing_date);
+        $interval = $maxClosingDate->diff($givenClosingDate);
+        $difference = str_split($interval->format('%R%a'));
+        if ($difference[0] == '-') {
+            echo json_encode(array('success' => false, 'differenc' => $difference, 'message' => 'Days are already closed or remote backlog'));
         } else {
-            echo json_encode(array('success' => false, 'message' => 'nothing to close'));
+            if ((int) $difference[1] == 0) {
+                echo json_encode(array('success' => false, 'differenc' => $difference, 'message' => 'The days transactions already Closed'));
+            } else {
+                $this->db->select_max('created');
+                $this->db->from('gkpos_order');
+                $max_created = $this->db->get()->row()->created;
+                $maxCreatedDateObj = DateTime::createFromFormat('Y-m-d H:i:s', $max_created);
+                $maxCreatedDate = $maxCreatedDateObj->format('Y-m-d');
+                $maxCreatedNewDateObj = new DateTime($maxCreatedDate);
+                $interval = $maxCreatedNewDateObj->diff($givenClosingDate);
+                $difference = str_split($interval->format('%R%a'));
+                if ((int) $difference[1] == 0) {
+                    $closing_date = array(
+                        'closing_date' => $given_closing_date
+                    );
+                    if ($this->db->update('gkpos_order', $closing_date, array('closing_date' => NULL))) {
+                        echo json_encode(array('success' => true, 'message' => 'Days Closed for ' . $this->input->post('closing_date')));
+                    }
+                } else {
+                    echo json_encode(array('success' => false, 'differenc' => $difference, 'message' => 'No trascation to close', 'created' => $maxCreatedDate));
+                }
+            }
         }
     }
 
     public function showdate() {
         echo date('Y-m-d', strtotime('today'));
+    }
+
+    public function getmaxclosingday() {
+        $this->db->select_max('closing_date');
+        $this->db->from('gkpos_order');
+        $max_closing_date = $this->db->get()->row()->closing_date;
+
+        $todayDate = date('Y-m-d', strtotime('today'));
+        $todayDateFormat = DateTime::createFromFormat('Y-m-d', $todayDate);
+        $formatedTodayDate = $todayDateFormat->format($this->config->item('dateformat'));
+        $clsingDate = new DateTime($max_closing_date);
+        $today = new DateTime($todayDate);
+        $interval = $today->diff($clsingDate);
+        $difference = str_split($interval->format('%R%a'));
+        if ($difference[0] == '+' && (int) $difference[1] == 1) {
+            $available_date = $formatedTodayDate;
+        } else if ($difference[0] == '+' && (int) $difference[1] == 2) {
+            $today->sub(new DateInterval('P1D'));
+            $available_date = $today->format($this->config->item('dateformat'));
+        } else if ($difference[0] == '+' && (int) $difference[1] == 0) {
+            $today->add(new DateInterval('P1D'));
+            $available_date = $today->format($this->config->item('dateformat'));
+        } else {
+            $available_date = $formatedTodayDate;
+        }
+        echo json_encode(array('availableClosingDate' => $available_date));
+
+        //echo $max_closing_date;
     }
 
 }
